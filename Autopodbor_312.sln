@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32413.511
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autopodbor_312", "Autopodbor_312\Autopodbor_312.csproj", "{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A577FA6-3591-468D-94A6-3DAE2B91E54A}
+	EndGlobalSection
+EndGlobal
