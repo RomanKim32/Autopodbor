@@ -11,6 +11,12 @@ namespace Autopodbor_312.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {

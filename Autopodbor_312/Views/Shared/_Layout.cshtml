@@ -11,38 +11,28 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Autopodbor_312</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Здесь будет лого</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">All users</a>
-                                </li>          
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                                </li>        
                                 <li class="nav-item">
                                         <form method="post" asp-controller="Admin" asp-action="LogOff">
-                                        <input type="submit" value="LogOff" />
+                                        <input type="submit" value="Выйти" />
                                     </form>
                                 </li>
                         }
                         else
                         {
                                 <li class="nav-item">
-                                    <a asp-controller="Admin" asp-action="Login">Log In</a>
+                                    <a asp-controller="Admin" asp-action="Login">Войти</a>
                                 </li>
                         }
                     </ul>
                 </div>
-
-
-
             </div>
         </nav>
     </header>

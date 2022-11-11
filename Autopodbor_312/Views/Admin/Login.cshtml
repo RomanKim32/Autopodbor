@@ -1,28 +1,28 @@
 ﻿@model Autopodbor_312.ViewModel.LoginViewModel
 @{
-    ViewBag.Title = "Log In";
+    ViewBag.Title = "Авторизация";
 }
 
-<h2>Log In</h2>
+<h2>Авторизация</h2>
 
 <form method="post" asp-controller="Admin" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <label asp-for="Email"></label><br />
+        <label asp-for="Email">Почта</label><br />
         <input asp-for="Email" />
         <span asp-validation-for="Email"></span>
     </div>
     <div>
-        <label asp-for="Password"></label><br />
+        <label asp-for="Password">Пароль</label><br />
         <input asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
     <div>
-        <label asp-for="RememberMe"></label><br />
+        <label asp-for="RememberMe">Запомнить?</label><br />
         <input asp-for="RememberMe" />
     </div>
     <div>
-        <input type="submit" value="Login" />
+        <input type="submit" value="Войти" />
     </div>
 </form>
