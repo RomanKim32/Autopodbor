@@ -12,15 +12,18 @@ namespace Autopodbor_312.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AutopodborContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AutopodborContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var news = _context.News.ToList();
+            return View(news);
         }
 
         public IActionResult Privacy()
