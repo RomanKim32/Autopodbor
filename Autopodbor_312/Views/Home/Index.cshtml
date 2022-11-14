@@ -4,10 +4,9 @@
 	ViewData["Title"] = "Главная страница";
 }
 
-
-<div class="card mb-3" style="max-width: 540px;">
-	@foreach (var n in Model)
-	{
+@foreach (var n in Model)
+{
+	<div class="card mb-3" style="max-width: 540px;">
 		<div class="row g-0">
 			<div class="col-md-4">
 				<img src="@n.Photo" class="img-fluid rounded-start" alt="Photo">
@@ -19,6 +18,5 @@
 				</div>
 			</div>
 		</div>
-	}
-</div>
-
+	</div>
+}
