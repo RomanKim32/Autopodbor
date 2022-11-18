@@ -79,8 +79,6 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            var users = _context.Users.ToList();
-            //var qwe = _context.Roles.ToList();
             ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
             return View();
         }
@@ -132,8 +130,6 @@ namespace Autopodbor_312.Controllers
                 Email = user.Email,
                 UserName = user.Email,
                 Role = userRoles.FirstOrDefault(),
-
-                Roles = userRoles
             };
             ViewData["Role"] = _context.Roles.ToList();
             return View(model);
@@ -175,6 +171,15 @@ namespace Autopodbor_312.Controllers
                 ViewData["Role"] = _context.Roles.ToList();
                 return View(model);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

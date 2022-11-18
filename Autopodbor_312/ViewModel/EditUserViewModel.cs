@@ -5,11 +5,6 @@ namespace Autopodbor_312.ViewModel
 {
     public class EditUserViewModel
     {
-        public EditUserViewModel()
-        {
-            Roles = new List<string>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -23,8 +18,6 @@ namespace Autopodbor_312.ViewModel
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        public IList<string> Roles { get; set; }
 
         public string Role { get; set; }
     }
