@@ -80,7 +80,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet, ActionName("IndexServices")]
         public async Task<IActionResult> IndexServices()
         {
-            var sercices = await _autodborContext.Services.ToListAsync();
+            var sercices = await _context.Services.ToListAsync();
             return View( sercices);
         }
 
@@ -98,8 +98,8 @@ namespace Autopodbor_312.Controllers
         {
             if (ModelState.IsValid)
             {
-                _autodborContext.Add(services);
-                await _autodborContext.SaveChangesAsync();
+                _context.Add(services);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("IndexServices", "Admin");
             };
             return View(services);
@@ -114,7 +114,7 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
 
-            var dish = await _autodborContext.Services.FindAsync(id);
+            var dish = await _context.Services.FindAsync(id);
             if (dish == null)
             {
                 return NotFound();
@@ -138,8 +138,8 @@ namespace Autopodbor_312.Controllers
             {
                 try
                 {
-                    _autodborContext.Update(services);
-                    await _autodborContext.SaveChangesAsync();
+                    _context.Update(services);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -166,7 +166,7 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
 
-            var  services = await _autodborContext.Services.FirstOrDefaultAsync(m => m.Id == id);
+            var  services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
             if (services == null)
             {
                 return NotFound();
@@ -180,15 +180,15 @@ namespace Autopodbor_312.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedServices(int id)
         {
-            var services = await _autodborContext.Services.FindAsync(id);
-            _autodborContext.Services.Remove(services);
-            await _autodborContext.SaveChangesAsync();
+            var services = await _context.Services.FindAsync(id);
+            _context.Services.Remove(services);
+            await _context.SaveChangesAsync();
             return RedirectToAction("IndexServices", "Admin");
         }
 
         private bool ServicesExists(int id)
         {
-            return _autodborContext.Services.Any(e => e.Id == id);
+            return _context.Services.Any(e => e.Id == id);
         }
 
        
