@@ -3,6 +3,7 @@ using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,7 +63,8 @@ namespace Autopodbor_312.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var usersList = _context.Users.Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
+            return View(usersList);
         }
 
         [HttpPost]
@@ -71,6 +73,16 @@ namespace Autopodbor_312.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+       
+        [HttpGet]
+        public IActionResult Register()
+        {
+            var users = _context.Users.ToList();
+            //var qwe = _context.Roles.ToList();
+            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            return View();
         }
 
         [HttpPost]
@@ -102,12 +114,67 @@ namespace Autopodbor_312.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> EditUser(string id)
         {
-            var users = _context.Users.ToList();
-            //var qwe = _context.Roles.ToList();
-            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
-            return View();
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.Email,
+                Role = userRoles.FirstOrDefault(),
+
+                Roles = userRoles
+            };
+            ViewData["Role"] = _context.Roles.ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id.ToString());
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                var roles = await _userManager.GetRolesAsync(user);
+                string userRole = roles.FirstOrDefault();
+                var result = await _userManager.UpdateAsync(user);
+                await _userManager.RemovePasswordAsync(user);
+                await _userManager.AddPasswordAsync(user, model.Password);
+                await _userManager.RemoveFromRoleAsync(user, userRole);
+                await _userManager.AddToRoleAsync(user, model.Role);
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                ViewData["Role"] = _context.Roles.ToList();
+                return View(model);
+            }
         }
     }
 }
