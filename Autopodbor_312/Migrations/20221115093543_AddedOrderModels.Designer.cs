@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20221115093543_AddedOrderModels")]
+    partial class AddedOrderModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +55,24 @@ namespace Autopodbor_312.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarsBrands");
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.CarsEngines", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("EngineSize")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Price")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarsEngines");
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.CarsFuels", b =>
@@ -125,6 +145,9 @@ namespace Autopodbor_312.Migrations
                     b.Property<int>("CarsBrandsId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CarsEnginesId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("CarsFuelsId")
                         .HasColumnType("integer");
 
@@ -143,9 +166,6 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<string>("Price")
-                        .HasColumnType("text");
-
                     b.Property<int>("ServicesId")
                         .HasColumnType("integer");
 
@@ -157,6 +177,8 @@ namespace Autopodbor_312.Migrations
                     b.HasIndex("CarsBodyTypesId");
 
                     b.HasIndex("CarsBrandsId");
+
+                    b.HasIndex("CarsEnginesId");
 
                     b.HasIndex("CarsFuelsId");
 
@@ -415,6 +437,12 @@ namespace Autopodbor_312.Migrations
                     b.HasOne("Autopodbor_312.Models.CarsBrands", "CarsBrands")
                         .WithMany()
                         .HasForeignKey("CarsBrandsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Autopodbor_312.Models.CarsEngines", "CarsEngines")
+                        .WithMany()
+                        .HasForeignKey("CarsEnginesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
