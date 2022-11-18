@@ -75,6 +75,122 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        //Services 
+        [HttpGet, ActionName("IndexServices")]
+        public async Task<IActionResult> IndexServices()
+        {
+            var sercices = await _autodborContext.Services.ToListAsync();
+            return View( sercices);
+        }
+
+        // GET
+        [HttpGet, ActionName("CreateServices")]
+        public IActionResult CreateServices()
+        {
+            return View();
+        }
+
+        // POST
+        [HttpPost,ActionName("CreateServices")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateServices([Bind("Id,Name,Description")] Services services)
+        {
+            if (ModelState.IsValid)
+            {
+                _autodborContext.Add(services);
+                await _autodborContext.SaveChangesAsync();
+                return RedirectToAction("IndexServices", "Admin");
+            };
+            return View(services);
+        }
+
+
+        [HttpGet, ActionName("EditServices")]
+        public async Task<IActionResult> EditServices(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var dish = await _autodborContext.Services.FindAsync(id);
+            if (dish == null)
+            {
+                return NotFound();
+            }
+            return View(dish);
+        }
+
+        // POST: Dishes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost, ActionName("EditServices")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description")] Services services)
+        {
+            if (id != services.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _autodborContext.Update(services);
+                    await _autodborContext.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ServicesExists(services.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("IndexServices", "Admin");
+            }
+            return View(services);
+        }
+
+        // GET
+        [HttpGet, ActionName("DeleteServices")]
+        public async Task<IActionResult> DeleteServices(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var  services = await _autodborContext.Services.FirstOrDefaultAsync(m => m.Id == id);
+            if (services == null)
+            {
+                return NotFound();
+            }
+
+            return View(services);
+        }
+
+        // POST: Dishes/Delete/5
+        [HttpPost, ActionName("DeleteServices")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedServices(int id)
+        {
+            var services = await _autodborContext.Services.FindAsync(id);
+            _autodborContext.Services.Remove(services);
+            await _autodborContext.SaveChangesAsync();
+            return RedirectToAction("IndexServices", "Admin");
+        }
+
+        private bool ServicesExists(int id)
+        {
+            return _autodborContext.Services.Any(e => e.Id == id);
+        }
+
        
         [HttpGet]
         public IActionResult Register()
