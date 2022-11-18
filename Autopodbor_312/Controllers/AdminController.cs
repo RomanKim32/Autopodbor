@@ -119,9 +119,6 @@ namespace Autopodbor_312.Controllers
             return View(dish);
         }
 
-        // POST: Dishes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("EditServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description")] Services services)
@@ -172,7 +169,6 @@ namespace Autopodbor_312.Controllers
             return View(services);
         }
 
-        // POST: Dishes/Delete/5
         [HttpPost, ActionName("DeleteServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedServices(int id)
