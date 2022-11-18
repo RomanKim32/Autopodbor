@@ -16,20 +16,26 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                                    </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
-                                </li>        
-                                <li class="nav-item">
-                                        <form method="post" asp-controller="Admin" asp-action="LogOff">
-                                        <input type="submit" value="Выйти" />
-                                    </form>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Register">Добавить Менеджера</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Все менеджеры</a>
+                                </li>
+                                <li class="nav-item">
+                                            <form method="post" asp-controller="Admin" asp-action="LogOff">
+                                            <input type="submit" value="Выйти" />
+                                        </form>
+                                    </li>
                         }
                         else
                         {
-                                <li class="nav-item">
-                                    <a asp-controller="Admin" asp-action="Login">Войти</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="Admin" asp-action="Login">Войти</a>
+                                    </li>
                         }
                     </ul>
                 </div>
