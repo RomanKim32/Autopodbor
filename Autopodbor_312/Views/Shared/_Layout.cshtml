@@ -42,11 +42,17 @@
 
 						@if (User.Identity.IsAuthenticated)
 						{
-							<li class="nav-item">
-								<form method="post" asp-controller="Admin" asp-action="LogOff">
-									<input type="submit" value="Выйти" />
-								</form>
-							</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Register">Добавить Менеджера</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Все менеджеры</a>
+                            </li>
+                            <li class="nav-item">
+                                        <form method="post" asp-controller="Admin" asp-action="LogOff">
+                                        <input type="submit" value="Выйти" />
+                                    </form>
+                            </li>
 						}
 						else
 						{

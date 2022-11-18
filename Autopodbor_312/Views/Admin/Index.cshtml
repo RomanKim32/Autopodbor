@@ -1,0 +1,74 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "Домашняя страница";
+}
+
+@if (@Model.Count() == 0)
+
+{
+    <p>Менеджеры еще не добавлены</p>
+}
+else
+{
+<table class="table">
+
+<tbody>
+
+    @foreach (var item in Model)
+    {  
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetId('@item.Id')">Удалить</button>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтверждение удаления менеджера</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Вы увервены?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>  
+    let Id = 0;
+    console.log(Id);
+    function GetId(id)
+    {
+       Id = id;
+    }
+    
+    function Delete() {
+        $.ajax({
+
+            url: '@Url.Action("DeleteConfirmed", "Admin")',
+            type: 'POST',
+            data: {
+                'Id': Id,
+            },
+            success: setTimeout(function () { 
+                     window.location.href = '/Admin/Index'; 
+                }, 500), 
+        });
+            event.preventDefault();
+    };
+</script>
+
+
