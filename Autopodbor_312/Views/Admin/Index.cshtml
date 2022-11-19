@@ -13,8 +13,9 @@ else
 <table class="table">
 
 <tbody>
-
-    @foreach (var item in Model)
+@if (User.IsInRole("admin"))
+{
+    foreach (var item in Model)
     {  
         <tr>
             <td>
@@ -26,6 +27,7 @@ else
             </td>
         </tr>
     }
+}
 </tbody>
 </table>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,6 +48,7 @@ else
         </div>
     </div>
 }
+
 
 <script>  
     let Id = 0;
