@@ -55,19 +55,36 @@
                                         <form method="post" asp-controller="Admin" asp-action="LogOff">
                                         <input type="submit" value="Выйти" />
                                     </form>
-                            </li>
-						}
-						else
-						{
-							<li class="nav-item">
-								<a asp-controller="Admin" asp-action="Login">Войти</a>
-							</li>
-						}
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+                                </li>    
+                        }
+                        else
+                        {   
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="Login">Войти</a>
+                                </li>
+                        }
+                    </ul>
+                </div>
+
+              <div class="navbar-nav ml-auto">
+
+				  <div class="dropdown">
+  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    Social Links
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li> <a class="dropdown-item" href="https://www.instagram.com/autopodbor.kgz/reels/">Instagram  <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" style="width:25px;height:25px;"></a></li>
+    <li> <a class="dropdown-item" href="#">Whats Up    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" style="width:26px;height:26px;"></a></li>
+    <li><a class="dropdown-item" href="#">Telegram        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111813.png" style="width:26px;height:26px;"></a></li>
+  </ul>
+</div>
+		
+        </div>		
+	</div>
+
+        </nav>
+    </header>
 	<div class="container">
 		<main role="main" class="pb-3">
 			@RenderBody()
