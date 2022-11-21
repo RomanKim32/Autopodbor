@@ -1,0 +1,228 @@
+﻿@model Autopodbor_312.ViewModel.CalculatorViewModel
+
+@{
+	ViewBag.Title = "Редактирование";
+}
+
+<h3>Таблица "Марки"</h3>
+<p>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить модель</button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarsBrands)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Таблица "Типы кузова"</h3>
+<p>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarsBodyTypes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BodyType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id')">Удалить</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h3>Таблица "Год выпуска"</h3>
+<p>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarsYears)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManufacturesYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id')">Удалить</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h3>Таблица "Вид топлива"</h3>
+<p>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CarsFuels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuelsType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id')">Удалить</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- AddNewParameterModal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Добавление</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p>Название</p>
+                    <input id="key"/>
+                    <p>Цена</p>
+                    <input id="value"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Add()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DeleteParameterModal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы увервены?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let Name = '';
+    function GetName(name) {
+        Name = name;
+    }
+    function Add() {
+        $.ajax({
+            url: '@Url.Action("AddParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'name': Name,
+                'key': $("#key").val(),
+                'value': $("#value").val()
+            },
+            success: setTimeout(function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 5000),
+        });
+        event.preventDefault();
+    };
+
+    let Id = '';
+    function GetId(id) {
+        Id = id;
+    }
+
+    function Delete() {
+        $.ajax({
+            url: '@Url.Action("DeleteConfirmed", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+            },
+            success: setTimeout(function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 5000),
+        });
+        event.preventDefault();
+    };
+</script>

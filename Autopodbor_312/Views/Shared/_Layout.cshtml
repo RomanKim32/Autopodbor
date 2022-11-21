@@ -37,7 +37,7 @@
 							</div>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Calculator">Калькулятор</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Calculator" asp-action="Index">Калькулятор</a>
 						</li>
 
 						@if (User.Identity.IsAuthenticated)
@@ -49,6 +49,9 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Все менеджеры</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Calculator" asp-action="EditCalculator">Редактирование калькулятора</a>
 								</li>
 							}
 							<li class="nav-item">
