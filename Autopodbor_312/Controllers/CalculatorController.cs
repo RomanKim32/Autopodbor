@@ -37,7 +37,8 @@ namespace Autopodbor_312.Controllers
 			return View(calculatorViewModel);
 		}
 
-		public async Task<IActionResult> EditCalculator()
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditCalculator()
 		{
 			var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
 			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
@@ -125,6 +126,45 @@ namespace Autopodbor_312.Controllers
 
             }
             return View();
+		}
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditParameter(string id, string key, string value)
+		{
+            if (!string.IsNullOrEmpty(id))
+			{
+                string[] nameAndId = id.Split('-');
+                switch (nameAndId[0])
+                {
+                    case "brand":
+                        var brand = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
+						brand.Brand = key;
+						brand.Price = value;
+                        _autodborContext.Update(brand);
+                        break;
+                    case "body":
+                        var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
+                        body.BodyType = key;
+                        body.Price = value;
+                        _autodborContext.Update(body);
+                        break;
+                    case "year":
+                        var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
+                        year.ManufacturesYear = key;
+                        year.Price = value;
+                        _autodborContext.Update(year);
+                        break;
+                    case "fuel":
+                        var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
+                        fuel.FuelsType = key;
+                        fuel.Price = value;
+                        _autodborContext.Update(fuel);
+                        break;
+                }
+                await _autodborContext.SaveChangesAsync();
+            }
+                return View();
 		}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
