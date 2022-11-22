@@ -65,7 +65,7 @@ namespace Autopodbor_312
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Media}/{action=CreatedNews}/{id?}");
             });
         }
     }

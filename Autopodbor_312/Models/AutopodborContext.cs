@@ -15,9 +15,10 @@ namespace Autopodbor_312.Models
 		public DbSet<CarsFuels> CarsFuels { get; set; }
 		public DbSet<CarsYears> CarsYears { get; set; }
 		public DbSet<Orders> Orders { get; set; }
+        public DbSet<UploadFile> UploadFiles { get; set; }
 
 
-		public AutopodborContext(DbContextOptions<AutopodborContext> options) : base(options)
+        public AutopodborContext(DbContextOptions<AutopodborContext> options) : base(options)
         {
 
         }

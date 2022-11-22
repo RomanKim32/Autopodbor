@@ -23,6 +23,7 @@ namespace Autopodbor_312.Controllers
         public IActionResult Index()
         {
             var news = _context.News.ToList();
+ 
             return View(news);
         }
 
