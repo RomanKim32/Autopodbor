@@ -1,0 +1,80 @@
+﻿@model Autopodbor_312.ViewModel.CalculatorViewModel
+
+@{
+	ViewBag.Title = "Калькулятор";
+}
+
+<h1>Калькулятор по услуге "Выездной осмотр"</h1>
+<hr />
+
+<div class="row">
+	<div class="col-md-4">
+		<form>
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label class="control-label">Модель</label>
+				<select class="form-control" id="brand">
+					@foreach (var brand in Model.CarsBrands)
+					{
+						<option value="@brand.Price">@brand.Brand</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Форма кузова</label>
+				<select class="form-control" id="body">
+					@foreach (var body in Model.CarsBodyTypes)
+					{
+						<option value="@body.Price">@body.BodyType</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Год выпуска</label>
+				<select class="form-control" id="year">
+					@foreach (var year in Model.CarsYears)
+					{
+						<option value="@year.Price">@year.ManufacturesYear</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Вид топлива</label>
+				<select class="form-control" id="fuel">
+					@foreach (var fuel in Model.CarsFuels)
+					{
+						<option value="@fuel.Price">@fuel.FuelsType</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Рассчитать" class="btn btn-primary" onclick="Calculate()" />
+			</div>
+		</form>
+	</div>
+</div>
+<div id="sum">
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+		
+		function Calculate() {
+			event.preventDefault();
+			let brand = $("#brand").val();
+			let body = $("#body").val();
+			let year = $("#year").val();
+			let fuel = $("#fuel").val();
+			console.log(brand);
+			console.log(body);
+			console.log(year);
+			console.log(fuel);
+			let sum = Number(brand) + Number(body) + Number(year) + Number(fuel);
+			console.log(sum);
+			document.getElementById('sum').innerHTML = `${sum}`;
+		};
+    </script>
+}

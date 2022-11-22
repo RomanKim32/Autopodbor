@@ -1,8 +1,10 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,13 +14,13 @@ namespace Autopodbor_312.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly AutopodborContext _autodborContext;
+        private readonly AutopodborContext _context;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext autopodborContext)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context)
         {
             _userManager = userManager;
-            _autodborContext = autopodborContext;
             _signInManager = signInManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -59,9 +61,11 @@ namespace Autopodbor_312.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
-            return View();
+            var usersList = _context.Users.Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
+            return View(usersList);
         }
 
         [HttpPost]
@@ -72,31 +76,27 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        //Services 
         [HttpGet, ActionName("IndexServices")]
         public async Task<IActionResult> IndexServices()
         {
-            var sercices = await _autodborContext.Services.ToListAsync();
+            var sercices = await _context.Services.ToListAsync();
             return View( sercices);
         }
 
-        // GET
         [HttpGet, ActionName("CreateServices")]
         public IActionResult CreateServices()
         {
             return View();
         }
 
-        // POST
         [HttpPost,ActionName("CreateServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateServices([Bind("Id,Name,Description")] Services services)
         {
             if (ModelState.IsValid)
             {
-                _autodborContext.Add(services);
-                await _autodborContext.SaveChangesAsync();
+                _context.Add(services);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("IndexServices", "Admin");
             };
             return View(services);
@@ -111,7 +111,7 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
 
-            var dish = await _autodborContext.Services.FindAsync(id);
+            var dish = await _context.Services.FindAsync(id);
             if (dish == null)
             {
                 return NotFound();
@@ -119,9 +119,6 @@ namespace Autopodbor_312.Controllers
             return View(dish);
         }
 
-        // POST: Dishes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("EditServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description")] Services services)
@@ -135,8 +132,8 @@ namespace Autopodbor_312.Controllers
             {
                 try
                 {
-                    _autodborContext.Update(services);
-                    await _autodborContext.SaveChangesAsync();
+                    _context.Update(services);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -154,7 +151,6 @@ namespace Autopodbor_312.Controllers
             return View(services);
         }
 
-        // GET
         [HttpGet, ActionName("DeleteServices")]
         public async Task<IActionResult> DeleteServices(int? id)
         {
@@ -163,7 +159,7 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
 
-            var  services = await _autodborContext.Services.FirstOrDefaultAsync(m => m.Id == id);
+            var  services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
             if (services == null)
             {
                 return NotFound();
@@ -172,20 +168,129 @@ namespace Autopodbor_312.Controllers
             return View(services);
         }
 
-        // POST: Dishes/Delete/5
         [HttpPost, ActionName("DeleteServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedServices(int id)
         {
-            var services = await _autodborContext.Services.FindAsync(id);
-            _autodborContext.Services.Remove(services);
-            await _autodborContext.SaveChangesAsync();
+            var services = await _context.Services.FindAsync(id);
+            _context.Services.Remove(services);
+            await _context.SaveChangesAsync();
             return RedirectToAction("IndexServices", "Admin");
         }
 
         private bool ServicesExists(int id)
         {
-            return _autodborContext.Services.Any(e => e.Id == id);
+            return _context.Services.Any(e => e.Id == id);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User { Email = model.Email, UserName = model.Email };
+
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, model.Role);
+                    return RedirectToAction("Index", "Admin");                  
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                        error.Description.Take(1).ToList()[0].ToString();
+                    }
+                }
+            }
+            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            return View(model);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.Email,
+                Role = userRoles.FirstOrDefault(),
+            };
+            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            return View(model);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id.ToString());
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                var roles = await _userManager.GetRolesAsync(user);
+                string userRole = roles.FirstOrDefault();
+                var result = await _userManager.UpdateAsync(user);
+                await _userManager.RemovePasswordAsync(user);
+                await _userManager.AddPasswordAsync(user, model.Password);
+                await _userManager.RemoveFromRoleAsync(user, userRole);
+                await _userManager.AddToRoleAsync(user, model.Role);
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+                return View(model);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

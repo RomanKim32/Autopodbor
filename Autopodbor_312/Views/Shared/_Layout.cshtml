@@ -5,8 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - Autopodbor_312</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" href="~/css/site.css" />
-
+	<link type="text/css" rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
 	<header>
@@ -37,26 +36,58 @@
 								</ul>
 							</div>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Calculator" asp-action="Index">Калькулятор</a>
+						</li>
 
 						@if (User.Identity.IsAuthenticated)
 						{
+							if (User.IsInRole("admin"))
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Register">Добавить Менеджера</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Все менеджеры</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Calculator" asp-action="EditCalculator">Редактирование калькулятора</a>
+								</li>
+							}
 							<li class="nav-item">
-								<form method="post" asp-controller="Admin" asp-action="LogOff">
-									<input type="submit" value="Выйти" />
-								</form>
-							</li>
-						}
-						else
-						{
-							<li class="nav-item">
-								<a asp-controller="Admin" asp-action="Login">Войти</a>
-							</li>
-						}
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+                                        <form method="post" asp-controller="Admin" asp-action="LogOff">
+                                        <input type="submit" value="Выйти" />
+                                    </form>
+                                </li>    
+                        }
+                        else
+                        {   
+                                <li class="nav-item">
+                                    <a asp-controller="Admin" asp-action="Login">Войти</a>
+                                </li>
+                        }
+                    </ul>
+                </div>
+
+              <div class="navbar-nav ml-auto">
+
+				  <div class="dropdown">
+  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    Social Links
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li> <a class="dropdown-item" href="https://www.instagram.com/autopodbor.kgz/reels/">Instagram  <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" style="width:25px;height:25px;"></a></li>
+    <li> <a class="dropdown-item" href="#">Whats Up    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" style="width:26px;height:26px;"></a></li>
+    <li><a class="dropdown-item" href="#">Telegram        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111813.png" style="width:26px;height:26px;"></a></li>
+  </ul>
+</div>
+		
+        </div>		
+	</div>
+
+        </nav>
+    </header>
 	<div class="container">
 		<main role="main" class="pb-3">
 			@RenderBody()

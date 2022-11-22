@@ -30,7 +30,8 @@ namespace Autopodbor_312.Controllers
 			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
 			var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
 			var carsYears = await _autodborContext.CarsYears.ToListAsync();
-            var orderViewModel = new OrderViewModel { 
+            var orderViewModel = new OrderViewModel 
+			{ 
 				Order = order, 
 				CarsBodyTypes = carsBodyTypes,
 				CarsBrands = carsBrands,
@@ -48,5 +49,5 @@ namespace Autopodbor_312.Controllers
 			await _autodborContext.SaveChangesAsync();
 			return RedirectToAction("Index", "Home");
 		}
-    }
+	}
 }
