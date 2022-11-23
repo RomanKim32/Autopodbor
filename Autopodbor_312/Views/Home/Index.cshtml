@@ -3,20 +3,3 @@
 @{
 	ViewData["Title"] = "Главная страница";
 }
-
-@foreach (var n in Model)
-{
-	<div class="card mb-3" style="max-width: 540px;">
-		<div class="row g-0">
-			<div class="col-md-4">
-				<img src="@n.Photo" class="img-fluid rounded-start" alt="Photo">
-			</div>
-			<div class="col-md-8">
-				<div class="card-body">
-					<h5 class="card-title">@n.Name</h5>
-					<p class="card-text">@n.Body</p>
-				</div>
-			</div>
-		</div>
-	</div>
-}

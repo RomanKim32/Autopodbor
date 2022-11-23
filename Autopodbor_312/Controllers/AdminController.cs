@@ -1,5 +1,6 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,6 @@ namespace Autopodbor_312.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
-
         }
 
         [HttpGet]
@@ -61,6 +61,7 @@ namespace Autopodbor_312.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             var usersList = _context.Users.Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
@@ -75,8 +76,6 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        //Services 
         [HttpGet, ActionName("IndexServices")]
         public async Task<IActionResult> IndexServices()
         {
@@ -84,14 +83,12 @@ namespace Autopodbor_312.Controllers
             return View( sercices);
         }
 
-        // GET
         [HttpGet, ActionName("CreateServices")]
         public IActionResult CreateServices()
         {
             return View();
         }
 
-        // POST
         [HttpPost,ActionName("CreateServices")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateServices([Bind("Id,Name,Description")] Services services)
@@ -154,7 +151,6 @@ namespace Autopodbor_312.Controllers
             return View(services);
         }
 
-        // GET
         [HttpGet, ActionName("DeleteServices")]
         public async Task<IActionResult> DeleteServices(int? id)
         {
@@ -187,7 +183,7 @@ namespace Autopodbor_312.Controllers
             return _context.Services.Any(e => e.Id == id);
         }
 
-       
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Register()
         {
@@ -195,6 +191,7 @@ namespace Autopodbor_312.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -207,8 +204,7 @@ namespace Autopodbor_312.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.Role);
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Admin");                  
                 }
                 else
                 {
@@ -223,6 +219,7 @@ namespace Autopodbor_312.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
@@ -243,10 +240,11 @@ namespace Autopodbor_312.Controllers
                 UserName = user.Email,
                 Role = userRoles.FirstOrDefault(),
             };
-            ViewData["Role"] = _context.Roles.ToList();
+            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
@@ -280,11 +278,12 @@ namespace Autopodbor_312.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                ViewData["Role"] = _context.Roles.ToList();
+                ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
                 return View(model);
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

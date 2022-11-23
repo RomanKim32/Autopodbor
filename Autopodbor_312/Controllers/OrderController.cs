@@ -49,23 +49,5 @@ namespace Autopodbor_312.Controllers
 			await _autodborContext.SaveChangesAsync();
 			return RedirectToAction("Index", "Home");
 		}
-
-		public async Task<IActionResult> Calculator()
-		{
-			var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
-			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-			var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
-			var carsYears = await _autodborContext.CarsYears.ToListAsync();
-			var calculatorViewModel = new CalculatorViewModel
-			{
-				CarsBodyTypes = carsBodyTypes,
-				CarsBrands = carsBrands,
-				CarsYears = carsYears,
-				CarsFuels = carsFuels
-			};
-			return View(calculatorViewModel);
-			
-		}
-
 	}
 }
