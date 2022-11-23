@@ -65,7 +65,7 @@ namespace Autopodbor_312.Controllers
                         {
                             await upload.CopyToAsync(fileStream);
                         }
-                        UploadFile uploads = new UploadFile {  Path = path, Type ="photo", NewsId = newsData.Id};
+                        UploadFile uploads = new UploadFile {  Path = path, Type = "picture", NewsId = newsData.Id};
                         _context.UploadFiles.Add(uploads);
                         await _context.SaveChangesAsync();
                     }
@@ -90,13 +90,106 @@ namespace Autopodbor_312.Controllers
         
 
         [HttpPost]
-
         public async Task<IActionResult> Delete(int id)
         {
             var news = await _context.News.FindAsync(id);
             _context.News.Remove(news);
             await _context.SaveChangesAsync();
             return Ok();
+        }
+
+        public IActionResult CreatePortfolio()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePortfolio(Portfolio portfolio, IFormFileCollection uploadFiles)
+        {
+            if (ModelState.IsValid)
+            {
+                portfolio.CreatedDate = DateTime.Now;
+                _context.Add(portfolio);
+                await _context.SaveChangesAsync();
+            }
+            string strDateTime = DateTime.Now.ToString("ddMMyyyyHHMMss");
+
+            foreach (var file in uploadFiles)
+            {
+                if (file.Length > 0 && file.FileName.Contains(".mp4"))
+                {
+                    string finalPathVid = "/Files/Videos/" + strDateTime + file.FileName;
+                    UploadFile video = new UploadFile
+                    {
+                        Path = finalPathVid,
+                        PortfolioId = portfolio.Id,
+                        Type = "video"
+                    };
+                    _context.Add(video);
+                    _context.SaveChanges();
+                    using (Stream fileStream = new FileStream(_appEnvironment.WebRootPath + finalPathVid, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+                else if (file.Length > 0 && (file.FileName.Contains(".jpg") || file.FileName.Contains(".png") || file.FileName.Contains(".jpeg")))
+                {
+                    string finalPathPic = "/Files/Pictures/" + strDateTime + file.FileName;
+                    UploadFile pic = new UploadFile
+                    {
+                        Path = finalPathPic,
+                        PortfolioId = portfolio.Id,
+                        Type = "picture"
+                    };
+                    _context.Add(pic);
+                    _context.SaveChanges();
+                    using (Stream fileStream = new FileStream(_appEnvironment.WebRootPath + finalPathPic, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> IndexPortfolio()
+        {
+            var ports = await _context.Portfolio.ToListAsync();            
+            foreach (var port in ports)
+            {
+                var Image= await _context.UploadFiles.FirstOrDefaultAsync(i => i.PortfolioId == port.Id && i.Type == "picture");
+                if (Image != null)
+                {
+                    port.Image = Image;
+                }
+            }
+            return View(ports);
+        }
+
+        public async Task<IActionResult> DeletePortfolio(int? id)
+        {
+            if (id == null)            
+                return NotFound();
+            var port = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
+            if (port == null)
+                return NotFound();
+            return View(port);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePortfolio(int id)
+        {
+            var port = await _context.Portfolio.FindAsync(id);
+            var imVid = await _context.UploadFiles.Where(iv => iv.PortfolioId == port.Id).ToListAsync();
+            foreach (var iv in imVid)
+            {
+                _context.UploadFiles.Remove(iv);
+                await _context.SaveChangesAsync();
+            }            
+            _context.Portfolio.Remove(port);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("IndexPortfolio", "Media");
+            
         }
     }
 }

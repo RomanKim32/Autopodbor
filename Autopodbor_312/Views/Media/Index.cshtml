@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Главная страница";
 }
-<a asp-action="CreatedNews" asp-controller="Media">Created News</a>
+    
 @foreach (var n in Model)
 {
     <div id="pubs" class="card_@n.Id" style="max-width: 540px;">

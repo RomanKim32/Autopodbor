@@ -1,0 +1,24 @@
+﻿@model List<Portfolio>
+
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<a asp-action="CreatePortfolio" asp-controller="Media">Create Portfolio</a>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-3">
+                <img class="w-75" src="@item.Image.Path" />
+                <br />
+                @item.Name
+                <br />
+                <p class="card-text">@item.Body</p>
+                <br /> 
+                <a hidden asp-controller="Istitution" asp-action="Delete" asp-route-id="@item.Id">Удалить заведение</a>
+            </div>
+        }
+    </div>
+</div>
