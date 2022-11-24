@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    [Migration("20221123092828_Initialize")]
-    partial class Initialize
+    [Migration("20221124114807_AddedUploadFile")]
+    partial class AddedUploadFile
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

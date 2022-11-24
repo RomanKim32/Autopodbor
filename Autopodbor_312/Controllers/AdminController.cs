@@ -292,5 +292,11 @@ namespace Autopodbor_312.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Admin");
         }
+
+        [HttpGet]
+        public IActionResult AdminArea()
+        {
+            return View();
+        }
     }
 }
