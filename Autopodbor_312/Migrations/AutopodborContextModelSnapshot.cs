@@ -179,13 +179,10 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Photo")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Video")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

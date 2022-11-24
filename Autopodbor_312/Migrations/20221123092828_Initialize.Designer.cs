@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    [Migration("20221117045652_AddedNewsList")]
-    partial class AddedNewsList
+    [Migration("20221123092828_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,10 +103,10 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Photo")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -181,13 +181,10 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Photo")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Video")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -211,6 +208,34 @@ namespace Autopodbor_312.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.UploadFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("PortfolioId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("UploadFiles");
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.User", b =>
@@ -439,6 +464,17 @@ namespace Autopodbor_312.Migrations
                         .HasForeignKey("ServicesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.UploadFile", b =>
+                {
+                    b.HasOne("Autopodbor_312.Models.News", "News")
+                        .WithMany()
+                        .HasForeignKey("NewsId");
+
+                    b.HasOne("Autopodbor_312.Models.Portfolio", "Portfolio")
+                        .WithMany()
+                        .HasForeignKey("PortfolioId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
