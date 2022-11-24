@@ -5,47 +5,69 @@
      @if(User.IsInRole("admin")) {
     <div class="btn-group">
   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Service's
+   Сервисы
   </button>
   <ul class="dropdown-menu">
-      <li> <a class="btn btn-info" asp-controller="Admin" asp-action="CreateServices">Create Service</a></li>
-      <li> <a class="btn btn-info" asp-controller="Admin" asp-action="IndexServices">Show All Service's</a></li>
+      <li> <a class="btn btn-info" asp-controller="Admin" asp-action="IndexServices">Посмотреть Сервисы</a></li>
+            <li> <a class="btn btn-info" asp-controller="Admin" asp-action="CreateServices">Создать Сервисы </a></li>
   </ul>
 </div>
      }
       @if (User.IsInRole("admin")) {
   <div class="btn-group">
   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Order's
+    Заказы
   </button>
   <ul class="dropdown-menu">
-      <li> <a class="btn btn-info"  asp-controller="Order"  asp-action="Index">Show All Order's</a></li>
+      <li> <a class="btn btn-info"  asp-controller="Order"  asp-action="Index"> Посмотреть Заказы</a></li>
   </ul>
 </div>
       }
        @if(User.IsInRole("portfolioManager") ||User.IsInRole("admin")  ) {
   <div class="btn-group">
   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-   Portfolio's
+   Портфолио
   </button>
   <ul class="dropdown-menu">
-      <li> <a class="btn btn-info"  asp-controller="Media"  asp-action="CreatePortfolio">Create Portfolio</a></li>
-      <li> <a class="btn btn-info" asp-controller="Media" asp-action="IndexPortfolio">Show All Portfolio's</a></li>
+      <li> <a class="btn btn-info" asp-controller="Media" asp-action="IndexPortfolio"> Посмотреть Портфолио </a></li>
+            <li> <a class="btn btn-info"  asp-controller="Media"  asp-action="CreatePortfolio"> Создать Портфолио </a></li>
   </ul>
 </div>
        }
        @if(User.IsInRole("mediaManager") ||User.IsInRole("admin")  ) {
   <div class="btn-group">
   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    News
+    Новости
   </button>
   <ul class="dropdown-menu">
-      <li> <a class="btn btn-info" asp-controller="Media" asp-action="CreateNews">Create News</a></li>
-      <li> <a class="btn btn-info" asp-controller="Media" asp-action="IndexNewss">Show All News</a></li>
+      <li> <a class="btn btn-info" asp-controller="Media" asp-action="Index"> Посмотреть Новости </a></li>
+            <li> <a class="btn btn-info" asp-controller="Media" asp-action="CreatedNews"> Новость Добавить </a></li>
   </ul>
 </div>
        }
 
+        @if(User.IsInRole("admin")  ) {
+  <div class="btn-group">
+  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   Калькулятор
+  </button>
+  <ul class="dropdown-menu">
+      <li> <a class="btn btn-info"  asp-controller="Calculator"  asp-action="EditCalculator"> Редактировать Калькулятор</a></li>
+  </ul>
+</div>
+        }
+  
+        @if(User.IsInRole("admin")) {
+  <div class="btn-group">
+  <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   Менеджеры
+  </button>
+  <ul class="dropdown-menu">
+      <li> <a class="btn btn-info"  asp-controller="Admin"  asp-action="Index"> Посмотреть Менеджеров </a></li>
+      <li> <a class="btn btn-info"  asp-controller="Admin"  asp-action="Register"> Добавить Менеджеры </a></li>
+  </ul>
+</div>
+        }
 </body>
 <footer>
 
