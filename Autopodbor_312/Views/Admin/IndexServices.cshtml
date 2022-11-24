@@ -5,10 +5,12 @@
 }
 
 @if(User.IsInRole("admin")) {
-    <p>
+    <div>
+         <p>
         <a asp-action="CreateServices">Create New Service</a>
     </p>
-
+    </div>
+   
 }
 <div class=row>
     @foreach (var item in Model)

@@ -237,7 +237,8 @@
     function GetId(id) {
         Id = id;
     }
-    function Delete() {
+   
+function Delete() {
         $.ajax({
             url: '@Url.Action("DeleteConfirmed", "Calculator")',
             type: 'POST',
@@ -250,6 +251,7 @@
         });
         event.preventDefault();
     };
+
 
     function Edit() {
         $.ajax({
