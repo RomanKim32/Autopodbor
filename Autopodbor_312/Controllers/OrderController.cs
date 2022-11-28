@@ -49,5 +49,20 @@ namespace Autopodbor_312.Controllers
 			await _autodborContext.SaveChangesAsync();
 			return RedirectToAction("Index", "Home");
 		}
-	}
+
+        [HttpPost]
+        public IActionResult CallBack(string userName, string phoneNumber, string email)
+        {
+            var service = _autodborContext.Services.FirstOrDefault(s => s.Name == "Обратный звонок");
+            Orders order = new Orders();
+            order.Email = email;
+            order.OrderTime = DateTime.Now;
+            order.PhoneNumber = phoneNumber;
+            order.UserName = userName;
+            order.ServicesId = service.Id;
+            _autodborContext.Add(order);
+            _autodborContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+    }
 }
