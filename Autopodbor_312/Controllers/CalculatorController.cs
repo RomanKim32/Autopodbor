@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -55,9 +56,9 @@ namespace Autopodbor_312.Controllers
 		}
 
         [Authorize(Roles = "admin")]
-        [HttpPost]
 		public async Task<IActionResult> AddParameter(string name, string key, string value)
-		{
+		 {
+			
 			if (key != null && value != null)
 			{
 				switch (name)
@@ -67,38 +68,51 @@ namespace Autopodbor_312.Controllers
 						newBrand.Brand = key;
 						newBrand.Price = value;
                         _autodborContext.Add(newBrand);
-                        break;
+						await _autodborContext.SaveChangesAsync();
+						var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
+						return PartialView("CarBrandsPar", carsBrands);
+
 					case "body":
 						CarsBodyTypes newBody = new CarsBodyTypes();
 						newBody.BodyType = key;
 						newBody.Price = value;
                         _autodborContext.Add(newBody);
-                        break;
+						await _autodborContext.SaveChangesAsync();
+						var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
+						return PartialView("CarBodyTypePar", model1);
+
 					case "year":
 						CarsYears newYear = new CarsYears();
                         newYear.ManufacturesYear = key;
                         newYear.Price = value;
 						_autodborContext.Add(newYear);
-						break;
+						await _autodborContext.SaveChangesAsync();
+						var model2 = await _autodborContext.CarsYears.ToListAsync();
+						return PartialView("CarYearPar", model2);
+
 					case "fuel":
 						CarsFuels carsFuel = new CarsFuels();
                         carsFuel.FuelsType = key;
                         carsFuel.Price = value;
 						_autodborContext.Add(carsFuel);
-						break;
-				}
-                await _autodborContext.SaveChangesAsync();
+						await _autodborContext.SaveChangesAsync();
+						var model3 = await _autodborContext.CarsFuels.ToListAsync();
+						return PartialView("CarFuelsPar", model3);
+					default:
+						return View();
+					}
+				
             }
 			else
 			{
 				return Error();
             }
-			return View();
+
 		}
 
         [Authorize(Roles = "admin")]
-        [HttpPost]
-		public async Task<IActionResult> DeleteConfirmed(string id)
+
+		public async Task<IActionResult> DeleteParameter(string id)
 		{
 			if (!string.IsNullOrEmpty(id))
 			{
@@ -108,28 +122,39 @@ namespace Autopodbor_312.Controllers
 					case "brand":
                         var brand = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsBrands.Remove(brand);
-                        break;
+						await _autodborContext.SaveChangesAsync();
+						var model = await _autodborContext.CarsBrands.ToListAsync();
+						return PartialView("CarBrandsPar", model);
 					case "body":
 						var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsBodyTypes.Remove(body);
-						break;
+						await _autodborContext.SaveChangesAsync();
+						var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
+						return PartialView("CarBodyTypePar", model1);
 					case "year":
 						var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsYears.Remove(year);
-						break;
+						await _autodborContext.SaveChangesAsync();
+						var model2 = await _autodborContext.CarsYears.ToListAsync();
+						return PartialView("CarYearPar", model2);
 					case "fuel":
 						var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsFuels.Remove(fuel);
-						break;
+						await _autodborContext.SaveChangesAsync();
+						var model3 = await _autodborContext.CarsFuels.ToListAsync();
+						return PartialView("CarFuelsPar", model3);
+					default:
+						return View();
 				}
-                await _autodborContext.SaveChangesAsync();
-
-            }
-            return View();
+			}
+			else
+			{
+				return Error();
+			}
 		}
 
         [Authorize(Roles = "admin")]
-        [HttpPost]
+
         public async Task<IActionResult> EditParameter(string id, string key, string value)
 		{
             if (!string.IsNullOrEmpty(id))
@@ -142,29 +167,42 @@ namespace Autopodbor_312.Controllers
 						brand.Brand = key;
 						brand.Price = value;
                         _autodborContext.Update(brand);
-                        break;
-                    case "body":
+						await _autodborContext.SaveChangesAsync();
+						var model = await _autodborContext.CarsBrands.ToListAsync();
+						return PartialView("CarBrandsPar", model);
+					case "body":
                         var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
                         body.BodyType = key;
                         body.Price = value;
                         _autodborContext.Update(body);
-                        break;
-                    case "year":
+						await _autodborContext.SaveChangesAsync();
+						var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
+						return PartialView("CarBodyTypePar", model1);
+					case "year":
                         var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
                         year.ManufacturesYear = key;
                         year.Price = value;
                         _autodborContext.Update(year);
-                        break;
-                    case "fuel":
+						await _autodborContext.SaveChangesAsync();
+						var model2 = await _autodborContext.CarsYears.ToListAsync();
+						return PartialView("CarYearPar", model2);
+					case "fuel":
                         var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         fuel.FuelsType = key;
                         fuel.Price = value;
                         _autodborContext.Update(fuel);
-                        break;
-                }
-                await _autodborContext.SaveChangesAsync();
+						await _autodborContext.SaveChangesAsync();
+						var model3 = await _autodborContext.CarsFuels.ToListAsync();
+						return PartialView("CarFuelsPar", model3);
+					default:
+						return View();
+				}
+                
             }
-                return View();
+			else
+			{
+				return Error();
+			}
 		}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
