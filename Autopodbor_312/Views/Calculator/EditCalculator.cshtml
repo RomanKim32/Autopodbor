@@ -6,7 +6,7 @@
 
 <h3>Таблица "Марки"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить модель</button>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
 </p>
 <table class="table">
     <thead>
@@ -32,6 +32,8 @@
                 <td>
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+                    <a  asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info" >Посмотреть все модели</a>
+
                 </td>
             </tr>
         }
