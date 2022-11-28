@@ -8,6 +8,7 @@
 <p>
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить модель</button>
 </p>
+<div id="CarsBrandsDiv">
 <table class="table">
     <thead>
         <tr>
@@ -37,11 +38,14 @@
         }
     </tbody>
 </table>
+    </div>
+
 
 <h3>Таблица "Типы кузова"</h3>
 <p>
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
 </p>
+<div id="CarsBodyTypeDiv">
 <table class="table">
     <thead>
         <tr>
@@ -71,12 +75,13 @@
         }
     </tbody>
 </table>
-
+</div>
 
 <h3>Таблица "Год выпуска"</h3>
 <p>
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
 </p>
+<div id="CarsYearDiv">
 <table class="table">
     <thead>
         <tr>
@@ -106,12 +111,13 @@
         }
     </tbody>
 </table>
-
+</div>
 
 <h3>Таблица "Вид топлива"</h3>
 <p>
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
 </p>
+<div id="CarsFuelDiv">
 <table class="table">
     <thead>
         <tr>
@@ -141,7 +147,7 @@
         }
     </tbody>
 </table>
-
+</div>
 <!-- AddNewParameterModal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -160,7 +166,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="Add()">Добавить</button>
+                <button type="button" class="btn btn-primary" onclick="addParameter()">Добавить</button>
             </div>
         </div>
     </div>
@@ -179,7 +185,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+                <button type="button" class="btn btn-primary" onclick="deleteParameter()">Да</button>
             </div>
         </div>
     </div>
@@ -190,7 +196,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Подтверждение удаления</h5>
+                <h5 class="modal-title" id="editModalLabel">Редактирование</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -205,7 +211,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="Edit()">Да</button>
+                <button type="button" class="btn btn-primary" onclick="editParameter()">Да</button>
             </div>
         </div>
     </div>
@@ -216,57 +222,53 @@
     let Name = '';
     function GetName(name) {
         Name = name;
-    }
-    function Add() {
-        $.ajax({
-            url: '@Url.Action("AddParameter", "Calculator")',
-            type: 'POST',
-            data: {
-                'name': Name,
-                'key': $("#key").val(),
-                'value': $("#value").val()
-            },
-            success: setTimeout(function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 5000),
-        });
-        event.preventDefault();
     };
-
-    let Id = '';
+        let Id = '';
     function GetId(id) {
         Id = id;
-    }
-   
-function Delete() {
-        $.ajax({
-            url: '@Url.Action("DeleteConfirmed", "Calculator")',
-            type: 'POST',
-            data: {
-                'id': Id,
-            },
-            success: setTimeout(function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 5000),
-        });
-        event.preventDefault();
     };
+         const addParameter= function() {
+         event.preventDefault();
+         if(Name === "brand"){
+              $('#CarsBrandsDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         }else if(Name ==="year"){
+             $('#CarsYearDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         }
+         else if(Name ==="fuel"){
+             $('#CarsFuelDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         }
+         else if(Name ==="body"){
+             $('#CarsBodyTypeDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         }
+          $('#addModal').modal('hide');
+           };   
 
+    const editParameter= function() {
+         event.preventDefault();
+         if(Name === "brand"){
+              $('#CarsBrandsDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         }else if(Name ==="year"){
+             $('#CarsYearDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         }
+         else if(Name ==="fuel"){
+             $('#CarsFuelDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         }
+         else if(Name ==="body"){
+             $('#CarsBodyTypeDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         }
+          $('#editModal').modal('hide');
+           };   
 
-    function Edit() {
-        $.ajax({
-            url: '@Url.Action("EditParameter", "Calculator")',
-            type: 'POST',
-            data: {
-                'id': Id,
-                'key': $("#newKey").val(),
-                'value': $("#newValue").val()
-            },
-            success: setTimeout(function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 5000),
-        });
-        event.preventDefault();
-    };
-
+           const deleteParameter = function(){
+if(Name === "brand"){
+            $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
+         }else if(Name==="year"){
+             $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }else if(Name==="fuel"){
+             $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }else if(Name==="body"){
+             $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }
+          $('#deleteModal').modal('hide');
+           }
 </script>
