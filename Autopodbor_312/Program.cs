@@ -29,8 +29,6 @@ namespace Autopodbor_312
                 await AdminInitializer.SeedAdminUser(rolesManager, userManager);
                 var context = scope.ServiceProvider.GetService<AutopodborContext>();
                 DataSeeder.SeedCountries(context);
-                /*Bot.StartBot();*/
-                
             }
             catch (Exception ex)
             {
