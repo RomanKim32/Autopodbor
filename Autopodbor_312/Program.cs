@@ -9,11 +9,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot;
 
 namespace Autopodbor_312
 {
+    
     public class Program
     {
+        public static TelegramBot Bot = new TelegramBot();
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();

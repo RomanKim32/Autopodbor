@@ -47,7 +47,13 @@ namespace Autopodbor_312.Controllers
 			model.Order.OrderTime = DateTime.Now;
 			_autodborContext.Add(model.Order);
 			await _autodborContext.SaveChangesAsync();
-			return RedirectToAction("Index", "Home");
+			model.Order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == model.Order.ServicesId);
+			model.Order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == model.Order.CarsFuelsId);
+			model.Order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBodyTypesId);
+			model.Order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBrandsId);
+			model.Order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == model.Order.CarsYearsId);
+			Program.Bot.SendInfo(model.Order);
+            return RedirectToAction("Index", "Home");
 		}
 
         [HttpPost]
@@ -62,6 +68,7 @@ namespace Autopodbor_312.Controllers
             order.ServicesId = service.Id;
             _autodborContext.Add(order);
             _autodborContext.SaveChanges();
+			Program.Bot.SendInfo(order);
             return RedirectToAction("Index", "Home");
         }
     }
