@@ -10,7 +10,6 @@
         <a asp-action="CreateServices">Create New Service</a>
     </p>
     </div>
-   
 }
 <div class=row>
     @foreach (var item in Model)
@@ -22,9 +21,14 @@
                 <p class="card-text">@item.Description</p>
                     @if (User.IsInRole("admin")) {
                         <a asp-action="EditServices" asp-route-id="@item.Id">Edit  |</a>
-                        <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Delete </a>
-                      }
+                    <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Delete </a>
+                    if (item.Name == "Дополнительные услуги")
+                    {
+                        <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">| Details  |</a>
+                    }
+                }
             </div>
         </div>
-    }        
+    }   
+
     </div>

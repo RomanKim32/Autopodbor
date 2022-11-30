@@ -12,7 +12,9 @@ namespace Autopodbor_312.Models
                 var services = new List<Services>
                 {
                     new Services { Name = "Подбор под ключ", Description = "" },
-                    new Services { Name = "Выездной осмотр", Description = "" }
+                    new Services { Name = "Выездной осмотр", Description = "" },
+                    new Services { Name = "Дополнительные услуги", Description = "" },
+                    new Services{Name = "Обратный звонок", Description = "" }
                 };
                 context.AddRange(services);
                 context.SaveChanges();

@@ -121,7 +121,7 @@ namespace Autopodbor_312.Controllers
 
         [HttpPost, ActionName("EditServices")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description")] Services services)
+        public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description,AdditinalServiceText")] Services services)
         {
             if (id != services.Id)
             {
@@ -297,6 +297,23 @@ namespace Autopodbor_312.Controllers
         public IActionResult AdminArea()
         {
             return View();
+        }
+
+        public async Task<IActionResult> AdditionalServicesDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _context.Services
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
         }
     }
 }
