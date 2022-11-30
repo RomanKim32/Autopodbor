@@ -25,37 +25,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="IndexServices">Услуги</a> 
                         </li> 
                         <li> 
-                            <div class="dropdown"> 
-                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> 
-                                    Заказать 
-                                </button> 
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"> 
-                                    <li> 
-                                        <a class="dropdown-item" asp-controller="Order" asp-action="Index" asp-route-serviceName="Выездной осмотр">Выездной осмотр</a> 
-                                    </li> 
-                                    <li> 
-                                        <a class="dropdown-item" asp-controller="Order" asp-action="Index" asp-route-serviceName="Подбор под ключ">Подбор под ключ</a> 
-                                    </li> 
-
-                                </ul> 
-                            </div> 
                         </li> 
-                        <li class="nav-item"> 
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calculator" asp-action="Index">Калькулятор</a> 
-                        </li> 
-
                         @if (User.Identity.IsAuthenticated)
                         { 
-           <li class="nav-item"> 
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a> 
-                                </li> 
-
-           <li class="nav-item"> 
-
-                                            <form method="post" asp-controller="Admin" asp-action="LogOff"> 
-                                            <input type="submit" value="Выйти" /> 
-                                        </form> 
-                                    </li>     
+                            <li class="nav-item"> 
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a> 
+                            </li> 
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Admin" asp-action="LogOff"> 
+                                    <input type="submit" value="Выйти" /> 
+                                </form> 
+                            </li>     
                         }
                         else
                         { 

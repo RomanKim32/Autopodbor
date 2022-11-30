@@ -19,14 +19,24 @@
             <div class="card-body">
                 <h5 class="card-title">@item.Name</h5>
                 <p class="card-text">@item.Description</p>
-                    @if (User.IsInRole("admin")) {
-                        <a asp-action="EditServices" asp-route-id="@item.Id">Edit  |</a>
-                    <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Delete </a>
-                    if (item.Name == "Дополнительные услуги")
-                    {
-                        <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">| Details  |</a>
-                    }
+                
+                @if (User.IsInRole("admin"))
+                {
+                    <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  |</a>
+                    <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Удалить </a>
                 }
+                else if (!User.IsInRole("admin") && (!User.IsInRole("mediaManager")) && (!User.IsInRole("portfolioManager")))
+                {
+                    <a  asp-controller="Order" asp-action="Index" asp-route-serviceName="@item.Name"> Заказать </a>
+                }          
+                @if (@item.Name == "Дополнительные услуги")
+                {
+                    <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">| Подробнее </a>
+                }
+                else if (!User.IsInRole("admin") && (!User.IsInRole("mediaManager")) && (!User.IsInRole("portfolioManager")) && @item.Name == "Выездной осмотр")
+                { 
+                    <a asp-controller="Calculator" asp-action="Index">| Калькулятор </a> 
+                }              
             </div>
         </div>
     }   
