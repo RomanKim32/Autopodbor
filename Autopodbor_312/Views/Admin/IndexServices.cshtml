@@ -20,12 +20,11 @@
             <div class="card-body">
                 <h5 class="card-title">@item.Name</h5>
                 <p class="card-text">@item.Description</p>
-
                     @if (User.IsInRole("admin")) {
                         <a asp-action="EditServices" asp-route-id="@item.Id">Edit  |</a>
                         <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Delete </a>
                       }
-                </div>
+            </div>
         </div>
     }        
     </div>

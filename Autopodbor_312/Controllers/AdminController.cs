@@ -79,7 +79,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet, ActionName("IndexServices")]
         public async Task<IActionResult> IndexServices()
         {
-            var sercices = await _context.Services.ToListAsync();
+            var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").ToListAsync();
             return View( sercices);
         }
 
