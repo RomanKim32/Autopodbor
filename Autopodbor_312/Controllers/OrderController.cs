@@ -54,7 +54,6 @@ namespace Autopodbor_312.Controllers
 			model.Order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBodyTypesId);
 			model.Order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBrandsId);
 			model.Order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == model.Order.CarsYearsId);
-
 			Program.Bot.SendInfo(model.Order);
 			EmailService emailService = new EmailService();
 			await emailService.SendEmailAsync($"<p>{GetOrderIfo(model.Order)}</p>");
@@ -62,13 +61,13 @@ namespace Autopodbor_312.Controllers
 		}
 
         [HttpPost]
-        public IActionResult CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
+        public async Task<IActionResult> CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
         {
             Services service = new Services();
             if(serviceName == null)
-                service = _autodborContext.Services.FirstOrDefault(s => s.Name == "Обратный звонок");
+                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Name == "Обратный звонок");
             else
-                service = _autodborContext.Services.FirstOrDefault(s => s.Name == serviceName);
+                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Name == serviceName);
             Orders order = new Orders();
             order.Email = email;
             order.OrderTime = DateTime.Now;
@@ -77,8 +76,7 @@ namespace Autopodbor_312.Controllers
             order.ServicesId = service.Id;
             order.Comment = comment;
             _autodborContext.Add(order);
-            _autodborContext.SaveChanges();
-
+            await _autodborContext.SaveChangesAsync();
 			Program.Bot.SendInfo(order);
 			EmailService emailService = new EmailService();
 			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");

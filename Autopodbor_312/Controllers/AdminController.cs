@@ -137,32 +137,33 @@ namespace Autopodbor_312.Controllers
 
         [HttpPost, ActionName("EditServices")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional")] Services services)
+        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
         {
-            if (servicePhotoFile != null)
+            if (servicePhotoFile == null)
+            { 
+                var currentService = await _context.Services.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
+                service.Photo = currentService.Photo;         
+            }
+            else 
             {
                 string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await servicePhotoFile.CopyToAsync(fileStream);
                 }
-                services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
-            }
-            if (id != services.Id)
-            {
-                return NotFound();
+                service.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(services);
+                    _context.Update(service);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServicesExists(services.Id))
+                    if (!ServicesExists(service.Id))
                     {
                         return NotFound();
                     }
@@ -171,11 +172,11 @@ namespace Autopodbor_312.Controllers
                         throw;
                     }
                 }
-                if(services.isAdditional == true)
+                if(service.isAdditional == true)
                     return RedirectToAction("AdditionalServicesDetails", "Admin");
                 return RedirectToAction("IndexServices", "Admin");
             }
-            return View(services);
+            return View(service);
         }
 
         [HttpGet, ActionName("DeleteServices")]

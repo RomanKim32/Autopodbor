@@ -23,7 +23,7 @@
                 }
                 else if (isUser && @item.Name != "Дополнительные услуги")
                 {
-                    <a  asp-controller="Order" asp-action="Index" asp-route-serviceName="@item.Name"> Заказать </a>
+                    <a  asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.Name"> Заказать </a>
                 }          
                 @if (@item.Name == "Дополнительные услуги")
                 {

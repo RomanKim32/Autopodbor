@@ -20,7 +20,7 @@ namespace Autopodbor_312
 			using (SmtpClient client = new SmtpClient())
 			{
 				await client.ConnectAsync("smtp.gmail.com", 587, false);
-				await client.AuthenticateAsync("romakim32@gmail.com", "qdahhhxubwgdekzu"); // Вставить свой логин и пароль
+				await client.AuthenticateAsync("romakim32@gmail.com", "mbtrobcdyowtapom"); // Вставить свой логин и пароль
 				await client.SendAsync(emailMessage);
 				await client.DisconnectAsync(true);
 			}
