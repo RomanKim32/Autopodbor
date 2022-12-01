@@ -5,12 +5,9 @@ namespace Autopodbor_312.Models
 {
     public class AdminInitializer
     {
-
-
-
         public static async Task SeedAdminUser(
- RoleManager<IdentityRole<int>> _roleManager,
- UserManager<User> _userManager)
+            RoleManager<IdentityRole<int>> _roleManager,
+            UserManager<User> _userManager)
         {
             string adminEmail = "admin@admin.com";
             string adminPassword = "123123";
