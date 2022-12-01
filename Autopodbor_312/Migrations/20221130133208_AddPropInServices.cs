@@ -2,32 +2,32 @@
 
 namespace Autopodbor_312.Migrations
 {
-    public partial class AddPropertyInServices : Migration
+    public partial class AddPropInServices : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Discriminator",
+                name: "AdditinalServiceText",
                 table: "Services");
 
-            migrationBuilder.AddColumn<string>(
-                name: "AdditinalServiceText",
+            migrationBuilder.AddColumn<bool>(
+                name: "isAdditional",
                 table: "Services",
-                nullable: true);
+                nullable: false,
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AdditinalServiceText",
+                name: "isAdditional",
                 table: "Services");
 
             migrationBuilder.AddColumn<string>(
-                name: "Discriminator",
+                name: "AdditinalServiceText",
                 table: "Services",
                 type: "text",
-                nullable: false,
-                defaultValue: "");
+                nullable: true);
         }
     }
 }

@@ -46,23 +46,20 @@
                     </ul> 
                 </div> 
 
-              <div class="navbar-nav ml-auto"> 
-
-      <div class="dropdown"> 
-  <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> 
-    Social Links 
-  </a> 
-
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink"> 
-    <li> <a class="dropdown-item" href="https://www.instagram.com/autopodbor.kgz/reels/">Instagram  <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" style="width:25px;height:25px;"></a></li> 
-    <li> <a class="dropdown-item" href="https://Wa.me/996558303707">Whats Up    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" style="width:26px;height:26px;"></a></li> 
-    <li><a class="dropdown-item" href="https://t.me/+996558303707">Telegram        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111813.png" style="width:26px;height:26px;"></a></li> 
-  </ul> 
+    <div class="navbar-nav ml-auto"> 
+          <div class="dropdown"> 
+              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> 
+                Social Links 
+              </a> 
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink"> 
+                <li> <a class="dropdown-item" href="https://www.instagram.com/autopodbor.kgz/reels/">Instagram  <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" style="width:25px;height:25px;"></a></li> 
+                <li> <a class="dropdown-item" href="https://Wa.me/996558303707">Whats Up    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" style="width:26px;height:26px;"></a></li> 
+                <li><a class="dropdown-item" href="https://t.me/+996558303707">Telegram        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111813.png" style="width:26px;height:26px;"></a></li> 
+              </ul> 
+         </div> 
+    </div> 
 </div> 
-
-        </div> 
-        </div> 
-  </nav> 
+</nav> 
     </header> 
  <div class="container"> 
   <main role="main" class="pb-3"> 
@@ -88,8 +85,6 @@
    </div>
 </div>
 
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -112,6 +107,10 @@
                 <label class="control-label">Электронная почта</label>
                 <input id="email" class="form-control" />		
             </div>
+            <div class="form-group">
+                <label class="control-label">Дополнительная информация</label>
+                <input id="comment" class="form-control" />		
+            </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -123,25 +122,25 @@
 </div>
 </html>
 <script>  	
-
     function CreateOrder()
     {
         let name = $('#UserName').val();
         let number = $('#Phone').val();
         let email = $('#email').val();
+        let comment = $('#comment').val();
         console.log(name);
         $.ajax({
 
-            url: '@Url.Action("CallBack", "Order")',
+            url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
             type: 'POST',
             data: {
                 'userName' : name,
                 'phoneNumber' : number,
-                'email' : email
+                'email' : email,
+                'comment' : comment
             },
-            success: setTimeout(function () { 
-                     window.location.href = '/Home/Index'; 
-                }, 500), 
+            success: 
+                     window.location.href = '/Home/Index', 
         });
             event.preventDefault();
     }

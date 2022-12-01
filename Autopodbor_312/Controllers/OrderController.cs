@@ -51,18 +51,23 @@ namespace Autopodbor_312.Controllers
 		}
 
         [HttpPost]
-        public IActionResult CallBack(string userName, string phoneNumber, string email)
+        public IActionResult CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
         {
-            var service = _autodborContext.Services.FirstOrDefault(s => s.Name == "Обратный звонок");
+            Services service = new Services();
+            if(serviceName == null)
+                service = _autodborContext.Services.FirstOrDefault(s => s.Name == "Обратный звонок");
+            else
+                service = _autodborContext.Services.FirstOrDefault(s => s.Name == serviceName);
             Orders order = new Orders();
             order.Email = email;
             order.OrderTime = DateTime.Now;
             order.PhoneNumber = phoneNumber;
             order.UserName = userName;
             order.ServicesId = service.Id;
+            order.Comment = comment;
             _autodborContext.Add(order);
             _autodborContext.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AdditionalServicesDetails", "Admin");
         }
     }
 }

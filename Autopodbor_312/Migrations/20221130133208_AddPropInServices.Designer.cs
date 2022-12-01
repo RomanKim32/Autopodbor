@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    [Migration("20221130074502_AddPropertyInServices")]
-    partial class AddPropertyInServices
+    [Migration("20221130133208_AddPropInServices")]
+    partial class AddPropInServices
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,14 +199,14 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("AdditinalServiceText")
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<bool>("isAdditional")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 

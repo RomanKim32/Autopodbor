@@ -1,10 +1,13 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,12 +18,14 @@ namespace Autopodbor_312.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly AutopodborContext _context;
+        private IWebHostEnvironment _appEnvironment;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context, IWebHostEnvironment webHost)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _appEnvironment = webHost;  
         }
 
         [HttpGet]
@@ -79,7 +84,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet, ActionName("IndexServices")]
         public async Task<IActionResult> IndexServices()
         {
-            var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").ToListAsync();
+            var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.isAdditional == false).ToListAsync();
             return View( sercices);
         }
 
@@ -91,12 +96,24 @@ namespace Autopodbor_312.Controllers
 
         [HttpPost,ActionName("CreateServices")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateServices([Bind("Id,Name,Description")] Services services)
+        public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
         {
+            if (servicePhotoFile != null)
+            {
+                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await servicePhotoFile.CopyToAsync(fileStream);
+                }
+                services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
+            }
             if (ModelState.IsValid)
             {
+                services.isAdditional = true;
                 _context.Add(services);
                 await _context.SaveChangesAsync();
+                if (services.isAdditional == true)
+                    return RedirectToAction("AdditionalServicesDetails", "Admin");
                 return RedirectToAction("IndexServices", "Admin");
             };
             return View(services);
@@ -110,19 +127,27 @@ namespace Autopodbor_312.Controllers
             {
                 return NotFound();
             }
-
-            var dish = await _context.Services.FindAsync(id);
-            if (dish == null)
+            var service = await _context.Services.FindAsync(id);
+            if (service == null)
             {
                 return NotFound();
             }
-            return View(dish);
+            return View(service);
         }
 
         [HttpPost, ActionName("EditServices")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description,AdditinalServiceText")] Services services)
+        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional")] Services services)
         {
+            if (servicePhotoFile != null)
+            {
+                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await servicePhotoFile.CopyToAsync(fileStream);
+                }
+                services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
+            }
             if (id != services.Id)
             {
                 return NotFound();
@@ -146,6 +171,8 @@ namespace Autopodbor_312.Controllers
                         throw;
                     }
                 }
+                if(services.isAdditional == true)
+                    return RedirectToAction("AdditionalServicesDetails", "Admin");
                 return RedirectToAction("IndexServices", "Admin");
             }
             return View(services);
@@ -175,7 +202,7 @@ namespace Autopodbor_312.Controllers
             var services = await _context.Services.FindAsync(id);
             _context.Services.Remove(services);
             await _context.SaveChangesAsync();
-            return RedirectToAction("IndexServices", "Admin");
+            return RedirectToAction("AdditionalServicesDetails", "Admin");
         }
 
         private bool ServicesExists(int id)
@@ -299,21 +326,11 @@ namespace Autopodbor_312.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AdditionalServicesDetails(int? id)
+        [HttpGet]
+        public async Task<IActionResult> AdditionalServicesDetails()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var service = await _context.Services
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (service == null)
-            {
-                return NotFound();
-            }
-
-            return View(service);
+            var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
+            return View(additionalServicesList);
         }
     }
 }
