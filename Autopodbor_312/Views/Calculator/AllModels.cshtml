@@ -31,7 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
+                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
+                <a asp-action="EditModels" asp-route-id="@item.Id">Edit</a> 
                 @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
                 @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
             </td>
@@ -39,3 +41,88 @@
 }
     </tbody>
 </table>
+
+<!-- EditParameterModal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form>
+                        <p>Новое название</p>
+                        <input id="newKey" />
+                        <p>Новая цена</p>
+                        <input id="newValue" />
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Edit()">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DeleteParameterModal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы увервены?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     
+     let Id = '';
+    function GetId(id) {
+        Id = id;
+    }
+
+   
+   function Delete() {
+        $.ajax({
+            url: '@Url.Action("DeleteConfirmed", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+            },
+            success: setTimeout(function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 5000),
+        });
+        event.preventDefault();
+    };
+
+    function Edit() {
+        $.ajax({
+            url: '@Url.Action("EditParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+                'key': $("#newKey").val(),
+                'value': $("#newValue").val()
+            },
+            success: setTimeout(function () {
+                window.location.href = '/Calculator/AllModels?brandId=@ViewBag.Brand.Id';
+            }, 5000),
+        });
+        event.preventDefault();
+    };
+
+</script>

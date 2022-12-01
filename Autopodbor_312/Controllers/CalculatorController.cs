@@ -3,8 +3,10 @@ using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -68,6 +70,7 @@ namespace Autopodbor_312.Controllers
                         newBrand.Brand = key;
                         newBrand.Price = value;
                         _autodborContext.Add(newBrand);
+                        CarsBrandsModel newModel = new CarsBrandsModel() { CarsBrandsId = newBrand.Id, Model = "Другое", Price = "0" };
                         break;
                     case "body":
                         CarsBodyTypes newBody = new CarsBodyTypes();
@@ -108,7 +111,10 @@ namespace Autopodbor_312.Controllers
                 {
                     case "brand":
                         var brand = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
+                        List<CarsBrandsModel> models = _autodborContext.CarsBrandsModels.Where(m => m.Id == Convert.ToInt32(nameAndId[1])).ToList();
+
                         _autodborContext.CarsBrands.Remove(brand);
+                        _autodborContext.CarsBrandsModels.RemoveRange(models);
                         break;
                     case "body":
                         var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
@@ -121,6 +127,10 @@ namespace Autopodbor_312.Controllers
                     case "fuel":
                         var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsFuels.Remove(fuel);
+                        break;
+                    case "model":
+                        var model = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
+                        _autodborContext.CarsBrandsModels.Remove(model);
                         break;
                 }
                 await _autodborContext.SaveChangesAsync();
@@ -162,6 +172,16 @@ namespace Autopodbor_312.Controllers
                         fuel.Price = value;
                         _autodborContext.Update(fuel);
                         break;
+                    case "model":
+                        var model = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
+                        model.Model = key;
+                        model.Price = value;
+                        _autodborContext.Update(model);
+                        await _autodborContext.SaveChangesAsync();
+                        CarsBrands brandView = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == model.CarsBrandsId);
+                        ViewBag.Brand = brandView;
+                        return Ok();
+                        break;
                 }
                 await _autodborContext.SaveChangesAsync();
             }
@@ -175,14 +195,14 @@ namespace Autopodbor_312.Controllers
         }
         public async Task<IActionResult> AllModels(int brandId)
         {
-            CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b=> b.Id == brandId);
-            var autopodborContext = _autodborContext.CarsBrandsModels.Where(a=> a.CarsBrandsId == brandId).Include(c => c.CarsBrands);
+            CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
+            var autopodborContext = _autodborContext.CarsBrandsModels.Where(a => a.CarsBrandsId == brandId).Include(c => c.CarsBrands);
             ViewBag.Brand = brand;
             return View(await autopodborContext.ToListAsync());
         }
 
         [HttpGet]
-        public  IActionResult AddModels(int brandId)
+        public IActionResult AddModels(int brandId)
         {
             CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
             ViewBag.Brand = brand;
@@ -192,23 +212,32 @@ namespace Autopodbor_312.Controllers
         [HttpPost]
         public async Task<IActionResult> AddModels(CarsBrandsModel carsBrandsModel)
         {
-            CarsBrands car = _autodborContext.CarsBrands.FirstOrDefault(c=> c.Id == carsBrandsModel.CarsBrandsId);
+            CarsBrands car = _autodborContext.CarsBrands.FirstOrDefault(c => c.Id == carsBrandsModel.CarsBrandsId);
             if (car == null)
             {
                 return NotFound();
             }
             else
             {
-                CarsBrandsModel modelExist = _autodborContext.CarsBrandsModels.FirstOrDefault(c=> c.Model == carsBrandsModel.Model);
-                if(modelExist == null)
+                CarsBrandsModel modelExist = _autodborContext.CarsBrandsModels.FirstOrDefault(c => c.Model == carsBrandsModel.Model);
+                if (modelExist == null)
                 {
                     _autodborContext.CarsBrandsModels.Add(carsBrandsModel);
                     _autodborContext.SaveChanges();
-                    
+
                     return RedirectToAction("AllModels", new { brandId = car.Id });
                 } return BadRequest("Model is Exist!");
-                
+
             }
-        } 
+        }
+
+
+        
+        
+            
+            
+    
+
+
     }
 }
