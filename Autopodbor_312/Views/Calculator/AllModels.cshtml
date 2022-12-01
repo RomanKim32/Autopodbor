@@ -34,8 +34,7 @@
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
                  <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
                 <a asp-action="EditModels" asp-route-id="@item.Id">Edit</a> 
-                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                
             </td>
         </tr>
 }
