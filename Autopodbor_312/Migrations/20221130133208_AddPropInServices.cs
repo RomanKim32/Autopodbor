@@ -6,10 +6,6 @@ namespace Autopodbor_312.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "AdditinalServiceText",
-                table: "Services");
-
             migrationBuilder.AddColumn<bool>(
                 name: "isAdditional",
                 table: "Services",
@@ -22,12 +18,6 @@ namespace Autopodbor_312.Migrations
             migrationBuilder.DropColumn(
                 name: "isAdditional",
                 table: "Services");
-
-            migrationBuilder.AddColumn<string>(
-                name: "AdditinalServiceText",
-                table: "Services",
-                type: "text",
-                nullable: true);
         }
     }
 }
