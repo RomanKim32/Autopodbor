@@ -1,9 +1,11 @@
 ﻿using Autopodbor_312.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +23,7 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = webHost;
 		}
 
-		[HttpGet]
+        [HttpGet]
 		public async Task<IActionResult> Services()
 		{
 			var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.isAdditional == false).ToListAsync();
@@ -29,14 +31,16 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult CreateServices()
+        [Authorize(Roles = "admin")]
+        public IActionResult CreateServices()
 		{
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
 		{
 			if (servicePhotoFile != null)
 			{
@@ -61,7 +65,8 @@ namespace Autopodbor_312.Controllers
 
 
 		[HttpGet]
-		public async Task<IActionResult> EditServices(int? id)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditServices(int? id)
 		{
 			if (id == null)
 			{
@@ -77,7 +82,8 @@ namespace Autopodbor_312.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
 		{
 			if (servicePhotoFile == null)
 			{
@@ -120,7 +126,8 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> DeleteServices(int? id)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteServices(int? id)
 		{
 			if (id == null)
 			{
@@ -138,7 +145,8 @@ namespace Autopodbor_312.Controllers
 
 		[HttpPost, ActionName("DeleteServices")]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteConfirmedServices(int id)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteConfirmedServices(int id)
 		{
 			var services = await _context.Services.FindAsync(id);
 			_context.Services.Remove(services);
@@ -147,7 +155,8 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> AdditionalServicesDetails()
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> AdditionalServicesDetails()
 		{
 			var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
 			return View(additionalServicesList);
