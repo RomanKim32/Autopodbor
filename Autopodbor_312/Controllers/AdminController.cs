@@ -284,8 +284,7 @@ namespace Autopodbor_312.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
             _context.Users.Remove(user);
