@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20221130133208_AddPropInServices")]
+    partial class AddPropInServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +153,7 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -200,9 +203,6 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Photo")
                         .HasColumnType("text");
 
                     b.Property<bool>("isAdditional")

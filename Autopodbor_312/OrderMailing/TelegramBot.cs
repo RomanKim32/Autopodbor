@@ -1,24 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Types;
-using Telegram.Bot;
-using Autopodbor_312.Models;
+﻿using Autopodbor_312.Models;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Data.SqlTypes;
+using Telegram.Bot;
 
-namespace Autopodbor_312
+namespace Autopodbor_312.OrderMailing
 {
     public class TelegramBot
     {
         private readonly TelegramBotClient _bot;
         private readonly string BotToken = "5946339457:AAEKvth7TxgWKo4CQMGkFkA9J7cLmea8TBk";
-        private readonly string ChatId = "-1001622338471";
+        private readonly string ChatId = "-1001622338471"; // указать айди чата в телеграме
 
         public TelegramBot()
         {
@@ -59,7 +51,7 @@ namespace Autopodbor_312
                     sb.Append(line);
             }
             string response = sb.ToString();
-             
+
         }
     }
 }

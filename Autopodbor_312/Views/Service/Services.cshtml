@@ -1,0 +1,38 @@
+﻿@model List<Autopodbor_312.Models.Services>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class=row>
+    @{
+        bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
+    } 
+    @foreach (var item in Model)
+    {
+        <div class="card col-4" style="width: 18rem;">
+            <img src="@item.Photo" class="card-img-top" alt="cafe">
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+                <p class="card-text">@item.Description</p>
+
+                @if (User.IsInRole("admin"))
+                {
+                    <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
+                }
+                else if (isUser && @item.Name != "Дополнительные услуги")
+                {
+                    <a  asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.Name"> Заказать </a>
+                }          
+                @if (@item.Name == "Дополнительные услуги")
+                {
+                    <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
+                }
+                else if (isUser && @item.Name == "Выездной осмотр")
+                { 
+                    <a asp-controller="Calculator" asp-action="Index">| Калькулятор </a> 
+                }              
+            </div>
+        </div>
+    }   
+    </div>

@@ -1,9 +1,9 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,12 +15,14 @@ namespace Autopodbor_312.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly AutopodborContext _context;
+        private IWebHostEnvironment _appEnvironment;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context, IWebHostEnvironment webHost)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _appEnvironment = webHost;  
         }
 
         [HttpGet]
@@ -76,112 +78,7 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet, ActionName("IndexServices")]
-        public async Task<IActionResult> IndexServices()
-        {
-            var sercices = await _context.Services.ToListAsync();
-            return View( sercices);
-        }
-
-        [HttpGet, ActionName("CreateServices")]
-        public IActionResult CreateServices()
-        {
-            return View();
-        }
-
-        [HttpPost,ActionName("CreateServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateServices([Bind("Id,Name,Description")] Services services)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(services);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("IndexServices", "Admin");
-            };
-            return View(services);
-        }
-
-
-        [HttpGet, ActionName("EditServices")]
-        public async Task<IActionResult> EditServices(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var dish = await _context.Services.FindAsync(id);
-            if (dish == null)
-            {
-                return NotFound();
-            }
-            return View(dish);
-        }
-
-        [HttpPost, ActionName("EditServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditServices(int id, [Bind("Id,Name,Description")] Services services)
-        {
-            if (id != services.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(services);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ServicesExists(services.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("IndexServices", "Admin");
-            }
-            return View(services);
-        }
-
-        [HttpGet, ActionName("DeleteServices")]
-        public async Task<IActionResult> DeleteServices(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var  services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (services == null)
-            {
-                return NotFound();
-            }
-
-            return View(services);
-        }
-
-        [HttpPost, ActionName("DeleteServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmedServices(int id)
-        {
-            var services = await _context.Services.FindAsync(id);
-            _context.Services.Remove(services);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("IndexServices", "Admin");
-        }
-
-        private bool ServicesExists(int id)
-        {
-            return _context.Services.Any(e => e.Id == id);
-        }
+     
 
         [Authorize(Roles = "admin")]
         [HttpGet]

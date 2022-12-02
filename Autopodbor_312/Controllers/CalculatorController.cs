@@ -22,38 +22,32 @@ namespace Autopodbor_312.Controllers
 			_autodborContext = autopodborContext;
 		}
 
-		public async Task<IActionResult> Index()
-		{
-			var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
-			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-			var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
-			var carsYears = await _autodborContext.CarsYears.ToListAsync();
-			var calculatorViewModel = new CalculatorViewModel
-			{
-				CarsBodyTypes = carsBodyTypes,
-				CarsBrands = carsBrands,
-				CarsYears = carsYears,
-				CarsFuels = carsFuels
-			};
-			return View(calculatorViewModel);
-		}
+        private async Task<CalculatorViewModel> GetCalculatorViewModel()
+        {
+            var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
+            var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
+            var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
+            var carsYears = await _autodborContext.CarsYears.ToListAsync();
+            var calculatorViewModel = new CalculatorViewModel
+            {
+                CarsBodyTypes = carsBodyTypes,
+                CarsBrands = carsBrands,
+                CarsYears = carsYears,
+                CarsFuels = carsFuels
+            };
+            return calculatorViewModel;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await GetCalculatorViewModel());
+        }
 
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditCalculator()
-		{
-			var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
-			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-			var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
-			var carsYears = await _autodborContext.CarsYears.ToListAsync();
-			var calculatorViewModel = new CalculatorViewModel
-			{
-				CarsBodyTypes = carsBodyTypes,
-				CarsBrands = carsBrands,
-				CarsYears = carsYears,
-				CarsFuels = carsFuels
-			};
-			return View(calculatorViewModel);
-		}
+        {
+            return View(await GetCalculatorViewModel());
+        }
 
         [Authorize(Roles = "admin")]
 		public async Task<IActionResult> AddParameter(string name, string key, string value)
