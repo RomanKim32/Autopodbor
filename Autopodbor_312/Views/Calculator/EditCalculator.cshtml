@@ -31,8 +31,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id','brand')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id','brand')">Удалить</button>
                 </td>
             </tr>
         }
@@ -68,8 +68,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id')">Удалить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','body')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
                 </td>
             </tr>
         }
@@ -104,8 +104,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id')">Удалить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
                 </td>
             </tr>
         }
@@ -140,8 +140,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id')">Удалить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id','fuel')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
                 </td>
             </tr>
         }
@@ -224,12 +224,30 @@
         Name = name;
     };
         let Id = '';
-    function GetId(id) {
+    function GetId(id,name) {
         Id = id;
+        Name = name;
     };
+     const deleteParameter = function(){
+   
+         if(Name === "brand"){
+       
+            $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
+         }else if(Name==="year"){
+             $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }else if(Name==="fuel"){
+             $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }else if(Name==="body"){
+             $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+         }
+          $('#deleteModal').modal('hide');
+           };
+
          const addParameter= function() {
          event.preventDefault();
+
          if(Name === "brand"){
+
               $('#CarsBrandsDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
          }else if(Name ==="year"){
              $('#CarsYearDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
@@ -243,9 +261,11 @@
           $('#addModal').modal('hide');
            };   
 
-    const editParameter= function() {
+         const editParameter= function() {
          event.preventDefault();
+
          if(Name === "brand"){
+
               $('#CarsBrandsDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
          }else if(Name ==="year"){
              $('#CarsYearDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
@@ -258,17 +278,4 @@
          }
           $('#editModal').modal('hide');
            };   
-
-           const deleteParameter = function(){
-if(Name === "brand"){
-            $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
-         }else if(Name==="year"){
-             $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }else if(Name==="fuel"){
-             $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }else if(Name==="body"){
-             $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }
-          $('#deleteModal').modal('hide');
-           }
 </script>

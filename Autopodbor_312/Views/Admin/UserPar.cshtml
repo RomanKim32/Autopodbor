@@ -1,0 +1,20 @@
+﻿@model List<User>
+<table class="table">
+		<tbody>
+			@if (User.IsInRole("admin"))
+			{
+				foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Email)
+						</td>
+						<td>
+							<a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
+							<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetId('@item.Id')">Удалить</button>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
