@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using Telegram.Bot;
 
-namespace Autopodbor_312
+namespace Autopodbor_312.OrderMailing
 {
     public class TelegramBot
     {
@@ -51,7 +51,7 @@ namespace Autopodbor_312
                     sb.Append(line);
             }
             string response = sb.ToString();
-             
+
         }
     }
 }

@@ -19,7 +19,6 @@
                 @if (User.IsInRole("admin"))
                 {
                     <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
-@*                    <a asp-action = "DeleteServices" asp-route-id="@item.Id"> Удалить </a>*@
                 }
                 else if (isUser && @item.Name != "Дополнительные услуги")
                 {

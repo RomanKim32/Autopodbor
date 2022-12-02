@@ -39,8 +39,8 @@ else
 						<td>
 						@if (User.IsInRole("admin"))
 						{
-							<a class="btn btn-info" asp-controller="Admin" asp-action="EditServices" asp-route-id="@item.Id">Изменить</a> 
-							<a class="btn btn-info" asp-controller="Admin" asp-action="DeleteServices" asp-route-id="@item.Id">Удалить</a>
+                            <a class="btn btn-info" asp-controller="Service" asp-action="EditServices" asp-route-id="@item.Id">Изменить</a>
+                            <a class="btn btn-info" asp-controller="Service" asp-action="DeleteServices" asp-route-id="@item.Id">Удалить</a>
 						}
 						else if (isUser)
 						{ 
@@ -54,7 +54,7 @@ else
 	</table>
 }
 <div>
-    <a asp-action="IndexServices">Назад</a>
+    <a asp-action="Service">Назад</a>
 </div>
 
 <div class="modal fade" id="AdditionalModal" tabindex="-1" aria-labelledby="AdditionalModalLabel" aria-hidden="true">

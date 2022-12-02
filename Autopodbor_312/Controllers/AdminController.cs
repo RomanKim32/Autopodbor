@@ -81,135 +81,7 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet, ActionName("IndexServices")]
-        public async Task<IActionResult> IndexServices()
-        {
-            var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.isAdditional == false).ToListAsync();
-            return View( sercices);
-        }
-
-        [HttpGet, ActionName("CreateServices")]
-        public IActionResult CreateServices()
-        {
-            return View();
-        }
-
-        [HttpPost,ActionName("CreateServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
-        {
-            if (servicePhotoFile != null)
-            {
-                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await servicePhotoFile.CopyToAsync(fileStream);
-                }
-                services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
-            }
-            if (ModelState.IsValid)
-            {
-                services.isAdditional = true;
-                _context.Add(services);
-                await _context.SaveChangesAsync();
-                if (services.isAdditional == true)
-                    return RedirectToAction("AdditionalServicesDetails", "Admin");
-                return RedirectToAction("IndexServices", "Admin");
-            };
-            return View(services);
-        }
-
-
-        [HttpGet, ActionName("EditServices")]
-        public async Task<IActionResult> EditServices(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var service = await _context.Services.FindAsync(id);
-            if (service == null)
-            {
-                return NotFound();
-            }
-            return View(service);
-        }
-
-        [HttpPost, ActionName("EditServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
-        {
-            if (servicePhotoFile == null)
-            { 
-                var currentService = await _context.Services.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
-                service.Photo = currentService.Photo;         
-            }
-            else 
-            {
-                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await servicePhotoFile.CopyToAsync(fileStream);
-                }
-                service.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(service);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ServicesExists(service.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                if(service.isAdditional == true)
-                    return RedirectToAction("AdditionalServicesDetails", "Admin");
-                return RedirectToAction("IndexServices", "Admin");
-            }
-            return View(service);
-        }
-
-        [HttpGet, ActionName("DeleteServices")]
-        public async Task<IActionResult> DeleteServices(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var  services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (services == null)
-            {
-                return NotFound();
-            }
-
-            return View(services);
-        }
-
-        [HttpPost, ActionName("DeleteServices")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmedServices(int id)
-        {
-            var services = await _context.Services.FindAsync(id);
-            _context.Services.Remove(services);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("AdditionalServicesDetails", "Admin");
-        }
-
-        private bool ServicesExists(int id)
-        {
-            return _context.Services.Any(e => e.Id == id);
-        }
+     
 
         [Authorize(Roles = "admin")]
         [HttpGet]
@@ -327,11 +199,6 @@ namespace Autopodbor_312.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AdditionalServicesDetails()
-        {
-            var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
-            return View(additionalServicesList);
-        }
+
     }
 }

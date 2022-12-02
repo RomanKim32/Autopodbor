@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Autopodbor_312.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace Autopodbor_312.Models
+namespace Autopodbor_312.DataSeeder
 {
     public class AdminInitializer
     {
