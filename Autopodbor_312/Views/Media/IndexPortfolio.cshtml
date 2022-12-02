@@ -14,10 +14,10 @@
                 <img class="w-75" src="@item.Image.Path" />
                 <br />
                 @item.Name
-                <br />
+                <br />  
                 <p class="card-text">@item.Body</p>
                 <br /> 
-                <a hidden asp-controller="Istitution" asp-action="Delete" asp-route-id="@item.Id">Удалить заведение</a>
+                <a asp-controller="Media" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
             </div>
         }
     </div>

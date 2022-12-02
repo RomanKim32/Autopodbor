@@ -1,0 +1,91 @@
+﻿@model Autopodbor_312.ViewModel.PortfolioAndUploadFileViewModel
+
+@{
+    ViewData["Title"] = "EditPortfolio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>EditPortfolio</h1>
+
+<h4>Portfolio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPortfolio">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input id="idPort" type="hidden" asp-for="@Model.Portfolio.Id" />
+            <div class="form-group">
+                <label asp-for="@Model.Portfolio.Name" class="control-label"></label>
+                <input asp-for="@Model.Portfolio.Name" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Portfolio.Body" class="control-label"></label>
+                <input asp-for="@Model.Portfolio.Body" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="@Model.Portfolio.CreatedDate" />
+            </div>
+            <div id="partial-load">
+
+            </div>
+            <div class="form-group">
+                <input type="submit"value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Pictures)
+        {
+            <form asp-action="EditUploadFilePortfolio" asp-controller="Media" method="post" enctype="multipart/form-data">                
+                <div class="col-2">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <img class="w-75" src="@item.Path"/>
+                    <br />
+                    <a asp-controller="Media" asp-action="DeleteUpload" asp-route-id="@item.Id">Удалить картину</a>
+                    <input type="file" name="uploadFilePic" />
+                    <input type="submit" value="Изменить" class="btn btn-primary" />
+                </div>
+            </form>            
+        }
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Videos)
+        {
+            <form asp-action="EditUploadFilePortfolio" asp-controller="Media" method="post" enctype="multipart/form-data">
+                <div class="col-2">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <img class="w-75" src="@item.Path" />
+                    <br />
+                    <a asp-controller="Media" asp-action="DeleteUpload" asp-route-id="@item.Id">Удалить видео</a>
+                    <br />
+                    <input type="file" name="uploadFileVid"/>
+                    <input type="submit" value="Изменить" class="btn btn-primary" />
+                </div>
+            </form>            
+        }
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+
+    <script>
+        function ChangeUpdatePic(id) {
+            $.ajax({
+                url: '@Url.Action("EditUploadFilePortfolio", "Media")',
+                type: 'POST',
+                data: {
+                    'id': id,
+                }
+            })
+            event.preventDefault();
+        }
+    };
+    </script>
+}
