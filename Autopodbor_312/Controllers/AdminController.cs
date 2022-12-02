@@ -2,12 +2,9 @@
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -198,7 +195,5 @@ namespace Autopodbor_312.Controllers
         {
             return View();
         }
-
-
     }
 }
