@@ -1,5 +1,6 @@
-﻿@model List<News>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+@model List<News>
 
 @{
-	ViewData["Title"] = "Главная страница";
+	ViewData["Title"] = @localizer["главнаяСтраница"];
 }

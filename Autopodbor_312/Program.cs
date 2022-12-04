@@ -10,7 +10,6 @@ using Telegram.Bot;
 
 namespace Autopodbor_312
 {
-    
     public class Program
     {
         public static TelegramBot Bot = new TelegramBot();
