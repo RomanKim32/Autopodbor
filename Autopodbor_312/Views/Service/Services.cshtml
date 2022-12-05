@@ -28,7 +28,7 @@
                 {
                     <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
                 }
-                else if (isUser && @item.Name == "Выездной осмотр")
+                else if (@item.Name == "Выездной осмотр")
                 { 
                     <a asp-controller="Calculator" asp-action="Index">| Калькулятор </a> 
                 }              
