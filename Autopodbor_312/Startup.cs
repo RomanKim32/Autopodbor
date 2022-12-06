@@ -53,7 +53,6 @@ namespace Autopodbor_312
                     options.Password.RequireDigit = false;
                 })
                 .AddEntityFrameworkStores<AutopodborContext>();
-          //  services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +65,6 @@ namespace Autopodbor_312
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -78,11 +76,6 @@ namespace Autopodbor_312
             app.UseAuthorization();
 
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-         /*   var supportedCultures = new[] { "ru", "ky" };
-            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-                .AddSupportedCultures(supportedCultures)
-                .AddSupportedUICultures(supportedCultures);
-            app.UseRequestLocalization(localizationOptions);*/
 
             app.UseEndpoints(endpoints =>
             {
