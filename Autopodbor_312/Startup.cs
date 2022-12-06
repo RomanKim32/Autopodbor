@@ -2,10 +2,15 @@ using Autopodbor_312.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Autopodbor_312
 {
@@ -21,6 +26,21 @@ namespace Autopodbor_312
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+            services.Configure<RequestLocalizationOptions>(
+                opt =>
+                {
+                    var supportedCulteres = new List<CultureInfo>
+                    {
+                        new CultureInfo("ru"),
+                        new CultureInfo("ky")
+                    };
+                    opt.DefaultRequestCulture = new RequestCulture("ru");
+                    opt.SupportedCultures = supportedCulteres;
+                    opt.SupportedUICultures = supportedCulteres;
+                });
+
             services.AddControllersWithViews();
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AutopodborContext>(options => options.UseNpgsql(connection))
@@ -45,7 +65,6 @@ namespace Autopodbor_312
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -55,6 +74,8 @@ namespace Autopodbor_312
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseEndpoints(endpoints =>
             {
