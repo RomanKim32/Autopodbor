@@ -28,14 +28,13 @@ namespace Autopodbor_312
         {
             services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
             services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
-
             services.Configure<RequestLocalizationOptions>(
                 opt =>
                 {
                     var supportedCulteres = new List<CultureInfo>
                     {
                         new CultureInfo("ru"),
-                        new CultureInfo("kg")
+                        new CultureInfo("ky")
                     };
                     opt.DefaultRequestCulture = new RequestCulture("ru");
                     opt.SupportedCultures = supportedCulteres;
@@ -54,6 +53,7 @@ namespace Autopodbor_312
                     options.Password.RequireDigit = false;
                 })
                 .AddEntityFrameworkStores<AutopodborContext>();
+          //  services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,13 +78,11 @@ namespace Autopodbor_312
             app.UseAuthorization();
 
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-
-            //var supportedCultures = new[] {"ru","kg"};
-            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-            //    .AddSupportedCultures(supportedCultures)
-            //    .AddSupportedUICultures(supportedCultures);
-
-            //app.UseRequestLocalization(localizationOptions);
+         /*   var supportedCultures = new[] { "ru", "ky" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+            app.UseRequestLocalization(localizationOptions);*/
 
             app.UseEndpoints(endpoints =>
             {

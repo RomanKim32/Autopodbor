@@ -1,5 +1,6 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer localizer;
+﻿@*@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer;*@
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
 	ViewData["Title"] = @localizer["mainPage"];
