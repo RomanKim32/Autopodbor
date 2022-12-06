@@ -155,7 +155,6 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[HttpGet]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AdditionalServicesDetails()
 		{
 			var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
