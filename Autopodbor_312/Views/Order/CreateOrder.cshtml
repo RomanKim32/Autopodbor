@@ -1,6 +1,5 @@
 ﻿@model Autopodbor_312.ViewModel.OrderViewModel
 
-
 @{
 	ViewBag.Title = "Заказ";
 }
@@ -11,7 +10,7 @@
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="CreateOrder"> @*onsubmit="return(validate());" name="orderForm"*@
+		<form asp-action="CreateOrder">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.UserName" class="control-label">Имя</label>
@@ -20,18 +19,17 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.PhoneNumber" class="control-label">Номер телефона</label>
-				<input asp-for="@Model.Order.PhoneNumber" class="form-control" />
+				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" />
 				<span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.Email" class="control-label">Электронная почта</label>
-				<input asp-for="@Model.Order.Email" class="form-control" />
+				<input asp-for="@Model.Order.Email" class="form-control" type="email" />
 				<span asp-validation-for="@Model.Order.Email" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">Модель</label>
-				<select asp-for="@Model.Order.CarsBrandsId" class="form-control">@*name="model"*@
-					@*<option value="-1" selected>Выберете модель</option>*@
+				<select asp-for="@Model.Order.CarsBrandsId" class="form-control">
 					@foreach (var brand in Model.CarsBrands)
 					{
 						<option value="@brand.Id">@brand.Brand</option>
@@ -67,7 +65,7 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.Comment" class="control-label">Дополнительная информация</label>
-				<input asp-for="@Model.Order.Comment" class="form-control" />
+				<textarea asp-for="@Model.Order.Comment" class="form-control"></textarea>
 				<span asp-validation-for="@Model.Order.Comment" class="text-danger"></span>
 			</div>
 			<input type="hidden" asp-for="@Model.Order.ServicesId" value="@Model.Order.ServicesId">
@@ -78,19 +76,6 @@
 	</div>
 </div>
 
-@section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-@*	<script type="text/javascript">
-
-		function validate() {
-			if (document.orderForm.model.value == "-1") {
-				alert("Выберете модель");
-				return false;
-			}
-			return (true);
-		}
-
-	</script>*@
+@{
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }

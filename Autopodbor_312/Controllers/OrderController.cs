@@ -3,6 +3,7 @@ using Autopodbor_312.OrderMailing;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -44,29 +45,58 @@ namespace Autopodbor_312.Controllers
 			return View(orderViewModel);
         }
 
+		/*		[HttpPost]
+				public async Task<IActionResult> CreateOrder(Orders order)
+				{
+					order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == order.ServicesId);
+						if (ModelState.IsValid)
+						{
+
+						order.OrderTime = DateTime.Now;
+							_autodborContext.Add(order);
+							await _autodborContext.SaveChangesAsync();
+							order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == order.CarsFuelsId);
+						order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == order.CarsBodyTypesId);
+						order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == order.CarsBrandsId);
+						order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == order.CarsYearsId);
+							Program.Bot.SendInfo(order);
+							EmailService emailService = new EmailService();
+							await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
+							return RedirectToAction("Index", "Home");
+						}
+					return RedirectToAction("CreateOrder", "Order", new { serviceName = order.Services.Name });
+				}*/
+
 		[HttpPost]
 		public async Task<IActionResult> CreateOrder(OrderViewModel model)
 		{
-
-				model.Order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == model.Order.ServicesId);
-				if (ModelState.IsValid)
-				{
-					model.Order.OrderTime = DateTime.Now;
-					_autodborContext.Add(model.Order);
-					await _autodborContext.SaveChangesAsync();
-					model.Order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == model.Order.CarsFuelsId);
-					model.Order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBodyTypesId);
-					model.Order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBrandsId);
-					model.Order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == model.Order.CarsYearsId);
-					Program.Bot.SendInfo(model.Order);
-					EmailService emailService = new EmailService();
-					await emailService.SendEmailAsync($"<p>{GetOrderIfo(model.Order)}</p>");
-					return RedirectToAction("Index", "Home");
-				}
-			return RedirectToAction("CreateOrder", "Order", new { serviceName = model.Order.Services.Name });
+			var a = model.CarsYears;
+			model.Order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == model.Order.ServicesId);
+		
+			if (ModelState.IsValid)
+			{
+				model.Order.OrderTime = DateTime.Now;
+				_autodborContext.Add(model.Order);
+				await _autodborContext.SaveChangesAsync();
+				model.Order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == model.Order.CarsFuelsId);
+				model.Order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBodyTypesId);
+				model.Order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == model.Order.CarsBrandsId);
+				model.Order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == model.Order.CarsYearsId);
+				Program.Bot.SendInfo(model.Order);
+				EmailService emailService = new EmailService();
+				await emailService.SendEmailAsync($"<p>{GetOrderIfo(model.Order)}</p>");
+				return RedirectToAction("Index", "Home");
+			}
+			if (model.Order.PhoneNumber == null)
+			{
+				ModelState.AddModelError("", "заполните номер телефона");
+			}
+			return BadRequest(ModelState);
+		//	return RedirectToAction("CreateOrder", new { serviceName = model.Order.Services.Name });
+			//return RedirectToAction("CreateOrder", "Order", new { serviceName = model.Order.Services.Name });
 		}
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
         {
             Services service = new Services();
