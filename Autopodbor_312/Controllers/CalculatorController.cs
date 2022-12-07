@@ -30,12 +30,15 @@ namespace Autopodbor_312.Controllers
             var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
             var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
             var carsYears = await _autodborContext.CarsYears.ToListAsync();
+
+            
             var calculatorViewModel = new CalculatorViewModel
             {
                 CarsBodyTypes = carsBodyTypes,
                 CarsBrands = carsBrands,
                 CarsYears = carsYears,
-                CarsFuels = carsFuels
+                CarsFuels = carsFuels,
+              
             };
             return View(calculatorViewModel);
         }
@@ -57,7 +60,18 @@ namespace Autopodbor_312.Controllers
             return View(calculatorViewModel);
         }
 
-        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetModel(int brandId)
+        {
+            var carsBrandsModel = _autodborContext.CarsBrandsModels.Where(c => c.CarsBrandsId == brandId).ToList();
+            var calculatorViewModel = new CalculatorViewModel
+            {
+                CarsBrandsModels = carsBrandsModel
+
+            };
+            return Json(calculatorViewModel);
+        }
+
+            [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> AddParameter(string name, string key, string value)
         {
