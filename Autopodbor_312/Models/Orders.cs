@@ -13,8 +13,8 @@ namespace Autopodbor_312.Models
 		#nullable enable
         public string? UserName { get; set; }
 		#nullable disable
-        [Required]
-		public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "please enter username")]
+        public string PhoneNumber { get; set; }
 		#nullable enable
         public string? Email { get; set; }
 		public int? CarsBrandsId { get; set; }
