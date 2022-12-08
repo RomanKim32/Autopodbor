@@ -1,17 +1,18 @@
 ﻿@model List<Services>
 
 @{
-    ViewData["Title"] = "Дополнительные услуги";
+	ViewData["Title"] = "Дополнительные услуги";
 }
 
 <h1>Дополнительные услуги</h1>
 
-@if(User.IsInRole("admin")) {
-    <div>
-         <p>
-        <a asp-action="CreateServices">Добавить дополнительную услугу</a>
-    </p>
-    </div>
+@if (User.IsInRole("admin"))
+{
+	<div>
+		<p>
+			<a asp-action="CreateServices">Добавить дополнительную услугу</a>
+		</p>
+	</div>
 }
 @if (@Model.Count() == 0)
 {
@@ -23,101 +24,139 @@ else
 		<tbody>
 			@{
 				bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
-			 } 
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td id="ServiceName-@item.Name">
-							@Html.DisplayFor(modelItem => item.Name)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Description)
-						</td>
-                        <td>
-                        <img src="@item.Photo" class="card-img-top" alt="Img">
-                        </td>
-						<td>
+			}
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td id="ServiceName-@item.Name">
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						<img src="@item.Photo" class="card-img-top" alt="Img">
+					</td>
+					<td>
 						@if (User.IsInRole("admin"))
 						{
-                            <a class="btn btn-info" asp-controller="Service" asp-action="EditServices" asp-route-id="@item.Id">Изменить</a>
-                            <a class="btn btn-info" asp-controller="Service" asp-action="DeleteServices" asp-route-id="@item.Id">Удалить</a>
+							<a class="btn btn-info" asp-controller="Service" asp-action="EditServices" asp-route-id="@item.Id">Изменить</a>
+							<a class="btn btn-info" asp-controller="Service" asp-action="DeleteServices" asp-route-id="@item.Id">Удалить</a>
 						}
 						else if (isUser)
-						{ 
-                            <a onclick="ToOpenModal('@item.Name')"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal"> Заказать </a>
+						{
+							<a onclick="ToOpenModal('@item.Name')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal"> Заказать </a>
 						}
-					    </td>
-					</tr>
-				}
-			
+					</td>
+				</tr>
+			}
+
 		</tbody>
 	</table>
 }
 <div>
-    <a asp-action="Service">Назад</a>
+	<a asp-action="Service">Назад</a>
 </div>
 
+<!-- AdditionalModal -->
 <div class="modal fade" id="AdditionalModal" tabindex="-1" aria-labelledby="AdditionalModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="AdditionalModalLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form asp-controller="Order" asp-action="CreateOrder">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class = "control-label">Имя</label>
-                <input id="UserNameAdditional" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Номер телефона</label>
-                <input id="PhoneAdditional" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Электронная почта</label>
-                <input id="emailAdditional" class="form-control" />		
-            </div>
-            <div class="form-group">
-                <label class="control-label">Дополнительная информация</label>
-                <input id="commentAdditional" class="form-control" />		
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="CreateOrderAdditionalService()">Save changes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="AdditionalModalLabel"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form action="" id="additionalForm" role="form">
+				<div class="modal-body">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group">
+						<label class="control-label">Имя</label>
+						<input id="UserNameAdditional" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Номер телефона</label>
+						<input id="PhoneAdditional" class="form-control" required="required" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Электронная почта</label>
+						<input id="emailAdditional" class="form-control" type="email" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
+					</div>
+					<div class="form-group">
+						<label class="control-label">Дополнительная информация</label>
+						<textarea id="commentAdditional" class="form-control"></textarea>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Заказать</button>
+					@*<button type="button" class="btn btn-primary" onclick="CreateOrderAdditionalService()">Save changes</button>*@
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
-<script>  
-    function ToOpenModal(name)
-    {
-        $('#AdditionalModalLabel').text(name);
-    }
+@section Scripts
+	{
+	<script>
+		$(document).ready(function () {
+			$("#additionalForm").submit(function (e) {
+				e.preventDefault();
+				console.log('hello');
+				let name = $('#UserNameAdditional').val();
+				let number = $('#PhoneAdditional').val();
+				let email = $('#emailAdditional').val();
+				let serviceName = $('#AdditionalModalLabel').text();
+				let comment = $('#commentAdditional').val();
+				$.ajax({
+					url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
+					type: 'POST',
+					data: {
+						'userName': name,
+						'phoneNumber': number,
+						'email': email,
+						'comment': comment,
+						'serviceName': serviceName
+					},
+					success: window.location.href = '/Service/AdditionalServicesDetails',
+				});
+				return false;
+			});
+		});
 
-    function CreateOrderAdditionalService()
-    {
-        let name = $('#UserNameAdditional').val();
-        let number = $('#PhoneAdditional').val();
-        let email = $('#emailAdditional').val();
-        let serviceName = $('#AdditionalModalLabel').text();
-        let comment = $('#commentAdditional').val();
-        $.ajax({
-            url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
-            type: 'POST',
-            data: {
-                'userName' : name,
-                'phoneNumber' : number,
-                'email' : email,
-                'comment' : comment,
-                'serviceName' : serviceName
-            },
-            success: window.location.href = '/Admin/AdditionalServicesDetails',
-        });
-            event.preventDefault();
-    }
-</script>
+		function ToOpenModal(name) {
+			$('#AdditionalModalLabel').text(name);
+		};
+
+	</script>
+}
+@*<script>
+	$(document).ready(function () {
+		$("#additionalForm").submit(function (e) {
+			e.preventDefault();
+			console.log('hello');
+			let name = $('#UserNameAdditional').val();
+			let number = $('#PhoneAdditional').val();
+			let email = $('#emailAdditional').val();
+			let serviceName = $('#AdditionalModalLabel').text();
+			let comment = $('#commentAdditional').val();
+			$.ajax({
+				url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
+				type: 'POST',
+				data: {
+					'userName': name,
+					'phoneNumber': number,
+					'email': email,
+					'comment': comment,
+					'serviceName': serviceName
+				},
+				success: window.location.href = '/Admin/AdditionalServicesDetails',
+			});
+			return false;
+		});
+	});
+
+	function ToOpenModal(name) {
+		$('#AdditionalModalLabel').text(name);
+	};
+</script>*@
