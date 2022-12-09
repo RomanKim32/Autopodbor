@@ -1,10 +1,11 @@
 ﻿@model Autopodbor_312.ViewModel.OrderViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-	ViewBag.Title = "Заказ";
+	ViewBag.Title = @localizer["orderTitle"];
 }
 
-<h1>Заказ</h1>
+<h1>@localizer["orderTitle"]</h1>
 
 <h4>@Model.Order.Services.Name</h4>
 <hr />

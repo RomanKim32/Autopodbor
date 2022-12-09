@@ -147,9 +147,6 @@
   <data name="сommentLableCallbackForm" xml:space="preserve">
     <value>Дополнительная информация</value>
   </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неправильно заполнено поле</value>
-  </data>
   <data name="сustomValidityPhoneNumber" xml:space="preserve">
     <value>Поле обязательно к заполнению</value>
   </data>
