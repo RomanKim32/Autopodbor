@@ -9,6 +9,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Autopodbor_312.Controllers
 {
@@ -63,8 +64,20 @@ namespace Autopodbor_312.Controllers
 			return View(services);
 		}
 
+        public IActionResult Test(string text)
+        {
+            string name = "sdadasd";
+            string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; // путь относительный 
+            var file = Path.Combine(path);
+            XDocument document = XDocument.Load(file);
+            var c = document.Root.Elements("data");
+            c.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", text)));
+            document.Save(file);
+            return View();
+        }
 
-		[HttpGet]
+
+        [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditServices(int? id)
 		{
@@ -165,5 +178,6 @@ namespace Autopodbor_312.Controllers
 		{
 			return _context.Services.Any(e => e.Id == id);
 		}
-	}
+
+    }
 }
