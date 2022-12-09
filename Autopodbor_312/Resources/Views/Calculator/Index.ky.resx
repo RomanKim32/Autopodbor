@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="mainPageTitle" xml:space="preserve">
-    <value>Главная страница</value>
+  <data name="bodyTypeLabel" xml:space="preserve">
+    <value>Форма кузова(на кырг)</value>
+  </data>
+  <data name="calculateButton" xml:space="preserve">
+    <value>Рассчитать(на кырг)</value>
+  </data>
+  <data name="calculatorTitle" xml:space="preserve">
+    <value>Калькулятор(на кырг)</value>
+  </data>
+  <data name="fuelsTypeLabel" xml:space="preserve">
+    <value>Вид топлива(на кырг)</value>
+  </data>
+  <data name="manufacturesYearLabel" xml:space="preserve">
+    <value>Год выпуска(на кырг)</value>
+  </data>
+  <data name="modelLabel" xml:space="preserve">
+    <value>Модель(на кырг)</value>
+  </data>
+  <data name="titleDescription" xml:space="preserve">
+    <value>Калькулятор по услуге "Выездной осмотр"(на кырг)</value>
   </data>
 </root>
