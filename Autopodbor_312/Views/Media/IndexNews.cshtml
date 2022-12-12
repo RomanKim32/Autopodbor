@@ -4,78 +4,19 @@
     ViewData["Title"] = "Главная страница";
 }
     
-@foreach (var n in Model)
-{
-    <div id="pubs" class="card_@n.Id" style="max-width: 540px;">
-
-        <div id="carouselExampleIndicators_@n.Id" class="carousel slide" data-bs-ride="true">
-
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
-                @for (int i = 1; i < n.Images.Count(); i++)
-                {
-                    <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="@i" aria-label="Slide @i"></button>
-                }
-            </div>
-            <div class="carousel-inner">
-                @for (int i = 0; i < n.Images.Count(); i++)
-                {
-                    
-                    <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
-                        <img class="d-block w-100" src="@n.Images[i].Path" alt="Photo">
-                    </div>
-                }
-            </div>
-            @if (n.Images.Count() > 1)
-            {
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Предыдущий</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Следующий</span>
-                </button>
-            }
-
-        </div>
-        @if (n.Videos.Count() > 0)
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
         {
-            <div>
-                
-                <video src="@n.Videos[0].Path" type="video/mp4" controls></video>
-                <p>@n.Videos</p>
+            <div class="col-3">
+                <img class="w-75" src="@item.Image.Path" />
+                <br />
+                @item.Name
+                <br />
+                <p class="card-text">@item.Body</p>
+                <br />
+                <a asp-controller="Media" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
             </div>
         }
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">@n.Name</h5>
-                <p class="card-text">@n.Body</p>
-                <button class="delete" value="@n.Id" type="submit">Delete</button>
-            </div>
-        </div>
-
     </div>
-}
-
-@section Scripts
-{
-
-    <script>
-	console.log($('#pubs'))
-        $('.delete').click(function Post(e) {
-            console.log(e.target.value)
-            $.ajax({
-                url: '@Url.Action("Delete", "Media")',
-                type: 'POST',
-                data: {'id': e.target.value },
-                success: (res) => {
-                    $(`.card_${e.target.value}`).remove();
-                }
-            });
-        });
-
-
-
-    </script>
-}
+</div>

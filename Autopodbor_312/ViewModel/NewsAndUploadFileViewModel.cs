@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Autopodbor_312.ViewModel
 {
-    public class PortfolioAndUploadFileViewModel
+    public class NewsAndUploadFileViewModel
     {
-        public Portfolio Portfolio { get; set; }
+        public News News { get; set; }
         public UploadFile MainPic { get; set; }
         public List<UploadFile> Pictures { get; set; }
         public List<UploadFile> Videos { get; set; }

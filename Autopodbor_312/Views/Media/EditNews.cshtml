@@ -1,34 +1,34 @@
-﻿@model Autopodbor_312.ViewModel.PortfolioAndUploadFileViewModel
+﻿@model Autopodbor_312.ViewModel.NewsAndUploadFileViewModel
 
 @{
     ViewData["Title"] = "EditPortfolio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>EditPortfolio</h1>
+<h1>EditNews</h1>
 
-<h4>Portfolio</h4>
+<h4>News</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditPortfolio">
+        <form asp-action="EditNews">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input id="idPort" type="hidden" asp-for="@Model.Portfolio.Id" />
+            <input id="idPort" type="hidden" asp-for="@Model.News.Id" />
             <div class="form-group">
-                <label asp-for="@Model.Portfolio.Name" class="control-label"></label>
-                <input asp-for="@Model.Portfolio.Name" class="form-control" />
-                <span asp-validation-for="@Model.Portfolio.Name" class="text-danger"></span>
+                <label asp-for="@Model.News.Name" class="control-label"></label>
+                <input asp-for="@Model.News.Name" class="form-control" />
+                <span asp-validation-for="@Model.News.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Portfolio.Body" class="control-label"></label>
-                <input asp-for="@Model.Portfolio.Body" class="form-control" />
-                <span asp-validation-for="@Model.Portfolio.Body" class="text-danger"></span>
+                <label asp-for="@Model.News.Body" class="control-label"></label>
+                <input asp-for="@Model.News.Body" class="form-control" />
+                <span asp-validation-for="@Model.News.Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="@Model.Portfolio.CreatedDate" />
+                <input type="hidden" asp-for="@Model.News.CreatedDate" />
             </div>
             <div class="form-group">
-                <input type="submit"value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -42,14 +42,14 @@
                 <img width="100" height="100" src="@Model.MainPic.Path" />
                 <br />
                 <input type="file" name="uploadFilePic" />
-                <input asp-action="EditUploadFilePicPortfolio" asp-controller="Media" type="submit" asp-route-type="main" value="Изменить" class="btn btn-primary" />
+                <input type="submit" asp-action="EditUploadFilePicNews" asp-controller="Media" asp-route-type="main" value="Изменить" class="btn btn-primary" />
             </form>
         </div>
         <h4 class="mt-3 mb-3">Снимки: </h4>
         @foreach (var item in Model.Pictures)
         {
-            <div class="col-3">
-                <form asp-action="EditUploadFilePicPortfolio" as p-controller="Media" method="post" enctype="multipart/form-data">
+            <div class="col-2">
+                <form asp-action="EditUploadFilePicNews" asp-controller="Media" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="@item.Id" />
                     <img width="100" height="100" src="@item.Path" />
                     <br />
@@ -64,7 +64,7 @@
         <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
             <h6>Добавление:</h6>
             <input type="file" name="uploadFilePic" />
-            <input type="submit" asp-action="CreateUploadPic" asp-controller="Media" asp-route-id="@Model.Portfolio.Id" asp-route-type="port" class="btn btn-primary" value="Добавить картину" />
+            <input type="submit" asp-action="CreateUploadPic" asp-controller="Media" asp-route-id="@Model.News.Id" asp-route-type="news" class="btn btn-primary" value="Добавить картину" />
         </form>
     </div>
     <div class="row">
@@ -72,7 +72,7 @@
         @foreach (var item in Model.Videos)
         {
             <div class="col-2">
-                <form asp-action="EditUploadFileVidPortfolio" asp-controller="Media" method="post" enctype="multipart/form-data">
+                <form asp-action="EditUploadFileVidNews" asp-controller="Media" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="@item.Id" />
                     <iframe width="150" height="100" src=@item.Path title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <br />
@@ -87,7 +87,7 @@
         <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
             <h6>Добавление:</h6>
             <input type="text" name="video" />
-            <input type="submit" asp-action="CreateUploadVid" asp-controller="Media" asp-route-id="@Model.Portfolio.Id" asp-route-type="port" class="btn btn-primary" value="Добавить видео" />
+            <input type="submit" asp-action="CreateUploadVid" asp-controller="Media" asp-route-id="@Model.News.Id" asp-route-type="news" class="btn btn-primary" value="Добавить видео" />
         </form>
     </div>
 </div>
