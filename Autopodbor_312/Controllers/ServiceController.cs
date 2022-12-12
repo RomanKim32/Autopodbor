@@ -67,7 +67,7 @@ namespace Autopodbor_312.Controllers
 		public void AddToResourcesFile(string name, string valueRu, string valueKy)
 		{
 			//string name = "sdadasd"; "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; 
-			string path = "Resources/Views/Service/Services.ru.resx"; // путь относительный 
+			string path = "Resources/Views/Service/AdditionalServicesDetails.ru.resx"; // путь относительный 
 			//string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx";
 			var file = Path.Combine(path);
 			XDocument document = XDocument.Load(file);

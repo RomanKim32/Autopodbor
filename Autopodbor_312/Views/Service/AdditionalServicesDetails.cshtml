@@ -1,10 +1,11 @@
 ﻿@model List<Services>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-	ViewData["Title"] = "Дополнительные услуги";
+	ViewData["Title"] = @localizer["additionalServicesTitle"];
 }
 
-<h1>Дополнительные услуги</h1>
+<h1>@localizer["additionalServicesTitle"]</h1>
 
 @if (User.IsInRole("admin"))
 {
@@ -29,10 +30,10 @@ else
 			{
 				<tr>
 					<td id="ServiceName-@item.Name">
-						@Html.DisplayFor(modelItem => item.Name)
+						@localizer[@item.KeyForNameInResourcesFiles]
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.Description)
+						@localizer[@item.KeyForDescriptionInResourcesFiles]
 					</td>
 					<td>
 						<img src="@item.Photo" class="card-img-top" alt="Img">
@@ -45,17 +46,16 @@ else
 						}
 						else if (isUser)
 						{
-							<a onclick="ToOpenModal('@item.Name')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal"> Заказать </a>
+							<a onclick="ToOpenModal('@item.Name')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}
 					</td>
 				</tr>
 			}
-
 		</tbody>
 	</table>
 }
 <div>
-	<a asp-action="Service">Назад</a>
+	<a asp-action="Service">@localizer["additionalBackButton"]</a>
 </div>
 
 <!-- AdditionalModal -->
@@ -85,11 +85,9 @@ else
 						<label class="control-label">Дополнительная информация</label>
 						<textarea id="commentAdditional" class="form-control"></textarea>
 					</div>
-
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Заказать</button>
-					@*<button type="button" class="btn btn-primary" onclick="CreateOrderAdditionalService()">Save changes</button>*@
 				</div>
 			</form>
 		</div>
@@ -130,33 +128,3 @@ else
 
 	</script>
 }
-@*<script>
-	$(document).ready(function () {
-		$("#additionalForm").submit(function (e) {
-			e.preventDefault();
-			console.log('hello');
-			let name = $('#UserNameAdditional').val();
-			let number = $('#PhoneAdditional').val();
-			let email = $('#emailAdditional').val();
-			let serviceName = $('#AdditionalModalLabel').text();
-			let comment = $('#commentAdditional').val();
-			$.ajax({
-				url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
-				type: 'POST',
-				data: {
-					'userName': name,
-					'phoneNumber': number,
-					'email': email,
-					'comment': comment,
-					'serviceName': serviceName
-				},
-				success: window.location.href = '/Admin/AdditionalServicesDetails',
-			});
-			return false;
-		});
-	});
-
-	function ToOpenModal(name) {
-		$('#AdditionalModalLabel').text(name);
-	};
-</script>*@
