@@ -1,10 +1,11 @@
-﻿@model Autopodbor_312.ViewModel.CalculatorViewModel
+﻿@model Autopodbor_312.ViewModel.CalculatorViewModel;
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-	ViewBag.Title = "Калькулятор";
+	ViewBag.Title = @localizer["calculatorTitle"];
 }
 
-<h1>Калькулятор по услуге "Выездной осмотр"</h1>
+<h1>@localizer["titleDescription"]</h1>
 <hr />
 
 <div class="row">
@@ -12,7 +13,7 @@
 		<form>
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label class="control-label">Модель</label>
+				<label class="control-label">@localizer["modelLabel"]</label>
 				<select class="form-control" id="brand">
 					@foreach (var brand in Model.CarsBrands)
 					{
@@ -21,7 +22,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label class="control-label">Форма кузова</label>
+				<label class="control-label">@localizer["bodyTypeLabel"]</label>
 				<select class="form-control" id="body">
 					@foreach (var body in Model.CarsBodyTypes)
 					{
@@ -30,7 +31,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label class="control-label">Год выпуска</label>
+				<label class="control-label">@localizer["manufacturesYearLabel"]</label>
 				<select class="form-control" id="year">
 					@foreach (var year in Model.CarsYears)
 					{
@@ -39,7 +40,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label class="control-label">Вид топлива</label>
+				<label class="control-label">@localizer["fuelsTypeLabel"]</label>
 				<select class="form-control" id="fuel">
 					@foreach (var fuel in Model.CarsFuels)
 					{
@@ -48,7 +49,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Рассчитать" class="btn btn-primary" onclick="Calculate()" />
+				<input type="submit" value="@localizer["calculateButton"]" class="btn btn-primary" onclick="Calculate()" />
 			</div>
 		</form>
 	</div>

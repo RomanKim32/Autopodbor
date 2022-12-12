@@ -45,28 +45,6 @@ namespace Autopodbor_312.Controllers
 			return View(orderViewModel);
         }
 
-		/*		[HttpPost]
-				public async Task<IActionResult> CreateOrder(Orders order)
-				{
-					order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == order.ServicesId);
-						if (ModelState.IsValid)
-						{
-
-						order.OrderTime = DateTime.Now;
-							_autodborContext.Add(order);
-							await _autodborContext.SaveChangesAsync();
-							order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == order.CarsFuelsId);
-						order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == order.CarsBodyTypesId);
-						order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == order.CarsBrandsId);
-						order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == order.CarsYearsId);
-							Program.Bot.SendInfo(order);
-							EmailService emailService = new EmailService();
-							await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
-							return RedirectToAction("Index", "Home");
-						}
-					return RedirectToAction("CreateOrder", "Order", new { serviceName = order.Services.Name });
-				}*/
-
 		[HttpPost]
 		public async Task<IActionResult> CreateOrder(OrderViewModel model)
 		{
@@ -92,7 +70,7 @@ namespace Autopodbor_312.Controllers
 				ModelState.AddModelError("", "заполните номер телефона");
 			}
 			return BadRequest(ModelState);
-		//	return RedirectToAction("CreateOrder", new { serviceName = model.Order.Services.Name });
+		    //return RedirectToAction("CreateOrder", new { serviceName = model.Order.Services.Name });
 			//return RedirectToAction("CreateOrder", "Order", new { serviceName = model.Order.Services.Name });
 		}
 
@@ -119,8 +97,9 @@ namespace Autopodbor_312.Controllers
 				EmailService emailService = new EmailService();
 				await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
 			}
-            return RedirectToAction("AdditionalServicesDetails", "Admin");
-        }
+            //return RedirectToAction("AdditionalServicesDetails", "Admin");
+			return BadRequest(ModelState);
+		}
 
 		private StringBuilder GetOrderIfo(Orders order)
 		{

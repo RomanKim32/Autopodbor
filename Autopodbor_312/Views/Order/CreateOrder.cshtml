@@ -1,10 +1,11 @@
 ﻿@model Autopodbor_312.ViewModel.OrderViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-	ViewBag.Title = "Заказ";
+	ViewBag.Title = @localizer["orderTitle"];
 }
 
-<h1>Заказ</h1>
+<h1>@localizer["orderTitle"]</h1>
 
 <h4>@Model.Order.Services.Name</h4>
 <hr />
@@ -19,12 +20,12 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.PhoneNumber" class="control-label">Номер телефона</label>
-				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" />
+				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
 				<span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.Email" class="control-label">Электронная почта</label>
-				<input asp-for="@Model.Order.Email" class="form-control" type="email" />
+				<input asp-for="@Model.Order.Email" class="form-control" type="email" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" /> 
 				<span asp-validation-for="@Model.Order.Email" class="text-danger"></span>
 			</div>
 			<div class="form-group">
