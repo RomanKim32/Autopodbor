@@ -150,4 +150,16 @@
   <data name="serviceName8" xml:space="preserve">
     <value>Сопровождение сделки(на кырг)</value>
   </data>
+  <data name="serviceName40" xml:space="preserve">
+    <value>новая услуга на кырг</value>
+  </data>
+  <data name="serviceDescription40" xml:space="preserve">
+    <value>йцу</value>
+  </data>
+  <data name="serviceName41" xml:space="preserve">
+    <value>название на кырг</value>
+  </data>
+  <data name="serviceDescription41" xml:space="preserve">
+    <value>описание на кырг</value>
+  </data>
 </root>

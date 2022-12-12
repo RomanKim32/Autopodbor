@@ -1,4 +1,5 @@
 ﻿using Autopodbor_312.Models;
+using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,10 +36,11 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult CreateServices()
 		{
-			return View();
+			CreateServiceViewModel createServiceViewModel = new CreateServiceViewModel();
+			return View(createServiceViewModel);
 		}
 
-		[HttpPost]
+/*		[HttpPost]
 		[ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
@@ -62,51 +64,63 @@ namespace Autopodbor_312.Controllers
 				return RedirectToAction("IndexServices", "Service");
 			};
 			return View(services);
-		}
+		}*/
 
-		public void AddToResourcesFile(string name, string valueRu, string valueKy)
+		private void AddServiceToResourcesFile(string name, string valueRu, string valueKy)
 		{
-			//string name = "sdadasd"; "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; 
-			string path = "Resources/Views/Service/AdditionalServicesDetails.ru.resx"; // путь относительный 
-			//string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx";
-			var file = Path.Combine(path);
-			XDocument document = XDocument.Load(file);
-			var c = document.Root.Elements("data");
-			c.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
-			document.Save(file);
-		}
+            //"D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; 
+            //string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx";
+            string pathRu = "Resources/Views/Service/AdditionalServicesDetails.ru.resx";
+			var fileRu = Path.Combine(pathRu);
+			XDocument documentRu = XDocument.Load(fileRu);
+			var dataRuCollection = documentRu.Root.Elements("data");
+            dataRuCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
+            documentRu.Save(fileRu);
 
-/*		[HttpPost]
+            string pathKy = "Resources/Views/Service/AdditionalServicesDetails.ky.resx";
+            var file = Path.Combine(pathKy);
+            XDocument documentKy = XDocument.Load(file);
+            var dataKyCollection = documentKy.Root.Elements("data");
+            dataKyCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueKy)));
+            documentKy.Save(file);
+        }
+
+		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
+		public async Task<IActionResult> CreateServices(CreateServiceViewModel model)
 		{
-			if (servicePhotoFile != null)
+			Services newService = new Services();
+			if (model.ServicePhoto != null)
 			{
-				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
+				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{model.ServicePhoto.FileName}");
 				using (var fileStream = new FileStream(filePath, FileMode.Create))
 				{
-					await servicePhotoFile.CopyToAsync(fileStream);
+					await model.ServicePhoto.CopyToAsync(fileStream);
 				}
-				services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
+                newService.Photo = $"/serviceImg/{model.ServicePhoto.FileName}";
 			}
 			if (ModelState.IsValid)
 			{
-				services.IsAdditional = true;
+                newService.IsAdditional = true;
+				newService.Name = model.ServiceNameRu;
+				newService.Description = model.ServiceDescriptionRu;
+				_context.Add(newService);
+                _context.SaveChanges();
 
-				_context.Add(services);
-				services.KeyForNameInResourcesFiles = $"serviceName{services.Id}";
-				//Test(services.KeyForNameInResourcesFiles, services.Name, ser);
-				services.KeyForDescriptionInResourcesFiles = $"serviceDescription{services.Id}";
-				_context.Update(services);
-
-				await _context.SaveChangesAsync();
-				if (services.IsAdditional == true)
+                newService.KeyForNameInResourcesFiles = $"serviceName{newService.Id}";
+                //Test(services.KeyForNameInResourcesFiles, services.Name, ser);
+                newService.KeyForDescriptionInResourcesFiles = $"serviceDescription{newService.Id}";
+				_context.Update(newService);
+                AddServiceToResourcesFile(newService.KeyForNameInResourcesFiles, model.ServiceNameRu, model.ServiceNameKy );
+                AddServiceToResourcesFile(newService.KeyForDescriptionInResourcesFiles, model.ServiceDescriptionRu, model.ServiceDescriptionKy);
+                await _context.SaveChangesAsync();
+				if (newService.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
 				return RedirectToAction("IndexServices", "Service");
 			};
-			return View(services);
-		}*/
+			return View(newService);
+		}
 
 
 		[HttpGet]
