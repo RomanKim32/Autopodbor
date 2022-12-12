@@ -113,11 +113,14 @@
         let body = $("#body").val();
         let year = $("#year").val();
         let fuel = $("#fuel").val();
+        //let model = $("#select-model").val();
         console.log(brand);
         console.log(body);
         console.log(year);
         console.log(fuel);
-        let sum = Number(brand) + Number(body) + Number(year) + Number(fuel);
+        /*console.log(model)*/;
+
+        let sum = Number(brand) + Number(body) + Number(year) + Number(fuel) /*+ Number(model)*/;
         console.log(sum);
         document.getElementById('sum').innerHTML = `${sum}`;
     };

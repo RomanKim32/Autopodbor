@@ -96,7 +96,7 @@
    
    function Delete() {
         $.ajax({
-            url: '@Url.Action("DeleteConfirmed", "Calculator")',
+            url: '@Url.Action("DeleteParameter", "Calculator")',
             type: 'POST',
             data: {
                 'id': Id,
