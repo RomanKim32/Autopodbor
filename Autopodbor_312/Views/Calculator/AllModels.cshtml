@@ -33,7 +33,7 @@
             <td>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
                  <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
-                <a asp-action="EditModels" asp-route-id="@item.Id">Edit</a> 
+                
                 
             </td>
         </tr>
@@ -101,9 +101,9 @@
             data: {
                 'id': Id,
             },
-            success: setTimeout(function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 5000),
+            success: function () {
+                window.location.href = '/Calculator/AllModels?brandId=@ViewBag.Brand.Id';
+            }, 
         });
         event.preventDefault();
     };
@@ -117,9 +117,9 @@
                 'key': $("#newKey").val(),
                 'value': $("#newValue").val()
             },
-            success: setTimeout(function () {
+            success: function () {
                 window.location.href = '/Calculator/AllModels?brandId=@ViewBag.Brand.Id';
-            }, 5000),
+            }, 
         });
         event.preventDefault();
     };

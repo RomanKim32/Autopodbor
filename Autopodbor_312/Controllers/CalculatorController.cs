@@ -145,12 +145,13 @@ namespace Autopodbor_312.Controllers
                     case "model":
                         var model = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsBrandsModels.Remove(model);
+                       
                         break;
                 }
                 await _autodborContext.SaveChangesAsync();
 
             }
-            return View();
+            return Ok();
         }
 
         [Authorize(Roles = "admin")]
