@@ -1,10 +1,5 @@
-﻿@*@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer localizer;*@
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
 	ViewData["Title"] = @localizer["mainPageTitle"];
 }
-
-
-<a asp-controller="Service" asp-action="AddToResourcesFile" asp-route-valueRu="value" asp-route-name="name">Test</a>

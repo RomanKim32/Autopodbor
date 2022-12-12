@@ -5,15 +5,15 @@ namespace Autopodbor_312.ViewModel
 {
 	public class CreateServiceViewModel
 	{
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
         public string ServiceNameRu { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
         public string ServiceNameKy { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
         public string ServiceDescriptionRu { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
         public string ServiceDescriptionKy { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно к заполнению")]
         public IFormFile ServicePhoto { get; set; }
 	}
 }

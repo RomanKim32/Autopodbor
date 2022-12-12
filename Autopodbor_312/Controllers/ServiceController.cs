@@ -40,51 +40,6 @@ namespace Autopodbor_312.Controllers
 			return View(createServiceViewModel);
 		}
 
-/*		[HttpPost]
-		[ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
-		{
-			if (servicePhotoFile != null)
-			{
-				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
-				using (var fileStream = new FileStream(filePath, FileMode.Create))
-				{
-					await servicePhotoFile.CopyToAsync(fileStream);
-				}
-				services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
-			}
-			if (ModelState.IsValid)
-			{
-				services.IsAdditional = true;
-				_context.Add(services);
-				await _context.SaveChangesAsync();
-				if (services.IsAdditional == true)
-					return RedirectToAction("AdditionalServicesDetails", "Service");
-				return RedirectToAction("IndexServices", "Service");
-			};
-			return View(services);
-		}*/
-
-		private void AddServiceToResourcesFile(string name, string valueRu, string valueKy)
-		{
-            //"D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; 
-            //string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx";
-            string pathRu = "Resources/Views/Service/AdditionalServicesDetails.ru.resx";
-			var fileRu = Path.Combine(pathRu);
-			XDocument documentRu = XDocument.Load(fileRu);
-			var dataRuCollection = documentRu.Root.Elements("data");
-            dataRuCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
-            documentRu.Save(fileRu);
-
-            string pathKy = "Resources/Views/Service/AdditionalServicesDetails.ky.resx";
-            var file = Path.Combine(pathKy);
-            XDocument documentKy = XDocument.Load(file);
-            var dataKyCollection = documentKy.Root.Elements("data");
-            dataKyCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueKy)));
-            documentKy.Save(file);
-        }
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "admin")]
@@ -109,7 +64,6 @@ namespace Autopodbor_312.Controllers
                 _context.SaveChanges();
 
                 newService.KeyForNameInResourcesFiles = $"serviceName{newService.Id}";
-                //Test(services.KeyForNameInResourcesFiles, services.Name, ser);
                 newService.KeyForDescriptionInResourcesFiles = $"serviceDescription{newService.Id}";
 				_context.Update(newService);
                 AddServiceToResourcesFile(newService.KeyForNameInResourcesFiles, model.ServiceNameRu, model.ServiceNameKy );
@@ -224,6 +178,23 @@ namespace Autopodbor_312.Controllers
 		{
 			return _context.Services.Any(e => e.Id == id);
 		}
+
+        private void AddServiceToResourcesFile(string name, string valueRu, string valueKy)
+        {
+            string pathRu = "Resources/Views/Service/AdditionalServicesDetails.ru.resx";
+            var fileRu = Path.Combine(pathRu);
+            XDocument documentRu = XDocument.Load(fileRu);
+            var dataRuCollection = documentRu.Root.Elements("data");
+            dataRuCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
+            documentRu.Save(fileRu);
+
+            string pathKy = "Resources/Views/Service/AdditionalServicesDetails.ky.resx";
+            var file = Path.Combine(pathKy);
+            XDocument documentKy = XDocument.Load(file);
+            var dataKyCollection = documentKy.Root.Elements("data");
+            dataKyCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueKy)));
+            documentKy.Save(file);
+        }
 
     }
 }
