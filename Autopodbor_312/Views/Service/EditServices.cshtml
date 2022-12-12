@@ -28,9 +28,9 @@
                     <input type="file" name="servicePhotoFile" class="form-control">
                 </p>
             </div>
-            @if (Model.isAdditional == true)
+            @if (Model.IsAdditional == true)
             {
-                <input type="hidden" asp-for="isAdditional" value="true"/>
+                <input type="hidden" asp-for="IsAdditional" value="true"/>
             }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

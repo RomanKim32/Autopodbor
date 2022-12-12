@@ -27,7 +27,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
 		public async Task<IActionResult> Services()
 		{
-			var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.isAdditional == false).ToListAsync();
+			var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.IsAdditional == false).ToListAsync();
 			return View(sercices);
 		}
 
@@ -54,30 +54,62 @@ namespace Autopodbor_312.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				services.isAdditional = true;
+				services.IsAdditional = true;
 				_context.Add(services);
 				await _context.SaveChangesAsync();
-				if (services.isAdditional == true)
+				if (services.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
 				return RedirectToAction("IndexServices", "Service");
 			};
 			return View(services);
 		}
 
-        public IActionResult Test(string text)
-        {
-            string name = "sdadasd";
-            string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; // путь относительный 
-            var file = Path.Combine(path);
-            XDocument document = XDocument.Load(file);
-            var c = document.Root.Elements("data");
-            c.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", text)));
-            document.Save(file);
-            return View();
-        }
+		public void AddToResourcesFile(string name, string valueRu, string valueKy)
+		{
+			//string name = "sdadasd"; "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx"; 
+			string path = "Resources/Views/Service/Services.ru.resx"; // путь относительный 
+			//string path = "D:/ESDP/Autopodbor_312/Autopodbor_312/Resources/Views/Home/Index.ky.resx";
+			var file = Path.Combine(path);
+			XDocument document = XDocument.Load(file);
+			var c = document.Root.Elements("data");
+			c.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
+			document.Save(file);
+		}
+
+/*		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
+		{
+			if (servicePhotoFile != null)
+			{
+				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
+				using (var fileStream = new FileStream(filePath, FileMode.Create))
+				{
+					await servicePhotoFile.CopyToAsync(fileStream);
+				}
+				services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
+			}
+			if (ModelState.IsValid)
+			{
+				services.IsAdditional = true;
+
+				_context.Add(services);
+				services.KeyForNameInResourcesFiles = $"serviceName{services.Id}";
+				//Test(services.KeyForNameInResourcesFiles, services.Name, ser);
+				services.KeyForDescriptionInResourcesFiles = $"serviceDescription{services.Id}";
+				_context.Update(services);
+
+				await _context.SaveChangesAsync();
+				if (services.IsAdditional == true)
+					return RedirectToAction("AdditionalServicesDetails", "Service");
+				return RedirectToAction("IndexServices", "Service");
+			};
+			return View(services);
+		}*/
 
 
-        [HttpGet]
+		[HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditServices(int? id)
 		{
@@ -131,7 +163,7 @@ namespace Autopodbor_312.Controllers
 						throw;
 					}
 				}
-				if (service.isAdditional == true)
+				if (service.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
 				return RedirectToAction("IndexServices", "Service");
 			}
@@ -170,7 +202,7 @@ namespace Autopodbor_312.Controllers
 		[HttpGet]
         public async Task<IActionResult> AdditionalServicesDetails()
 		{
-			var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
+			var additionalServicesList = await _context.Services.Where(s => s.IsAdditional == true).ToListAsync();
 			return View(additionalServicesList);
 		}
 

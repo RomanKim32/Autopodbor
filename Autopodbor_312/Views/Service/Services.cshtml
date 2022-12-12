@@ -1,7 +1,8 @@
 ﻿@model List<Autopodbor_312.Models.Services>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @localizer["servicesTitle"];
 }
 
 <div class=row>
@@ -13,8 +14,8 @@
         <div class="card col-4" style="width: 18rem;">
             <img src="@item.Photo" class="card-img-top" alt="cafe">
             <div class="card-body">
-                <h5 class="card-title">@item.Name</h5>
-                <p class="card-text">@item.Description</p>
+                <h5 class="card-title">@localizer[@item.KeyForNameInResourcesFiles]</h5>
+                <p class="card-text">@localizer[@item.KeyForDescriptionInResourcesFiles]</p>
 
                 @if (User.IsInRole("admin"))
                 {

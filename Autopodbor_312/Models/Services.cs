@@ -5,7 +5,9 @@
         public int Id { get; set; } 
         public string Name { get; set; }    
         public string Description { get; set; }
-        public bool isAdditional { get; set; }
+        public bool IsAdditional { get; set; }
         public string Photo { get; set; }
-    }
+		public string KeyForNameInResourcesFiles { get; set; }
+		public string KeyForDescriptionInResourcesFiles { get; set; }
+	}
 }
