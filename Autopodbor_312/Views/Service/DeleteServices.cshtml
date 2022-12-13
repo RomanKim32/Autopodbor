@@ -1,7 +1,7 @@
 ﻿@model Autopodbor_312.Models.Services
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Удаление сервиса";
 }
 
 <h1>Delete</h1>
@@ -28,6 +28,6 @@
     <form asp-action="DeleteServices">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="IndexServices">Back to List</a>
+        <a asp-action="Services">Назад</a>
     </form>
 </div>

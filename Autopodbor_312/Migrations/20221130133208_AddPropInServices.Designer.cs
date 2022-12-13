@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20221130133208_AddPropInServices")]
+    partial class AddPropInServices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,29 +55,6 @@ namespace Autopodbor_312.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarsBrands");
-                });
-
-            modelBuilder.Entity("Autopodbor_312.Models.CarsBrandsModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CarsBrandsId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Model")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Price")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarsBrandsId");
-
-                    b.ToTable("CarsBrandsModels");
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.CarsFuels", b =>
@@ -174,6 +153,7 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -223,9 +203,6 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Photo")
                         .HasColumnType("text");
 
                     b.Property<bool>("isAdditional")
@@ -457,15 +434,6 @@ namespace Autopodbor_312.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Autopodbor_312.Models.CarsBrandsModel", b =>
-                {
-                    b.HasOne("Autopodbor_312.Models.CarsBrands", "CarsBrands")
-                        .WithMany()
-                        .HasForeignKey("CarsBrandsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.Orders", b =>

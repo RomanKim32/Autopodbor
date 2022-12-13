@@ -1,10 +1,11 @@
-﻿@model Autopodbor_312.ViewModel.CalculatorViewModel
+﻿@model Autopodbor_312.ViewModel.CalculatorViewModel;
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-    ViewBag.Title = "Калькулятор";
+	ViewBag.Title = @localizer["calculatorTitle"];
 }
 
-<h1>Калькулятор по услуге "Выездной осмотр"</h1>
+<h1>@localizer["titleDescription"]</h1>
 <hr />
 
 <div class="row">
