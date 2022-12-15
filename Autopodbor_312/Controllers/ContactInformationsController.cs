@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Autopodbor_312.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Autopodbor_312.Controllers
 {
@@ -24,14 +25,15 @@ namespace Autopodbor_312.Controllers
             return View(contactInformation);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
+            var contactInformation = await _context.ContactInformation.FirstAsync();
+            if (contactInformation.Id.ToString() == null)
             {
                 return NotFound();
             }
 
-            var contactInformation = await _context.ContactInformation.FindAsync(id);
             if (contactInformation == null)
             {
                 return NotFound();
