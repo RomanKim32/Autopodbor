@@ -1,39 +1,48 @@
 ﻿@model List<Autopodbor_312.Models.Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+@using System.Threading;
 
 @{
-    ViewData["Title"] = @localizer["servicesTitle"];
+	ViewData["Title"] = @localizer["servicesTitle"];
 }
 
 <div class=row>
-    @{
-        bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
-    } 
-    @foreach (var item in Model)
-    {
-        <div class="card col-4" style="width: 18rem;">
-            <img src="@item.Photo" class="card-img-top" alt="cafe">
-            <div class="card-body">
-                <h5 class="card-title">@localizer[@item.KeyForNameInResourcesFiles]</h5>
-                <p class="card-text">@localizer[@item.KeyForDescriptionInResourcesFiles]</p>
+	@{
+		bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
+	}
+	@foreach (var item in Model)
+	{
+		<div class="card col-4" style="width: 18rem;">
+			<img src="@item.Photo" class="card-img-top" alt="cafe">
+			<div class="card-body">
+				@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+				{
+					<h5 class="card-title">@item.NameRu</h5>
+					<p class="card-text">@item.DescriptionRu</p>
+				}
+				else
+				{
+					<h5 class="card-title">@item.NameKy</h5>
+					<p class="card-text">@item.DescriptionKy</p>
+				}
 
-                @if (User.IsInRole("admin"))
-                {
-                    <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
-                }
-                else if (isUser && @item.Name != "Дополнительные услуги")
-                {
-                    <a  asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.Name"> Заказать </a>
-                }          
-                @if (@item.Name == "Дополнительные услуги")
-                {
-                    <a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
-                }
-                else if (@item.Name == "Выездной осмотр")
-                { 
-                    <a asp-controller="Calculator" asp-action="Index">| Калькулятор </a> 
-                }              
-            </div>
-        </div>
-    }   
-    </div>
+				@if (User.IsInRole("admin"))
+				{
+					<a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
+				}
+				else if (isUser && @item.NameRu != "Дополнительные услуги")
+				{
+					<a asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu"> Заказать </a>
+				}
+				@if (@item.NameRu == "Дополнительные услуги")
+				{
+					<a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
+				}
+				else if (@item.NameRu == "Выездной осмотр")
+				{
+					<a asp-controller="Calculator" asp-action="Index">| Калькулятор </a>
+				}
+			</div>
+		</div>
+	}
+</div>

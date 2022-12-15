@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="serviceDescription1" xml:space="preserve">
-    <value>Описание услуги подбора под ключ</value>
-  </data>
-  <data name="serviceDescription2" xml:space="preserve">
-    <value>Описание услуги выезной осмотр</value>
-  </data>
-  <data name="serviceDescription3" xml:space="preserve">
-    <value>Описание дополнительных услуг</value>
-  </data>
-  <data name="serviceName1" xml:space="preserve">
-    <value>Подбор под ключ</value>
-  </data>
-  <data name="serviceName2" xml:space="preserve">
-    <value>Выездной осмотр</value>
-  </data>
-  <data name="serviceName3" xml:space="preserve">
-    <value>Дополнительные услуги</value>
-  </data>
   <data name="servicesTitle" xml:space="preserve">
     <value>Сервисы</value>
   </data>

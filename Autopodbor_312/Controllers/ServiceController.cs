@@ -6,11 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using static System.Environment;
 
 namespace Autopodbor_312.Controllers
 {
@@ -28,7 +33,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
 		public async Task<IActionResult> Services()
 		{
-			var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.IsAdditional == false).ToListAsync();
+			var sercices = await _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).ToListAsync();
 			return View(sercices);
 		}
 
@@ -36,44 +41,33 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult CreateServices()
 		{
-			CreateServiceViewModel createServiceViewModel = new CreateServiceViewModel();
-			return View(createServiceViewModel);
+			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "admin")]
-		public async Task<IActionResult> CreateServices(CreateServiceViewModel model)
+		public async Task<IActionResult> CreateServices(Services service, IFormFile servicePhotoFile)
 		{
-			Services newService = new Services();
-			if (model.ServicePhoto != null)
+			if (servicePhotoFile != null)
 			{
-				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{model.ServicePhoto.FileName}");
+				string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/{servicePhotoFile.FileName}");
 				using (var fileStream = new FileStream(filePath, FileMode.Create))
 				{
-					await model.ServicePhoto.CopyToAsync(fileStream);
+					await servicePhotoFile.CopyToAsync(fileStream);
 				}
-                newService.Photo = $"/serviceImg/{model.ServicePhoto.FileName}";
+				service.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
 			}
 			if (ModelState.IsValid)
 			{
-                newService.IsAdditional = true;
-				newService.Name = model.ServiceNameRu;
-				newService.Description = model.ServiceDescriptionRu;
-				_context.Add(newService);
-                _context.SaveChanges();
-
-                newService.KeyForNameInResourcesFiles = $"serviceName{newService.Id}";
-                newService.KeyForDescriptionInResourcesFiles = $"serviceDescription{newService.Id}";
-				_context.Update(newService);
-                AddServiceToResourcesFile(newService.KeyForNameInResourcesFiles, model.ServiceNameRu, model.ServiceNameKy );
-                AddServiceToResourcesFile(newService.KeyForDescriptionInResourcesFiles, model.ServiceDescriptionRu, model.ServiceDescriptionKy);
-                await _context.SaveChangesAsync();
-				if (newService.IsAdditional == true)
+				service.IsAdditional = true;
+				_context.Add(service);
+				await _context.SaveChangesAsync();
+				if (service.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
 				return RedirectToAction("IndexServices", "Service");
 			};
-			return View(newService);
+			return View(service);
 		}
 
 
@@ -85,7 +79,7 @@ namespace Autopodbor_312.Controllers
 			{
 				return NotFound();
 			}
-			var service = await _context.Services.FindAsync(id);
+			var service = await _context.Services.FirstOrDefaultAsync(s => s.Id == id);
 			if (service == null)
 			{
 				return NotFound();
@@ -96,7 +90,7 @@ namespace Autopodbor_312.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
+        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,NameRu,DescriptionRu,NameKy,DescriptionKy,IsAdditional,Photo")] Services service)
 		{
 			if (servicePhotoFile == null)
 			{
@@ -133,7 +127,7 @@ namespace Autopodbor_312.Controllers
 				}
 				if (service.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
-				return RedirectToAction("IndexServices", "Service");
+				return RedirectToAction("Services", "Service");
 			}
 			return View(service);
 		}
@@ -178,23 +172,5 @@ namespace Autopodbor_312.Controllers
 		{
 			return _context.Services.Any(e => e.Id == id);
 		}
-
-        private void AddServiceToResourcesFile(string name, string valueRu, string valueKy)
-        {
-            string pathRu = "Resources/Views/Service/AdditionalServicesDetails.ru.resx";
-            var fileRu = Path.Combine(pathRu);
-            XDocument documentRu = XDocument.Load(fileRu);
-            var dataRuCollection = documentRu.Root.Elements("data");
-            dataRuCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueRu)));
-            documentRu.Save(fileRu);
-
-            string pathKy = "Resources/Views/Service/AdditionalServicesDetails.ky.resx";
-            var file = Path.Combine(pathKy);
-            XDocument documentKy = XDocument.Load(file);
-            var dataKyCollection = documentKy.Root.Elements("data");
-            dataKyCollection.Last().AddAfterSelf(new XElement("data", new XAttribute("name", name), new XAttribute(XNamespace.Xml + "space", "preserve"), new XElement("value", valueKy)));
-            documentKy.Save(file);
-        }
-
     }
 }

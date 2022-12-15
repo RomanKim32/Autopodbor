@@ -20,7 +20,7 @@ namespace Autopodbor_312.OrderMailing
         public void SendInfo(Orders order)
         {
             StringBuilder info = new StringBuilder(
-               $"Название заказа: {order.Services.Name}\n" +
+               $"Название заказа: {order.Services.NameRu}\n" +
                $"Номер телефона: {order.PhoneNumber}\n");
             if (order.UserName != null)
                 info.Append($"Имя пользователя - {order.UserName}\n");

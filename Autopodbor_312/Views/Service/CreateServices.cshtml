@@ -1,4 +1,4 @@
-﻿@model Autopodbor_312.ViewModel.CreateServiceViewModel 
+﻿@model Autopodbor_312.Models.Services
 
 @{
     ViewData["Title"] = "Создание сервиса";
@@ -12,32 +12,31 @@
         <form asp-action="CreateServices" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ServiceNameRu" class="control-label">Название услуги на русском</label>
-                <input asp-for="ServiceNameRu" class="form-control" />
-                <span asp-validation-for="ServiceNameRu" class="text-danger"></span>
+                <label asp-for="NameRu" class="control-label">Название услуги на русском</label>
+                <input asp-for="NameRu" class="form-control" />
+                <span asp-validation-for="NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceDescriptionRu" class="control-label">Описание услуги на русском</label>
-                <textarea asp-for="ServiceDescriptionRu" class="form-control"></textarea>
-                <span asp-validation-for="ServiceDescriptionRu" class="text-danger"></span>
+                <label asp-for="DescriptionRu" class="control-label">Описание услуги на русском</label>
+                <textarea asp-for="DescriptionRu" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceNameKy" class="control-label">Название услуги на кыргызском</label>
-                <input asp-for="ServiceNameKy" class="form-control" />
-                <span asp-validation-for="ServiceNameKy" class="text-danger"></span>
+                <label asp-for="NameKy" class="control-label">Название услуги на кыргызском</label>
+                <input asp-for="NameKy" class="form-control" />
+                <span asp-validation-for="NameKy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ServiceDescriptionKy" class="control-label">Описание услуги на кыргызском</label>
-                <textarea asp-for="ServiceDescriptionKy" class="form-control"></textarea>
-                <span asp-validation-for="ServiceDescriptionKy" class="text-danger"></span>
+                <label asp-for="DescriptionKy" class="control-label">Описание услуги на кыргызском</label>
+                <textarea asp-for="DescriptionKy" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionKy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <p>
-                    <input type="file" asp-for="ServicePhoto" class="form-control">
-                </p>
+                <label asp-for="Photo" class="control-label">Фото для услуги</label>
+                <input type="file" name="servicePhotoFile" class="form-control" required="required">
             </div>
             <div class="form-group">
-                <input type="submit" value="Добавить" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">Добавить</button>
             </div>
         </form>
     </div>
