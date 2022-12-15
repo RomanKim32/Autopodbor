@@ -158,7 +158,6 @@ namespace Autopodbor_312.Controllers
 		{
 			var services = await _context.Services.FindAsync(id);
             string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{services.Photo}");
-           // var s = services.Photo;
             if (System.IO.File.Exists(filePath))
             {
 				System.IO.File.Delete(filePath);
