@@ -8,6 +8,17 @@ namespace Autopodbor_312.DataSeeder
 	{
         public static void SeedDatabase(AutopodborContext context)
         {
+
+            if (!context.ContactInformation.Any())
+            {
+                var contactInformation = new ContactInformation()
+                {
+                    Email = "mgaldobin@mail.ru", LinkToInstagram = "https://instagram.com/autopodbor.312?igshid=YmMyMTA2M2Y=", LinkToTelegram = "", LinkToTiktok = "tiktok.com/@autopodbor.312", LinkToWhatsapp = "", LinkToYoutube = "", PhoneNumber = "0558303707"
+                };
+                context.AddRange(contactInformation);
+                context.SaveChanges();
+            }
+
             if (!context.Services.Any())
             {
                 var services = new List<Services>

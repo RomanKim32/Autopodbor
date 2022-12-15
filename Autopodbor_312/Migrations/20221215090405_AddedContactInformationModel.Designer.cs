@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20221215090405_AddedContactInformationModel")]
+    partial class AddedContactInformationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,23 +230,17 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("DescriptionKy")
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("DescriptionRu")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdditional")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("NameKy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NameRu")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<string>("Photo")
                         .HasColumnType("text");
+
+                    b.Property<bool>("isAdditional")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 

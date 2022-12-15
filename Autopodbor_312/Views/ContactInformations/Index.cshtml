@@ -1,0 +1,47 @@
+﻿@model Autopodbor_312.Models.ContactInformation
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Контакты</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <i class="fa-regular fa-envelope"></i>
+            </th>
+            <th>
+                <i class="fa-sharp fa-solid fa-phone"></i>
+            </th>
+            <th>
+                <a href="@Model.LinkToInstagram"><i class="fa-brands fa-instagram"></i></a> 
+            </th>
+            <th>
+                <a href="@Model.LinkToTiktok"><i class="fa-brands fa-tiktok"></i></a> 
+            </th>
+            <th>
+                <a href="@Model.LinkToYoutube"><i class="fa-brands fa-youtube"></i></a> 
+            </th>
+            <th>
+                <a href="@Model.LinkToWhatsapp"><i class="fa-brands fa-whatsapp"></i></a> 
+            </th>
+            <th>
+                <a href="@Model.LinkToTelegram"><i class="fa-brands fa-telegram"></i></a> 
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.Email
+            </td>
+            <td>
+                @Model.PhoneNumber
+            </td>
+        </tr>
+
+    </tbody>
+</table>
