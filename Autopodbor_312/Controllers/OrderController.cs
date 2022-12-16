@@ -3,17 +3,15 @@ using Autopodbor_312.OrderMailing;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 
 namespace Autopodbor_312.Controllers
 {
-    public class OrderController : Controller
+	public class OrderController : Controller
     {
 		private readonly UserManager<User> _userManager;
 		private readonly SignInManager<User> _signInManager;
@@ -78,7 +76,7 @@ namespace Autopodbor_312.Controllers
         public async Task<IActionResult> CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
         {
             Services service = new Services();
-            if(serviceName == null)
+			if (serviceName == null)
                 service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == "Обратный звонок");
             else
                 service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName);

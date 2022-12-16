@@ -39,7 +39,7 @@ namespace Autopodbor_312.DataSeeder
 						NameKy = "Название на кырг", DescriptionKy = "Описание на кырг",
 						IsAdditional = false, Photo = "/serviceImg/Add.jpg",
                     },
-                    new Services { NameRu = "Обратный звонок", DescriptionRu = "" , IsAdditional = false},
+                    new Services { NameRu = "Обратный звонок", DescriptionRu = "" ,NameKy = "", DescriptionKy = "", IsAdditional = false},
                     new Services
                     { 
                         NameRu = "Эксперт на день", DescriptionRu = "Вы нанимаете эксперта на определённое время и осматриваете авто, выбранные вами. Все перемещения производятся на машине эксперта. Услуга работает как по городу, так и на авторынке. Цена: от 6000 сом в день",
