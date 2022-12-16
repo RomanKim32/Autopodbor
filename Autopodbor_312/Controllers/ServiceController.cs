@@ -33,7 +33,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
 		public async Task<IActionResult> Services()
 		{
-			var sercices = await _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).ToListAsync();
+			var sercices = await _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).OrderBy(s => s.Id).ToListAsync();
 			return View(sercices);
 		}
 
