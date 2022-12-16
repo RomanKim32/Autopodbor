@@ -1,5 +1,6 @@
 ﻿@model Autopodbor_312.ViewModel.OrderViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+@using System.Threading;
 
 @{
 	ViewBag.Title = @localizer["orderTitle"];
@@ -7,29 +8,36 @@
 
 <h1>@localizer["orderTitle"]</h1>
 
-<h4>@Model.Order.Services.NameRu</h4>
+@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+{
+	<h4>@Model.Order.Services.NameRu</h4>
+}
+else
+{
+	<h4>@Model.Order.Services.NameKy</h4>
+}
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="CreateOrder">
+		<form asp-action="CreateOrder" role="form">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.UserName" class="control-label">Имя</label>
+				<label asp-for="@Model.Order.UserName" class="control-label">@localizer["nameLabelOrderForm"]</label>
 				<input asp-for="@Model.Order.UserName" class="form-control" />
 				<span asp-validation-for="@Model.Order.UserName" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.PhoneNumber" class="control-label">Номер телефона</label>
-				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
+				<label asp-for="@Model.Order.PhoneNumber" class="control-label">@localizer["phoneNumberLabelOrderForm"]</label>
+				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["сustomValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 				<span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.Email" class="control-label">Электронная почта</label>
-				<input asp-for="@Model.Order.Email" class="form-control" type="email" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" /> 
+				<label asp-for="@Model.Order.Email" class="control-label">@localizer["emailLabelOrderForm"]</label>
+				<input asp-for="@Model.Order.Email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["сustomValidityEmail"]')" onchange="this.setCustomValidity('')" />
 				<span asp-validation-for="@Model.Order.Email" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">Модель</label>
+				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["modelLabelOrderForm"]</label>
 				<select asp-for="@Model.Order.CarsBrandsId" class="form-control">
 					@foreach (var brand in Model.CarsBrands)
 					{
@@ -38,7 +46,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">Форма кузова</label>
+				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">@localizer["carsBodyLabelOrderForm"]</label>
 				<select asp-for="@Model.Order.CarsBodyTypesId" class="form-control">
 					@foreach (var body in Model.CarsBodyTypes)
 					{
@@ -47,7 +55,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsYearsId" class="control-label">Год выпуска</label>
+				<label asp-for="@Model.Order.CarsYearsId" class="control-label">@localizer["manufacturesYearLabelOrderForm"]</label>
 				<select asp-for="@Model.Order.CarsYearsId" class="form-control">
 					@foreach (var year in Model.CarsYears)
 					{
@@ -56,7 +64,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsFuelsId" class="control-label">Вид топлива</label>
+				<label asp-for="@Model.Order.CarsFuelsId" class="control-label">@localizer["сarsFuelLebelOrderForm"]</label>
 				<select asp-for="@Model.Order.CarsFuelsId" class="form-control">
 					@foreach (var fuel in Model.CarsFuels)
 					{
@@ -65,18 +73,15 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.Comment" class="control-label">Дополнительная информация</label>
+				<label asp-for="@Model.Order.Comment" class="control-label">@localizer["commentLabelOrderForm"]</label>
 				<textarea asp-for="@Model.Order.Comment" class="form-control"></textarea>
 				<span asp-validation-for="@Model.Order.Comment" class="text-danger"></span>
 			</div>
 			<input type="hidden" asp-for="@Model.Order.ServicesId" value="@Model.Order.ServicesId">
 			<div class="form-group">
-				<input type="submit" value="Заказать" class="btn btn-primary" />
+				<button type="submit" class="btn btn-primary">@localizer["orderButtonOrderForm"]</button>
 			</div>
 		</form>
 	</div>
 </div>
 
-@{
-	await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}

@@ -117,16 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="carsBodyLabelOrderForm" xml:space="preserve">
+    <value>Форма кузова(на кырг)</value>
+  </data>
+  <data name="commentLabelOrderForm" xml:space="preserve">
+    <value>Дополнительная информация(на кырг)</value>
+  </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
-    <value>Электронная почта</value>
+    <value>Электронная почта(на кырг)</value>
+  </data>
+  <data name="manufacturesYearLabelOrderForm" xml:space="preserve">
+    <value>Год выпуска(на кырг)</value>
+  </data>
+  <data name="modelLabelOrderForm" xml:space="preserve">
+    <value>Модель(на кырг)</value>
   </data>
   <data name="nameLabelOrderForm" xml:space="preserve">
-    <value>Имя</value>
+    <value>Имя(на кырг)</value>
+  </data>
+  <data name="orderButtonOrderForm" xml:space="preserve">
+    <value>Заказать(на кырг)</value>
   </data>
   <data name="orderTitle" xml:space="preserve">
-    <value>Заказ</value>
+    <value>Заказ(на кырг)</value>
   </data>
   <data name="phoneNumberLabelOrderForm" xml:space="preserve">
-    <value>Номер телефона</value>
+    <value>Номер телефона(на кырг)</value>
+  </data>
+  <data name="сarsFuelLebelOrderForm" xml:space="preserve">
+    <value>Вид топлива(на кырг)</value>
+  </data>
+  <data name="сustomValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта(на кырг)</value>
+  </data>
+  <data name="сustomValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению(ны кырг)</value>
   </data>
 </root>
