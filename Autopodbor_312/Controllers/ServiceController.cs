@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Telegram.Bot.Types;
 using static System.Environment;
 
 namespace Autopodbor_312.Controllers
@@ -156,7 +157,12 @@ namespace Autopodbor_312.Controllers
         public async Task<IActionResult> DeleteConfirmedServices(int id)
 		{
 			var services = await _context.Services.FindAsync(id);
-			_context.Services.Remove(services);
+            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{services.Photo}");
+            if (System.IO.File.Exists(filePath))
+            {
+				System.IO.File.Delete(filePath);
+            }
+            _context.Services.Remove(services);
 			await _context.SaveChangesAsync();
 			return RedirectToAction("AdditionalServicesDetails", "Service");
 		}
