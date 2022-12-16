@@ -4,44 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Контакты</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <i class="fa-regular fa-envelope"></i>
-            </th>
-            <th>
-                <i class="fa-sharp fa-solid fa-phone"></i>
-            </th>
-            <th>
-                <a href="@Model.LinkToInstagram"><i class="fa-brands fa-instagram"></i></a> 
-            </th>
-            <th>
-                <a href="@Model.LinkToTiktok"><i class="fa-brands fa-tiktok"></i></a> 
-            </th>
-            <th>
-                <a href="@Model.LinkToYoutube"><i class="fa-brands fa-youtube"></i></a> 
-            </th>
-            <th>
-                <a href="@Model.LinkToWhatsapp"><i class="fa-brands fa-whatsapp"></i></a> 
-            </th>
-            <th>
-                <a href="@Model.LinkToTelegram"><i class="fa-brands fa-telegram"></i></a> 
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Model.Email
-            </td>
-            <td>
-                @Model.PhoneNumber
-            </td>
-        </tr>
-
-    </tbody>
-</table>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Контакты</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+        @if (Model.Email != null){<li class="list-group-item"><i class="fa-regular fa-envelope"></i> @Model.Email</li>}
+        @if (Model.PhoneNumber != null){<li class="list-group-item"><i class="fa-sharp fa-solid fa-phone"></i> @Model.PhoneNumber</li>}
+        @if (Model.LinkToInstagram != null) {<li class="list-group-item"><a href="@Model.LinkToInstagram"><i class="fa-brands fa-instagram"></i></a> </li> }
+        @if (Model.LinkToTiktok != null) {<li class="list-group-item"><a href="@Model.LinkToTiktok"><i class="fa-brands fa-tiktok"></i></a> </li> }
+        @if (Model.LinkToYoutube != null) {<li class="list-group-item"><a href="@Model.LinkToYoutube"><i class="fa-brands fa-youtube"></i></a> </li> }
+        @if (Model.LinkToWhatsapp != null) {<li class="list-group-item"><a href="@Model.LinkToWhatsapp"><i class="fa-brands fa-whatsapp"></i></a></li> }
+        @if (Model.LinkToTelegram != null) {<li class="list-group-item"><a href="@Model.LinkToTelegram"><i class="fa-brands fa-telegram"></i></a></li> }
+  </ul>
+</div>
