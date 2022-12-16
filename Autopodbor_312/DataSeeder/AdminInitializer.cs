@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Autopodbor_312.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace Autopodbor_312.Models
+namespace Autopodbor_312.DataSeeder
 {
     public class AdminInitializer
     {
-
-
-
         public static async Task SeedAdminUser(
- RoleManager<IdentityRole<int>> _roleManager,
- UserManager<User> _userManager)
+            RoleManager<IdentityRole<int>> _roleManager,
+            UserManager<User> _userManager)
         {
             string adminEmail = "admin@admin.com";
             string adminPassword = "123123";

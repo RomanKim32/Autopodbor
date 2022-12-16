@@ -1,0 +1,30 @@
+﻿@model List<CarsYears>
+ <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Цена
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManufacturesYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
