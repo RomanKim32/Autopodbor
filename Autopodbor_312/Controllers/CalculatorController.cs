@@ -67,7 +67,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Add(newBrand);
                         await _autodborContext.SaveChangesAsync();
                         var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-                        return PartialView("CarBrandsPar", carsBrands);
+                        return Ok(carsBrands);
 
                     case "body":
                         CarsBodyTypes newBody = new CarsBodyTypes();
@@ -76,7 +76,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Add(newBody);
                         await _autodborContext.SaveChangesAsync();
                         var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return PartialView("CarBodyTypePar", model1);
+                        return Ok(model1);
 
                     case "year":
                         CarsYears newYear = new CarsYears();
@@ -85,7 +85,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Add(newYear);
                         await _autodborContext.SaveChangesAsync();
                         var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return PartialView("CarYearPar", model2);
+                        return Ok(model2);
 
                     case "fuel":
                         CarsFuels carsFuel = new CarsFuels();
@@ -94,7 +94,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Add(carsFuel);
                         await _autodborContext.SaveChangesAsync();
                         var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return PartialView("CarFuelsPar", model3);
+                        return Ok(model3);
                     default:
                         return View();
                 }
@@ -115,6 +115,8 @@ namespace Autopodbor_312.Controllers
                 CarsBrandsModels = carsBrandsModel
 
             };
+            CarsBrands brands = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
+            ViewBag.Brand = brands;
             return Json(calculatorViewModel);
         }
 
@@ -133,25 +135,25 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.CarsBrands.Remove(brand);
                         await _autodborContext.SaveChangesAsync();
                         var model = await _autodborContext.CarsBrands.ToListAsync();
-                        return PartialView("CarBrandsPar", model);
+                        return Ok(model);
                     case "body":
                         var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsBodyTypes.Remove(body);
                         await _autodborContext.SaveChangesAsync();
                         var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return PartialView("CarBodyTypePar", model1);
+                        return Ok(model1);
                     case "year":
                         var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsYears.Remove(year);
                         await _autodborContext.SaveChangesAsync();
                         var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return PartialView("CarYearPar", model2);
+                        return Ok(model2);
                     case "fuel":
                         var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         _autodborContext.CarsFuels.Remove(fuel);
                         await _autodborContext.SaveChangesAsync();
                         var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return PartialView("CarFuelsPar", model3);
+                        return Ok(model3);
                     case "model":
                         var brandsmodel = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                        _autodborContext.CarsBrandsModels.Remove(brandsmodel);
@@ -184,7 +186,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Update(brand);
                         await _autodborContext.SaveChangesAsync();
                         var model = await _autodborContext.CarsBrands.ToListAsync();
-                        return PartialView("CarBrandsPar", model);
+                        return Ok(model);
                     case "body":
                         var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
                         body.BodyType = key;
@@ -192,7 +194,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Update(body);
                         await _autodborContext.SaveChangesAsync();
                         var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return PartialView("CarBodyTypePar", model1);
+                        return Ok(model1);
                     case "year":
                         var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
                         year.ManufacturesYear = key;
@@ -200,7 +202,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Update(year);
                         await _autodborContext.SaveChangesAsync();
                         var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return PartialView("CarYearPar", model2);
+                        return Ok(model2);
                     case "fuel":
                         var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         fuel.FuelsType = key;
@@ -208,7 +210,7 @@ namespace Autopodbor_312.Controllers
                         _autodborContext.Update(fuel);
                         await _autodborContext.SaveChangesAsync();
                         var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return PartialView("CarFuelsPar", model3);
+                        return Ok(model3);
                     case "model":
                         var brandsmodel = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
                         brandsmodel.Model = key;
