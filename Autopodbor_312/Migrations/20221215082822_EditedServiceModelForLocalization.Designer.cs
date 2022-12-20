@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20221215082822_EditedServiceModelForLocalization")]
+    partial class EditedServiceModelForLocalization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,39 +93,6 @@ namespace Autopodbor_312.Migrations
                     b.ToTable("CarsYears");
                 });
 
-            modelBuilder.Entity("Autopodbor_312.Models.ContactInformation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LinkToInstagram")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LinkToTelegram")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LinkToTiktok")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LinkToWhatsapp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LinkToYoutube")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactInformation");
-                });
-
             modelBuilder.Entity("Autopodbor_312.Models.News", b =>
                 {
                     b.Property<int>("Id")
@@ -139,9 +108,6 @@ namespace Autopodbor_312.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<bool>("Publicate")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -219,9 +185,6 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Publicate")
-                        .HasColumnType("boolean");
-
                     b.HasKey("Id");
 
                     b.ToTable("Portfolio");
@@ -235,22 +198,18 @@ namespace Autopodbor_312.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("DescriptionKy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("DescriptionRu")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool?>("IsAdditional")
+                    b.Property<bool>("IsAdditional")
                         .HasColumnType("boolean");
 
                     b.Property<string>("NameKy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NameRu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Photo")

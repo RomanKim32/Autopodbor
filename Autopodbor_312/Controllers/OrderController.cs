@@ -3,17 +3,15 @@ using Autopodbor_312.OrderMailing;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 
 namespace Autopodbor_312.Controllers
 {
-    public class OrderController : Controller
+	public class OrderController : Controller
     {
 		private readonly UserManager<User> _userManager;
 		private readonly SignInManager<User> _signInManager;
@@ -28,7 +26,7 @@ namespace Autopodbor_312.Controllers
 
 		public async Task<IActionResult> CreateOrder(string serviceName)
         {
-			var service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Name == serviceName);
+			var service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName);
 			Orders order = new Orders { Services = service, ServicesId = service.Id };
 			var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
 			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
@@ -78,10 +76,10 @@ namespace Autopodbor_312.Controllers
         public async Task<IActionResult> CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
         {
             Services service = new Services();
-            if(serviceName == null)
-                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Name == "Обратный звонок");
+			if (serviceName == null)
+                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == "Обратный звонок");
             else
-                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Name == serviceName);
+                service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName);
 			if (ModelState.IsValid)
 			{
 				Orders order = new Orders();
@@ -104,7 +102,7 @@ namespace Autopodbor_312.Controllers
 		private StringBuilder GetOrderIfo(Orders order)
 		{
 			StringBuilder info = new StringBuilder(
-			  $"Название заказа: {order.Services.Name}.\n" +
+			  $"Название заказа: {order.Services.NameRu}.\n" +
 			  $"Номер телефона: {order.PhoneNumber}.\n");
 			if (order.UserName != null)
 				info.Append($"Имя пользователя - {order.UserName}.\n");

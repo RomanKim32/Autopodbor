@@ -117,40 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="callbackButton" xml:space="preserve">
-    <value>Заказать звонок</value>
+  <data name="additionalBackButton" xml:space="preserve">
+    <value>Назад</value>
   </data>
-  <data name="callbackFormTitle" xml:space="preserve">
-    <value>Обратный звонок</value>
-  </data>
-  <data name="emailLabelCallbackForm" xml:space="preserve">
-    <value>Электронная почта</value>
-  </data>
-  <data name="mainPageButton" xml:space="preserve">
-    <value>Главная страница</value>
-  </data>
-  <data name="nameLabelCallbackForm" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="orderCallbackButton" xml:space="preserve">
+  <data name="additionalOrderButton" xml:space="preserve">
     <value>Заказать</value>
   </data>
-  <data name="phoneNumberLabelCallbackForm" xml:space="preserve">
-    <value>Номер телефона</value>
-  </data>
-  <data name="portfolioButton" xml:space="preserve">
-    <value>Портфолио</value>
-  </data>
-  <data name="servicesButton" xml:space="preserve">
-    <value>Услуги</value>
-  </data>
-  <data name="сommentLableCallbackForm" xml:space="preserve">
-    <value>Дополнительная информация</value>
-  </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта</value>
-  </data>
-  <data name="сustomValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению</value>
+  <data name="additionalServicesTitle" xml:space="preserve">
+    <value>Дополнительные услуги</value>
   </data>
 </root>

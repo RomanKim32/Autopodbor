@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -26,7 +25,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
 		public async Task<IActionResult> Services()
 		{
-			var sercices = await _context.Services.Where(s => s.Name != "Обратный звонок").Where(s => s.isAdditional == false).ToListAsync();
+			var sercices = await _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).OrderBy(s => s.Id).ToListAsync();
 			return View(sercices);
 		}
 
@@ -39,8 +38,8 @@ namespace Autopodbor_312.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateServices(IFormFile servicePhotoFile, [Bind("Id,Name,Description")] Services services)
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> CreateServices(Services service, IFormFile servicePhotoFile)
 		{
 			if (servicePhotoFile != null)
 			{
@@ -49,18 +48,18 @@ namespace Autopodbor_312.Controllers
 				{
 					await servicePhotoFile.CopyToAsync(fileStream);
 				}
-				services.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
+				service.Photo = $"/serviceImg/{servicePhotoFile.FileName}";
 			}
 			if (ModelState.IsValid)
 			{
-				services.isAdditional = true;
-				_context.Add(services);
+				service.IsAdditional = true;
+				_context.Add(service);
 				await _context.SaveChangesAsync();
-				if (services.isAdditional == true)
+				if (service.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
 				return RedirectToAction("IndexServices", "Service");
 			};
-			return View(services);
+			return View(service);
 		}
 
 
@@ -72,7 +71,7 @@ namespace Autopodbor_312.Controllers
 			{
 				return NotFound();
 			}
-			var service = await _context.Services.FindAsync(id);
+			var service = await _context.Services.FirstOrDefaultAsync(s => s.Id == id);
 			if (service == null)
 			{
 				return NotFound();
@@ -83,7 +82,7 @@ namespace Autopodbor_312.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,Name,Description,isAdditional,Photo")] Services service)
+        public async Task<IActionResult> EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,NameRu,DescriptionRu,NameKy,DescriptionKy,IsAdditional,Photo")] Services service)
 		{
 			if (servicePhotoFile == null)
 			{
@@ -118,9 +117,9 @@ namespace Autopodbor_312.Controllers
 						throw;
 					}
 				}
-				if (service.isAdditional == true)
+				if (service.IsAdditional == true)
 					return RedirectToAction("AdditionalServicesDetails", "Service");
-				return RedirectToAction("IndexServices", "Service");
+				return RedirectToAction("Services", "Service");
 			}
 			return View(service);
 		}
@@ -149,7 +148,12 @@ namespace Autopodbor_312.Controllers
         public async Task<IActionResult> DeleteConfirmedServices(int id)
 		{
 			var services = await _context.Services.FindAsync(id);
-			_context.Services.Remove(services);
+            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{services.Photo}");
+            if (System.IO.File.Exists(filePath))
+            {
+				System.IO.File.Delete(filePath);
+            }
+            _context.Services.Remove(services);
 			await _context.SaveChangesAsync();
 			return RedirectToAction("AdditionalServicesDetails", "Service");
 		}
@@ -157,7 +161,7 @@ namespace Autopodbor_312.Controllers
 		[HttpGet]
         public async Task<IActionResult> AdditionalServicesDetails()
 		{
-			var additionalServicesList = await _context.Services.Where(s => s.isAdditional == true).ToListAsync();
+			var additionalServicesList = await _context.Services.Where(s => s.IsAdditional == true).ToListAsync();
 			return View(additionalServicesList);
 		}
 
@@ -165,5 +169,5 @@ namespace Autopodbor_312.Controllers
 		{
 			return _context.Services.Any(e => e.Id == id);
 		}
-	}
+    }
 }

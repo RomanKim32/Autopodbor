@@ -4,9 +4,7 @@
     ViewData["Title"] = "Изменение сервиса";
 }
 
-<h1>Edit</h1>
-
-<h4>Service</h4>
+<h1>Изменить</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,28 +12,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="NameRu" class="control-label">Название услуги на русском</label>
+                <input asp-for="NameRu" class="form-control" />
+                <span asp-validation-for="NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="DescriptionRu" class="control-label">Описание услуги на русском</label>
+                <textarea asp-for="DescriptionRu" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionRu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameKy" class="control-label">Название услуги на кыргызском</label>
+                <input asp-for="NameKy" class="form-control" />
+                <span asp-validation-for="NameKy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescriptionKy" class="control-label">Описание услуги на кыргызском</label>
+                <textarea asp-for="DescriptionKy" class="form-control"></textarea>
+                <span asp-validation-for="DescriptionKy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <p>
                     <input type="file" name="servicePhotoFile" class="form-control">
                 </p>
             </div>
-            @if (Model.isAdditional == true)
+            @if (Model.IsAdditional == true)
             {
-                <input type="hidden" asp-for="isAdditional" value="true"/>
+                <input type="hidden" asp-for="IsAdditional" value="true"/>
             }
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
-
         </form>
     </div>
 </div>
@@ -43,7 +50,3 @@
 <div>
     <a asp-action="Services">Назад</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -1,0 +1,61 @@
+﻿@model Autopodbor_312.Models.ContactInformation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Редактировать контакты</h1>
+
+<h4>Контакты</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Почта</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label">Номер телефона</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkToInstagram" class="control-label">Ссылка на Instagram</label>
+                <input asp-for="LinkToInstagram" class="form-control" />
+                <span asp-validation-for="LinkToInstagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkToTiktok" class="control-label">Ссылка на TikTok</label>
+                <input asp-for="LinkToTiktok" class="form-control" />
+                <span asp-validation-for="LinkToTiktok" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkToYoutube" class="control-label">Ссылка на YouTube</label>
+                <input asp-for="LinkToYoutube" class="form-control" />
+                <span asp-validation-for="LinkToYoutube" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkToWhatsapp" class="control-label">Номер W/A</label>
+                <input asp-for="LinkToWhatsapp" class="form-control" placeholder="https://Wa.me/@Model.PhoneNumber.Remove(0,1)"/>
+                <span asp-validation-for="LinkToWhatsapp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LinkToTelegram" class="control-label">Номер Telegram</label>
+                <input asp-for="LinkToTelegram" class="form-control" placeholder="https://t.me/+@Model.PhoneNumber.Remove(0,1)"/>
+                <span asp-validation-for="LinkToTelegram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад</a>
+</div>
+
