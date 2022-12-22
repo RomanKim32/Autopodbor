@@ -10,10 +10,9 @@ namespace Autopodbor_312.Models
         public string Name { get; set; }
         public string Body { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool Publicate { get; set; }
         [NotMapped]
-        public List<UploadFile> Images { get; set; }
-        [NotMapped]
-        public List<UploadFile> Videos { get; set; }
+        public UploadFile Image { get; set; }
 
     }
 }

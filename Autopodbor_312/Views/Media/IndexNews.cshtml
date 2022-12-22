@@ -1,0 +1,22 @@
+﻿@model List<News>
+
+@{
+    ViewData["Title"] = "Главная страница";
+}
+    
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-3">
+                <img class="w-75" src="@item.Image.Path" />
+                <br />
+                @item.Name
+                <br />
+                <p class="card-text">@item.Body</p>
+                <br />
+                <a asp-controller="Media" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
+            </div>
+        }
+    </div>
+</div>
