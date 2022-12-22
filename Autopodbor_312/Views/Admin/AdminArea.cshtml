@@ -1,6 +1,10 @@
-﻿<header>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/AdminArea.css"/>
+<header>
 </header>
 <body>
+	<div>
+		Test
+	</div>
 	@if (User.IsInRole("admin"))
 	{
 		<div class="btn-group">
@@ -20,7 +24,7 @@
 				Заказы
 			</button>
 			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Order" asp-action="Index"> Посмотреть Заказы</a></li>
+				<li > <a class="btn btn-info" asp-controller="Order" asp-action="Index"> Посмотреть Заказы</a></li>
 			</ul>
 		</div>
 	}

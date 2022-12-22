@@ -29,6 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\Admin\" />
+    <Folder Include="wwwroot\css\Calculator\" />
+    <Folder Include="wwwroot\css\ContactInformation\" />
+    <Folder Include="wwwroot\css\Home\" />
+    <Folder Include="wwwroot\css\Media\" />
+    <Folder Include="wwwroot\css\Service\" />
+    <Folder Include="wwwroot\css\Order\" />
     <Folder Include="wwwroot\Files\Videos\" />
     <Folder Include="wwwroot\Files\Pictures\" />
     <Folder Include="wwwroot\serviceImg\" />
