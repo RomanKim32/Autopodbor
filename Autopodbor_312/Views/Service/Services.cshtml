@@ -1,49 +1,52 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Service/Services.css"/>
+﻿<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="~/css/Service/Services.css"/>
 @model List<Autopodbor_312.Models.Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @using System.Threading;
-
 @{
 	ViewData["Title"] = @localizer["servicesTitle"];
 }
-
-<div class=row>
+	<h1>Наши услуги</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-3 main-block">
 	@{
 		bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
 	}
 	@foreach (var item in Model)
 	{
-		<div class="card col-4" style="width: 18rem;">
-			<img src="@item.Photo" class="card-img-top" alt="cafe">
-			<div class="card-body">
-				@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-				{
-					<h5 class="card-title">@item.NameRu</h5>
-					<p class="card-text">@item.DescriptionRu</p>
-				}
-				else
-				{
-					<h5 class="card-title">@item.NameKy</h5>
-					<p class="card-text">@item.DescriptionKy</p>
-				}
-
-				@if (User.IsInRole("admin"))
-				{
-					<a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
-				}
-				else if (isUser && @item.NameRu != "Дополнительные услуги")
-				{
-					<a asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu"> Заказать </a>
-				}
-				@if (@item.NameRu == "Дополнительные услуги")
-				{
-					<a asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
-				}
-				else if (@item.NameRu == "Выездной осмотр")
-				{
-					<a asp-controller="Calculator" asp-action="Index">| Калькулятор </a>
-				}
+		<div class="col">
+			<div class="card">
+				<img src="@item.Photo" class="image card-img-top rounded-circle" alt="service-Photo">
+					<div class="card-body">
+						@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+						{
+							<h5 class="card-title">@item.NameRu</h5>
+							<p class="card-text">@item.DescriptionRu</p>
+						}
+						else
+						{
+							<h5 class="card-title">@item.NameKy</h5>
+							<p class="card-text">@item.DescriptionKy</p>
+						}     
+						@if (User.IsInRole("admin"))
+						{
+									<a class="btn btn-outline-dark" asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
+						}
+						else if (isUser && @item.NameRu != "Дополнительные услуги")
+						{
+									<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu"> Заказать </a>
+						}
+						@if (@item.NameRu == "Дополнительные услуги")
+						{
+									<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
+						}
+						else if (@item.NameRu == "Выездной осмотр")
+						{
+									<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index"> Калькулятор </a>
+						}
+					</div>
 			</div>
 		</div>
 	}
 </div>
+
+
