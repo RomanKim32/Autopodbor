@@ -1,4 +1,4 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/AdminArea.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/AdminArea.css" />
 <header>
 </header>
 <body>
@@ -14,17 +14,6 @@
 			<ul class="dropdown-menu">
 				<li> <a class="btn btn-info" asp-controller="Service" asp-action="Services">Посмотреть Сервисы</a></li>
 				<li> <a class="btn btn-info" asp-controller="Service" asp-action="CreateServices">Создать Сервисы </a></li>
-			</ul>
-		</div>
-	}
-	@if (User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Заказы
-			</button>
-			<ul class="dropdown-menu">
-				<li > <a class="btn btn-info" asp-controller="Order" asp-action="Index"> Посмотреть Заказы</a></li>
 			</ul>
 		</div>
 	}
@@ -73,12 +62,12 @@
 			</button>
 			<ul class="dropdown-menu">
 				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Index"> Посмотреть Менеджеров </a></li>
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Register"> Добавить Менеджеры </a></li>
+				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Register"> Добавить Менеджера </a></li>
 			</ul>
 		</div>
 	}
 
-		@if (User.IsInRole("admin"))
+	@if (User.IsInRole("admin"))
 	{
 		<div class="btn-group">
 			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

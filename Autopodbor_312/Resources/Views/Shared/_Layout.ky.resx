@@ -132,6 +132,9 @@
   <data name="nameLabelCallbackForm" xml:space="preserve">
     <value>Имя(на кырг)</value>
   </data>
+  <data name="newsButton" xml:space="preserve">
+    <value>Новости(на кырг)</value>
+  </data>
   <data name="orderCallbackButton" xml:space="preserve">
     <value>Заказать(на кырг)</value>
   </data>

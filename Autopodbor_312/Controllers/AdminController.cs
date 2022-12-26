@@ -15,7 +15,7 @@ namespace Autopodbor_312.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly AutopodborContext _context;
-        private IWebHostEnvironment _appEnvironment;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context, IWebHostEnvironment webHost)
         {

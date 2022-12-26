@@ -105,7 +105,6 @@ namespace Autopodbor_312.Controllers
 		}
 
         [Authorize(Roles = "admin")]
-
 		public async Task<IActionResult> DeleteParameter(string id)
 		{
 			if (!string.IsNullOrEmpty(id))
@@ -148,7 +147,6 @@ namespace Autopodbor_312.Controllers
 		}
 
         [Authorize(Roles = "admin")]
-
         public async Task<IActionResult> EditParameter(string id, string key, string value)
 		{
             if (!string.IsNullOrEmpty(id))

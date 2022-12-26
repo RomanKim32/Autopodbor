@@ -14,7 +14,7 @@ namespace Autopodbor_312.Controllers
 	public class ServiceController : Controller
 	{
 		private readonly AutopodborContext _context;
-		private IWebHostEnvironment _appEnvironment;
+		private readonly IWebHostEnvironment _appEnvironment;
 
 		public ServiceController(AutopodborContext context, IWebHostEnvironment webHost)
 		{
