@@ -106,7 +106,7 @@ namespace Autopodbor_312.Controllers
             }
 
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetModel(int brandId)
         {
             var carsBrandsModel = _autodborContext.CarsBrandsModels.Where(c => c.CarsBrandsId == brandId).ToList();
@@ -230,7 +230,7 @@ namespace Autopodbor_312.Controllers
                 return Error();
             }
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AllModels(int brandId)
         {
             CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
@@ -247,6 +247,7 @@ namespace Autopodbor_312.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddModels(CarsBrandsModel carsBrandsModel)
         {
             CarsBrands car = _autodborContext.CarsBrands.FirstOrDefault(c => c.Id == carsBrandsModel.CarsBrandsId);
