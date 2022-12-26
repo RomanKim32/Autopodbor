@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Autopodbor_312.Models.CarsBrandsModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewBag.Brand.Brand</h1>
+
+<p>
+     <a  asp-action="AddModels" asp-controller="Calculator" asp-route-brandId="@ViewBag.Brand.Id" class="btn btn-info" >Добавить модель</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
+                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
+                
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- EditParameterModal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form>
+                        <p>Новое название</p>
+                        <input id="newKey" />
+                        <p>Новая цена</p>
+                        <input id="newValue" />
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Edit()">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DeleteParameterModal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Вы увервены?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+     
+     let Id = '';
+    function GetId(id) {
+        Id = id;
+    }
+
+   
+   function Delete() {
+        $.ajax({
+            url: '@Url.Action("DeleteParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+            },
+            success: function () {
+                window.location.href = '/Calculator/AllModels?brandId=@ViewBag.Brand.Id';
+            }, 
+        });
+        event.preventDefault();
+    };
+
+    function Edit() {
+        $.ajax({
+            url: '@Url.Action("EditParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+                'key': $("#newKey").val(),
+                'value': $("#newValue").val()
+            },
+            success: function () {
+                window.location.href = '/Calculator/AllModels?brandId=@ViewBag.Brand.Id';
+            }, 
+        });
+        event.preventDefault();
+    };
+
+</script>

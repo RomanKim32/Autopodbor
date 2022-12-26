@@ -9,5 +9,6 @@ namespace Autopodbor_312.ViewModel
 		public IEnumerable<CarsBrands> CarsBrands { get; set; }
 		public IEnumerable<CarsFuels> CarsFuels { get; set; }
 		public IEnumerable<CarsYears> CarsYears { get; set; }
+		public IEnumerable<CarsBrandsModel> CarsBrandsModels { get; set; }
 	}
 }
