@@ -6,35 +6,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreatePortfolio</h1>
-
-<h4>Portfolio</h4>
+<h1>Добавить портфолио</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreatePortfolio" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Название портфолио</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Body" class="control-label"></label>
+                <label asp-for="Body" class="control-label">Описание портфолио</label>
                 <input asp-for="Body" class="form-control" />
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*            <div class="form-group">
                 <label asp-for="Publicate" class="control-label"></label>
                 <input class="form-check-input" asp-for="Publicate" type="checkbox" />
                 <span asp-validation-for="Publicate" class="text-danger"></span>
-            </div>  
+            </div> *@ 
             <div class="custom-file">
                 <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
                 <input type="file" name="mainPic" /><br />
             </div>
             <div class="form-group">
-                <label сlass="control-label">Выберите фото</label>
+                <label сlass="control-label">Выберите фотографии для детальной страницы</label>
                 <input type="file" name="uploadFiles" multiple /><br>
             </div>
             <div class="form-group">
@@ -42,14 +40,10 @@
                 <input type="text" name="video" /><br />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать новость" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

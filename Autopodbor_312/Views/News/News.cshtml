@@ -1,22 +1,24 @@
 ﻿@model List<News>
 
 @{
-    ViewData["Title"] = "Главная страница";
+    ViewData["Title"] = "Список новостей";
 }
-    
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-3">
-                <img class="w-75" src="@item.Image.Path" />
-                <br />
-                @item.Name
-                <br />
-                <p class="card-text">@item.Body</p>
-                <br />
-                <a asp-controller="Media" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
-            </div>
-        }
-    </div>
+   
+<a asp-action="CreateNews" asp-controller="News">Добавить новость</a>
+
+<div class="card" style="width: 18rem;">
+	@foreach (var item in Model)
+	{
+		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
+		<div class="card-body">
+			<h5 class="card-title">@item.Name</h5>
+			@if (item.Publicate == true)
+			{
+				<p class="card-text">Опубликовать</p>
+			}
+			<p class="card-text">Снять с публикации</p>
+			<a asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
+			<a asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Подробнее</a>
+		</div>
+	}
 </div>

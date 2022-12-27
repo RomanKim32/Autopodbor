@@ -9,8 +9,8 @@ namespace Autopodbor_312.ViewModel
     public class NewsAndUploadFileViewModel
     {
         public News News { get; set; }
-        public UploadFile MainPic { get; set; }
-        public List<UploadFile> Pictures { get; set; }
-        public List<UploadFile> Videos { get; set; }
+        public PortfolioNewsFile MainPic { get; set; }
+        public List<PortfolioNewsFile> Pictures { get; set; }
+        public List<PortfolioNewsFile> Videos { get; set; }
     }
 }

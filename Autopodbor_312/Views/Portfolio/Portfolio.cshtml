@@ -1,25 +1,28 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Media/IndexPortfolio.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Media/IndexPortfolio.css" />
 @model List<Portfolio>
 
 @{
-    ViewData["Title"] = "Главная страница";
+	ViewData["Title"] = "Список портфолио";
 }
-        @if(User.IsInRole("mediaManager")) {
-<a asp-action="CreatePortfolio" asp-controller="Media">Create Portfolio</a>
-        }
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-3">
-                <img class="w-75" src="@item.Image.Path" />
-                <br />
-                @item.Name
-                <br />  
-                <p class="card-text">@item.Body</p>
-                <br /> 
-                <a asp-controller="Media" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
-            </div>
-        }
-    </div>
+
+<a asp-action="CreatePortfolio" asp-controller="Portfolio">Добавить новое портфолио</a>
+
+
+
+<div class="card" style="width: 18rem;">
+	@foreach (var item in Model)
+	{
+		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
+		<div class="card-body">
+			<h5 class="card-title">@item.Name</h5>
+			@if (item.Publicate == true)
+			{
+				<p class="card-text">Опубликовать</p>
+			}
+			<p class="card-text">Снять с публикации</p>
+			<a asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
+			<a asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Подробнее</a>
+		</div>
+	}
 </div>
+

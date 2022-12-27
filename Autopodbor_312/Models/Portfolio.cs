@@ -11,7 +11,6 @@ namespace Autopodbor_312.Models
         public string Body { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Publicate { get; set; }
-        [NotMapped]
-        public UploadFile Image { get; set; }
+        public string MainImagePath { get; set; }
     }
 }

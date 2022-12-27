@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\newsPortfolioFiles\Videos\**" />
+    <Content Remove="wwwroot\newsPortfolioFiles\Videos\**" />
+    <EmbeddedResource Remove="wwwroot\newsPortfolioFiles\Videos\**" />
+    <None Remove="wwwroot\newsPortfolioFiles\Videos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.31" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.23" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.31" />
@@ -36,8 +43,6 @@
     <Folder Include="wwwroot\css\Media\" />
     <Folder Include="wwwroot\css\Service\" />
     <Folder Include="wwwroot\css\Order\" />
-    <Folder Include="wwwroot\Files\Videos\" />
-    <Folder Include="wwwroot\Files\Pictures\" />
     <Folder Include="wwwroot\serviceImg\" />
   </ItemGroup>
 

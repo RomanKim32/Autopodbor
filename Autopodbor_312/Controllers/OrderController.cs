@@ -68,8 +68,8 @@ namespace Autopodbor_312.Controllers
 				ModelState.AddModelError("", "заполните номер телефона");
 			}
 			return BadRequest(ModelState);
-		    //return RedirectToAction("CreateOrder", new { serviceName = model.Order.Services.Name });
-			//return RedirectToAction("CreateOrder", "Order", new { serviceName = model.Order.Services.Name });
+		    //return RedirectToAction("CreateOrder", new { serviceName = model.Order.Services.Title });
+			//return RedirectToAction("CreateOrder", "Order", new { serviceName = model.Order.Services.Title });
 		}
 
 		[HttpPost]
