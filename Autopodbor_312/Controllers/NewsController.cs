@@ -25,6 +25,13 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = webHost;
 		}
 
+		public async Task<IActionResult> Index()
+		{
+			List<News> newsPublished = await _context.News.Where(p => p.Publicate == true).ToListAsync();
+			return View(newsPublished);
+		}
+
+		[Authorize(Roles = "admin,mediaManager")]
 		public async Task<IActionResult> News()
 		{
 			List<News> news = await _context.News.ToListAsync();
@@ -178,6 +185,18 @@ namespace Autopodbor_312.Controllers
 		private bool NewsExists(int id)
 		{
 			return _context.News.Any(e => e.Id == id);
+		}
+
+		public async Task<IActionResult> PublicNews(int id)
+		{
+			News news = _context.News.FirstOrDefault(n => n.Id == id);
+			if (news.Publicate == false)
+				news.Publicate = true;
+			else
+				news.Publicate = false;
+			_context.Update(news);
+			await _context.SaveChangesAsync();
+			return Ok();
 		}
 	}
 }

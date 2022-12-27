@@ -1,4 +1,4 @@
-﻿@model List<News>
+﻿@model List<Autopodbor_312.Models.News>
 
 @{
     ViewData["Title"] = "Список новостей";
@@ -12,13 +12,32 @@
 		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
 		<div class="card-body">
 			<h5 class="card-title">@item.Name</h5>
-			@if (item.Publicate == true)
+			@if (item.Publicate == false)
 			{
-				<p class="card-text">Опубликовать</p>
+				<a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Опубликовать</a>
 			}
-			<p class="card-text">Снять с публикации</p>
+			else
+			{
+				<a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
+			}
 			<a asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
-			<a asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Подробнее</a>
+			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">Подробнее</a>
 		</div>
 	}
 </div>
+
+@section Scripts
+{
+    <script>
+        function Public(NewsId) {
+            $.ajax({
+                url: '@Url.Action("PublicNews", "News")',
+                type: 'GET',
+				data: { 'id': NewsId },
+			    success: function(){
+					window.location.href = '/News/News';
+				} 
+            });
+        }
+    </script>
+}

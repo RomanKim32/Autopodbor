@@ -1,0 +1,19 @@
+﻿@model List<Autopodbor_312.Models.News>
+
+@{
+	ViewData["Title"] = "Новости";
+}
+
+
+<div class="card" style="width: 18rem;">
+	@foreach (var item in Model)
+	{
+		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
+		<div class="card-body">
+			<h5 class="card-title">@item.Name</h5>
+			<p>@item.Body</p>
+			<p>@item.CreatedDate</p>
+			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">Подробнее</a>
+		</div>
+	}
+</div>
