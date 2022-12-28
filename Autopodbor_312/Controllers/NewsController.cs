@@ -52,17 +52,17 @@ namespace Autopodbor_312.Controllers
 			{
 				news.CreatedDate = DateTime.Now;
 				news.Publicate = false;
-                news.MainImagePath = $"/newsPortfolioFiles/{mainPic.FileName}";
+                news.MainImagePath = $"/newsPortfolioFiles/newsFiles/{mainPic.FileName}";
                 _context.News.Add(news);
 				await _context.SaveChangesAsync();
                 if (mainPic != null)
                 {
-                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/{mainPic.FileName}");
+                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/newsFiles/{mainPic.FileName}");
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await mainPic.CopyToAsync(fileStream);
                     }
-                    PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/{mainPic.FileName}", Type = "mainPic", NewsId = news.Id };
+                    PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/newsFiles/{mainPic.FileName}", Type = "mainPic", NewsId = news.Id };
                     _context.PortfolioNewsFiles.Add(update);
                     await _context.SaveChangesAsync();
                 }
@@ -70,12 +70,12 @@ namespace Autopodbor_312.Controllers
 				{
 					foreach (var upload in uploadFiles)
 					{
-						string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/{upload.FileName}");
+						string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/newsFiles/{upload.FileName}");
 						using (var fileStream = new FileStream(filePath, FileMode.Create))
 						{
-							await mainPic.CopyToAsync(fileStream);
+							await upload.CopyToAsync(fileStream);
 						}
-						PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/{upload.FileName}", Type = "picture", NewsId = news.Id };
+						PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/newsFiles/{upload.FileName}", Type = "picture", NewsId = news.Id };
 						_context.PortfolioNewsFiles.Add(update);
 						await _context.SaveChangesAsync();
 					}					
@@ -93,6 +93,19 @@ namespace Autopodbor_312.Controllers
 				}
 			}
 			return RedirectToAction("News");
+		}
+
+		public async Task<IActionResult> DetailsNews(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+			News news = await _context.News.FirstOrDefaultAsync(p => p.Id == id);
+			List<PortfolioNewsFile> minorImg = await _context.PortfolioNewsFiles.Where(i => i.NewsId == id && i.Type == "picture").ToListAsync();
+			List<PortfolioNewsFile> videos = await _context.PortfolioNewsFiles.Where(v => v.NewsId == id && v.Type == "video").ToListAsync();
+			NewsDetailsViewModel newsDetailsViewModel = new NewsDetailsViewModel { News = news, MinorPictures = minorImg, Videos = videos };
+			return View(newsDetailsViewModel);
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]
@@ -142,7 +155,7 @@ namespace Autopodbor_312.Controllers
 			List<PortfolioNewsFile> pics = await _context.PortfolioNewsFiles.Where(i => i.NewsId == id && i.Type == "picture").ToListAsync();
 			List<PortfolioNewsFile> vids = await _context.PortfolioNewsFiles.Where(v => v.NewsId == id && v.Type == "video").ToListAsync();
 			PortfolioNewsFile mainPic = await _context.PortfolioNewsFiles.Where(m => m.NewsId == id && m.Type == "mainPic").FirstOrDefaultAsync();
-			NewsAndUploadFileViewModel test = new NewsAndUploadFileViewModel { Pictures = pics, Videos = vids, News = news, MainPic = mainPic };
+			NewsDetailsViewModel test = new NewsDetailsViewModel { MinorPictures = pics, Videos = vids, News = news, MainPic = mainPic };
 			if (news == null)
 			{
 				return NotFound();

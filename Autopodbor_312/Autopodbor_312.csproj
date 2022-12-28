@@ -43,6 +43,8 @@
     <Folder Include="wwwroot\css\Media\" />
     <Folder Include="wwwroot\css\Service\" />
     <Folder Include="wwwroot\css\Order\" />
+    <Folder Include="wwwroot\newsPortfolioFiles\portfolioFiles\" />
+    <Folder Include="wwwroot\newsPortfolioFiles\newsFiles\" />
     <Folder Include="wwwroot\serviceImg\" />
   </ItemGroup>
 

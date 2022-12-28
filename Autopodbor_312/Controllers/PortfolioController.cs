@@ -58,17 +58,17 @@ namespace Autopodbor_312.Controllers
 			{
 				portfolio.CreatedDate = DateTime.Now;
 				portfolio.Publicate = false;
-				portfolio.MainImagePath = $"/newsPortfolioFiles/{mainPic.FileName}";
+				portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}";
 				_context.Portfolio.Add(portfolio);
 				await _context.SaveChangesAsync();
 				if (mainPic != null)
 				{
-					string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/{mainPic.FileName}");
+					string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}");
 					using (var fileStream = new FileStream(filePath, FileMode.Create))
 					{
 						await mainPic.CopyToAsync(fileStream);
 					}
-					PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/{mainPic.FileName}", Type = "mainPic", PortfolioId = portfolio.Id };
+					PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}", Type = "mainPic", PortfolioId = portfolio.Id };
 					_context.PortfolioNewsFiles.Add(update);
 					await _context.SaveChangesAsync();
 				}
@@ -77,12 +77,12 @@ namespace Autopodbor_312.Controllers
 				{
 					foreach (var upload in uploadFiles)
 					{
-						string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/{upload.FileName}");
+						string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{upload.FileName}");
 						using (var fileStream = new FileStream(filePath, FileMode.Create))
 						{
-							await mainPic.CopyToAsync(fileStream);
+							await upload.CopyToAsync(fileStream);
 						}
-						PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/{upload.FileName}", Type = "picture", PortfolioId = portfolio.Id };
+						PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{upload.FileName}", Type = "picture", PortfolioId = portfolio.Id };
 						_context.PortfolioNewsFiles.Add(update);
 						await _context.SaveChangesAsync();
 					}
@@ -100,6 +100,19 @@ namespace Autopodbor_312.Controllers
 				}
 			}
 			return RedirectToAction("Portfolio");
+		}
+
+		public async Task<IActionResult> DetailsPortfolio(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+			Portfolio portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
+			List<PortfolioNewsFile> minorImg = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "picture").ToListAsync();
+			List<PortfolioNewsFile> videos = await _context.PortfolioNewsFiles.Where(v => v.PortfolioId == id && v.Type == "video").ToListAsync();
+			PortfolioDetailsViewModel portfolioDetailsViewModel = new PortfolioDetailsViewModel { Portfolio = portfolio, MinorPictures = minorImg, Videos = videos };
+			return View(portfolioDetailsViewModel);
 		}
 
 		[Authorize(Roles = "admin,portfolioManager")]
@@ -150,7 +163,7 @@ namespace Autopodbor_312.Controllers
 			List<PortfolioNewsFile> pics = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "picture").ToListAsync();
 			List<PortfolioNewsFile> vids = await _context.PortfolioNewsFiles.Where(v => v.PortfolioId == id && v.Type == "video").ToListAsync();
 			PortfolioNewsFile mainPic = await _context.PortfolioNewsFiles.Where(m => m.PortfolioId == id && m.Type == "mainPic").FirstOrDefaultAsync();
-			PortfolioAndUploadFileViewModel test = new PortfolioAndUploadFileViewModel { Pictures = pics, Videos = vids, Portfolio = port, MainPic = mainPic };
+			PortfolioDetailsViewModel test = new PortfolioDetailsViewModel { MinorPictures = pics, Videos = vids, Portfolio = port, MainPic = mainPic };
 			if (port == null)
 			{
 				return NotFound();
@@ -205,23 +218,6 @@ namespace Autopodbor_312.Controllers
 			_context.Update(portfolio);
 			await _context.SaveChangesAsync();
 			return Ok();
-		}
-
-		public async Task<IActionResult> DetailsPortfolio(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
-			var port = await _context.Portfolio.FindAsync(id);
-			List<PortfolioNewsFile> pics = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "picture").ToListAsync();
-			List<PortfolioNewsFile> vids = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "video").ToListAsync();
-			PortfolioAndUploadFileViewModel test = new PortfolioAndUploadFileViewModel { Pictures = pics, Videos = vids, Portfolio = port };
-			if (port == null)
-			{
-				return NotFound();
-			}
-			return View(test);
 		}
 
 		[HttpPost]
