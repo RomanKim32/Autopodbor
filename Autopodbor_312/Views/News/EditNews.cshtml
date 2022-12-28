@@ -1,39 +1,31 @@
 ﻿@model Autopodbor_312.ViewModel.NewsDetailsViewModel
 
 @{
-    ViewData["Title"] = "EditPortfolio";
+    ViewData["Title"] = "Изменение новости";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>EditNews</h1>
-
-<h4>News</h4>
+<h1>Изменить новость</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditNews">
+        <form method="post" asp-action="EditNews">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.News.Id" />
+            <input type="hidden" asp-for="@Model.News.MainImagePath" />
+            <input type="hidden" asp-for="@Model.News.Publicate" />
             <div class="form-group">
-                <label asp-for="@Model.News.Name" class="control-label"></label>
+                <label asp-for="@Model.News.Name" class="control-label">Название новости</label>
                 <input asp-for="@Model.News.Name" class="form-control" />
                 <span asp-validation-for="@Model.News.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.News.Body" class="control-label"></label>
+                <label asp-for="@Model.News.Body" class="control-label">Описание новости</label>
                 <input asp-for="@Model.News.Body" class="form-control" />
                 <span asp-validation-for="@Model.News.Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.News.Publicate" class="control-label"></label>
-                <input class="form-check-input" asp-for="@Model.News.Publicate" type="checkbox"/>
-                <span asp-validation-for="@Model.News.Publicate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="@Model.News.CreatedDate" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Изменить" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -41,35 +33,35 @@
 <div class="container">
     <div class="row">
         <div>
-            <h5 class="mt-3 mb-3">Главная картина: </h5>
+            <h5 class="mt-3 mb-3">Фото на главной странице </h5>
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="@Model.MainPic.Id" />
                 <img width="100" height="100" src="@Model.MainPic.Path" />
                 <br />
-                <input type="file" name="uploadFilePic" />
-                <input type="submit" asp-action="EditUploadFile" asp-controller="Media" asp-route-type="main" asp-route-news="yes" value="Изменить" class="btn btn-primary" />
+                <input type="file" name="newPhoto" />
+                <input type="submit" asp-action="EditMainPhoto" asp-controller="News" value="Изменить" class="btn btn-primary" />
             </form>
         </div>
-        <h4 class="mt-3 mb-3">Снимки: </h4>
+        <h4 class="mt-3 mb-3">Фото на детальной странице</h4>
         @foreach (var item in Model.MinorPictures)
         {
             <div class="col-2">
-                <form asp-action="EditUploadFile" asp-controller="Media" asp-route-news="yes" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" val  ue="@item.Id" />
+                <form method="post" asp-action="EditMinorPhoto" asp-controller="News" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="@item.Id" />
                     <img width="100" height="100" src="@item.Path" />
                     <br />
-                    <input type="file" name="uploadFilePic" />
+                    <input type="file" name="newPhoto" />
                     <input type="submit" value="Изменить" class="btn btn-primary" />
                 </form>
                 <form method="post">
-                    <input type="submit" asp-action="DeleteUpload" asp-controller="Media" asp-route-id="@item.Id" class="btn btn-primary" value="Удалить картину" />
+                    <input type="submit" asp-action="DeletePhotoOrVideo" asp-controller="News" asp-route-id="@item.Id" class="btn btn-primary" value="Удалить фото" />
                 </form>
             </div>
         }
         <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
-            <h6>Добавление:</h6>
-            <input type="file" name="uploadFilePic" />
-            <input type="submit" asp-action="CreateUpload" asp-controller="Media" asp-route-id="@Model.News.Id" asp-route-type="news" class="btn btn-primary" value="Добавить картину" />
+            <h6>Добавить фото</h6>
+            <input type="file" name="newPhoto" />
+            <input type="submit" asp-action="AddMinorPhoto" asp-controller="News" asp-route-id="@Model.News.Id" class="btn btn-primary" value="Добавить фото" />
         </form>
     </div>
     <div class="row">
@@ -77,25 +69,23 @@
         @foreach (var item in Model.Videos)
         {
             <div class="col-2">
-                <form asp-action="EditUploadFile" asp-controller="Media" asp-route-news="yes" asp-route-vid="yes" method="post" enctype="multipart/form-data">
+                <form asp-action="EditVideo" asp-controller="News" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="@item.Id" />
                     <iframe width="150" height="100" src=@item.Path title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <br />
-                    <input type="text" name="videoPath" placeholder="Введите id ролика"/>
+                    <input type="text" name="newVideoId" placeholder="Введите id ролик а"/>
                     <input type="submit" value="Изменить" class="btn btn-primary" />
                 </form>
                 <form method="post">
-                    <input type="submit" asp-action="DeleteUpload" asp-controller="Media" asp-route-id="@item.Id" asp-route-type="vid" class="btn btn-primary" value="Удалить видео" />
+                    <input type="submit" asp-action="DeletePhotoOrVideo" asp-controller="News" asp-route-id="@item.Id" class="btn btn-primary" value="Удалить видео" />
                 </form>
             </div>
         }
         <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
             <h6>Добавление:</h6>
-            <input type="text" name="video" />
-            <input type="submit" asp-action="CreateUpload" asp-controller="Media" asp-route-id="@Model.News.Id" asp-route-type="news" asp-route-vid="yes" class="btn btn-primary" value="Добавить видео" />
+            <input type="text" name="videoId" placeholder="Введите id ролика" />
+            <input type="submit" asp-action="AddVideo" asp-controller="News" asp-route-id="@Model.News.Id" class="btn btn-primary" value="Добавить видео" />
         </form>
     </div>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+

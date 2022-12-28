@@ -126,12 +126,12 @@ namespace Autopodbor_312.Controllers
 			List<PortfolioNewsFile> pics = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "picture").ToListAsync();
 			List<PortfolioNewsFile> vids = await _context.PortfolioNewsFiles.Where(v => v.PortfolioId == id && v.Type == "video").ToListAsync();
 			PortfolioNewsFile mainPic = await _context.PortfolioNewsFiles.Where(m => m.PortfolioId == id && m.Type == "mainPic").FirstOrDefaultAsync();
-			PortfolioDetailsViewModel test = new PortfolioDetailsViewModel { MinorPictures = pics, Videos = vids, Portfolio = port, MainPic = mainPic };
+			PortfolioDetailsViewModel portfolioDetailsViewModel = new PortfolioDetailsViewModel { MinorPictures = pics, Videos = vids, Portfolio = port, MainPic = mainPic };
 			if (port == null)
 			{
 				return NotFound();
 			}
-			return View(test);
+			return View(portfolioDetailsViewModel);
 		}
 
 		[HttpPost]
@@ -167,7 +167,8 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> EditMainPhoto(int? id, IFormFile newPhoto)
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> EditMainPhoto(int? id, IFormFile newPhoto)
 		{
 			if (id == null || newPhoto == null)
 			{
@@ -207,6 +208,7 @@ namespace Autopodbor_312.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin,portfolioManager")]
         public async Task<IActionResult> EditMinorPhoto(int? id ,IFormFile newPhoto)
 		{
             if (id == null || newPhoto == null)
@@ -247,7 +249,8 @@ namespace Autopodbor_312.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> DeletePhotoOrVideo(int? id)
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> DeletePhotoOrVideo(int? id)
 		{
 			if (id == null)
 			{
@@ -264,7 +267,8 @@ namespace Autopodbor_312.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> AddMinorPhoto(int? id, IFormFile newPhoto)
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> AddMinorPhoto(int? id, IFormFile newPhoto)
 		{
 			if (id == null || newPhoto == null)
 			{
@@ -282,7 +286,8 @@ namespace Autopodbor_312.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> EditVideo(int? id, string newVideoId)
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> EditVideo(int? id, string newVideoId)
 		{
             if (id == null || newVideoId == null)
             {
@@ -300,6 +305,7 @@ namespace Autopodbor_312.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin,portfolioManager")]
         public async Task<IActionResult> AddVideo(int? id, string videoId)
         {
             if (id == null || videoId == null)
