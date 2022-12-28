@@ -10,10 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace Autopodbor_312.Controllers
 {
@@ -21,13 +23,11 @@ namespace Autopodbor_312.Controllers
 	{
 		private readonly AutopodborContext _context;
 		private readonly IWebHostEnvironment _appEnvironment;
-		private readonly UserManager<User> _userManager;
 
-		public PortfolioController(AutopodborContext context, IWebHostEnvironment appEnvironment, UserManager<User> userManager)
+		public PortfolioController(AutopodborContext context, IWebHostEnvironment appEnvironment)
 		{
 			_context = context;
 			_appEnvironment = appEnvironment;
-			_userManager = userManager;
 		}
 
 		public async Task<IActionResult> Index()
@@ -116,43 +116,6 @@ namespace Autopodbor_312.Controllers
 		}
 
 		[Authorize(Roles = "admin,portfolioManager")]
-		public async Task<IActionResult> DeletePortfolio(int? id)
-		{
-			if (id == null)
-				return NotFound();
-			var port = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
-			if (port == null)
-				return NotFound();
-			return View(port);
-		}
-
-		[HttpPost]
-		[Authorize(Roles = "admin,portfolioManager")]
-		public async Task<IActionResult> DeletePortfolio(int id)
-		{
-			var port = await _context.Portfolio.FindAsync(id);
-			var imVid = await _context.PortfolioNewsFiles.Where(iv => iv.PortfolioId == id).ToListAsync();
-			foreach (var iv in imVid)
-			{
-				if (iv.Type == "picture" && iv.Type == "mainPic")
-				{
-					_context.PortfolioNewsFiles.Remove(iv);
-					System.IO.File.Delete(iv.Path);
-					await _context.SaveChangesAsync();
-				}
-				else if (iv.Type == "video")
-				{
-					_context.PortfolioNewsFiles.Remove(iv);
-					await _context.SaveChangesAsync();
-				}
-			}
-			_context.Remove(port);
-			await _context.SaveChangesAsync();
-			return RedirectToAction("Portfolio", "Media");
-
-		}
-
-		[Authorize(Roles = "admin,portfolioManager")]
 		public async Task<IActionResult> EditPortfolio(int? id)
 		{
 			if (id == null)
@@ -179,7 +142,7 @@ namespace Autopodbor_312.Controllers
 			{
 				return NotFound();
 			}
-
+			portfolio.CreatedDate= DateTime.Now;
 			if (ModelState.IsValid)
 			{
 				try
@@ -203,168 +166,210 @@ namespace Autopodbor_312.Controllers
 			return View(portfolio);
 		}
 
-		private bool PortfolioExists(int id)
+		[HttpPost]
+		public async Task<IActionResult> EditMainPhoto(int? id, IFormFile newPhoto)
 		{
-			return _context.Portfolio.Any(e => e.Id == id);
-		}
+			if (id == null || newPhoto == null)
+			{
+				return NotFound();
+			}
+            PortfolioNewsFile portfolioNewsFile = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
+			if (ModelState.IsValid)
+            {
+                try
+                {
+                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await newPhoto.CopyToAsync(fileStream);
+                    }
+                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
+                    Portfolio portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == portfolioNewsFile.PortfolioId);
+                    portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
+                    _context.Portfolio.Update(portfolio);
+                    await _context.SaveChangesAsync();
+                    _context.PortfolioNewsFiles.Update(portfolioNewsFile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PortfolioNewsFilesExists(portfolioNewsFile.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+			return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId });
+        }
 
-		public async Task<IActionResult> PublicPortfolio(int id)
+        [HttpPost]
+        public async Task<IActionResult> EditMinorPhoto(int? id ,IFormFile newPhoto)
 		{
-			Portfolio portfolio = _context.Portfolio.FirstOrDefault(p => p.Id == id);
-			if (portfolio.Publicate == false)
-				portfolio.Publicate = true;
-			else
-				portfolio.Publicate = false;
-			_context.Update(portfolio);
-			await _context.SaveChangesAsync();
-			return Ok();
-		}
+            if (id == null || newPhoto == null)
+            {
+                return NotFound();
+            }
+			PortfolioNewsFile portfolioNewsFile = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
+			if (portfolioNewsFile == null)
+			{
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await newPhoto.CopyToAsync(fileStream);
+                    }
+                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
+                    _context.PortfolioNewsFiles.Update(portfolioNewsFile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PortfolioNewsFilesExists(portfolioNewsFile.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId });
+        }
 
 		[HttpPost]
-		public async Task<IActionResult> EditUploadFile(int id, IFormFile uploadFilePic, string news, string port, string type, string vid, string videoPath)
+		public async Task<IActionResult> DeletePhotoOrVideo(int? id)
 		{
-			if (vid != null && videoPath != null && news != null)
+			if (id == null)
 			{
-				PortfolioNewsFile video = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
-				PortfolioNewsFile newVideo = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + videoPath, Type = "video", NewsId = video.NewsId };
-				_context.Add(newVideo);
-				_context.Remove(video);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = video.NewsId });
+                return NotFound();
 			}
-			if (vid != null && videoPath != null && port != null)
+            PortfolioNewsFile portfolioNewsFile = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
+			if (portfolioNewsFile == null)
 			{
-				PortfolioNewsFile video = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
-				PortfolioNewsFile newVideo = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + videoPath, Type = "video", PortfolioId = video.PortfolioId };
-				_context.Add(newVideo);
-				_context.Remove(video);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = video.PortfolioId });
-			}
-			PortfolioNewsFile pic = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
-			string path = "/Files/Pictures" + uploadFilePic.FileName;
-			using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                return NotFound();
+            }
+			_context.PortfolioNewsFiles.Remove(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId});
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> AddMinorPhoto(int? id, IFormFile newPhoto)
+		{
+			if (id == null || newPhoto == null)
 			{
-				await uploadFilePic.CopyToAsync(fileStream);
-			}
-			if (news != null && type == "main")
-			{
-				PortfolioNewsFile update = new PortfolioNewsFile { Path = path, Type = "mainPic", NewsId = pic.NewsId };
-				_context.Add(update);
-				_context.Remove(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = pic.NewsId });
-			}
-			if (port != null && type == "main")
-			{
-				PortfolioNewsFile update = new PortfolioNewsFile { Path = path, Type = "mainPic", PortfolioId = pic.PortfolioId };
-				_context.Add(update);
-				_context.Remove(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = pic.PortfolioId });
-			}
-			if (news != null && type == null)
-			{
-				PortfolioNewsFile update = new PortfolioNewsFile { Path = path, Type = "picture", NewsId = pic.NewsId };
-				_context.Add(update);
-				_context.Remove(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = pic.NewsId });
-			}
-			if (port != null && type == null)
-			{
-				PortfolioNewsFile update = new PortfolioNewsFile { Path = path, Type = "picture", PortfolioId = pic.PortfolioId };
-				_context.Add(update);
-				_context.Remove(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = pic.PortfolioId });
-			}
-			else
-			{
-				return NotFound();
-			}
+                return NotFound();
+            }
+            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await newPhoto.CopyToAsync(fileStream);
+            }
+            PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}", Type = "picture", PortfolioId = id };
+            _context.PortfolioNewsFiles.Add(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+			return RedirectToAction("EditPortfolio", new { id = id });
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> EditVideo(int? id, string newVideoId)
+		{
+            if (id == null || newVideoId == null)
+            {
+                return NotFound();
+            }
+            PortfolioNewsFile portfolioNewsFile = await _context.PortfolioNewsFiles.FirstOrDefaultAsync(p => p.Id == id);
+            if (portfolioNewsFile == null)
+            {
+                return NotFound();
+            }
+            portfolioNewsFile.Path = "https://www.youtube.com/embed/" + newVideoId;
+            _context.PortfolioNewsFiles.Update(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVideo(int? id, string videoId)
+        {
+            if (id == null || videoId == null)
+            {
+                return NotFound();
+            }
+            PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + videoId, Type = "video", PortfolioId = id };
+            _context.PortfolioNewsFiles.Add(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("EditPortfolio", new { id = id });
+        }
+
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> DeletePortfolio(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            var port = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
+            if (port == null)
+                return NotFound();
+            return View(port);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> DeletePortfolio(int id)
+        {
+            var port = await _context.Portfolio.FindAsync(id);
+            var imVid = await _context.PortfolioNewsFiles.Where(iv => iv.PortfolioId == id).ToListAsync();
+            foreach (var iv in imVid)
+            {
+                if (iv.Type == "picture" && iv.Type == "mainPic")
+                {
+                    _context.PortfolioNewsFiles.Remove(iv);
+                    System.IO.File.Delete(iv.Path);
+                    await _context.SaveChangesAsync();
+                }
+                else if (iv.Type == "video")
+                {
+                    _context.PortfolioNewsFiles.Remove(iv);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            _context.Remove(port);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Portfolio", "Media");
+
+        }
+
+        private bool PortfolioNewsFilesExists(int id)
+		{
+			return _context.PortfolioNewsFiles.Any(e => e.Id == id);
 		}
 
-		public async Task<IActionResult> DeleteUpload(int id, string type)
-		{
-			PortfolioNewsFile upload = await _context.PortfolioNewsFiles.FindAsync(id);
-			if (upload.NewsId != null && type == null)
-			{
-				System.IO.File.Delete(_appEnvironment.WebRootPath + upload.Path);
-				_context.Remove(upload);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = upload.NewsId });
-			}
-			if (upload.PortfolioId != null && type == null)
-			{
-				System.IO.File.Delete(_appEnvironment.WebRootPath + upload.Path);
-				_context.Remove(upload);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = upload.PortfolioId });
-			}
-			if (upload.NewsId != null && type == "vid")
-			{
-				_context.Remove(upload);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = upload.NewsId });
-			}
-			if (upload.PortfolioId != null && type == "vid")
-			{
-				_context.Remove(upload);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = upload.PortfolioId });
-			}
-			else
-			{
-				return NotFound();
-			}
-		}
+        private bool PortfolioExists(int id)
+        {
+            return _context.Portfolio.Any(e => e.Id == id);
+        }
 
-		public async Task<IActionResult> CreateUpload(int id, string type, string vid, IFormFile uploadFilePic, string video)
-		{
-			if (type == "news" && vid == null && uploadFilePic != null)
-			{
-				string path = "/Files/Pictures" + uploadFilePic.FileName;
-				using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-				{
-					await uploadFilePic.CopyToAsync(fileStream);
-				}
-				PortfolioNewsFile pic = new PortfolioNewsFile { Path = path, Type = "picture", NewsId = id };
-				_context.Add(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = id });
-			}
-			if (type == "portfolio" && vid == null && uploadFilePic != null)
-			{
-				string path = "/Files/Pictures" + uploadFilePic.FileName;
-				using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-				{
-					await uploadFilePic.CopyToAsync(fileStream);
-				}
-				PortfolioNewsFile pic = new PortfolioNewsFile { Path = path, Type = "picture", PortfolioId = id };
-				_context.Add(pic);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = id });
-			}
-			if (type == "news" && vid != null && uploadFilePic == null)
-			{
-				PortfolioNewsFile newVideo = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + video, Type = "video", NewsId = id };
-				_context.Add(newVideo);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditNews", new { id = id });
-			}
-			if (type == "portfolio" && vid != null && uploadFilePic == null)
-			{
-				PortfolioNewsFile newVideo = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + video, Type = "video", PortfolioId = id };
-				_context.Add(newVideo);
-				await _context.SaveChangesAsync();
-				return RedirectToAction("EditPortfolio", new { id = id });
-			}
-			else
-			{
-				return NotFound();
-			}
-		}
-	}
+        public async Task<IActionResult> PublicPortfolio(int id)
+        {
+            Portfolio portfolio = _context.Portfolio.FirstOrDefault(p => p.Id == id);
+            if (portfolio.Publicate == false)
+                portfolio.Publicate = true;
+            else
+                portfolio.Publicate = false;
+            _context.Update(portfolio);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+    }
 }
 
