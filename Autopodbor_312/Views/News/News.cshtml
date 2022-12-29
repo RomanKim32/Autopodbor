@@ -21,8 +21,9 @@
 			{
 				<a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
 			}
-			<a asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
-			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">Подробнее</a>
+			<a class="btn btn-primary" asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id">Изменить</a>
+			<a class="btn btn-primary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">Подробнее</a>
+			<a class="btn btn-primary" asp-controller="News" asp-action="DeleteNews" asp-route-id="@item.Id">Удалить</a>
 		</div>
 	}
 </div>

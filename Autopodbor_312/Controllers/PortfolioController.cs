@@ -3,19 +3,14 @@ using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
-using Telegram.Bot.Types;
 
 namespace Autopodbor_312.Controllers
 {
@@ -329,35 +324,26 @@ namespace Autopodbor_312.Controllers
         {
             if (id == null)
                 return NotFound();
-            var port = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
-            if (port == null)
+            var portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
+            if (portfolio == null)
                 return NotFound();
-            return View(port);
+            return View(portfolio);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin,portfolioManager")]
         public async Task<IActionResult> DeletePortfolio(int id)
         {
-            var port = await _context.Portfolio.FindAsync(id);
-            var imVid = await _context.PortfolioNewsFiles.Where(iv => iv.PortfolioId == id).ToListAsync();
-            foreach (var iv in imVid)
+            Portfolio portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == id);
+            List<PortfolioNewsFile> portfolioNewsFiles = await _context.PortfolioNewsFiles.Where(p => p.PortfolioId == id).ToListAsync();
+            foreach (var p in portfolioNewsFiles)
             {
-                if (iv.Type == "picture" && iv.Type == "mainPic")
-                {
-                    _context.PortfolioNewsFiles.Remove(iv);
-                    System.IO.File.Delete(iv.Path);
-                    await _context.SaveChangesAsync();
-                }
-                else if (iv.Type == "video")
-                {
-                    _context.PortfolioNewsFiles.Remove(iv);
-                    await _context.SaveChangesAsync();
-                }
+                _context.PortfolioNewsFiles.Remove(p);
             }
-            _context.Remove(port);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Portfolio", "Media");
+            _context.Remove(portfolio);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Portfolio", "Portfolio");
 
         }
 

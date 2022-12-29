@@ -322,7 +322,7 @@ namespace Autopodbor_312.Controllers
         {
             if (id == null)
                 return NotFound();
-            var news = await _context.News.FirstOrDefaultAsync(p => p.Id == id);
+            News news = await _context.News.FirstOrDefaultAsync(p => p.Id == id);
             if (news == null)
                 return NotFound();
             return View(news);
@@ -332,26 +332,17 @@ namespace Autopodbor_312.Controllers
 		[Authorize(Roles = "admin,mediaManager")]
 		public async Task<IActionResult> DeleteNews(int id)
 		{
-			var news = await _context.News.FindAsync(id);
-			var imVid = await _context.PortfolioNewsFiles.Where(iv => iv.NewsId == id).ToListAsync();
-			foreach (var iv in imVid)
-			{
-				if (iv.Type == "picture" && iv.Type == "mainPic")
-				{
-					_context.PortfolioNewsFiles.Remove(iv);
-					System.IO.File.Delete(iv.Path);
-					await _context.SaveChangesAsync();
-				}
-				else if (iv.Type == "video")
-				{
-					_context.PortfolioNewsFiles.Remove(iv);
-					await _context.SaveChangesAsync();
-				}
-			}
-			_context.News.Remove(news);
-			await _context.SaveChangesAsync();
-			return RedirectToAction("IndexNews", "Media");
-		}
+            News news = await _context.News.FirstOrDefaultAsync(p => p.Id == id);
+            List<PortfolioNewsFile> portfolioNewsFiles = await _context.PortfolioNewsFiles.Where(p => p.NewsId == id).ToListAsync();
+            foreach (var n in portfolioNewsFiles)
+            {
+                _context.PortfolioNewsFiles.Remove(n);
+            }
+            await _context.SaveChangesAsync();
+            _context.Remove(news);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("News", "News");
+        }
 
         public async Task<IActionResult> PublicNews(int id)
         {

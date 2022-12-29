@@ -2,9 +2,6 @@
 <header>
 </header>
 <body>
-	<div>
-		Test
-	</div>
 	@if (User.IsInRole("admin"))
 	{
 		<div class="btn-group">
@@ -14,6 +11,31 @@
 			<ul class="dropdown-menu">
 				<li> <a class="btn btn-info" asp-controller="Service" asp-action="Services">Посмотреть сервисы</a></li>
 				<li> <a class="btn btn-info" asp-controller="Service" asp-action="CreateServices">Создать сервис </a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Калькулятор
+			</button>
+			<ul class="dropdown-menu">
+				<li> <a class="btn btn-info" asp-controller="Calculator" asp-action="EditCalculator"> Редактировать калькулятор</a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Менеджеры
+			</button>
+			<ul class="dropdown-menu">
+				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Index"> Посмотреть менеджеров </a></li>
+				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Register"> Добавить менеджера </a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Контакты
+			</button>
+			<ul class="dropdown-menu">
+				<li> <a class="btn btn-info" asp-controller="ContactInformations" asp-action="Edit"> Редактировать контакты </a></li>
 			</ul>
 		</div>
 	}
@@ -38,43 +60,6 @@
 			<ul class="dropdown-menu">
 				<li><a class="btn btn-info" asp-controller="News" asp-action="News">Все новости</a></li>
 				<li> <a class="btn btn-info" asp-controller="News" asp-action="CreateNews">Добавить новость </a></li>
-			</ul>
-		</div>
-	}
-
-	@if (User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Калькулятор
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Calculator" asp-action="EditCalculator"> Редактировать калькулятор</a></li>
-			</ul>
-		</div>
-	}
-
-	@if (User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Менеджеры
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Index"> Посмотреть менеджеров </a></li>
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Register"> Добавить менеджера </a></li>
-			</ul>
-		</div>
-	}
-
-	@if (User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Контакты
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="ContactInformations" asp-action="Edit"> Редактировать контакты </a></li>
 			</ul>
 		</div>
 	}
