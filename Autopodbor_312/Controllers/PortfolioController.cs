@@ -32,14 +32,14 @@ namespace Autopodbor_312.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true).ToListAsync();
+            List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
 			return View(portfoliosPublished);
 		}
 
 		[Authorize(Roles = "admin,portfolioManager")]
 		public async Task<IActionResult> Portfolio()
 		{
-			List<Portfolio> portfolios = await _context.Portfolio.ToListAsync();
+			List<Portfolio> portfolios = await _context.Portfolio.OrderByDescending(p => p.CreatedDate).ToListAsync();
 			return View(portfolios);
 		}
 
@@ -191,6 +191,7 @@ namespace Autopodbor_312.Controllers
                     await _context.SaveChangesAsync();
                     _context.PortfolioNewsFiles.Update(portfolioNewsFile);
                     await _context.SaveChangesAsync();
+                    UpdateCreationDate(portfolioNewsFile.PortfolioId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -232,6 +233,7 @@ namespace Autopodbor_312.Controllers
                     portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
                     _context.PortfolioNewsFiles.Update(portfolioNewsFile);
                     await _context.SaveChangesAsync();
+                    UpdateCreationDate(portfolioNewsFile.PortfolioId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -263,6 +265,7 @@ namespace Autopodbor_312.Controllers
             }
 			_context.PortfolioNewsFiles.Remove(portfolioNewsFile);
             await _context.SaveChangesAsync();
+            UpdateCreationDate(portfolioNewsFile.PortfolioId);
             return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId});
         }
 
@@ -282,7 +285,8 @@ namespace Autopodbor_312.Controllers
             PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}", Type = "picture", PortfolioId = id };
             _context.PortfolioNewsFiles.Add(portfolioNewsFile);
             await _context.SaveChangesAsync();
-			return RedirectToAction("EditPortfolio", new { id = id });
+            UpdateCreationDate(id);
+            return RedirectToAction("EditPortfolio", new { id = id });
         }
 
 		[HttpPost]
@@ -301,6 +305,7 @@ namespace Autopodbor_312.Controllers
             portfolioNewsFile.Path = "https://www.youtube.com/embed/" + newVideoId;
             _context.PortfolioNewsFiles.Update(portfolioNewsFile);
             await _context.SaveChangesAsync();
+            UpdateCreationDate(portfolioNewsFile.PortfolioId);
             return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId });
         }
 
@@ -315,6 +320,7 @@ namespace Autopodbor_312.Controllers
             PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile { Path = "https://www.youtube.com/embed/" + videoId, Type = "video", PortfolioId = id };
             _context.PortfolioNewsFiles.Add(portfolioNewsFile);
             await _context.SaveChangesAsync();
+            UpdateCreationDate(id);
             return RedirectToAction("EditPortfolio", new { id = id });
         }
 
@@ -374,7 +380,16 @@ namespace Autopodbor_312.Controllers
                 portfolio.Publicate = false;
             _context.Update(portfolio);
             await _context.SaveChangesAsync();
+            UpdateCreationDate(portfolio.Id);
             return Ok();
+        }
+
+        private void UpdateCreationDate(int? id)
+        {
+            Portfolio portfolio = _context.Portfolio.FirstOrDefault(p => p.Id == id);
+            portfolio.CreatedDate = DateTime.Now;
+            _context.Portfolio.Update(portfolio);
+            _context.SaveChangesAsync();
         }
     }
 }
