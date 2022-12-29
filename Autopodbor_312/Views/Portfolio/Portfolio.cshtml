@@ -1,5 +1,5 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Media/IndexPortfolio.css" />
-@model List<Autopodbor_312.Models.Portfolio>
+@model PaginationList<Portfolio>
 
 @{
 	ViewData["Title"] = "Список портфолио";
@@ -28,7 +28,12 @@
 		</div>
 	}
 </div>
-
+@{
+	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+	var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">Назад</a>
+<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">Вперед</a>
 @section Scripts
 {
     <script>

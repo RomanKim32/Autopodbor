@@ -27,11 +27,8 @@
 							<h5 class="card-title">@item.NameKy</h5>
 							<p class="card-text">@item.DescriptionKy</p>
 						}     
-						@if (User.IsInRole("admin"))
-						{
-									<a class="btn btn-outline-dark" asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
-						}
-						else if (isUser && @item.NameRu != "Дополнительные услуги")
+
+						@if (isUser && @item.NameRu != "Дополнительные услуги")
 						{
 									<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu"> Заказать </a>
 						}

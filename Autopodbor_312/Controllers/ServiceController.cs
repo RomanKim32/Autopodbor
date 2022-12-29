@@ -28,7 +28,11 @@ namespace Autopodbor_312.Controllers
             var sercices = await _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).OrderBy(s => s.Id).ToListAsync();
             return View(sercices);
         }
-
+        public async Task<IActionResult> ForAdminServices()
+        {
+            var sercices = await _context.Services.Where(s => s.NameRu != "Дополнительные услуги").OrderBy(s => s.Id).ToListAsync();
+            return View(sercices);
+        }
         [HttpGet]
         [Authorize(Roles = "admin")]
         public IActionResult CreateServices()
@@ -55,8 +59,8 @@ namespace Autopodbor_312.Controllers
                 service.Photo = $"/serviceImg/Id={service.Id}&{servicePhotoFile.FileName}";
                 await _context.SaveChangesAsync();
                 if (service.IsAdditional == true)
-                    return RedirectToAction("AdditionalServicesDetails", "Service");
-                return RedirectToAction("IndexServices", "Service");
+                    return RedirectToAction("ForAdminServices", "Service");
+                return RedirectToAction("ForAdminServices", "Service");
             };
             return View(service);
         }
@@ -117,8 +121,8 @@ namespace Autopodbor_312.Controllers
                     }
                 }
                 if (service.IsAdditional == true)
-                    return RedirectToAction("AdditionalServicesDetails", "Service");
-                return RedirectToAction("Services", "Service");
+                    return RedirectToAction("ForAdminServices", "Service");
+                return RedirectToAction("ForAdminServices", "Service");
             }
             return View(service);
         }
@@ -154,7 +158,7 @@ namespace Autopodbor_312.Controllers
             }
             _context.Services.Remove(services);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AdditionalServicesDetails", "Service");
+            return RedirectToAction("ForAdminServices", "Service");
         }
 
         [HttpGet]

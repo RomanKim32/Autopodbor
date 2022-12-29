@@ -54,12 +54,8 @@ else
 						<img src="@item.Photo" class="card-img-top" alt="Img">
 					</td>
 					<td>
-						@if (User.IsInRole("admin"))
-						{
-							<a class="btn btn-info" asp-controller="Service" asp-action="EditServices" asp-route-id="@item.Id">Изменить</a>
-							<a class="btn btn-info" asp-controller="Service" asp-action="DeleteServices" asp-route-id="@item.Id">Удалить</a>
-						}
-						else if (isUser)
+
+						@if (isUser)
 						{
 							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}

@@ -1,4 +1,4 @@
-﻿@model List<Autopodbor_312.Models.News>
+﻿@model PaginationList<News>
 
 @{
     ViewData["Title"] = "Список новостей";
@@ -27,7 +27,12 @@
 		</div>
 	}
 </div>
-
+@{
+	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+	var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+<a asp-action="News" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">Назад</a>
+<a asp-action="News" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">Вперед</a>
 @section Scripts
 {
     <script>

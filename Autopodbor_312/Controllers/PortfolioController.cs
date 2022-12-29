@@ -25,17 +25,17 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = appEnvironment;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int pageNumber = 1)
 		{
             List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(portfoliosPublished);
+			return View(await PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 5));
 		}
 
-		[Authorize(Roles = "admin,portfolioManager")]
-		public async Task<IActionResult> Portfolio()
+        [Authorize(Roles = "admin,portfolioManager")]
+        public async Task<IActionResult> Portfolio(int pageNumber = 1)
 		{
 			List<Portfolio> portfolios = await _context.Portfolio.OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(portfolios);
+			return View( await PaginationList<Portfolio>.CreateAsync(portfolios, pageNumber, 5));
 		}
 
 

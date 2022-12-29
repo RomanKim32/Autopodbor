@@ -25,17 +25,17 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = webHost;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int pageNumber = 1)
 		{
 			List<News> newsPublished = await _context.News.Where(n => n.Publicate == true).OrderByDescending(n => n.CreatedDate).ToListAsync();
-			return View(newsPublished);
+			return View(await PaginationList<News>.CreateAsync(newsPublished, pageNumber, 5));
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]
-		public async Task<IActionResult> News()
+		public async Task<IActionResult> News(int pageNumber = 1)
 		{
 			List<News> news = await _context.News.OrderByDescending(n => n.CreatedDate).ToListAsync();
-			return View(news);
+			return View(await PaginationList<News>.CreateAsync(news, pageNumber, 5));
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]
