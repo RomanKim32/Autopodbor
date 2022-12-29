@@ -53,17 +53,18 @@ namespace Autopodbor_312.Controllers
 			{
 				portfolio.CreatedDate = DateTime.Now;
 				portfolio.Publicate = false;
-				portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}";
 				_context.Portfolio.Add(portfolio);
 				await _context.SaveChangesAsync();
-				if (mainPic != null)
+                portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{mainPic.FileName}";
+                await _context.SaveChangesAsync();
+                if (mainPic != null)
 				{
-					string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}");
+					string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{mainPic.FileName}");
 					using (var fileStream = new FileStream(filePath, FileMode.Create))
 					{
 						await mainPic.CopyToAsync(fileStream);
 					}
-					PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{mainPic.FileName}", Type = "mainPic", PortfolioId = portfolio.Id };
+					PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{mainPic.FileName}", Type = "mainPic", PortfolioId = portfolio.Id };
 					_context.PortfolioNewsFiles.Add(update);
 					await _context.SaveChangesAsync();
 				}
@@ -72,14 +73,15 @@ namespace Autopodbor_312.Controllers
 				{
 					foreach (var upload in uploadFiles)
 					{
-						string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{upload.FileName}");
+                        PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile {Type = "picture", PortfolioId = portfolio.Id };
+                        _context.PortfolioNewsFiles.Add(portfolioNewsFile);
+                        await _context.SaveChangesAsync();
+                        string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/Id={portfolioNewsFile.Id}&{upload.FileName}");
+                        portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/Id={portfolioNewsFile.Id}&{upload.FileName}";
 						using (var fileStream = new FileStream(filePath, FileMode.Create))
 						{
 							await upload.CopyToAsync(fileStream);
 						}
-						PortfolioNewsFile update = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{upload.FileName}", Type = "picture", PortfolioId = portfolio.Id };
-						_context.PortfolioNewsFiles.Add(update);
-						await _context.SaveChangesAsync();
 					}
 					if (video != null)
 					{
@@ -174,14 +176,19 @@ namespace Autopodbor_312.Controllers
             {
                 try
                 {
-                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+                    Portfolio portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == portfolioNewsFile.PortfolioId);
+                    string oldFilePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{portfolio.MainImagePath}");
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{newPhoto.FileName}");
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await newPhoto.CopyToAsync(fileStream);
                     }
-                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
-                    Portfolio portfolio = await _context.Portfolio.FirstOrDefaultAsync(p => p.Id == portfolioNewsFile.PortfolioId);
-                    portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
+                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{newPhoto.FileName}";
+                    portfolio.MainImagePath = $"/newsPortfolioFiles/portfolioFiles/mainPicId={portfolio.Id}&{newPhoto.FileName}";
                     _context.Portfolio.Update(portfolio);
                     await _context.SaveChangesAsync();
                     _context.PortfolioNewsFiles.Update(portfolioNewsFile);
@@ -220,12 +227,17 @@ namespace Autopodbor_312.Controllers
             {
                 try
                 {
-                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+                    string oldFilePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{portfolioNewsFile.Path}");
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                    string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/Id={id}&{newPhoto.FileName}");
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await newPhoto.CopyToAsync(fileStream);
                     }
-                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}";
+                    portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/Id={id}&{newPhoto.FileName}";
                     _context.PortfolioNewsFiles.Update(portfolioNewsFile);
                     await _context.SaveChangesAsync();
                     UpdateCreationDate(portfolioNewsFile.PortfolioId);
@@ -258,7 +270,12 @@ namespace Autopodbor_312.Controllers
 			{
                 return NotFound();
             }
-			_context.PortfolioNewsFiles.Remove(portfolioNewsFile);
+            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{portfolioNewsFile.Path}");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            _context.PortfolioNewsFiles.Remove(portfolioNewsFile);
             await _context.SaveChangesAsync();
             UpdateCreationDate(portfolioNewsFile.PortfolioId);
             return RedirectToAction("EditPortfolio", new { id = portfolioNewsFile.PortfolioId});
@@ -272,14 +289,17 @@ namespace Autopodbor_312.Controllers
 			{
                 return NotFound();
             }
-            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}");
+            PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile {Type = "picture", PortfolioId = id };
+            _context.PortfolioNewsFiles.Add(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+            portfolioNewsFile.Path = $"/newsPortfolioFiles/portfolioFiles/Id={portfolioNewsFile.Id}&{newPhoto.FileName}";
+            _context.PortfolioNewsFiles.Update(portfolioNewsFile);
+            await _context.SaveChangesAsync();
+            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/newsPortfolioFiles/portfolioFiles/Id={portfolioNewsFile.Id}&{newPhoto.FileName}");
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await newPhoto.CopyToAsync(fileStream);
             }
-            PortfolioNewsFile portfolioNewsFile = new PortfolioNewsFile { Path = $"/newsPortfolioFiles/portfolioFiles/{newPhoto.FileName}", Type = "picture", PortfolioId = id };
-            _context.PortfolioNewsFiles.Add(portfolioNewsFile);
-            await _context.SaveChangesAsync();
             UpdateCreationDate(id);
             return RedirectToAction("EditPortfolio", new { id = id });
         }
@@ -338,6 +358,11 @@ namespace Autopodbor_312.Controllers
             List<PortfolioNewsFile> portfolioNewsFiles = await _context.PortfolioNewsFiles.Where(p => p.PortfolioId == id).ToListAsync();
             foreach (var p in portfolioNewsFiles)
             {
+                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{p.Path}");
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
                 _context.PortfolioNewsFiles.Remove(p);
             }
             await _context.SaveChangesAsync();
