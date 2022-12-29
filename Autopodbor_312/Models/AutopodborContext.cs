@@ -15,7 +15,8 @@ namespace Autopodbor_312.Models
 		public DbSet<CarsFuels> CarsFuels { get; set; }
 		public DbSet<CarsYears> CarsYears { get; set; }
 		public DbSet<Orders> Orders { get; set; }
-        public DbSet<PortfolioNewsFile> PortfolioNewsFiles { get; set; }
+		public DbSet<CarsBrandsModel> CarsBrandsModels { get; set; }
+		public DbSet<PortfolioNewsFile> PortfolioNewsFiles { get; set; }
         public DbSet<ContactInformation> ContactInformation { get; set; }
 
 

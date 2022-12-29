@@ -7,7 +7,7 @@
 
 <h3>Таблица "Марки"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить модель</button>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
 </p>
 <div id="CarsBrandsDiv">
 <table class="table">
@@ -32,8 +32,10 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id','brand')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id','brand')">Удалить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+                    <a  asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info" >Посмотреть все модели</a>
+
                 </td>
             </tr>
         }
@@ -229,54 +231,99 @@
         Id = id;
         Name = name;
     };
-     const deleteParameter = function(){
+    function deleteParameter() {
+        $.ajax({
+            url: '@Url.Action("DeleteParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+            },
+            success: function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 
+        });
+        event.preventDefault();
+    };
+     //const deleteParameter = function(){
    
-         if(Name === "brand"){
+     //    if(Name === "brand"){
        
-            $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
-         }else if(Name==="year"){
-             $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }else if(Name==="fuel"){
-             $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }else if(Name==="body"){
-             $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-         }
-          $('#deleteModal').modal('hide');
-           };
+     //       $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
+     //    }else if(Name==="year"){
+     //        $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+     //    }else if(Name==="fuel"){
+     //        $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+     //    }else if(Name==="body"){
+     //        $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
+     //    }
+     //     $('#deleteModal').modal('hide');
+     //      };
 
-         const addParameter= function() {
-         event.preventDefault();
+         //const addParameter= function() {
+         //event.preventDefault();
 
-         if(Name === "brand"){
+         //if(Name === "brand"){
 
-              $('#CarsBrandsDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         }else if(Name ==="year"){
-             $('#CarsYearDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         }
-         else if(Name ==="fuel"){
-             $('#CarsFuelDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         }
-         else if(Name ==="body"){
-             $('#CarsBodyTypeDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         }
-          $('#addModal').modal('hide');
-           };   
+         //     $('#CarsBrandsDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         //}else if(Name ==="year"){
+         //    $('#CarsYearDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         //}
+         //else if(Name ==="fuel"){
+         //    $('#CarsFuelDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         //}
+         //else if(Name ==="body"){
+         //    $('#CarsBodyTypeDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
+         //}
+         // $('#addModal').modal('hide');
+         //  };  
+           
+         function addParameter() {
+        $.ajax({
+            url: '@Url.Action("AddParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'name': Name,
+                'key': $("#key").val(),
+                'value': $("#value").val()
+            },
+            success: function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 
+        });
+        event.preventDefault();
+    };
+           
+    function editParameter() {
+        $.ajax({
+            url: '@Url.Action("EditParameter", "Calculator")',
+            type: 'POST',
+            data: {
+                'id': Id,
+                'key': $("#newKey").val(),
+                'value': $("#newValue").val()
+            },
+            success: function () {
+                window.location.href = '/Calculator/EditCalculator';
+            }, 
+        });
+        event.preventDefault();
+    };
 
-         const editParameter= function() {
-         event.preventDefault();
+         //const editParameter= function() {
+         //event.preventDefault();
 
-         if(Name === "brand"){
+         //if(Name === "brand"){
 
-              $('#CarsBrandsDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         }else if(Name ==="year"){
-             $('#CarsYearDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         }
-         else if(Name ==="fuel"){
-             $('#CarsFuelDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         }
-         else if(Name ==="body"){
-             $('#CarsBodyTypeDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         }
-          $('#editModal').modal('hide');
-           };   
+         //     $('#CarsBrandsDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         //}else if(Name ==="year"){
+         //    $('#CarsYearDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         //}
+         //else if(Name ==="fuel"){
+         //    $('#CarsFuelDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         //}
+         //else if(Name ==="body"){
+         //    $('#CarsBodyTypeDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
+         //}
+         // $('#editModal').modal('hide');
+         //  };   
 </script>
