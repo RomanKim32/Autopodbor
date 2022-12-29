@@ -33,13 +33,19 @@
                 <span asp-validation-for="DescriptionKy" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <p>Если файл не будет загружен, фото не будет изменено!</p>
                 <p>
                     <input type="file" name="servicePhotoFile" class="form-control">
                 </p>
             </div>
+            <input type="hidden" asp-for="Photo" />
             @if (Model.IsAdditional == true)
             {
                 <input type="hidden" asp-for="IsAdditional" value="true"/>
+            }
+            else
+            {
+                <input type="hidden" asp-for="IsAdditional" value="false" />
             }
             <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-primary" />
