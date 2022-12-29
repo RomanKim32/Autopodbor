@@ -107,7 +107,7 @@ namespace Autopodbor_312.Controllers
 
         }
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> GetModel(int brandId)
+        public IActionResult GetModel(int brandId)
         {
             var carsBrandsModel = _autodborContext.CarsBrandsModels.Where(c => c.CarsBrandsId == brandId).ToList();
             var calculatorViewModel = new CalculatorViewModel

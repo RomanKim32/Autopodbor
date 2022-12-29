@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Autopodbor_312.Models.CarsBrandsModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Все модели";
 }
 
-<h1>@ViewBag.Brand.Brand</h1>
+<h1>Все модели бренда @ViewBag.Brand.Brand</h1>
 
 <p>
      <a  asp-action="AddModels" asp-controller="Calculator" asp-route-brandId="@ViewBag.Brand.Id" class="btn btn-info" >Добавить модель</a>
@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Model)
+                Модель
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Цена
             </th>
             <th></th>
         </tr>
@@ -46,7 +46,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Подтверждение удаления</h5>
+                <h5 class="modal-title" id="editModalLabel">Изменить модель</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
