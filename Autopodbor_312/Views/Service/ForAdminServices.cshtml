@@ -4,28 +4,29 @@
     ViewData["Title"] = "ForAdminServices";
 }
 
-<h1>ForAdminServses</h1>
+<h1>Все услуги</h1>
 
 <p>
-    <a asp-action="CreateServices">Create New</a>
+    <a asp-action="CreateServices">Создать дополнительную услугу</a>
 </p>
 <div class="row">
     @foreach (var item in Model)
     {
+        if (item.NameRu != "Обратный звонок")
+        {
+            <div class="card col-4" style="width: 18rem;">
+                <img src="@(item.Photo)" class="card-img-top" alt="servicephoto">
+                <div class="card-body">
+                    <h5 class="card-title">@item.NameRu</h5>
+                    <p class="card-text">@item.DescriptionRu</p>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  |</a>
 
-        <div class="card col-4" style="width: 18rem;">
-            <img src="@(item.Photo)" class="card-img-top" alt="servicephoto">
-            <div class="card-body">
-                <h5 class="card-title">@item.NameRu</h5>
-                <p class="card-text">@item.DescriptionRu</p>
-                @if (User.IsInRole("admin"))
-                {
-                    <a asp-action="EditServices" asp-route-id="@item.Id"> Изменить  |</a>
-
-                    <a asp-action="DeleteServices" asp-route-id="@item.Id"> Удалить </a>
-                }
-            </div>
+                        <a asp-action="DeleteServices" asp-route-id="@item.Id"> Удалить </a>
+                    }
+                </div>
         </div>
-
+        }
     }
 </div>
