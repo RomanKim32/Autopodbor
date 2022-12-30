@@ -48,12 +48,26 @@ namespace Autopodbor_312.Controllers
 		[Authorize(Roles = "admin,mediaManager")]
 		public async Task<IActionResult> CreateNews(News news, IFormFile mainPic, IFormFileCollection uploadFiles, string video)
 		{
+            string newsPortfolioFolderPath = Path.Combine(_appEnvironment.ContentRootPath, "wwwroot/newsPortfolioFiles");
+            DirectoryInfo newsPortfolioInfo = new DirectoryInfo(newsPortfolioFolderPath);
+            if (!newsPortfolioInfo.Exists)
+            {
+                newsPortfolioInfo.Create();
+            }
+            string newsFolderPath = Path.Combine(_appEnvironment.ContentRootPath, "wwwroot/newsPortfolioFiles/newsFiles");
+            DirectoryInfo newsInfo = new DirectoryInfo(newsFolderPath);
+            if (!newsInfo.Exists)
+            {
+                newsInfo.Create();
+            }
+
             if (ModelState.IsValid)
 			{
 				news.CreatedDate = DateTime.Now;
 				news.Publicate = false;
                 _context.News.Add(news);
 				await _context.SaveChangesAsync();
+
                 news.MainImagePath = $"/newsPortfolioFiles/newsFiles/mainPicId={news.Id}&{mainPic.FileName}";
                 if (mainPic != null)
                 {

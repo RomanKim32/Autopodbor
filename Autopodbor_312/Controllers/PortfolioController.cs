@@ -49,7 +49,19 @@ namespace Autopodbor_312.Controllers
 		[Authorize(Roles = "admin,portfolioManager")]
 		public async Task<IActionResult> CreatePortfolio(Portfolio portfolio, IFormFile mainPic, IFormFileCollection uploadFiles, string video)
 		{
-			if (ModelState.IsValid)
+            string newsPortfolioFolderPath = Path.Combine(_appEnvironment.ContentRootPath, "wwwroot/newsPortfolioFiles");
+            DirectoryInfo newsPortfolioInfo = new DirectoryInfo(newsPortfolioFolderPath);
+            if (!newsPortfolioInfo.Exists)
+            {
+                newsPortfolioInfo.Create();
+            }
+            string newsFolderPath = Path.Combine(_appEnvironment.ContentRootPath, "wwwroot/newsPortfolioFiles/portfolioFiles");
+            DirectoryInfo newsInfo = new DirectoryInfo(newsFolderPath);
+            if (!newsInfo.Exists)
+            {
+                newsInfo.Create();
+            }
+            if (ModelState.IsValid)
 			{
 				portfolio.CreatedDate = DateTime.Now;
 				portfolio.Publicate = false;
