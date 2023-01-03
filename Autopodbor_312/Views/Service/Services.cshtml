@@ -6,7 +6,7 @@
 @{
 	ViewData["Title"] = @localizer["servicesTitle"];
 }
-	<h1>Наши услуги</h1>
+	<h1>@localizer["ourServices"]</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 main-block">
 	@{
 		bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
@@ -29,19 +29,19 @@
 						}     
 						@if (User.IsInRole("admin"))
 						{
-									<a class="btn btn-outline-dark" asp-action="EditServices" asp-route-id="@item.Id"> Изменить  </a>
+											<a class="btn btn-outline-dark" asp-action="EditServices" asp-route-id="@item.Id"> @localizer["editButton"]  </a>
 						}
 						else if (isUser && @item.NameRu != "Дополнительные услуги")
 						{
-									<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu"> Заказать </a>
+									<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu">@localizer["orderButton"]</a>
 						}
 						@if (@item.NameRu == "Дополнительные услуги")
 						{
-									<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id"> Подробнее </a>
+									<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 						}
 						else if (@item.NameRu == "Выездной осмотр")
 						{
-									<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index"> Калькулятор </a>
+											<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index">@localizer["calcButton"]</a>
 						}
 					</div>
 			</div>

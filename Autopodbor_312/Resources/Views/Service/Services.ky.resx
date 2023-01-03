@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="calcButton" xml:space="preserve">
+    <value>Эсептөөч</value>
+  </data>
+  <data name="detailsButton" xml:space="preserve">
+    <value>Толук маалымат</value>
+  </data>
+  <data name="editButton" xml:space="preserve">
+    <value>Өзгөртүү</value>
+  </data>
+  <data name="orderButton" xml:space="preserve">
+    <value>Заказ кылуу</value>
+  </data>
+  <data name="ourServices" xml:space="preserve">
+    <value>Биздин кызматтар</value>
+  </data>
   <data name="servicesTitle" xml:space="preserve">
-    <value>Сервисы(на кырг)</value>
+    <value>Кызматтар</value>
   </data>
 </root>
