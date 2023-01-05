@@ -137,7 +137,7 @@ namespace Autopodbor_312.Controllers
             }
 
             var services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (services == null)
+            if (services == null || services.IsAdditional == false)
             {
                 return NotFound();
             }
