@@ -12,14 +12,24 @@
         <form asp-action="CreateNews" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Название новости</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="NameRu" class="control-label">Название новости на русском</label>
+                <input asp-for="NameRu" class="form-control" />
+                <span asp-validation-for="NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Body" class="control-label">Описание новости</label>
-                <input asp-for="Body" class="form-control" />
-                <span asp-validation-for="Body" class="text-danger"></span>
+                <label asp-for="BodyRu" class="control-label">Описание новости на русском</label>
+                <input asp-for="BodyRu" class="form-control" />
+                <span asp-validation-for="BodyRu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameKy" class="control-label">Название новости на кыргызском</label>
+                <input asp-for="NameKy" class="form-control" />
+                <span asp-validation-for="NameKy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BodyKy" class="control-label">Описание новости на кыргызском</label>
+                <input asp-for="BodyKy" class="form-control" />
+                <span asp-validation-for="BodyKy" class="text-danger"></span>
             </div>
             <div class="custom-file">
                 <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>

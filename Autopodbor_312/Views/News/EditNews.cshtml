@@ -15,14 +15,24 @@
             <input type="hidden" asp-for="@Model.News.MainImagePath" />
             <input type="hidden" asp-for="@Model.News.Publicate" />
             <div class="form-group">
-                <label asp-for="@Model.News.Name" class="control-label">Название новости</label>
-                <input asp-for="@Model.News.Name" class="form-control" />
-                <span asp-validation-for="@Model.News.Name" class="text-danger"></span>
+                <label asp-for="@Model.News.NameRu" class="control-label">Название новости</label>
+                <input asp-for="@Model.News.NameRu" class="form-control" />
+                <span asp-validation-for="@Model.News.NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.News.Body" class="control-label">Описание новости</label>
-                <input asp-for="@Model.News.Body" class="form-control" />
-                <span asp-validation-for="@Model.News.Body" class="text-danger"></span>
+                <label asp-for="@Model.News.BodyRu" class="control-label">Описание новости</label>
+                <input asp-for="@Model.News.BodyRu" class="form-control" />
+                <span asp-validation-for="@Model.News.BodyRu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.News.NameKy" class="control-label">Название новости</label>
+                <input asp-for="@Model.News.NameKy" class="form-control" />
+                <span asp-validation-for="@Model.News.NameKy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.News.BodyKy" class="control-label">Описание новости</label>
+                <input asp-for="@Model.News.BodyKy" class="form-control" />
+                <span asp-validation-for="@Model.News.BodyKy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Изменить" class="btn btn-primary" />

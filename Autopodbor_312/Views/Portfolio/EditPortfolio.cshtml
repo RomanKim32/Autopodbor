@@ -15,14 +15,24 @@
             <input type="hidden" asp-for="@Model.Portfolio.MainImagePath" />
             <input type="hidden" asp-for="@Model.Portfolio.Publicate" />
             <div class="form-group">
-                <label asp-for="@Model.Portfolio.Name" class="control-label">Название портфолио</label>
-                <input asp-for="@Model.Portfolio.Name" class="form-control" />
-                <span asp-validation-for="@Model.Portfolio.Name" class="text-danger"></span>
+                <label asp-for="@Model.Portfolio.NameRu" class="control-label">Название портфолио на русском</label>
+                <input asp-for="@Model.Portfolio.NameRu" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Portfolio.Body" class="control-label">Описание портфолио</label>
-                <input asp-for="@Model.Portfolio.Body" class="form-control" />
-                <span asp-validation-for="@Model.Portfolio.Body" class="text-danger"></span>
+                <label asp-for="@Model.Portfolio.BodyRu" class="control-label">Описание портфолио на русском</label>
+                <input asp-for="@Model.Portfolio.BodyRu" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.BodyRu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Portfolio.NameKy" class="control-label">Название портфолио на кыргызском</label>
+                <input asp-for="@Model.Portfolio.NameKy" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.NameKy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Portfolio.BodyKy" class="control-label">Описание портфолио на кыргызском</label>
+                <input asp-for="@Model.Portfolio.BodyKy" class="form-control" />
+                <span asp-validation-for="@Model.Portfolio.BodyKy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Изменить" class="btn btn-primary" />
