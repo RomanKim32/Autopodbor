@@ -43,7 +43,9 @@ namespace Autopodbor_312
 
             services.AddControllersWithViews();
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AutopodborContext>(options => options.UseNpgsql(connection))
+            services.AddDbContext<AutopodborContext>(options => options
+                .UseLazyLoadingProxies()
+                .UseNpgsql(connection))
                 .AddIdentity<User, IdentityRole<int>>(options =>
                 {
                     options.Password.RequiredLength = 6;
