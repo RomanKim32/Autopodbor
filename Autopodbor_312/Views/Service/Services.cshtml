@@ -7,10 +7,8 @@
 	ViewData["Title"] = @localizer["servicesTitle"];
 }
 	<h1>@localizer["ourServices"]</h1>
-<div class="row row-cols-1 row-cols-md-3 g-4 mt-3 main-block">
-	@{
-		bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
-	}
+	<div class="row row-cols-1 row-cols-md-3 g-4 mt-3 main-block">
+
 	@foreach (var item in Model)
 	{
 		<div class="col">
@@ -27,21 +25,18 @@
 							<h5 class="card-title">@item.NameKy</h5>
 							<p class="card-text">@item.DescriptionKy</p>
 						}     
-						@if (User.IsInRole("admin"))
+
+						@if (@item.NameRu != "Дополнительные услуги")
 						{
-											<a class="btn btn-outline-dark" asp-action="EditServices" asp-route-id="@item.Id"> @localizer["editButton"]  </a>
+							<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu">@localizer["orderButton"]</a>
 						}
-						else if (isUser && @item.NameRu != "Дополнительные услуги")
+						else if(@item.NameRu == "Дополнительные услуги")
 						{
-									<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu">@localizer["orderButton"]</a>
+							<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 						}
-						@if (@item.NameRu == "Дополнительные услуги")
+						@if (@item.NameRu == "Выездной осмотр")
 						{
-									<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-						}
-						else if (@item.NameRu == "Выездной осмотр")
-						{
-											<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index">@localizer["calcButton"]</a>
+							<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index">@localizer["calcButton"]</a>
 						}
 					</div>
 			</div>

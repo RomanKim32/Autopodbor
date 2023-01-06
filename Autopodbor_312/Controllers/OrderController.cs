@@ -80,8 +80,7 @@ namespace Autopodbor_312.Controllers
                 service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == "Обратный звонок");
             else
                 service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName);
-			if (ModelState.IsValid)
-			{
+
 				Orders order = new Orders();
 				order.Email = email;
 				order.OrderTime = DateTime.Now;
@@ -94,9 +93,7 @@ namespace Autopodbor_312.Controllers
 				Program.Bot.SendInfo(order);
 				EmailService emailService = new EmailService();
 				await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
-			}
-            //return RedirectToAction("AdditionalServicesDetails", "Admin");
-			return BadRequest(ModelState);
+			return Ok();
 		}
 
 		private StringBuilder GetOrderIfo(Orders order)

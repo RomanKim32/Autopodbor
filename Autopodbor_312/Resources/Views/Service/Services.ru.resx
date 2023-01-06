@@ -123,9 +123,6 @@
   <data name="detailsButton" xml:space="preserve">
     <value>Подробнее</value>
   </data>
-  <data name="editButton" xml:space="preserve">
-    <value>Изменить</value>
-  </data>
   <data name="orderButton" xml:space="preserve">
     <value>Заказать</value>
   </data>

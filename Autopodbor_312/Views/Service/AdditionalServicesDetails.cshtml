@@ -17,9 +17,6 @@ else
 {
 	<table class="table">
 		<tbody>
-			@{
-				bool isUser = !User.IsInRole("admin") && !User.IsInRole("mediaManager") && !User.IsInRole("portfolioManager");
-			}
 			@foreach (var item in Model)
 			{
 				<tr>
@@ -47,10 +44,8 @@ else
 					</td>
 					<td>
 
-						@if (isUser)
-						{
 							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
+						
 					</td>
 				</tr>
 			}
@@ -103,11 +98,11 @@ else
 		$(document).ready(function () {
 			$("#additionalForm").submit(function (e) {
 				e.preventDefault();
-				console.log('hello');
 				let name = $('#UserNameAdditional').val();
 				let number = $('#PhoneAdditional').val();
 				let email = $('#emailAdditional').val();
 				let serviceName = $('#AdditionalModalLabel').text();
+				console.log(serviceName);
 				let comment = $('#commentAdditional').val();
 				$.ajax({
 					url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
@@ -119,9 +114,10 @@ else
 						'comment': comment,
 						'serviceName': serviceName
 					},
-					success: window.location.href = '/Service/AdditionalServicesDetails',
+					success: function () {
+						window.location.href = '/Service/AdditionalServicesDetails';
+					}
 				});
-				return false;
 			});
 		});
 
