@@ -1,8 +1,107 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Home/Index.css"/>
-@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
-
+﻿
+@model List<MainPage>
 @{
-	ViewData["Title"] = @localizer["mainPageTitle"];
+    ViewData["Title"] = "Главная страница";
 }
 
+@*<a asp-controller="Home" asp-action="CreateBanner" >Создать баннер</a>*@
+@foreach (var n in Model)
 
+{
+    @if (n != null)
+    {
+        <div id="pubs" class="card_@n.Id" style="max-width: 540px;">
+            @if (@n.Banner == "big")
+            {
+                <div class="card mb-4" style="max-width: 1040px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            @for (int i = 0; i < n.Images.Count(); i++)
+                            {
+                                <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@n.Title</h5>
+                                <p class="card-text">@n.Description</p>
+                                @if (User.IsInRole("admin"))
+                                 {
+                                    @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
+                                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                                 }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (@n.Banner == "medium")
+            {
+                <div class="card text-bg-dark">
+                    @for (int i = 0; i < n.Images.Count(); i++)
+                    {
+                        <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
+                    }
+                    <div class="card-img-overlay">
+                        <h5 class="card-title">@n.Title</h5>
+                        <p class="card-text">@n.Description</p>
+                        @if (User.IsInRole("admin"))
+                        {
+                            @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
+                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                        }
+                    </div>
+                </div>
+            }
+            @if (@n.Banner == "small")
+            {
+                <div id="carouselExampleIndicators_@n.Id" class="carousel slide" data-bs-ride="true">
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+                        @for (int i = 1; i < n.Images.Count(); i++)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+                        }
+                    </div>
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < n.Images.Count(); i++)
+                        {
+
+                        <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
+                            <img class="d-block w-100" src="@n.Images[i].Path" alt="Photo">
+
+                            <p>@n.Images[i].Title</p>
+                            <h5>@n.Images[i].Description</h5>
+                        </div>
+
+                        }
+                    </div>
+                    @if (n.Images.Count() > 1)
+                    {
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Предыдущий</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Следующий</span>
+                        </button>
+                    }
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+
+                        @if (User.IsInRole("admin"))
+                        {
+                            @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
+                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+  
