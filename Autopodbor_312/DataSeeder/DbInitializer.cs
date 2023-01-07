@@ -128,9 +128,9 @@ namespace Autopodbor_312.DataSeeder
 
                 var mainPagesFiles = new List<MainPageFile>
                 {
-                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "big").Id },
-                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "medium").Id },
-                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "small").Id }
+                    new MainPageFile{Path = "/Files/MainPage/Article_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "big").Id },
+                    new MainPageFile{Path = "/Files/MainPage/Article_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "medium").Id },
+                    new MainPageFile{Path = "/Files/MainPage/Article_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "small").Id }
                 };
                 context.AddRange(mainPagesFiles);
                 context.SaveChanges();
