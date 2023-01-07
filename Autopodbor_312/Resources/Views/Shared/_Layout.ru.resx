@@ -123,6 +123,12 @@
   <data name="callbackFormTitle" xml:space="preserve">
     <value>Обратный звонок</value>
   </data>
+  <data name="customValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта</value>
+  </data>
+  <data name="customValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению</value>
+  </data>
   <data name="emailLabelCallbackForm" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
@@ -149,11 +155,5 @@
   </data>
   <data name="сommentLableCallbackForm" xml:space="preserve">
     <value>Дополнительная информация</value>
-  </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта</value>
-  </data>
-  <data name="сustomValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению</value>
   </data>
 </root>

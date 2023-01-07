@@ -1,4 +1,4 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Service/AdditionalServicesDetails.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Service/AdditionalServicesDetails.css" />
 @model List<Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @using System.Threading;
@@ -44,8 +44,8 @@ else
 					</td>
 					<td>
 
-							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						
+						<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+
 					</td>
 				</tr>
 			}
@@ -68,24 +68,24 @@ else
 				<div class="modal-body">
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 					<div class="form-group">
-						<label class="control-label">Имя</label>
+						<label class="control-label">@localizer["nameOrderLabel"]</label>
 						<input id="UserNameAdditional" class="form-control" />
 					</div>
 					<div class="form-group">
-						<label class="control-label">Номер телефона</label>
-						<input id="PhoneAdditional" class="form-control" required="required" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
+						<label class="control-label">@localizer["phoneNumberOrderLabel"]</label>
+						<input id="PhoneAdditional" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
-						<label class="control-label">Электронная почта</label>
-						<input id="emailAdditional" class="form-control" type="email" oninvalid="this.setCustomValidity('Текст ошибки с локазизацией')" onchange="this.setCustomValidity('')" />
+						<label class="control-label">@localizer["emailOrderLabel"]</label>
+						<input id="emailAdditional" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
-						<label class="control-label">Дополнительная информация</label>
+						<label class="control-label">@localizer["descriptionOrderLabel"]</label>
 						<textarea id="commentAdditional" class="form-control"></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Заказать</button>
+					<button type="submit" class="btn btn-primary">@localizer["orderButton"]</button>
 				</div>
 			</form>
 		</div>
@@ -102,7 +102,6 @@ else
 				let number = $('#PhoneAdditional').val();
 				let email = $('#emailAdditional').val();
 				let serviceName = $('#AdditionalModalLabel').text();
-				console.log(serviceName);
 				let comment = $('#commentAdditional').val();
 				$.ajax({
 					url: '@Url.Action("CreateCallBackAndAdditionalService", "Order")',
@@ -115,9 +114,16 @@ else
 						'serviceName': serviceName
 					},
 					success: function () {
-						window.location.href = '/Service/AdditionalServicesDetails';
+						alert("Заказ успешно оформлен!");
+					},
+					failure: function () {
+						alert("Произошла ошибка при заказе!");
+					},
+					error: function () {
+						alert("Произошла ошибка при заказе!");
 					}
 				});
+
 			});
 		});
 

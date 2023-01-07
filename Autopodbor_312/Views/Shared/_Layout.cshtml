@@ -97,11 +97,11 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["phoneNumberLabelCallbackForm"]</label>
-						<input id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["сustomValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
+						<input id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["emailLabelCallbackForm"]</label>
-						<input id="email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["сustomValidityEmail"]')" onchange="this.setCustomValidity('')" />
+						<input id="email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["сommentLableCallbackForm"]</label>
@@ -137,7 +137,15 @@
 					'email': email,
 					'comment': comment
 				},
-				success: $('#callbackModal').modal("hide"),
+				success: function () {
+					alert("Завка принята, ожидайте звонка!");
+				},
+				failure: function () {
+					alert("Произошла ошибка!");
+				},
+				error: function () {
+					alert("Произошла ошибка!");
+				}
 			});
 			return false;
 		});

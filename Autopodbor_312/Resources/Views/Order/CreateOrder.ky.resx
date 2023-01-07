@@ -123,6 +123,12 @@
   <data name="commentLabelOrderForm" xml:space="preserve">
     <value>Дополнительная информация(на кырг)</value>
   </data>
+  <data name="customValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта(на кырг)</value>
+  </data>
+  <data name="customValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению(ны кырг)</value>
+  </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
     <value>Электронная почта(на кырг)</value>
   </data>
@@ -146,11 +152,5 @@
   </data>
   <data name="сarsFuelLebelOrderForm" xml:space="preserve">
     <value>Вид топлива(на кырг)</value>
-  </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта(на кырг)</value>
-  </data>
-  <data name="сustomValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению(ны кырг)</value>
   </data>
 </root>

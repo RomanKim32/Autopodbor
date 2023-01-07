@@ -1,4 +1,4 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Order/CreateOrder.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Order/CreateOrder.css" />
 @model Autopodbor_312.ViewModel.OrderViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @using System.Threading;
@@ -20,44 +20,41 @@ else
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="CreateOrder" role="form">
+		<form action="" id="orderForm" role="form">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.UserName" class="control-label">@localizer["nameLabelOrderForm"]</label>
-				<input asp-for="@Model.Order.UserName" class="form-control" />
-				<span asp-validation-for="@Model.Order.UserName" class="text-danger"></span>
+				<label class="control-label">@localizer["nameLabelOrderForm"]</label>
+				<input id="UserName" class="form-control" />
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.PhoneNumber" class="control-label">@localizer["phoneNumberLabelOrderForm"]</label>
-				<input asp-for="@Model.Order.PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["сustomValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
-				<span asp-validation-for="@Model.Order.PhoneNumber" class="text-danger"></span>
+				<label class="control-label">@localizer["phoneNumberLabelOrderForm"]</label>
+				<input id="PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.Email" class="control-label">@localizer["emailLabelOrderForm"]</label>
-				<input asp-for="@Model.Order.Email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["сustomValidityEmail"]')" onchange="this.setCustomValidity('')" />
-				<span asp-validation-for="@Model.Order.Email" class="text-danger"></span>
+				<label class="control-label">@localizer["emailLabelOrderForm"]</label>
+				<input id="Email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["modelLabelOrderForm"]</label>
-				<select asp-for="@Model.Order.CarsBrandsId" class="form-control">
+				<select id="CarsBrandsId" class="form-control">
 					@foreach (var brand in Model.CarsBrands)
 					{
-						<option value="@brand.Id">@brand.Brand</option>
+						<option id="CarsBrandsId" value="@brand.Id">@brand.Brand</option>
 					}
 				</select>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">@localizer["carsBodyLabelOrderForm"]</label>
-				<select asp-for="@Model.Order.CarsBodyTypesId" class="form-control">
+				<select id="CarsBodyTypesId" class="form-control">
 					@foreach (var body in Model.CarsBodyTypes)
 					{
 						<option value="@body.Id">@body.BodyType</option>
-					}	
+					}
 				</select>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsYearsId" class="control-label">@localizer["manufacturesYearLabelOrderForm"]</label>
-				<select asp-for="@Model.Order.CarsYearsId" class="form-control">
+				<select id="CarsYearsId" class="form-control">
 					@foreach (var year in Model.CarsYears)
 					{
 						<option value="@year.Id">@year.ManufacturesYear</option>
@@ -66,7 +63,7 @@ else
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsFuelsId" class="control-label">@localizer["сarsFuelLebelOrderForm"]</label>
-				<select asp-for="@Model.Order.CarsFuelsId" class="form-control">
+				<select id="CarsFuelsId" class="form-control">
 					@foreach (var fuel in Model.CarsFuels)
 					{
 						<option value="@fuel.Id">@fuel.FuelsType</option>
@@ -74,15 +71,60 @@ else
 				</select>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.Comment" class="control-label">@localizer["commentLabelOrderForm"]</label>
-				<textarea asp-for="@Model.Order.Comment" class="form-control"></textarea>
-				<span asp-validation-for="@Model.Order.Comment" class="text-danger"></span>
+				<label class="control-label">@localizer["commentLabelOrderForm"]</label>
+				<textarea id="Comment" class="form-control"></textarea>
 			</div>
-			<input type="hidden" asp-for="@Model.Order.ServicesId" value="@Model.Order.ServicesId">
+			<input type="hidden" id="ServiceId" value="@Model.Order.ServicesId">
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">@localizer["orderButtonOrderForm"]</button>
 			</div>
 		</form>
 	</div>
 </div>
+
+@section Scripts
+	{
+	<script>
+		$(document).ready(function () {
+			$("#orderForm").submit(function (e) {
+				e.preventDefault();
+				let name = $('#UserName').val();
+				let number = $('#PhoneNumber').val();
+				let email = $('#Email').val();
+				let carsBrandsId = $('#CarsBrandsId').val();
+				let carsBodyTypesId = $('#CarsBodyTypesId').val();
+				let carsYearsId = $('#CarsYearsId').val();
+				let carsFuelsId = $('#CarsFuelsId').val();
+				let comment = $('#Comment').val();
+				let serviceId = $('#ServiceId').val();
+				$.ajax({
+					url: '@Url.Action("CreateOrder", "Order")',
+					type: 'POST',
+					data: {
+						'userName': name,
+						'phoneNumber': number,
+						'email': email,
+						'carsBrandsId': carsBrandsId,
+						'carsBodyTypesId': carsBodyTypesId,
+						'carsYearsId': carsYearsId,
+						'carsFuelsId': carsFuelsId,
+						'comment': comment,
+						'serviceId': serviceId,
+					},
+					success: function () {
+						alert("Заказ успешно оформлен!");
+					},
+					failure: function () {
+						alert("Произошла ошибка при заказе!");
+					},
+					error: function () {
+						alert("Произошла ошибка при заказе!");
+					}
+				});
+
+			});
+		});
+
+	</script>
+}
 
