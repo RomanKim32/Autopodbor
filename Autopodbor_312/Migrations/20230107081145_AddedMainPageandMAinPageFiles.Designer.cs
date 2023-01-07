@@ -3,15 +3,17 @@ using System;
 using Autopodbor_312.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Autopodbor_312.Migrations
 {
     [DbContext(typeof(AutopodborContext))]
-    partial class AutopodborContextModelSnapshot : ModelSnapshot
+    [Migration("20230107081145_AddedMainPageandMAinPageFiles")]
+    partial class AddedMainPageandMAinPageFiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +190,6 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

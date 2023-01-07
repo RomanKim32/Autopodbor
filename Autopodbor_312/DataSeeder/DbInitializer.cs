@@ -115,6 +115,26 @@ namespace Autopodbor_312.DataSeeder
                 context.AddRange(fuels);
                 context.SaveChanges();
             }
+            if (!context.MainPage.Any())
+            {
+                var mainPages = new List<MainPage>
+                {
+                    new MainPage{Title = "Первый баннер", Description = "текст-1", CreatedDate = System.DateTime.Now, Banner = "big"},
+                    new MainPage{ Title = "Второй баннер", Description = "текст-2", CreatedDate = System.DateTime.Now  ,Banner= "medium"},
+                    new MainPage{ Title = "Третий баннер", Description = "текст-3", CreatedDate = System.DateTime.Now ,  Banner= "small"}
+                };
+                context.AddRange(mainPages);
+                context.SaveChanges();
+
+                var mainPagesFiles = new List<MainPageFile>
+                {
+                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "big").Id },
+                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "medium").Id },
+                    new MainPageFile{Path = "/Files/MainPageArticle_171108_860_575.jpg", Type ="picture", MainPageId = context.MainPage.FirstOrDefault(m => m.Banner == "small").Id }
+                };
+                context.AddRange(mainPagesFiles);
+                context.SaveChanges();
+            }
         }
     }
 }
