@@ -35,14 +35,24 @@ else
 				<input id="Email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["modelLabelOrderForm"]</label>
-				<select id="CarsBrandsId" class="form-control">
+				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["brandLabelOrderForm"]</label>
+				<select onchange="GetSelectedTextValue(this)" id="brand" class="form-control">
 					@foreach (var brand in Model.CarsBrands)
 					{
-						<option id="CarsBrandsId" value="@brand.Id">@brand.Brand</option>
+						<option data-id="@brand.Id" value="@brand.Id">@brand.Brand</option>
 					}
 				</select>
 			</div>
+			@if (@Model.Order.Services.NameRu == "Выездной осмотр")
+			{
+				<div class="form-group">
+					<label class="control-label">Модель</label>
+					<select class="form-control" id="select-model">
+						<option value="">Выберите модель</option>
+					</select>
+				</div>
+			}
+
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">@localizer["carsBodyLabelOrderForm"]</label>
 				<select id="CarsBodyTypesId" class="form-control">
@@ -85,18 +95,51 @@ else
 @section Scripts
 	{
 	<script>
+		let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) {
+				options.forEach((item) => {
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue(brand) {
+			var brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
+			console.log(brandId);
+			$.ajax({
+				url: '@Url.Action("GetModel", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+					console.log(response);
+				}
+			});
+			event.preventDefault();
+		};
+
 		$(document).ready(function () {
 			$("#orderForm").submit(function (e) {
 				e.preventDefault();
 				let name = $('#UserName').val();
 				let number = $('#PhoneNumber').val();
 				let email = $('#Email').val();
-				let carsBrandsId = $('#CarsBrandsId').val();
+				let carsBrandsId = $('#brand').val();
 				let carsBodyTypesId = $('#CarsBodyTypesId').val();
 				let carsYearsId = $('#CarsYearsId').val();
 				let carsFuelsId = $('#CarsFuelsId').val();
 				let comment = $('#Comment').val();
 				let serviceId = $('#ServiceId').val();
+				let carsBrandsModelId = $('#select-model').val();
 				$.ajax({
 					url: '@Url.Action("CreateOrder", "Order")',
 					type: 'POST',
@@ -110,6 +153,7 @@ else
 						'carsFuelsId': carsFuelsId,
 						'comment': comment,
 						'serviceId': serviceId,
+						'modelId': carsBrandsModelId,
 					},
 					success: function () {
 						alert("Заказ успешно оформлен!");
@@ -121,7 +165,6 @@ else
 						alert("Произошла ошибка при заказе!");
 					}
 				});
-
 			});
 		});
 

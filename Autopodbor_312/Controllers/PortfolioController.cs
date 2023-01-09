@@ -28,14 +28,14 @@ namespace Autopodbor_312.Controllers
 		public async Task<IActionResult> Index(int pageNumber = 1)
 		{
             List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 1));
+			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 5));
 		}
 
         [Authorize(Roles = "admin,portfolioManager")]
         public async Task<IActionResult> Portfolio(int pageNumber = 1)
 		{
 			List<Portfolio> portfolios = await _context.Portfolio.OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(PaginationList<Portfolio>.CreateAsync(portfolios, pageNumber, 1));
+			return View(PaginationList<Portfolio>.CreateAsync(portfolios, pageNumber, 5));
 		}
 
 

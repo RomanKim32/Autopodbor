@@ -32,19 +32,21 @@ namespace Autopodbor_312.Controllers
 			var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
 			var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
 			var carsYears = await _autodborContext.CarsYears.ToListAsync();
+			var carsBrandsModel = await _autodborContext.CarsBrandsModels.ToListAsync();
 			var orderViewModel = new OrderViewModel
 			{
 				Order = order,
 				CarsBodyTypes = carsBodyTypes,
 				CarsBrands = carsBrands,
 				CarsYears = carsYears,
-				CarsFuels = carsFuels
+				CarsFuels = carsFuels,
+				CarsBrandsModels = carsBrandsModel
 			};
 			return View(orderViewModel);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateOrder(string userName, string phoneNumber, string email, string comment, string carsBrandsId, string carsBodyTypesId, string carsYearsId,string carsFuelsId, string serviceId)
+		public async Task<IActionResult> CreateOrder(string userName, string phoneNumber, string email, string comment, string carsBrandsId, string carsBodyTypesId, string carsYearsId,string carsFuelsId, string serviceId, string modelId)
 		{
 			try
 			{
@@ -57,9 +59,18 @@ namespace Autopodbor_312.Controllers
 				order.Services = await _autodborContext.Services.FirstOrDefaultAsync(s => s.Id == Convert.ToInt32(serviceId));
 				order.Comment = comment;
 				order.CarsBodyTypesId = Convert.ToInt32(carsBodyTypesId);
+				order.CarsBodyTypes = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(c => c.Id == order.CarsBodyTypesId);
 				order.CarsBrandsId = Convert.ToInt32(carsBrandsId);
+				order.CarsBrands = await _autodborContext.CarsBrands.FirstOrDefaultAsync(c => c.Id == order.CarsBrandsId);
 				order.CarsFuelsId = Convert.ToInt32(carsFuelsId);
+				order.CarsFuels = await _autodborContext.CarsFuels.FirstOrDefaultAsync(c => c.Id == order.CarsFuelsId);
 				order.CarsYearsId = Convert.ToInt32(carsYearsId);
+				order.CarsYears = await _autodborContext.CarsYears.FirstOrDefaultAsync(c => c.Id == order.CarsYearsId);
+				if (modelId != null)
+				{
+					order.CarsBrandsModelsId = Convert.ToInt32(modelId);
+					order.CarsBrandsModels = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(c => c.Id == order.CarsBrandsModelsId);
+				}
 				_autodborContext.Add(order);
 				await _autodborContext.SaveChangesAsync();
 				Program.Bot.SendInfo(order);
@@ -116,6 +127,8 @@ namespace Autopodbor_312.Controllers
 				info.Append($"Почта: {order.Email}.\n");
 			if (order.CarsBrands != null)
 				info.Append($"Марка: {order.CarsBrands.Brand}.\n");
+			if (order.CarsBrandsModels != null)
+				info.Append($"Модель: {order.CarsBrandsModels.Model}.\n");
 			if (order.CarsBodyTypes != null)
 				info.Append($"Тип кузова: {order.CarsBodyTypes.BodyType}.\n");
 			if (order.CarsYears != null)
