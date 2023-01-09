@@ -120,6 +120,12 @@
   <data name="bodyTypeLabel" xml:space="preserve">
     <value>Форма кузова(на кырг)</value>
   </data>
+  <data name="brandLabelOrderForm" xml:space="preserve">
+    <value>Марка(на кырг)</value>
+  </data>
+  <data name="brandOptionOrderForm" xml:space="preserve">
+    <value>Выберите марку(на кырг)</value>
+  </data>
   <data name="calculateButton" xml:space="preserve">
     <value>Рассчитать(на кырг)</value>
   </data>
@@ -134,6 +140,9 @@
   </data>
   <data name="modelLabel" xml:space="preserve">
     <value>Модель(на кырг)</value>
+  </data>
+  <data name="modelOptionOrderForm" xml:space="preserve">
+    <value>Выберите модель(на кырг)</value>
   </data>
   <data name="titleDescription" xml:space="preserve">
     <value>Калькулятор по услуге "Выездной осмотр"(на кырг)</value>

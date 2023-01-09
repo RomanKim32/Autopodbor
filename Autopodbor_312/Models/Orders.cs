@@ -27,6 +27,5 @@ namespace Autopodbor_312.Models
 		public int? CarsBrandsModelsId { get; set; }
 		public CarsBrandsModel? CarsBrandsModels { get; set; }
 		public string? Comment { get; set; }
-		public string? Price { get; set; }
 	}
 }

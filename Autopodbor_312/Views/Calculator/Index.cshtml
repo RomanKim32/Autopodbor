@@ -14,9 +14,9 @@
         <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Марка</label>
+                <label class="control-label">@localizer["brandLabelOrderForm"]</label>
                 <select onchange="GetSelectedTextValue(this)" class="form-control" id="brand">
-                     <option  value="">Выберите марку</option>
+                    <option value="">@localizer["brandOptionOrderForm"]</option>
                     @foreach (var brand in Model.CarsBrands)
                     {
                        
@@ -27,14 +27,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label">Модель</label>
+                <label class="control-label">@localizer["modelLabel"]</label>
                 <select class="form-control" id="select-model">
-                   <option  value="">Выберите модель</option>
+                    <option value="">@localizer["modelOptionOrderForm"]</option>
                     
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label">Форма кузова</label>
+                <label class="control-label">@localizer["bodyTypeLabel"]</label>
                 <select class="form-control" id="body">
                     @foreach (var body in Model.CarsBodyTypes)
                     {
@@ -43,7 +43,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label">Год выпуска</label>
+                <label class="control-label">@localizer["manufacturesYearLabel"]</label>
                 <select class="form-control" id="year">
                     @foreach (var year in Model.CarsYears)
                     {
@@ -52,7 +52,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label">Вид топлива</label>
+                <label class="control-label">@localizer["fuelsTypeLabel"]</label>
                 <select class="form-control" id="fuel">
                     @foreach (var fuel in Model.CarsFuels)
                     {
@@ -61,7 +61,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Рассчитать" class="btn btn-primary" onclick="Calculate()" />
+                <input type="submit" value="@localizer["calculateButton"]" class="btn btn-primary" onclick="Calculate()" />
             </div>
         </form>
     </div>
@@ -72,11 +72,7 @@
 
 @section Scripts
 {
-<script>
-
-    //function GetSelectedTextValue(brand) {
-    //    var selectedText = brand.options[brand.selectedIndex].innerHTML;
-        
+<script>  
     let Id = '';
     function GetId(id) {
         Id = id;

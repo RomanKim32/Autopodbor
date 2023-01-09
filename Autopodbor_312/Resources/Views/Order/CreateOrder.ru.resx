@@ -120,6 +120,9 @@
   <data name="brandLabelOrderForm" xml:space="preserve">
     <value>Марка</value>
   </data>
+  <data name="brandOptionOrderForm" xml:space="preserve">
+    <value>Выберите марку</value>
+  </data>
   <data name="carsBodyLabelOrderForm" xml:space="preserve">
     <value>Форма кузова</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="manufacturesYearLabelOrderForm" xml:space="preserve">
     <value>Год выпуска</value>
+  </data>
+  <data name="modelLabelOrderForm" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="modelOptionOrderForm" xml:space="preserve">
+    <value>Выберите модель</value>
   </data>
   <data name="nameLabelOrderForm" xml:space="preserve">
     <value>Имя</value>
