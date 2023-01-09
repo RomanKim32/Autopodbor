@@ -1,4 +1,6 @@
+using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
+using Autopodbor_312.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +57,7 @@ namespace Autopodbor_312
                     options.Password.RequireDigit = false;
                 })
                 .AddEntityFrameworkStores<AutopodborContext>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

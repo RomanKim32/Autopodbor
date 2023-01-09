@@ -6,6 +6,6 @@
         public string Model { get; set; }
         public string Price { get; set; }
         public int CarsBrandsId { get; set; }
-        public CarsBrands CarsBrands { get; set; }
+        public virtual CarsBrands CarsBrands { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Autopodbor_312.Models
 	{
 		public int Id { get; set; }
 		public int ServicesId { get; set; }
-		public Services Services { get; set; }
+		public virtual Services Services { get; set; }
 		public DateTime OrderTime { get; set; }
 		#nullable enable
         public string? UserName { get; set; }
@@ -17,13 +17,13 @@ namespace Autopodbor_312.Models
 		#nullable enable
         public string? Email { get; set; }
 		public int? CarsBrandsId { get; set; }
-		public CarsBrands? CarsBrands { get; set; }
+		public virtual CarsBrands? CarsBrands { get; set; }
 		public int? CarsYearsId { get; set; }
-		public CarsYears? CarsYears { get; set; }
+		public virtual CarsYears? CarsYears { get; set; }
 		public int? CarsBodyTypesId { get; set; }
-		public CarsBodyTypes? CarsBodyTypes { get; set; }
+		public virtual CarsBodyTypes? CarsBodyTypes { get; set; }
 		public int? CarsFuelsId { get; set; }
-		public CarsFuels? CarsFuels { get; set; }
+		public virtual CarsFuels? CarsFuels { get; set; }
 		public string? Comment { get; set; }
 		public string? Price { get; set; }
 	}
