@@ -15,12 +15,9 @@ namespace Autopodbor_312.Interfaces
 
         void CreateServices(Services service, IFormFile servicePhotoFile);
 
-        [HttpGet]
-        Services EditServices(int? id);
-
         void EditServices(IFormFile servicePhotoFile, int id, [Bind("Id,NameRu,DescriptionRu,NameKy,DescriptionKy,IsAdditional,Photo")] Services service);
 
-        Services DeleteServices(int? id);
+        Services GetService(int? id);
 
         void DeleteConfirmedServices(int id);
 

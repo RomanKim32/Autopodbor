@@ -45,9 +45,6 @@ namespace Autopodbor_312.Repositories
             return services;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
         public virtual void CreateServices(Services service, IFormFile servicePhotoFile)
         {
             using (var scope = _serviceScopeFactory.CreateScope())
@@ -67,17 +64,12 @@ namespace Autopodbor_312.Repositories
             }
         }
 
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        public Services EditServices(int? id)
+        public Services GetService(int? id)
         {
-            var service = _context.Services.FirstOrDefault(s => s.Id == id);
-            return service;
+            var services = _context.Services.FirstOrDefault(m => m.Id == id);
+            return services;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
         public void EditServices(IFormFile servicePhotoFile, int id, [Bind(new[] { "Id,NameRu,DescriptionRu,NameKy,DescriptionKy,IsAdditional,Photo" })] Services service)
         {
             if (servicePhotoFile != null)
@@ -96,14 +88,6 @@ namespace Autopodbor_312.Repositories
             }
             _context.Update(service);
             _context.SaveChanges();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        public Services DeleteServices(int? id)
-        {
-            var services = _context.Services.FirstOrDefault(m => m.Id == id);
-            return services;
         }
 
         public void DeleteConfirmedServices(int id)

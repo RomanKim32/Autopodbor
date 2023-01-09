@@ -53,7 +53,7 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult EditServices(int? id)
         {
-            return View(_serviceRepository.EditServices(id));
+            return View(_serviceRepository.GetService(id));
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult DeleteServices(int? id)
         {
-            return View(_serviceRepository.DeleteServices(id));
+            return View(_serviceRepository.GetService(id));
         }
 
         [HttpPost, ActionName("DeleteServices")]
