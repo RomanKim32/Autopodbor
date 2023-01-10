@@ -25,13 +25,19 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = appEnvironment;
 		}
 
-		public async Task<IActionResult> Index(int pageNumber = 1)
+		public async Task<IActionResult> IndexTurnkeySelection(int pageNumber = 1)
 		{
-            List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
+            List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == false).OrderByDescending(p => p.CreatedDate).ToListAsync();
+			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 1));
+		}
+
+		public async Task<IActionResult> IndexFieldInspection(int pageNumber = 1)
+		{
+			List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
 			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 5));
 		}
 
-        [Authorize(Roles = "admin,portfolioManager")]
+		[Authorize(Roles = "admin,portfolioManager")]
         public async Task<IActionResult> Portfolio(int pageNumber = 1)
 		{
 			List<Portfolio> portfolios = await _context.Portfolio.OrderByDescending(p => p.CreatedDate).ToListAsync();
@@ -42,7 +48,18 @@ namespace Autopodbor_312.Controllers
 		[Authorize(Roles = "admin,portfolioManager")]
 		public IActionResult CreatePortfolio()
 		{
-			return View();
+            Portfolio portfolio = new Portfolio();
+            List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
+            List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
+            List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
+            var createPortfolioViewModel = new CreatePortfolioViewModel
+            {
+                Portfolio = portfolio,
+                CarsBodyTypes = carsBodyTypes,
+                CarsBrandsModel= carsBrandsModels,
+                CarsBrands = carsBrands,
+            };
+			return View(createPortfolioViewModel);
 		}
 
 		[HttpPost]

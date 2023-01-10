@@ -12,5 +12,13 @@ namespace Autopodbor_312.Models
         public DateTime CreatedDate { get; set; }
         public bool Publicate { get; set; }
         public string MainImagePath { get; set; }
-    }
+        public bool IsFieldInspection { get; set; }
+        public int CarsBodyTypesId { get; set; }
+        public CarsBodyTypes CarsBodyTypes { get; set; }
+        public int CarsBrandsId { get; set; }
+        public CarsBrands CarsBrands { get; set; }
+        public int CarsBrandsModelId { get; set; }
+        public CarsBrandsModel CarsBrandsModel { get; set; }
+
+	}
 }
