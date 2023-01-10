@@ -188,16 +188,25 @@ namespace Autopodbor_312.Controllers
 			{
 				return NotFound();
 			}
-			var port = await _context.Portfolio.FindAsync(id);
+            var port = await _context.Portfolio.Include(p => p.CarsBodyTypes).Include(p => p.CarsBrands).Include(p => p.CarsBrandsModel).FirstOrDefaultAsync(p => p.Id == id);
 			List<PortfolioNewsFile> pics = await _context.PortfolioNewsFiles.Where(i => i.PortfolioId == id && i.Type == "picture").ToListAsync();
 			List<PortfolioNewsFile> vids = await _context.PortfolioNewsFiles.Where(v => v.PortfolioId == id && v.Type == "video").ToListAsync();
 			PortfolioNewsFile mainPic = await _context.PortfolioNewsFiles.Where(m => m.PortfolioId == id && m.Type == "mainPic").FirstOrDefaultAsync();
-			PortfolioDetailsViewModel portfolioDetailsViewModel = new PortfolioDetailsViewModel { MinorPictures = pics, Videos = vids, Portfolio = port, MainPic = mainPic };
+			PortfolioDetailsViewModel portfolioDetailsViewModel = new PortfolioDetailsViewModel 
+            { 
+                MinorPictures = pics,
+                Videos = vids,
+                Portfolio = port, 
+                MainPic = mainPic,
+            };
 			if (port == null)
 			{
 				return NotFound();
 			}
-			return View(portfolioDetailsViewModel);
+            ViewData["Brands"] = new SelectList(_context.CarsBrands, "Id", "Brand");
+            ViewData["Models"] = new SelectList(_context.CarsBrandsModels, "Id", "Model");
+            ViewData["BodyTypes"] = new SelectList(_context.CarsBodyTypes, "Id", "BodyType");
+            return View(portfolioDetailsViewModel);
 		}
 
 		[HttpPost]
