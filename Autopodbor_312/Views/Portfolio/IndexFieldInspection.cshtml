@@ -1,5 +1,5 @@
 ﻿@using System.Threading;
-@model PaginationList<Portfolio>
+@model Autopodbor_312.ViewModel.FilterPortfolioViewModel;
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
@@ -7,9 +7,28 @@
 }
 
 
-<h1>Портфолио для услуги "Выездной осмотр"</h1>
+<h1>@localizer["portfolioFieldInspectionTitle"]</h1>
+
+<form method="get">
+	<div class="form-inline">
+		<label class="control-label">Тип кузова: </label>
+		@Html.DropDownList("bodyType", Model.CarsBodyTypes as SelectList,
+		htmlAttributes: new { @class = "form-control" })
+
+		<label class="control-label">Марка авто: </label>
+		@Html.DropDownList("brand", Model.CarsBrands as SelectList,
+		htmlAttributes: new { @class = "form-control" })
+
+		<label class="control-label">Модель авто: </label>
+		@Html.DropDownList("model", Model.CarsModels as SelectList,
+		htmlAttributes: new { @class = "form-control" })
+
+		<input type="submit" value="Фильтр" class="btn btn-default" />
+	</div>
+</form>
+
 <div class="card" style="width: 18rem;">
-	@foreach (var item in Model)
+	@foreach (var item in Model.Portfolios)
 	{
 		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
 		<div class="card-body">
@@ -29,8 +48,8 @@
 	}
 </div>
 @{
-	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
-	var nextDisabled = !Model.NextPage ? "disabled" : "";
+	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
+	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
 }
-<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
-<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
+<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>

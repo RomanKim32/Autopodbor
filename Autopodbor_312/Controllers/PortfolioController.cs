@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace Autopodbor_312.Controllers
@@ -25,16 +27,54 @@ namespace Autopodbor_312.Controllers
 			_appEnvironment = appEnvironment;
 		}
 
-		public async Task<IActionResult> IndexTurnkeySelection(int pageNumber = 1)
+		public IActionResult IndexTurnkeySelection(int? bodyType, int? brand, int? model)
 		{
-            List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == false).OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 1));
+			IQueryable<Portfolio> portfolios = _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == false).OrderByDescending(p => p.CreatedDate)
+				.Include(p => p.CarsBodyTypes)
+				.Include(p => p.CarsBrands)
+				.Include(p => p.CarsBrandsModel);
+			return View(GetFilterPortfolioViewModel(portfolios, bodyType, brand, model));
 		}
 
-		public async Task<IActionResult> IndexFieldInspection(int pageNumber = 1)
+		public IActionResult IndexFieldInspection(int? bodyType, int? brand, int? model)
 		{
-			List<Portfolio> portfoliosPublished = await _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == true).OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(PaginationList<Portfolio>.CreateAsync(portfoliosPublished, pageNumber, 5));
+			IQueryable<Portfolio> portfolios =  _context.Portfolio.Where(p => p.Publicate == true && p.IsFieldInspection == true).OrderByDescending(p => p.CreatedDate)
+                .Include(p => p.CarsBodyTypes)
+                .Include(p => p.CarsBrands)
+                .Include(p => p.CarsBrandsModel);
+			return View(GetFilterPortfolioViewModel(portfolios, bodyType, brand, model));
+		}
+
+        private FilterPortfolioViewModel GetFilterPortfolioViewModel(IQueryable<Portfolio> portfolios, int? bodyType, int? brand, int? model, int pageNumber = 1)
+        {
+			if (bodyType != null && bodyType != 0)
+			{
+				portfolios = portfolios.Where(p => p.CarsBodyTypes.Id == bodyType);
+			}
+			if (brand != null && brand != 0)
+			{
+				portfolios = portfolios.Where(p => p.CarsBrands.Id == brand);
+			}
+			if (model != null && model != 0)
+			{
+				portfolios = portfolios.Where(p => p.CarsBrandsModel.Id == model);
+			}
+
+			List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
+			List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
+			List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
+			carsBodyTypes.Insert(0, new CarsBodyTypes { BodyType = "Все", Id = 0 });
+			carsBrands.Insert(0, new CarsBrands { Brand = "Все", Id = 0 });
+			carsBrandsModels.Insert(0, new CarsBrandsModel { Model = "Все", Id = 0 });
+
+			var fpvm = new FilterPortfolioViewModel
+			{
+				Portfolios = PaginationList<Portfolio>.CreateAsync(portfolios.ToList(), pageNumber, 5),
+				CarsBodyTypes = new SelectList(carsBodyTypes, "Id", "BodyType"),
+				CarsBrands = new SelectList(carsBrands, "Id", "Brand"),
+				CarsModels = new SelectList(carsBrandsModels, "Id", "Model"),
+			};
+            return fpvm;
 		}
 
 		[Authorize(Roles = "admin,portfolioManager")]

@@ -126,6 +126,9 @@
   <data name="portfolioTitle" xml:space="preserve">
     <value>Портфолио(на кырг)</value>
   </data>
+  <data name="portfolioTurnkeySeclectionTitle" xml:space="preserve">
+    <value>Портфолио для услуги "Подбор под ключ"(на кырг)</value>
+  </data>
   <data name="previousButton" xml:space="preserve">
     <value>Назад(на кырг)</value>
   </data>
