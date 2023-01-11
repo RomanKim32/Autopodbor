@@ -1,1 +1,45 @@
 ﻿
+.card-text {
+    font-size: calc(100vw - 98.1vw);
+}
+.card-body {
+    padding: 0;
+}
+.banner {
+    font-size: calc(100vw - 96.8vw);
+}
+.tool, p, h5{
+   font-weight: 700;
+   text-align: center;
+}
+
+.tool {
+    font-size: calc(100vw - 97.5vw);
+}
+@media screen and (max-width: 1400px) {
+    
+    .card {
+        border-radius: 10px;
+    }
+}
+@media  screen and (max-width: 1200px) {
+    
+    .card {
+        border-radius: 0px;
+    }
+}
+
+@media  screen and (max-width: 992px) {
+
+    .card {
+        border-radius: 0px;
+    }
+}
+
+@media  screen and (max-width: 770px) {
+
+    .card {
+        border-radius: 0px;
+       /* font-size:*/ 
+    }
+}

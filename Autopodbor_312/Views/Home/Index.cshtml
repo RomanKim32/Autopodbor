@@ -1,50 +1,58 @@
 ﻿
+<link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
+
 @model List<MainPage>
 @{
     ViewData["Title"] = "Главная страница";
 }
 
-@*<a asp-controller="Home" asp-action="CreateBanner" >Создать баннер</a>*@
 @foreach (var n in Model)
 
 {
     @if (n != null)
     {
-        <div id="pubs" class="card_@n.Id" style="max-width: 540px;">
+        
+        <div id="pubs" class="card_@n.Id" >
             @if (@n.Banner == "big")
             {
-                <div class="card mb-4" style="max-width: 1040px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
+               @* <div class="card mt-2">
+                   <img src="https://autopragmat.ru/bitrix/templates/autopragmat_v2/assets/img/s6_desktop.webp" class="card-img-bottom" alt="Photo">          
+                </div>*@
+                <div class=" mt-5 ">
+                    <div class="row  row-cols-1 row-cols-md-3 g-4 mt-2 main-block m-0">
+                        <div class="col-md-6  p-0 m-0">
                             @for (int i = 0; i < n.Images.Count(); i++)
                             {
                                 <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
                             }
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6 text-center p-0 m-0">
                             <div class="card-body">
-                                <h5 class="card-title">@n.Title</h5>
-                                <p class="card-text">@n.Description</p>
+                                <h5 class="card-title  fw-bold  text-uppercase banner">@n.Title</h5>
+
+                                <p class="card-text   banner">@n.Description</p>
+                                <a class="btn btn-success  fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
                                 @if (User.IsInRole("admin"))
-                                 {
-                                    @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
-                                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
-                                 }
+                                    {
+                                    <a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>
+                                    <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                                    }
                             </div>
                         </div>
                     </div>
                 </div>
+                
             }
             @if (@n.Banner == "medium")
             {
-                <div class="card text-bg-dark">
+                <div class="card mt-5 text-bg-dark">
                     @for (int i = 0; i < n.Images.Count(); i++)
                     {
                         <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
                     }
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">@n.Title</h5>
-                        <p class="card-text">@n.Description</p>
+                    <div class="card-img-overlay text-center text-white p-2 position-absolute top-50 start-50 translate-middle">
+                        <h5 class="card-title fs-3 fw-bold lh-lg text-uppercase">@n.Title</h5>
+                        <p class="card-text fw-bold">@n.Description</p>
                         @if (User.IsInRole("admin"))
                         {
                             @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
@@ -55,7 +63,8 @@
             }
             @if (@n.Banner == "small")
             {
-                <div id="carouselExampleIndicators_@n.Id" class="carousel slide" data-bs-ride="true">
+
+                <div id="carouselExampleIndicators_@n.Id" class="carousel mt-5 slide" data-bs-ride="true">
 
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
@@ -65,14 +74,19 @@
                         }
                     </div>
                     <div class="carousel-inner">
+                            
                         @for (int i = 0; i < n.Images.Count(); i++)
                         {
 
-                        <div class="@(i==0 ? "carousel-item active" : "carousel-item") ">
-                            <img class="d-block w-100" src="@n.Images[i].Path" alt="Photo">
-
-                            <p>@n.Images[i].Title</p>
-                            <h5>@n.Images[i].Description</h5>
+                        <div class="@(i==0 ? "carousel-item active" : "carousel-item")">
+                            <div class="row">
+                                 <img class="d-block col-md-6" src="@n.Images[i].Path" alt="Photo">
+                            
+                            <div class="col-md-6 tool">
+                                <p class="tool text-uppercase">@n.Images[i].Title</p>
+                                <h5 class="tool">@n.Images[i].Description</h5>
+                            </div> 
+                            </div>   
                         </div>
 
                         }
@@ -102,6 +116,6 @@
                 </div>
             }
         </div>
+  
     }
 }
-  
