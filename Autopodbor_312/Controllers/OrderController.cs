@@ -93,8 +93,11 @@ namespace Autopodbor_312.Controllers
 				if (serviceName == null)
 					service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == "Обратный звонок");
 				else
-					service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName);
-
+					service = await _autodborContext.Services.FirstOrDefaultAsync(s => s.NameRu == serviceName || s.NameKy == serviceName);
+				if (service == null)
+				{
+					return BadRequest();
+				}
 				Orders order = new Orders();
 				order.Email = email;
 				order.OrderTime = DateTime.Now;

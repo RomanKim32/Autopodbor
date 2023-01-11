@@ -164,7 +164,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
         public async Task<IActionResult> AdditionalServicesDetails()
         {
-            var additionalServicesList = await _context.Services.Where(s => s.IsAdditional == true).ToListAsync();
+            var additionalServicesList = await _context.Services.Where(s => s.IsAdditional == true).OrderBy(s => s.Id).ToListAsync();
             return View(additionalServicesList);
         }
 

@@ -43,8 +43,16 @@ else
 						<img src="@item.Photo" class="card-img-top" alt="Img">
 					</td>
 					<td>
+						@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+						{
+							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+						}
+						else
+						{
+							<a onclick="ToOpenModal('@item.NameKy')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+						}
 
-						<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+						
 
 					</td>
 				</tr>
