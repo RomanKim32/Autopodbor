@@ -3,7 +3,7 @@
 
 @{
 	ViewData["Title"] = "Создать портфолио";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Добавить портфолио</h1>
@@ -14,22 +14,22 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="Portfolio.NameRu" class="control-label">Название портфолио на русском</label>
-				<input asp-for="Portfolio.NameRu" class="form-control" />
+				<input asp-for="Portfolio.NameRu" class="form-control" required="required" />
 				<span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Portfolio.BodyRu" class="control-label">Описание портфолио на русском</label>
-				<textarea asp-for="Portfolio.BodyRu" class="form-control"></textarea>
+				<textarea asp-for="Portfolio.BodyRu" class="form-control" required="required"></textarea>
 				<span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Portfolio.NameKy" class="control-label">Название портфолио на кыргызском</label>
-				<input asp-for="Portfolio.NameKy" class="form-control" />
+				<input asp-for="Portfolio.NameKy" class="form-control" required="required" />
 				<span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Portfolio.BodyKy" class="control-label">Описание портфолио на кыргыском</label>
-				<textarea asp-for="Portfolio.BodyKy" class="form-control"></textarea>
+				<textarea asp-for="Portfolio.BodyKy" class="form-control" required="required"></textarea>
 				<span asp-validation-for="Portfolio.BodyKy" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -65,7 +65,7 @@
 			</div>
 			<div class="custom-file">
 				<label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
-				<input type="file" name="mainPic" /><br />
+				<input type="file" name="mainPic" required="required" /><br />
 			</div>
 			<div class="form-group">
 				<label сlass="control-label">Выберите фотографии для детальной страницы</label>
@@ -76,7 +76,7 @@
 				<input type="text" name="video" placeholder="Введите id через пробел" /><br />
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Создать портфолио" class="btn btn-primary" />
+				<button type="submit" class="btn btn-primary">Создать портфолио</button>
 			</div>
 		</form>
 	</div>

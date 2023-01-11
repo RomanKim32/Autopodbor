@@ -14,22 +14,22 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="NameRu" class="control-label">Название услуги на русском</label>
-                <input asp-for="NameRu" class="form-control" />
+                <input asp-for="NameRu" class="form-control" required="required"/>
                 <span asp-validation-for="NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DescriptionRu" class="control-label">Описание услуги на русском</label>
-                <textarea asp-for="DescriptionRu" class="form-control"></textarea>
+                <textarea asp-for="DescriptionRu" class="form-control" required="required"></textarea>
                 <span asp-validation-for="DescriptionRu" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NameKy" class="control-label">Название услуги на кыргызском</label>
-                <input asp-for="NameKy" class="form-control" />
+                <input asp-for="NameKy" class="form-control" required="required" />
                 <span asp-validation-for="NameKy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DescriptionKy" class="control-label">Описание услуги на кыргызском</label>
-                <textarea asp-for="DescriptionKy" class="form-control"></textarea>
+                <textarea asp-for="DescriptionKy" class="form-control" required="required"></textarea>
                 <span asp-validation-for="DescriptionKy" class="text-danger"></span>
             </div>
             <div class="form-group">

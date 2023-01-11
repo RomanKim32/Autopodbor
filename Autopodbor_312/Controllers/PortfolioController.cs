@@ -118,8 +118,8 @@ namespace Autopodbor_312.Controllers
             {
                 newsInfo.Create();
             }
-            if (ModelState.IsValid)
-			{
+/*            if (ModelState.IsValid)
+			{*/
 				portfolio.CreatedDate = DateTime.Now;
 				portfolio.Publicate = false;
 				_context.Portfolio.Add(portfolio);
@@ -164,7 +164,7 @@ namespace Autopodbor_312.Controllers
 					}
 					return RedirectToAction("Portfolio");
 				}
-			}
+/*			}*/
 			return RedirectToAction("Portfolio");
 		}
 

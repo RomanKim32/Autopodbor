@@ -16,22 +16,22 @@
 			<input type="hidden" asp-for="@Model.Portfolio.Publicate" />
 			<div class="form-group">
 				<label asp-for="@Model.Portfolio.NameRu" class="control-label">Название портфолио на русском</label>
-				<input asp-for="@Model.Portfolio.NameRu" class="form-control" />
+				<input asp-for="@Model.Portfolio.NameRu" class="form-control" required="required" />
 				<span asp-validation-for="@Model.Portfolio.NameRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Portfolio.BodyRu" class="control-label">Описание портфолио на русском</label>
-				<input asp-for="@Model.Portfolio.BodyRu" class="form-control" />
+				<textarea asp-for="@Model.Portfolio.BodyRu" class="form-control" required="required"></textarea>
 				<span asp-validation-for="@Model.Portfolio.BodyRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Portfolio.NameKy" class="control-label">Название портфолио на кыргызском</label>
-				<input asp-for="@Model.Portfolio.NameKy" class="form-control" />
+				<input asp-for="@Model.Portfolio.NameKy" class="form-control" required="required" />
 				<span asp-validation-for="@Model.Portfolio.NameKy" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Portfolio.BodyKy" class="control-label">Описание портфолио на кыргызском</label>
-				<input asp-for="@Model.Portfolio.BodyKy" class="form-control" />
+				<textarea asp-for="@Model.Portfolio.BodyKy" class="form-control" required="required"></textarea>
 				<span asp-validation-for="@Model.Portfolio.BodyKy" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -63,7 +63,7 @@
 			
 
 			<div class="form-group">
-				<input type="submit" value="Изменить" class="btn btn-primary" />
+				<button type="submit" class="btn btn-primary">Изменить</button>
 			</div>
 		</form>
 	</div>
