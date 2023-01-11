@@ -1,13 +1,14 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/ContactInformation/Index.css"/>
 @model Autopodbor_312.Models.ContactInformation
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = @localizer["contactInformationTitle"];
 }
 
 <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">Контакты</h5>
+        <h5 class="card-title">@localizer["contactInformationTitle"]</h5>
   </div>
   <ul class="list-group list-group-flush">
         @if (Model.Email != null){<li class="list-group-item"><i class="fa-regular fa-envelope"></i> @Model.Email</li>}

@@ -117,52 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="callbackButton" xml:space="preserve">
-    <value>Заказать звонок(на кырг)</value>
-  </data>
-  <data name="callbackFormTitle" xml:space="preserve">
-    <value>Обратный звонок(на кырг)</value>
-  </data>
-  <data name="contactInformationButton" xml:space="preserve">
-    <value>Контакты(на кырг)</value>
-  </data>
-  <data name="customValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта(на кырг)</value>
-  </data>
-  <data name="customValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению(на кырг)</value>
-  </data>
-  <data name="emailLabelCallbackForm" xml:space="preserve">
-    <value>Электронная почта(на кырг)</value>
-  </data>
-  <data name="mainPageButton" xml:space="preserve">
-    <value>Главная страница(на кырг)</value>
-  </data>
-  <data name="nameLabelCallbackForm" xml:space="preserve">
-    <value>Имя(на кырг)</value>
-  </data>
-  <data name="newsButton" xml:space="preserve">
-    <value>Новости(на кырг)</value>
-  </data>
-  <data name="orderCallbackButton" xml:space="preserve">
-    <value>Заказать(на кырг)</value>
-  </data>
-  <data name="phoneNumberLabelCallbackForm" xml:space="preserve">
-    <value>Номер телефона(на кырг)</value>
-  </data>
-  <data name="portfolioButton" xml:space="preserve">
-    <value>Портфолио(на кырг)</value>
-  </data>
-  <data name="portfolioFieldInspection" xml:space="preserve">
-    <value>Выездной осмотр(на кырг)</value>
-  </data>
-  <data name="portfolioTurnkeySelection" xml:space="preserve">
-    <value>Подбор под ключ(на кырг)</value>
-  </data>
-  <data name="servicesButton" xml:space="preserve">
-    <value>Кызматтар</value>
-  </data>
-  <data name="сommentLableCallbackForm" xml:space="preserve">
-    <value>Дополнительная информация(на кырг)</value>
+  <data name="contactInformationTitle" xml:space="preserve">
+    <value>Контакты</value>
   </data>
 </root>

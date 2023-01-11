@@ -29,8 +29,8 @@
 								@localizer["portfolioButton"]
 							</a>
 							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-								<li><a asp-controller="Portfolio" asp-action="IndexTurnkeySelection">Подбор под ключ</a></li>
-								<li> <a asp-controller="Portfolio" asp-action="IndexFieldInspection">Выездной осмотр</a></li>
+								<li><a asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+								<li> <a asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
 							</ul>
 						</li>
 
@@ -38,7 +38,7 @@
 							<a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="ContactInformations" asp-action="Index">Контакты</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
 						</li>
 						<li class="nav-link">
 							<partial name="_Culture" />
