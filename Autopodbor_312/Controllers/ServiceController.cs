@@ -53,8 +53,18 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult EditServices(int? id)
         {
-            return View(_serviceRepository.GetService(id));
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var service = _serviceRepository.GetService(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            return View(service);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -26,7 +26,7 @@
                                 <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
                             }
                         </div>
-                        <div class="col-md-6 text-center p-0 m-0">
+                        <div class="col-md-6 text-center p-0 m-0 ">
                             <div class="card-body">
                                 <h5 class="card-title  fw-bold  text-uppercase banner">@n.Title</h5>
 
@@ -34,7 +34,6 @@
                                 <a class="btn btn-success  fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
                                 @if (User.IsInRole("admin"))
                                     {
-                                    <a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>
                                     <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
                                     }
                             </div>

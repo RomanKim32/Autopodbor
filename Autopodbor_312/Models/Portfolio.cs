@@ -14,11 +14,11 @@ namespace Autopodbor_312.Models
         public string MainImagePath { get; set; }
         public bool IsFieldInspection { get; set; }
         public int CarsBodyTypesId { get; set; }
-        public CarsBodyTypes CarsBodyTypes { get; set; }
+        public virtual CarsBodyTypes CarsBodyTypes { get; set; }
         public int CarsBrandsId { get; set; }
-        public CarsBrands CarsBrands { get; set; }
+        public virtual CarsBrands CarsBrands { get; set; }
         public int CarsBrandsModelId { get; set; }
-        public CarsBrandsModel CarsBrandsModel { get; set; }
+        public virtual CarsBrandsModel CarsBrandsModel { get; set; }
 
 	}
 }

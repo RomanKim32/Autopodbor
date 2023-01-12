@@ -13,7 +13,7 @@ namespace Autopodbor_312.Models
         public string Description { get; set; }
         public string Title { get; set; }
         public int? MainPageId { get; set; }
-        public MainPage MainPage { get; set; }
+        public virtual MainPage MainPage { get; set; }
         
     }
 }
