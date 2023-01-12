@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autopodbor_312", "Autopodbor_312\Autopodbor_312.csproj", "{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autopodbor_312.Tests", "Autopodbor_312.Tests\Autopodbor_312.Tests.csproj", "{2E33B8B5-927E-4422-B4FA-CF2792F4D7EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08CDB284-65B5-4F3C-A6BB-CBD09BE8F6BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E33B8B5-927E-4422-B4FA-CF2792F4D7EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E33B8B5-927E-4422-B4FA-CF2792F4D7EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E33B8B5-927E-4422-B4FA-CF2792F4D7EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E33B8B5-927E-4422-B4FA-CF2792F4D7EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
