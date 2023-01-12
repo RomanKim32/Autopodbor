@@ -67,20 +67,18 @@ namespace Autopodbor_312.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteServices(int? id)
+        public IActionResult DeleteServices(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var services = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (services == null || services.IsAdditional == false)
+            var service = _serviceRepository.DeleteServices(id);
+            if (service == null || service.IsAdditional == false)
             {
                 return NotFound();
             }
-
-            return View(services);
+            return View(service);
         }
 
         [HttpPost, ActionName("DeleteServices")]

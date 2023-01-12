@@ -21,6 +21,8 @@ namespace Autopodbor_312.Interfaces
 
         void DeleteConfirmedServices(int id);
 
+        Services DeleteServices(int? id);
+
         IEnumerable<Services> AdditionalServicesDetails();
     }
 }

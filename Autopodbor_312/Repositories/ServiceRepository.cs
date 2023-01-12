@@ -89,6 +89,12 @@ namespace Autopodbor_312.Repositories
             _context.SaveChanges();
         }
 
+        public Services DeleteServices(int? id)
+        {
+            var services = _context.Services.FirstOrDefault(m => m.Id == id);
+            return services;
+        }
+
         public void DeleteConfirmedServices(int id)
         {
             var services = _context.Services.Find(id);
@@ -103,7 +109,7 @@ namespace Autopodbor_312.Repositories
 
         public IEnumerable<Services> AdditionalServicesDetails()
         {
-            var additionalServicesList = _context.Services.Where(s => s.IsAdditional == true).ToList();
+            var additionalServicesList = _context.Services.Where(s => s.IsAdditional == true).OrderBy(s => s.Id).ToList();
             return additionalServicesList;
         }
     }
