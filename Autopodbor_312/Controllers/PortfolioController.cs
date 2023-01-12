@@ -69,7 +69,7 @@ namespace Autopodbor_312.Controllers
 
 			var fpvm = new FilterPortfolioViewModel
 			{
-				Portfolios = PaginationList<Portfolio>.CreateAsync(portfolios.ToList(), pageNumber, 5),
+				Portfolios = PaginationList<Portfolio>.Create(portfolios.ToList(), pageNumber, 5),
 				CarsBodyTypes = new SelectList(carsBodyTypes, "Id", "BodyType"),
 				CarsBrands = new SelectList(carsBrands, "Id", "Brand"),
 				CarsModels = new SelectList(carsBrandsModels, "Id", "Model"),
@@ -81,7 +81,7 @@ namespace Autopodbor_312.Controllers
 		public async Task<IActionResult> Portfolio(int pageNumber = 1)
 		{
 			List<Portfolio> portfolios = await _context.Portfolio.OrderByDescending(p => p.CreatedDate).ToListAsync();
-			return View(PaginationList<Portfolio>.CreateAsync(portfolios, pageNumber, 5));
+			return View(PaginationList<Portfolio>.Create(portfolios, pageNumber, 5));
 		}
 
 
