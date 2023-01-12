@@ -1,19 +1,28 @@
-﻿@model PaginationList<News>
+﻿@using System.Threading;
+@model PaginationList<News>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
-	ViewData["Title"] = "Новости";
+	ViewData["Title"] = @localizer["newsTitle"];
 }
-
 
 <div class="card" style="width: 18rem;">
 	@foreach (var item in Model)
 	{
 		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
 		<div class="card-body">
-			<h5 class="card-title">@item.Name</h5>
-			<p>@item.Body</p>
+			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+			{
+				<h5 class="card-title">@item.NameRu</h5>
+				<p>@item.BodyRu</p>
+			}
+			else
+			{
+				<h5 class="card-title">@item.NameKy</h5>
+				<p>@item.BodyKy</p>
+			}
 			<p>@item.CreatedDate</p>
-			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">Подробнее</a>
+			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 		</div>
 	}
 </div>
@@ -21,5 +30,5 @@
 	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.NextPage ? "disabled" : "";
 }
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">Назад</a>
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">Вперед</a>
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>

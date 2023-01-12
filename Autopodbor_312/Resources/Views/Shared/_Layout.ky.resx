@@ -123,6 +123,15 @@
   <data name="callbackFormTitle" xml:space="preserve">
     <value>Обратный звонок(на кырг)</value>
   </data>
+  <data name="contactInformationButton" xml:space="preserve">
+    <value>Контакты(на кырг)</value>
+  </data>
+  <data name="customValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта(на кырг)</value>
+  </data>
+  <data name="customValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению(на кырг)</value>
+  </data>
   <data name="emailLabelCallbackForm" xml:space="preserve">
     <value>Электронная почта(на кырг)</value>
   </data>
@@ -144,16 +153,16 @@
   <data name="portfolioButton" xml:space="preserve">
     <value>Портфолио(на кырг)</value>
   </data>
+  <data name="portfolioFieldInspection" xml:space="preserve">
+    <value>Выездной осмотр(на кырг)</value>
+  </data>
+  <data name="portfolioTurnkeySelection" xml:space="preserve">
+    <value>Подбор под ключ(на кырг)</value>
+  </data>
   <data name="servicesButton" xml:space="preserve">
     <value>Кызматтар</value>
   </data>
   <data name="сommentLableCallbackForm" xml:space="preserve">
     <value>Дополнительная информация(на кырг)</value>
-  </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта(на кырг)</value>
-  </data>
-  <data name="сustomValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению(на кырг)</value>
   </data>
 </root>

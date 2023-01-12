@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="brandLabelOrderForm" xml:space="preserve">
+    <value>Марка</value>
+  </data>
+  <data name="brandOptionOrderForm" xml:space="preserve">
+    <value>Выберите марку</value>
+  </data>
   <data name="carsBodyLabelOrderForm" xml:space="preserve">
     <value>Форма кузова</value>
   </data>
   <data name="commentLabelOrderForm" xml:space="preserve">
     <value>Дополнительная информация</value>
+  </data>
+  <data name="customValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта</value>
+  </data>
+  <data name="customValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению</value>
   </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
     <value>Электронная почта</value>
@@ -131,6 +143,9 @@
   </data>
   <data name="modelLabelOrderForm" xml:space="preserve">
     <value>Модель</value>
+  </data>
+  <data name="modelOptionOrderForm" xml:space="preserve">
+    <value>Выберите модель</value>
   </data>
   <data name="nameLabelOrderForm" xml:space="preserve">
     <value>Имя</value>
@@ -146,11 +161,5 @@
   </data>
   <data name="сarsFuelLebelOrderForm" xml:space="preserve">
     <value>Вид топлива</value>
-  </data>
-  <data name="сustomValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта</value>
-  </data>
-  <data name="сustomValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению</value>
   </data>
 </root>

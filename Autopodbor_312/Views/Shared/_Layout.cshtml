@@ -14,46 +14,54 @@
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 			<div class="container">
-			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Здесь будет лого</a>
-			<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-				<ul class="navbar-nav flex-grow-1">
-					<li class="nav-item">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Здесь будет лого</a>
+				<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["mainPageButton"]</a>
-					</li>
+						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
 						</li>
-					<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Portfolio" asp-action="Index">@localizer["portfolioButton"]</a>
-					</li>
-					<li class="nav-item">
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								@localizer["portfolioButton"]
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+								<li><a asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+								<li> <a asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
-					</li>
-					<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="ContactInformations" asp-action="Index">Контакты</a>
-					</li>
-					<li class="nav-link">
-						<partial name="_Culture" />
-					</li>
-					@if (User.Identity.IsAuthenticated)
-					{
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
 						</li>
 						<li class="nav-item">
-							<form method="post" asp-controller="Admin" asp-action="LogOff">
-								<input type="submit" value="Выйти" />
-							</form>
+							<a class="nav-link text-dark" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
 						</li>
-					}
-					else
-					{
-						<li class="nav-item">
-							<a asp-controller="Admin" asp-action="Login">Войти</a>
+						<li class="nav-link">
+							<partial name="_Culture" />
 						</li>
-					}
-				</ul>
-			</div>
+						@if (User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
+							</li>
+							<li class="nav-item">
+								<form method="post" asp-controller="Admin" asp-action="LogOff">
+									<input type="submit" value="Выйти" />
+								</form>
+							</li>
+						}
+						else
+						{
+							<li class="nav-item">
+								<a asp-controller="Admin" asp-action="Login">Войти</a>
+							</li>
+						}
+					</ul>
+				</div>
 			</div>
 		</nav>
 	</header>
@@ -97,11 +105,11 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["phoneNumberLabelCallbackForm"]</label>
-						<input id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["сustomValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
+						<input id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["emailLabelCallbackForm"]</label>
-						<input id="email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["сustomValidityEmail"]')" onchange="this.setCustomValidity('')" />
+						<input id="email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["сommentLableCallbackForm"]</label>
@@ -137,7 +145,15 @@
 					'email': email,
 					'comment': comment
 				},
-				success: $('#callbackModal').modal("hide"),
+				success: function () {
+					alert("Завка принята, ожидайте звонка!");
+				},
+				failure: function () {
+					alert("Произошла ошибка!");
+				},
+				error: function () {
+					alert("Произошла ошибка!");
+				}
 			});
 			return false;
 		});

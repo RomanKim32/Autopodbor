@@ -1,16 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Autopodbor_312.Models
 {
     public class Portfolio
     {
         public int Id { get; set; }
-        public string Name { get; set; }   
-        public string Body { get; set; }
+        public string NameRu { get; set; }   
+        public string BodyRu { get; set; }
+        public string NameKy { get; set; }
+        public string BodyKy { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Publicate { get; set; }
         public string MainImagePath { get; set; }
-    }
+        public bool IsFieldInspection { get; set; }
+        public int CarsBodyTypesId { get; set; }
+        public CarsBodyTypes CarsBodyTypes { get; set; }
+        public int CarsBrandsId { get; set; }
+        public CarsBrands CarsBrands { get; set; }
+        public int CarsBrandsModelId { get; set; }
+        public CarsBrandsModel CarsBrandsModel { get; set; }
+
+	}
 }

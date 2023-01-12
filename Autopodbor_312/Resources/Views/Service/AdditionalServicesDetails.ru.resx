@@ -126,4 +126,25 @@
   <data name="additionalServicesTitle" xml:space="preserve">
     <value>Дополнительные услуги</value>
   </data>
+  <data name="customValidityEmail" xml:space="preserve">
+    <value>Неверно заполнена электронная почта</value>
+  </data>
+  <data name="customValidityPhoneNumber" xml:space="preserve">
+    <value>Поле обязательно к заполнению</value>
+  </data>
+  <data name="descriptionOrderLabel" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="emailOrderLabel" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="nameOrderLabel" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="orderButton" xml:space="preserve">
+    <value>Заказать</value>
+  </data>
+  <data name="phoneNumberOrderLabel" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
 </root>

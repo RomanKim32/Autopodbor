@@ -147,6 +147,59 @@ namespace Autopodbor_312.Migrations
                     b.ToTable("ContactInformation");
                 });
 
+            modelBuilder.Entity("Autopodbor_312.Models.MainPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Banner")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MainPage");
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.MainPageFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("MainPageId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MainPageId");
+
+                    b.ToTable("MainPageFiles");
+                });
+
             modelBuilder.Entity("Autopodbor_312.Models.News", b =>
                 {
                     b.Property<int>("Id")
@@ -154,7 +207,10 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Body")
+                    b.Property<string>("BodyKy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BodyRu")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
@@ -163,7 +219,10 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("MainImagePath")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameKy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameRu")
                         .HasColumnType("text");
 
                     b.Property<bool>("Publicate")
@@ -187,6 +246,9 @@ namespace Autopodbor_312.Migrations
                     b.Property<int?>("CarsBrandsId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CarsBrandsModelsId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("CarsFuelsId")
                         .HasColumnType("integer");
 
@@ -205,9 +267,6 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<string>("Price")
-                        .HasColumnType("text");
-
                     b.Property<int>("ServicesId")
                         .HasColumnType("integer");
 
@@ -219,6 +278,8 @@ namespace Autopodbor_312.Migrations
                     b.HasIndex("CarsBodyTypesId");
 
                     b.HasIndex("CarsBrandsId");
+
+                    b.HasIndex("CarsBrandsModelsId");
 
                     b.HasIndex("CarsFuelsId");
 
@@ -236,22 +297,46 @@ namespace Autopodbor_312.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Body")
+                    b.Property<string>("BodyKy")
                         .HasColumnType("text");
+
+                    b.Property<string>("BodyRu")
+                        .HasColumnType("text");
+
+                    b.Property<int>("CarsBodyTypesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CarsBrandsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CarsBrandsModelId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<bool>("IsFieldInspection")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("MainImagePath")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameKy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameRu")
                         .HasColumnType("text");
 
                     b.Property<bool>("Publicate")
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CarsBodyTypesId");
+
+                    b.HasIndex("CarsBrandsId");
+
+                    b.HasIndex("CarsBrandsModelId");
 
                     b.ToTable("Portfolio");
                 });
@@ -292,22 +377,18 @@ namespace Autopodbor_312.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("DescriptionKy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("DescriptionRu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool?>("IsAdditional")
                         .HasColumnType("boolean");
 
                     b.Property<string>("NameKy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NameRu")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Photo")
@@ -522,6 +603,13 @@ namespace Autopodbor_312.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Autopodbor_312.Models.MainPageFile", b =>
+                {
+                    b.HasOne("Autopodbor_312.Models.MainPage", "MainPage")
+                        .WithMany()
+                        .HasForeignKey("MainPageId");
+                });
+
             modelBuilder.Entity("Autopodbor_312.Models.Orders", b =>
                 {
                     b.HasOne("Autopodbor_312.Models.CarsBodyTypes", "CarsBodyTypes")
@@ -531,6 +619,10 @@ namespace Autopodbor_312.Migrations
                     b.HasOne("Autopodbor_312.Models.CarsBrands", "CarsBrands")
                         .WithMany()
                         .HasForeignKey("CarsBrandsId");
+
+                    b.HasOne("Autopodbor_312.Models.CarsBrandsModel", "CarsBrandsModels")
+                        .WithMany()
+                        .HasForeignKey("CarsBrandsModelsId");
 
                     b.HasOne("Autopodbor_312.Models.CarsFuels", "CarsFuels")
                         .WithMany()
@@ -543,6 +635,27 @@ namespace Autopodbor_312.Migrations
                     b.HasOne("Autopodbor_312.Models.Services", "Services")
                         .WithMany()
                         .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.Portfolio", b =>
+                {
+                    b.HasOne("Autopodbor_312.Models.CarsBodyTypes", "CarsBodyTypes")
+                        .WithMany()
+                        .HasForeignKey("CarsBodyTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Autopodbor_312.Models.CarsBrands", "CarsBrands")
+                        .WithMany()
+                        .HasForeignKey("CarsBrandsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Autopodbor_312.Models.CarsBrandsModel", "CarsBrandsModel")
+                        .WithMany()
+                        .HasForeignKey("CarsBrandsModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

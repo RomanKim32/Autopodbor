@@ -28,7 +28,9 @@ namespace Autopodbor_312.OrderMailing
                 info.Append($"Почта: {order.Email}\n");
             if (order.CarsBrands != null)
                 info.Append($"Марка: {order.CarsBrands.Brand}\n");
-            if (order.CarsBodyTypes != null)
+			if (order.CarsBrandsModels != null)
+				info.Append($"Модель: {order.CarsBrandsModels.Model}\n");
+			if (order.CarsBodyTypes != null)
                 info.Append($"Тип кузова: {order.CarsBodyTypes.BodyType}\n");
             if (order.CarsYears != null)
                 info.Append($"Год выпуска: {order.CarsYears.ManufacturesYear} \n");

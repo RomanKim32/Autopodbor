@@ -1,11 +1,20 @@
-﻿@model Autopodbor_312.ViewModel.PortfolioDetailsViewModel
+﻿@using System.Threading;
+@model Autopodbor_312.ViewModel.PortfolioDetailsViewModel
 
 @{
 	ViewData["Title"] = "Детальная страница";
 }
 
-<h1>@Model.Portfolio.Name</h1>
-<h5>@Model.Portfolio.Body</h5>
+@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+{
+	<h1>@Model.Portfolio.NameRu</h1>
+	<h5>@Model.Portfolio.BodyRu</h5>
+}
+else
+{
+	<h1>@Model.Portfolio.NameKy</h1>
+	<h5>@Model.Portfolio.BodyKy</h5>
+}
 
 <div id="videosCarousel" class="carousel slide w-50" data-bs-ride="carousel">
 	<div class="carousel-inner">

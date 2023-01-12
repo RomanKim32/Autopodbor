@@ -1,4 +1,4 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Calculator/EditCalculator.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Calculator/EditCalculator.css" />
 @model Autopodbor_312.ViewModel.CalculatorViewModel
 
 @{
@@ -7,323 +7,275 @@
 
 <h3>Таблица "Марки"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
 </p>
 <div id="CarsBrandsDiv">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Цена
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CarsBrands)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
-                    <a  asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info" >Посмотреть все модели</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Название
+				</th>
+				<th>
+					Цена
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.CarsBrands)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Brand)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+						<a asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info">Посмотреть все модели</a>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-    </div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
 
 
 <h3>Таблица "Типы кузова"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
 </p>
 <div id="CarsBodyTypeDiv">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Цена
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CarsBodyTypes)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BodyType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','body')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Название
+				</th>
+				<th>
+					Цена
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.CarsBodyTypes)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.BodyType)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','body')">Изменить</button>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 
 <h3>Таблица "Год выпуска"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
 </p>
 <div id="CarsYearDiv">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Цена
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CarsYears)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManufacturesYear)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Название
+				</th>
+				<th>
+					Цена
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.CarsYears)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.ManufacturesYear)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 
 <h3>Таблица "Вид топлива"</h3>
 <p>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
 </p>
 <div id="CarsFuelDiv">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Цена
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CarsFuels)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FuelsType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id','fuel')">Изменить</button>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Название
+				</th>
+				<th>
+					Цена
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.CarsFuels)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.FuelsType)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id','fuel')">Изменить</button>
+						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 <!-- AddNewParameterModal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Добавление</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <p>Название</p>
-                    <input id="key"/>
-                    <p>Цена</p>
-                    <input id="value"/>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="addParameter()">Добавить</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addModalLabel">Добавление</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form role="form" action="">
+				<div class="modal-body">
+
+					<p>Название</p>
+					<input id="key" required="required" />
+					<p>Цена</p>
+					<input id="value" required="required" />
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+					<button type="submit" class="btn btn-primary" onclick="addParameter()">Добавить</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- DeleteParameterModal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Вы увервены?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="deleteParameter()">Да</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Вы увервены?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+				<button type="button" class="btn btn-primary" onclick="deleteParameter()">Да</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- EditParameterModal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Редактирование</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-body">
-                    <form>
-                        <p>Новое название</p>
-                        <input id="newKey" />
-                        <p>Новая цена</p>
-                        <input id="newValue" />
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="editParameter()">Да</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editModalLabel">Редактирование</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-body">
+					<form>
+						<p>Новое название</p>
+						<input id="newKey" required="required" />
+						<p>Новая цена</p>
+						<input id="newValue" required="required" />
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+				<button type="submit" class="btn btn-primary" onclick="editParameter()">Да</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
 <script>
-    let Name = '';
-    function GetName(name) {
-        Name = name;
-    };
-        let Id = '';
-    function GetId(id,name) {
-        Id = id;
-        Name = name;
-    };
-    function deleteParameter() {
-        $.ajax({
-            url: '@Url.Action("DeleteParameter", "Calculator")',
-            type: 'POST',
-            data: {
-                'id': Id,
-            },
-            success: function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 
-        });
-        event.preventDefault();
-    };
-     //const deleteParameter = function(){
-   
-     //    if(Name === "brand"){
-       
-     //       $('#CarsBrandsDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);            
-     //    }else if(Name==="year"){
-     //        $('#CarsYearDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-     //    }else if(Name==="fuel"){
-     //        $('#CarsFuelDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-     //    }else if(Name==="body"){
-     //        $('#CarsBodyTypeDiv').load('@Url.Action("DeleteParameter","Calculator")?id='+Id);
-     //    }
-     //     $('#deleteModal').modal('hide');
-     //      };
+	let Name = '';
+	function GetName(name) {
+		Name = name;
+	};
+	let Id = '';
+	function GetId(id, name) {
+		Id = id;
+		Name = name;
+	};
+	function deleteParameter() {
+		$.ajax({
+			url: '@Url.Action("DeleteParameter", "Calculator")',
+			type: 'POST',
+			data: {
+				'id': Id,
+			},
+			success: function () {
+				window.location.href = '/Calculator/EditCalculator';
+			},
+		});
+		event.preventDefault();
+	};
 
-         //const addParameter= function() {
-         //event.preventDefault();
+	function addParameter() {
+		$.ajax({
+			url: '@Url.Action("AddParameter", "Calculator")',
+			type: 'POST',
+			data: {
+				'name': Name,
+				'key': $("#key").val(),
+				'value': $("#value").val()
+			},
+			success: function () {
+				window.location.href = '/Calculator/EditCalculator';
+			},
+		});
+		event.preventDefault();
+	};
 
-         //if(Name === "brand"){
-
-         //     $('#CarsBrandsDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         //}else if(Name ==="year"){
-         //    $('#CarsYearDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         //}
-         //else if(Name ==="fuel"){
-         //    $('#CarsFuelDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         //}
-         //else if(Name ==="body"){
-         //    $('#CarsBodyTypeDiv').load('@Url.Action("AddParameter", "Calculator")?name=' + Name +'&key='+ $("#key").val()+'&value='+ $("#value").val());
-         //}
-         // $('#addModal').modal('hide');
-         //  };  
-           
-         function addParameter() {
-        $.ajax({
-            url: '@Url.Action("AddParameter", "Calculator")',
-            type: 'POST',
-            data: {
-                'name': Name,
-                'key': $("#key").val(),
-                'value': $("#value").val()
-            },
-            success: function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 
-        });
-        event.preventDefault();
-    };
-           
-    function editParameter() {
-        $.ajax({
-            url: '@Url.Action("EditParameter", "Calculator")',
-            type: 'POST',
-            data: {
-                'id': Id,
-                'key': $("#newKey").val(),
-                'value': $("#newValue").val()
-            },
-            success: function () {
-                window.location.href = '/Calculator/EditCalculator';
-            }, 
-        });
-        event.preventDefault();
-    };
-
-         //const editParameter= function() {
-         //event.preventDefault();
-
-         //if(Name === "brand"){
-
-         //     $('#CarsBrandsDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         //}else if(Name ==="year"){
-         //    $('#CarsYearDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         //}
-         //else if(Name ==="fuel"){
-         //    $('#CarsFuelDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         //}
-         //else if(Name ==="body"){
-         //    $('#CarsBodyTypeDiv').load('@Url.Action("EditParameter", "Calculator")?id=' + Id +'&key='+ $("#newKey").val()+'&value='+ $("#newValue").val());
-         //}
-         // $('#editModal').modal('hide');
-         //  };   
+	function editParameter() {
+		$.ajax({
+			url: '@Url.Action("EditParameter", "Calculator")',
+			type: 'POST',
+			data: {
+				'id': Id,
+				'key': $("#newKey").val(),
+				'value': $("#newValue").val()
+			},
+			success: function () {
+				window.location.href = '/Calculator/EditCalculator';
+			},
+		});
+		event.preventDefault();
+	};
 </script>

@@ -247,7 +247,7 @@ namespace Autopodbor_312.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddModels(CarsBrandsModel carsBrandsModel)
+        public IActionResult AddModels(CarsBrandsModel carsBrandsModel)
         {
             CarsBrands car = _autodborContext.CarsBrands.FirstOrDefault(c => c.Id == carsBrandsModel.CarsBrandsId);
             if (car == null)

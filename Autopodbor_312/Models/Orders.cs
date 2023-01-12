@@ -23,8 +23,9 @@ namespace Autopodbor_312.Models
 		public int? CarsBodyTypesId { get; set; }
 		public virtual CarsBodyTypes? CarsBodyTypes { get; set; }
 		public int? CarsFuelsId { get; set; }
-		public virtual CarsFuels? CarsFuels { get; set; }
+		public CarsFuels? CarsFuels { get; set; }
+		public int? CarsBrandsModelsId { get; set; }
+		public CarsBrandsModel? CarsBrandsModels { get; set; }
 		public string? Comment { get; set; }
-		public string? Price { get; set; }
 	}
 }
