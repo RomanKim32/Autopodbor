@@ -8,7 +8,7 @@
 }
 
     <div>
-    <form asp-action="CultureManagement" asp-controller="Home" method="post" asp-route-returnUrl="@returnUrl">
-            <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="@cultureList" onchange="this.form.submit();"></select>
+    <form class="nav-link" asp-action="CultureManagement" asp-controller="Home" method="post" asp-route-returnUrl="@returnUrl">
+            <select class= "bg-success fc fw-bold fs-4 " name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="@cultureList" onchange="this.form.submit();"></select>
         </form>
     </div>
