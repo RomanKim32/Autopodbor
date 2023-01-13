@@ -16,30 +16,34 @@
 .tool {
     font-size: calc(100vw - 97.5vw);
 }
-@media screen and (max-width: 1400px) {
-    
-    .card {
-        border-radius: 10px;
-    }
+.carousel-control-prev:hover {
+    color: #c81e1e;
 }
-@media  screen and (max-width: 1200px) {
-    
-    .card {
-        border-radius: 0px;
+    @media screen and (max-width: 1400px) {
+
+        .card {
+            border-radius: 10px;
+        }
     }
-}
 
-@media  screen and (max-width: 992px) {
+    @media screen and (max-width: 1200px) {
 
-    .card {
-        border-radius: 0px;
+        .card {
+            border-radius: 0px;
+        }
     }
-}
 
-@media  screen and (max-width: 770px) {
+    @media screen and (max-width: 992px) {
 
-    .card {
-        border-radius: 0px;
-       /* font-size:*/ 
+        .card {
+            border-radius: 0px;
+        }
     }
-}
+
+    @media screen and (max-width: 770px) {
+
+        .card {
+            border-radius: 0px;
+            /* font-size:*/
+        }
+    }
