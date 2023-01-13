@@ -1,14 +1,5 @@
 ﻿using Autopodbor_312.Interfaces;
-using Autopodbor_312.Models;
-using Autopodbor_312.OrderMailing;
-using Autopodbor_312.ViewModel;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Autopodbor_312.Controllers
 {
