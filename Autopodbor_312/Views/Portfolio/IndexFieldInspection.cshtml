@@ -1,4 +1,5 @@
-﻿@using System.Threading;
+﻿<link type="text/css" rel="stylesheet" href="~/css/Media/Portfolio/PortfolioIndex.css" />
+@using System.Threading;
 @model Autopodbor_312.ViewModel.FilterPortfolioViewModel;
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
@@ -9,44 +10,63 @@
 
 <h1>@localizer["portfolioFieldInspectionTitle"]</h1>
 
-<form method="get">
-	<div class="form-inline">
-		<label class="control-label">Тип кузова: </label>
-		@Html.DropDownList("bodyType", Model.CarsBodyTypes as SelectList,
-		htmlAttributes: new { @class = "form-control" })
 
-		<label class="control-label">Марка авто: </label>
-		@Html.DropDownList("brand", Model.CarsBrands as SelectList,
-		htmlAttributes: new { @class = "form-control" })
+<body class="body">
+    <div class="container">
+        <form method="get">
+            <div class="firstBlock">
+                <div class="form-inline">
+                    <div class="row">
+                        <div class="topLabel label col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                            <label class="control-label">Тип кузова: </label>
+                            @Html.DropDownList("bodyType", Model.CarsBodyTypes as SelectList,
+                            htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="label col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                            <label class="control-label">Марка авто: </label>
+                            @Html.DropDownList("brand", Model.CarsBrands as SelectList,
+                            htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="label col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                            <label class="control-label">Модель авто: </label>
+                            @Html.DropDownList("model", Model.CarsModels as SelectList,
+                            htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-3 divBtn">
+                            <input type="submit" value="Фильтр" class="filter filterBtn btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="secondBlock">
+            <div class="row">
+                @foreach (var item in Model.Portfolios)
+                {
+                    <div class="allCard col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card border-0 rounded-5">
+                            <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
+                            <div class="card-body">
+                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                {
+                                    <h2 class="card-title">@item.NameRu</h2>
+                                    <p class="card-text">@item.BodyRu</p>
+                                }
+                                else
+                                {
+                                    <h2 class="card-title">@item.NameKy</h2>
+                                    <p class="card-text">@item.BodyKy</p>
+                                }
+                                <a class="btn buttons btn-outline-secondary" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
 
-		<label class="control-label">Модель авто: </label>
-		@Html.DropDownList("model", Model.CarsModels as SelectList,
-		htmlAttributes: new { @class = "form-control" })
-
-		<input type="submit" value="Фильтр" class="btn btn-default" />
-	</div>
-</form>
-
-<div class="card" style="width: 18rem;">
-	@foreach (var item in Model.Portfolios)
-	{
-		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
-		<div class="card-body">
-			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-			{
-				<h5 class="card-title">@item.NameRu</h5>
-				<p>@item.BodyRu</p>
-			}
-			else
-			{
-				<h5 class="card-title">@item.NameKy</h5>
-				<p>@item.BodyKy</p>
-			}
-			<p>@item.CreatedDate</p>
-			<a asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-		</div>
-	}
-</div>
 @{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
