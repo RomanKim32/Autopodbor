@@ -11,38 +11,42 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Здесь будет лого</a>
-				<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["mainPageButton"]</a>
+	<header class ="sticky-top">
+		 <nav class="navbar navbar-expand-lg bg-success ">
+    <div class="container">
+    <a  asp-controller="Home" asp-action="Index">
+    <img src="/Files/MainPage/Лого подбора.png" class=" logotype" >   
+    </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="menu-style collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="container navbar-nav fw-bold fs-4  d-flex justify-content-between">
+			<div class="p-2 d-flex ">
+			  <li>
+				<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
+		      </li>
+			  <li class="nav-item dropdown fc ">
+				<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					@localizer["portfolioButton"]
+				</a>
+				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold fs-4" aria-labelledby="navbarDarkDropdownMenuLink">
+					 <li><a class="nav-link fc"  asp-controller="Portfolio" asp-action="IndexTurnkeySelection">Подбор под ключ</a></li>
+					 <li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">Выездной осмотр</a></li>
+				 </ul>
+			  </li>
+			  <li>
+				<a class="nav-link fc"  asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
+		      </li>
+			  <li>
+				<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">Контакты</a>
+		      </li>
+			 </div>
+			 <div class="p-2 flex-shrink-1">
+			<li class="nav-link bg-success fc ">
+							<partial name="_Culture" / >
 						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
-						</li>
-
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								@localizer["portfolioButton"]
-							</a>
-							<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-								<li><a asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
-								<li> <a asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
-							</ul>
-						</li>
-
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
-						</li>
-						<li class="nav-link">
-							<partial name="_Culture" />
-						</li>
+						</div>
 						@if (User.Identity.IsAuthenticated)
 						{
 							<li class="nav-item">
@@ -60,10 +64,11 @@
 								<a asp-controller="Admin" asp-action="Login">Войти</a>
 							</li>
 						}
-					</ul>
-				</div>
-			</div>
-		</nav>
+          
+        </div>
+      </div>
+    </div>
+  </nav>
 	</header>
 
 	<div class="container">
