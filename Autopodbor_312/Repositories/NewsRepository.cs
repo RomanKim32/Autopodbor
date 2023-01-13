@@ -298,14 +298,14 @@ namespace Autopodbor_312.Repositories
 
 		private void UpdateCreationDate(int? id)
 		{
-			using (var scope = _serviceScopeFactory.CreateScope())
-			{
+			var scope = _serviceScopeFactory.CreateScope();
+	
 				var dbContext = scope.ServiceProvider.GetRequiredService<AutopodborContext>();
 				News news = dbContext.News.FirstOrDefault(p => p.Id == id);
 				news.CreatedDate = DateTime.Now;
 				dbContext.News.Update(news);
 				dbContext.SaveChangesAsync();
-			}
+	
 		}
 	}
 }

@@ -58,7 +58,8 @@ namespace Autopodbor_312
                 })
                 .AddEntityFrameworkStores<AutopodborContext>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
-        }
+			services.AddScoped<INewsRepository, NewsRepository>();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -107,7 +107,7 @@ namespace Autopodbor_312.Controllers
             {
                 return NotFound();
             }
-            var portfolioNewsFile = _newsRepository.EditMainPhoto(id, newPhoto);
+            var portfolioNewsFile = _newsRepository.EditMinorPhoto(id, newPhoto);
             if (portfolioNewsFile == null)
             {
 				return NotFound();
