@@ -51,6 +51,23 @@ namespace Autopodbor_312.Controllers
             }
             return View(bannerList);
         }
+        public IActionResult HomePage()
+        {
+            var bannerList = new List<MainPage>();
+            MainPage temp = _context.MainPage.Where(h => h.Banner == "big").FirstOrDefault();
+            if (temp != null) bannerList.Add(temp);
+            temp = _context.MainPage.Where(h => h.Banner == "medium").FirstOrDefault();
+            if (temp != null) bannerList.Add(temp);
+            temp = _context.MainPage.Where(h => h.Banner == "small").FirstOrDefault();
+            if (temp != null) bannerList.Add(temp);
+            foreach (var banner in bannerList)
+            {
+
+                banner.Images = _context.MainPageFiles.Where(s => s.MainPageId == banner.Id && (s.Type.Contains("picture"))).OrderBy(n => n.Id).ToList();
+
+            }
+            return View(bannerList);
+        }
 
 
         public IActionResult Privacy()
@@ -198,7 +215,7 @@ namespace Autopodbor_312.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", new { id = id });
+                return RedirectToAction("HomePage", new { id = id });
             }
             return View(mainPage);
         }
@@ -275,7 +292,7 @@ namespace Autopodbor_312.Controllers
                 System.IO.File.Delete(FilePath);
                 _context.Remove(upload);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = upload.MainPageId });
+                return RedirectToAction("HomePage", new { id = upload.MainPageId });
             }
             else
             {
