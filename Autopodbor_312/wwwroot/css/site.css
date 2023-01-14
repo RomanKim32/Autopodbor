@@ -20,11 +20,16 @@ a.navbar-brand {
    
     border-radius: 25%;
 }
+.navbar-toggler {
+
+    border: 5px solid #00A90A;
+}
 .fc, a{
     color: white; 
 }
 .nav-link:hover {
-    color: darkslategrey;
+    color: #00A90A;
+    
 }
 /*a:hover {
     color: yellow;
@@ -34,6 +39,12 @@ a {
     color: #0366d6;
 }
 
+@media screen and (max-width: 992px) {
+
+    .scr {
+        flex-direction: column;
+    }
+}
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
