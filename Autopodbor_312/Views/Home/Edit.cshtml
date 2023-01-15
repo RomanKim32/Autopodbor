@@ -16,13 +16,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="@Model.MainPage.Id" />
             <div class="form-group">
-                <label asp-for="@Model.MainPage.Title" class="control-label">Заголовок</label>
-                <input asp-for="@Model.MainPage.Title" class="form-control" />
+                <label asp-for="@Model.MainPage.Title" class="control-label"><h5>Заголовок:</h5></label>
+                <input asp-for="@Model.MainPage.Title" class="form-control"  />    
                 <span asp-validation-for="@Model.MainPage.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.MainPage.Description" class="control-label">Текст</label>
-                <input asp-for="@Model.MainPage.Description" class="form-control" />
+                <label asp-for="@Model.MainPage.Description" class="control-label"><h5>Текст:</h5></label>
+                <textarea asp-for="@Model.MainPage.Description" class="form-control" ></textarea>
                 <span asp-validation-for="@Model.MainPage.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,7 +32,7 @@
                 <input type="hidden" asp-for="@Model.MainPage.CreatedDate" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Изменить текст" class="btn btn-info" />
+                <input type="submit" value="Изменить текст" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -49,20 +49,25 @@
                     <input type="hidden" name="id" value="@item.Id" />
                     <img width="100" height="100" src="@item.Path" />
                     <br />
+                    <h6>Изменение картинки:</h6>
                     <input type="file" name="uploadFilePic" />
                     @if (Model.MainPage.Banner == "small")
                     {
-                        <p>Заголовок</p>
-                        <input id="title" name="title" type="text" value="@item.Title">
-                        <p>Описание</p>
-                        <input id="description" name="description" type="text" value="@item.Description">
+                        <h6>Заголовок:</h6>
+                        <input id="title" name="title" type="text" value="@item.Title" >
+                        <h6>Описание:</h6>
+                        <textarea id="description" name="description" type="text" value="@item.Description" ></textarea>
                     }
-                    <input type="submit" value="Изменить данные" class="btn btn-primary" />
+                    <input type="submit" value="Изменить данные" class="btn btn-success" />
                 </form>
+                @if(Model.MainPageFiles.Count == 2)
+                {
                 <form method="post">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId(@item.Id)">Удалить</button>
-
+                    <p>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId(@item.Id)">Удалить</button>
+                    </p>
                 </form>
+                }
             </div>
         }
         @if (Model.MainPageFiles.Count == 0 || Model.MainPage.Banner == "small")
@@ -70,16 +75,19 @@
            
             <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
 
-                <h6>Добавление изображения:</h6>
+                <h6>Добавление нового слайда</h6>
+                <h6>Изменение картинки:</h6>
                 <input type="file" name="uploadFilePic" />
                 @if (Model.MainPage.Banner == "small")
                 {
-                    <input id="description" name="description" type="text">
-                    <input id="title" name="title" type="text">
+                    <h6>Заголовок:</h6>
+                    <input id="title" name="title" type="text" >
+                    <h6>Описание:</h6>
+                    <textarea  id="description" name="description" type="text" ></textarea>
                 }
-
-                <input type="submit" asp-action="CreateUpload" asp-controller="Home" asp-route-id="@Model.MainPage.Id" class="btn btn-primary" value="Добавить изображение" />
-                
+                <div>
+                <input type="submit"  asp-action="CreateUpload" asp-controller="Home" asp-route-id="@Model.MainPage.Id" class="btn btn-success" value="Добавить" />
+                </div>
             </form>
         }
 
@@ -88,7 +96,7 @@
 
 </div>
 <div>
-    <a asp-action="Index">Вернуться на главную страницу</a>
+    <a class="link-success" asp-action="HomePage">Перейти на страницу редактирования</a>
 </div>
 
 <!-- DeleteParameterModal -->
@@ -103,8 +111,8 @@
                 Вы увервены?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" onclick="DeleteUpload()">Да</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-success" onclick="DeleteUpload()">Да</button>
             </div>
         </div>
     </div>
@@ -128,7 +136,7 @@
                 id: Id,
             },
             success: function () {
-                window.location.href = '/Home/Index';
+                window.location.href = '/Home/HomePage';
             },
         });
         event.preventDefault();
