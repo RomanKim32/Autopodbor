@@ -169,7 +169,7 @@ namespace Autopodbor_312.Repositories
 
         public NewsDetailsViewModel DetailsNews(int? id)
         {
-            News news = _context.News.FirstOrDefault(p => p.Id == id);
+            News news = _context.News.FirstOrDefault(n => n.Id == id);
             List<PortfolioNewsFile> minorImg = _context.PortfolioNewsFiles.Where(i => i.NewsId == id && i.Type == "picture").ToList();
             List<PortfolioNewsFile> videos = _context.PortfolioNewsFiles.Where(v => v.NewsId == id && v.Type == "video").ToList();
             NewsDetailsViewModel newsDetailsViewModel = new NewsDetailsViewModel { News = news, MinorPictures = minorImg, Videos = videos };
@@ -179,7 +179,7 @@ namespace Autopodbor_312.Repositories
         public PortfolioNewsFile EditMainPhoto(int? id, IFormFile newPhoto)
         {
             PortfolioNewsFile portfolioNewsFile = _context.PortfolioNewsFiles.FirstOrDefault(p => p.Id == id);
-            News news = _context.News.FirstOrDefault(p => p.Id == portfolioNewsFile.NewsId);
+            News news = _context.News.FirstOrDefault(n => n.Id == portfolioNewsFile.NewsId);
             string oldFilePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{news.MainImagePath}");
             if (System.IO.File.Exists(oldFilePath))
             {

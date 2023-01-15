@@ -1,17 +1,9 @@
 ﻿using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
-using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Autopodbor_312.Controllers
 {

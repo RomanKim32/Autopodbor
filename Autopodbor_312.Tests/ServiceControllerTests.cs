@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Autopodbor_312.MoqTesting
+namespace Autopodbor_312.Tests
 {
 
 	public class ServiceControllerTests
