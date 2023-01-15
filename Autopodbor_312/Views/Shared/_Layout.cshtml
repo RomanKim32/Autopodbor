@@ -31,15 +31,15 @@
 					@localizer["portfolioButton"]
 				</a>
 				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold fs-4" aria-labelledby="navbarDarkDropdownMenuLink">
-					 <li><a class="nav-link fc"  asp-controller="Portfolio" asp-action="IndexTurnkeySelection">Подбор под ключ</a></li>
-					 <li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">Выездной осмотр</a></li>
+									<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+									<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
 				 </ul>
 			  </li>
 			  <li>
 				<a class="nav-link fc"  asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
 		      </li>
 			  <li>
-				<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">Контакты</a>
+								<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
 		      </li>
 			 </div>
 			 <div class="p-2 flex-shrink-1">

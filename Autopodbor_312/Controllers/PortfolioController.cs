@@ -70,9 +70,9 @@ namespace Autopodbor_312.Controllers
 			var fpvm = new FilterPortfolioViewModel
 			{
 				Portfolios = PaginationList<Portfolio>.CreateAsync(portfolios.ToList(), pageNumber, 5),
-				CarsBodyTypes = new SelectList(carsBodyTypes, "Id", "BodyType"),
-				CarsBrands = new SelectList(carsBrands, "Id", "Brand"),
-				CarsModels = new SelectList(carsBrandsModels, "Id", "Model"),
+				CarsBodyTypes = carsBodyTypes,
+				CarsBrands = carsBrands,
+				CarsModels = carsBrandsModels
 			};
 			return fpvm;
 		}

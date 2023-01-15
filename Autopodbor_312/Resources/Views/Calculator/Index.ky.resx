@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="bodyTypeLabel" xml:space="preserve">
-    <value>Форма кузова(на кырг)</value>
+    <value>Кузовдун формасы</value>
   </data>
   <data name="brandLabelOrderForm" xml:space="preserve">
-    <value>Марка(на кырг)</value>
+    <value>Унаанын маркасы</value>
   </data>
   <data name="brandOptionOrderForm" xml:space="preserve">
-    <value>Выберите марку(на кырг)</value>
+    <value>Унаанын маркасын тандаңыз </value>
   </data>
   <data name="calculateButton" xml:space="preserve">
-    <value>Рассчитать(на кырг)</value>
+    <value>Эсептөө</value>
   </data>
   <data name="calculatorTitle" xml:space="preserve">
-    <value>Калькулятор(на кырг)</value>
+    <value>Эсептөөч</value>
   </data>
   <data name="fuelsTypeLabel" xml:space="preserve">
-    <value>Вид топлива(на кырг)</value>
+    <value>Мотор майдын түрү</value>
   </data>
   <data name="manufacturesYearLabel" xml:space="preserve">
-    <value>Год выпуска(на кырг)</value>
+    <value>Чыгарылган жылы</value>
   </data>
   <data name="modelLabel" xml:space="preserve">
-    <value>Модель(на кырг)</value>
+    <value>Унаанын модели</value>
   </data>
   <data name="modelOptionOrderForm" xml:space="preserve">
-    <value>Выберите модель(на кырг)</value>
+    <value>Моделди тандаңыз</value>
   </data>
   <data name="titleDescription" xml:space="preserve">
-    <value>Калькулятор по услуге "Выездной осмотр"(на кырг)</value>
+    <value>"Көчмө текшерүү" боюнча эсептөөч</value>
   </data>
 </root>
