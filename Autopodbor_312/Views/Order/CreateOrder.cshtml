@@ -24,7 +24,7 @@ else
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label class="control-label">@localizer["nameLabelOrderForm"]</label>
-				<input id="UserName" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityUserName"]')" onchange="this.setCustomValidity('')" />
+				<input id="UserName" class="form-control"/>
 				<span asp-validation-for="Order.UserName" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -38,7 +38,7 @@ else
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["brandLabelOrderForm"]</label>
-				<select onchange="GetSelectedTextValue(this)" id="brand" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityBrand"]')" oninput="setCustomValidity('')">
+				<select onchange="GetSelectedTextValue(this)" id="brand" class="form-control">
 					<option value="" disabled selected hidden>@localizer["brandOptionOrderForm"]</option>
 					@foreach (var brand in Model.CarsBrands)
 					{
@@ -51,7 +51,7 @@ else
 			{
 				<div class="form-group">
 					<label class="control-label">@localizer["modelLabelOrderForm"]</label>
-					<select class="form-control" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
+					<select class="form-control" id="select-model">
 						<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 						@if (Model.CarsBrandsModels != null)
 						{
@@ -67,7 +67,7 @@ else
 
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">@localizer["carsBodyLabelOrderForm"]</label>
-				<select id="CarsBodyTypesId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityBodyType"]')" oninput="setCustomValidity('')">
+				<select id="CarsBodyTypesId" class="form-control">
 					<option value="" disabled selected hidden>@localizer["bodyTypeOptionOrderForm"]</option>
 					@foreach (var body in Model.CarsBodyTypes)
 					{
@@ -78,7 +78,7 @@ else
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsYearsId" class="control-label">@localizer["manufacturesYearLabelOrderForm"]</label>
-				<select id="CarsYearsId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityYear"]')" oninput="setCustomValidity('')">
+				<select id="CarsYearsId" class="form-control">
 					<option value="" disabled selected hidden>@localizer["yearOptionOrderForm"]</option>
 					@foreach (var year in Model.CarsYears)
 					{
@@ -89,7 +89,7 @@ else
 			</div>
 			<div class="form-group">
 				<label asp-for="@Model.Order.CarsFuelsId" class="control-label">@localizer["сarsFuelLebelOrderForm"]</label>
-				<select id="CarsFuelsId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityFuel"]')" oninput="setCustomValidity('')">
+				<select id="CarsFuelsId" class="form-control">
 					<option value="" disabled selected hidden>@localizer["fuelOptionOrderForm"]</option>
 					@foreach (var fuel in Model.CarsFuels)
 					{
