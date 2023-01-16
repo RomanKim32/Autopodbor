@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bodyOptionOrderForm" xml:space="preserve">
+    <value>Кузовдун формасын тандаңыз</value>
+  </data>
   <data name="brandLabelOrderForm" xml:space="preserve">
     <value>Унаанын маркасы</value>
   </data>
@@ -129,14 +132,35 @@
   <data name="commentLabelOrderForm" xml:space="preserve">
     <value>Кошумча маалымат</value>
   </data>
+  <data name="customValidityBodyType" xml:space="preserve">
+    <value>Кузовтун формасын тандаңыз</value>
+  </data>
+  <data name="customValidityBrand" xml:space="preserve">
+    <value>Унаанын маркасын тандаңыз</value>
+  </data>
   <data name="customValidityEmail" xml:space="preserve">
     <value>Электрондук почтаңыз туура эмес толтурулган</value>
+  </data>
+  <data name="customValidityFuel" xml:space="preserve">
+    <value>Мотор майдын түрүн тандаңыз</value>
+  </data>
+  <data name="customValidityModel" xml:space="preserve">
+    <value>Унаанын моделин тандаңыз</value>
   </data>
   <data name="customValidityPhoneNumber" xml:space="preserve">
     <value>Милдеттуу түрдө толтуруш керек</value>
   </data>
+  <data name="customValidityUserName" xml:space="preserve">
+    <value>Атыңызды жазып койуңуз</value>
+  </data>
+  <data name="customValidityYear" xml:space="preserve">
+    <value>Чыгарылган жылын тандаңыз</value>
+  </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
     <value>Электрондук почтаңыз</value>
+  </data>
+  <data name="fuelOptionOrderForm" xml:space="preserve">
+    <value>Мотор майдын түрүн тандаңыз</value>
   </data>
   <data name="manufacturesYearLabelOrderForm" xml:space="preserve">
     <value>Чыгарылган жылы</value>
@@ -158,6 +182,9 @@
   </data>
   <data name="phoneNumberLabelOrderForm" xml:space="preserve">
     <value>Телефон номуру</value>
+  </data>
+  <data name="yearOptionOrderForm" xml:space="preserve">
+    <value>Чыгарылган жылын тандаңыз</value>
   </data>
   <data name="сarsFuelLebelOrderForm" xml:space="preserve">
     <value>Мотор майдын түрү</value>

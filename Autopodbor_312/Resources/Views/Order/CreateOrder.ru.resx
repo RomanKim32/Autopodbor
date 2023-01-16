@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bodyOptionOrderForm" xml:space="preserve">
+    <value>Выберите кузов</value>
+  </data>
   <data name="brandLabelOrderForm" xml:space="preserve">
     <value>Марка</value>
   </data>
@@ -129,14 +132,35 @@
   <data name="commentLabelOrderForm" xml:space="preserve">
     <value>Дополнительная информация</value>
   </data>
+  <data name="customValidityBodyType" xml:space="preserve">
+    <value>Укажите тип кузова машины</value>
+  </data>
+  <data name="customValidityBrand" xml:space="preserve">
+    <value>Укажите марку машины</value>
+  </data>
   <data name="customValidityEmail" xml:space="preserve">
     <value>Неверно заполнена электронная почта</value>
   </data>
+  <data name="customValidityFuel" xml:space="preserve">
+    <value>Укажите вид топлива машины</value>
+  </data>
+  <data name="customValidityModel" xml:space="preserve">
+    <value>Укажите  модель машины</value>
+  </data>
   <data name="customValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению</value>
+    <value>Напишите номер телефона</value>
+  </data>
+  <data name="customValidityUserName" xml:space="preserve">
+    <value>Напишите ваше имя</value>
+  </data>
+  <data name="customValidityYear" xml:space="preserve">
+    <value>Укажите  год выпуска машины</value>
   </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
     <value>Электронная почта</value>
+  </data>
+  <data name="fuelOptionOrderForm" xml:space="preserve">
+    <value>Выберите тип топлива</value>
   </data>
   <data name="manufacturesYearLabelOrderForm" xml:space="preserve">
     <value>Год выпуска</value>
@@ -158,6 +182,9 @@
   </data>
   <data name="phoneNumberLabelOrderForm" xml:space="preserve">
     <value>Номер телефона</value>
+  </data>
+  <data name="yearOptionOrderForm" xml:space="preserve">
+    <value>Выберите год выпуска</value>
   </data>
   <data name="сarsFuelLebelOrderForm" xml:space="preserve">
     <value>Вид топлива</value>

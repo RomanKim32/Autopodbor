@@ -147,4 +147,19 @@
   <data name="titleDescription" xml:space="preserve">
     <value>"Көчмө текшерүү" боюнча эсептөөч</value>
   </data>
+  <data name="validBody" xml:space="preserve">
+    <value>Унаанын кузову  толтурулган жок</value>
+  </data>
+  <data name="validBrand" xml:space="preserve">
+    <value>Унаанын маркасы  толтурулган жок</value>
+  </data>
+  <data name="validFuel" xml:space="preserve">
+    <value>Мотордун майы толтурулган жок</value>
+  </data>
+  <data name="validModel" xml:space="preserve">
+    <value>Унаанын модели толтурулган жок</value>
+  </data>
+  <data name="validYear" xml:space="preserve">
+    <value>Унаанын жылы толтурулган жок</value>
+  </data>
 </root>
