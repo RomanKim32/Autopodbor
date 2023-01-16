@@ -24,7 +24,7 @@ namespace Autopodbor_312.Repositories
         public void UpdateAndSaveChanges(ContactInformation contactInformation)
         {
             _context.Update(contactInformation);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

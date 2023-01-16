@@ -45,7 +45,8 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
             _contactInformations.UpdateAndSaveChanges(contactInformation);
-            return View(contactInformation);
+            //return View(contactInformation);
+            return RedirectToAction("Index");
         }
     }
 }
