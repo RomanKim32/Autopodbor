@@ -59,6 +59,7 @@ namespace Autopodbor_312
                 .AddEntityFrameworkStores<AutopodborContext>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IContactInformationsRepository, ContactInformationsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
