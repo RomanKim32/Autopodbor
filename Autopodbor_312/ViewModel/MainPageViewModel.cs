@@ -8,9 +8,8 @@ namespace Autopodbor_312.ViewModel
 {
     public class MainPageViewModel
     {
-        public MainPage MainPage { get; set; }
-        public MainPageFile MainPic { get; set; }
-        public List<MainPage> MainPages { get; set; }
-        public List<MainPageFile> MainPageFiles { get; set; }
+        public MainPage FirstBanner { get; set; }
+        public MainPage SecondBanner { get; set; }
+        public List<MainPage> ThirdBanner { get; set; }
     }
 }
