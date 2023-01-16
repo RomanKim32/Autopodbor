@@ -1,12 +1,123 @@
-﻿
+﻿@using System.Threading;
 <link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
-
-@model List<MainPage>
+@model Autopodbor_312.ViewModel.MainPageViewModel;
 @{
     ViewData["Title"] = "Главная страница";
 }
 
-@foreach (var n in Model)
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model.FirstBanner.Path" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+		    	{
+                    <h5 class="card-title">@Model.FirstBanner.TitleRu</h5>
+                    <p class="card-text">@Model.FirstBanner.DescriptionRu</p>
+                }
+                else
+                {
+                    <h5 class="card-title">@Model.FirstBanner.TitleKy</h5>
+                    <p class="card-text">@Model.FirstBanner.DescriptionKy</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model.SecondBanner.Path" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                {
+                    <h5 class="card-title">@Model.SecondBanner.TitleRu</h5>
+                    <p class="card-text">@Model.SecondBanner.DescriptionRu</p>
+                }else
+                {
+                    <h5 class="card-title">@Model.SecondBanner.TitleKy</h5>
+                    <p class="card-text">@Model.SecondBanner.DescriptionKy</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="photosCarousel" class="carousel slide w-50" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @for (int j = 0; j < Model.ThirdBanner.Count(); j++)
+        {
+            @if (j == 0)
+            {
+                <div class="carousel-item active">
+                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@Model.ThirdBanner[j].Path" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleRu</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionRu</p>
+                                    }
+                                    else
+                                    {
+                                         <h5 class="card-title">@Model.ThirdBanner[j].TitleKy</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionKy</p>
+                                    }
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@Model.ThirdBanner[j].Path" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleRu</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionRu</p>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleKy</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionKy</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#photosCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#photosCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+@*@foreach (var n in Model)
 {
     @if (n != null)
     {        <div id="pubs" class="card_@n.Id" >
@@ -89,4 +200,4 @@
             }
         </div>
     }
-}
+}*@

@@ -1,146 +1,106 @@
 ﻿@model Autopodbor_312.ViewModel.MainPageViewModel
 
 @{
-    ViewData["Title"] = "EditMainPage";
+    ViewData["Title"] = "Редактирование";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Редактирование главной страницы</h1>
-
 <hr />
-@if (Model.MainPage.Banner == "big" || Model.MainPage.Banner == "medium")
-{
+
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.MainPage.Id" />
+        <h5 class="mt-3 mb-3">Первый банер</h5>
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label asp-for="@Model.MainPage.Title" class="control-label"><h5>Заголовок:</h5></label>
-                <input asp-for="@Model.MainPage.Title" class="form-control"  />    
-                <span asp-validation-for="@Model.MainPage.Title" class="text-danger"></span>
+                <label asp-for="@Model.FirstBanner.TitleRu" class="control-label">Заголовок на русском</label>
+                <input asp-for="@Model.FirstBanner.TitleRu" class="form-control" />
             </div>
             <div class="form-group">
-                <label asp-for="@Model.MainPage.Description" class="control-label"><h5>Текст:</h5></label>
-                <textarea asp-for="@Model.MainPage.Description" class="form-control" ></textarea>
-                <span asp-validation-for="@Model.MainPage.Description" class="text-danger"></span>
+                <label asp-for="@Model.FirstBanner.DescriptionRu" class="control-label">Описание на русском</label>
+                <textarea asp-for="@Model.FirstBanner.DescriptionRu" class="form-control"></textarea>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="@Model.MainPage.Banner" />
+                <label asp-for="@Model.FirstBanner.TitleKy" class="control-label">Заголовок на кыргызском</label>
+                <input asp-for="@Model.FirstBanner.TitleKy" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="@Model.MainPage.CreatedDate" />
+                <label asp-for="@Model.FirstBanner.DescriptionKy" class="control-label">Описание на кыргызском</label>
+                <textarea asp-for="@Model.FirstBanner.DescriptionKy" class="form-control"></textarea>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Изменить текст" class="btn btn-success" />
-            </div>
+            <input type="hidden" asp-for="@Model.FirstBanner.Id" />
+            <input type="hidden" asp-for="@Model.FirstBanner.Banner" />
+            <input type="hidden" asp-for="@Model.FirstBanner.Path" />
+            <br />
+            <img width="100" height="100" src="@Model.FirstBanner.Path" />
+            <input type="file" name="newPhoto" />
+            <button type="submit" asp-action="EditBanner" asp-controller="Home" class="btn btn-primary">Изменить</button>
         </form>
     </div>
 </div>
-}
-<div class="container">
-    <div class="row">
 
-        <h4 class="mt-3 mb-3">Снимки баннера: </h4>
-        @foreach (var item in Model.MainPageFiles)
-        {
-            <div class="col-2">
-                <form asp-action="EditUploadFile" asp-controller="Home" asp-route-id="@item.Id" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="@item.Id" />
-                    <img width="100" height="100" src="@item.Path" />
-                    <br />
-                    <h6>Изменение картинки:</h6>
-                    <input type="file" name="uploadFilePic" />
-                    @if (Model.MainPage.Banner == "small")
-                    {
-                        <h6>Заголовок:</h6>
-                        <input id="title" name="title" type="text" value="@item.Title" >
-                        <h6>Описание:</h6>
-                        <textarea id="description" name="description" type="text" value="@item.Description" ></textarea>
-                    }
-                    <input type="submit" value="Изменить данные" class="btn btn-success" />
-                </form>
-                @if(Model.MainPageFiles.Count == 2)
-                {
-                <form method="post">
-                    <p>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId(@item.Id)">Удалить</button>
-                    </p>
-                </form>
-                }
+<div class="row">
+    <div class="col-md-4">
+        <h5 class="mt-3 mb-3">Второй банер</h5>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="@Model.SecondBanner.TitleRu" class="control-label">Заголовок на русском</label>
+                <input asp-for="@Model.SecondBanner.TitleRu" class="form-control" />
             </div>
-        }
-        @if (Model.MainPageFiles.Count == 0 || Model.MainPage.Banner == "small")
-        {
-           
-            <form class="mt-3 mb-3" method="post" enctype="multipart/form-data">
-
-                <h6>Добавление нового слайда</h6>
-                <h6>Изменение картинки:</h6>
-                <input type="file" name="uploadFilePic" />
-                @if (Model.MainPage.Banner == "small")
-                {
-                    <h6>Заголовок:</h6>
-                    <input id="title" name="title" type="text" >
-                    <h6>Описание:</h6>
-                    <textarea  id="description" name="description" type="text" ></textarea>
-                }
-                <div>
-                <input type="submit"  asp-action="CreateUpload" asp-controller="Home" asp-route-id="@Model.MainPage.Id" class="btn btn-success" value="Добавить" />
-                </div>
-            </form>
-        }
-
-
-        </div>
-
-</div>
-<div>
-    <a class="link-success" asp-action="HomePage">Перейти на страницу редактирования</a>
-</div>
-
-<!-- DeleteParameterModal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="form-group">
+                <label asp-for="@Model.SecondBanner.DescriptionRu" class="control-label">Описание на русском</label>
+                <textarea asp-for="@Model.SecondBanner.DescriptionRu" class="form-control"></textarea>
             </div>
-            <div class="modal-body">
-                Вы увервены?
+            <div class="form-group">
+                <label asp-for="@Model.SecondBanner.TitleKy" class="control-label">Заголовок на кыргызском</label>
+                <input asp-for="@Model.SecondBanner.TitleKy" class="form-control" />
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-success" onclick="DeleteUpload()">Да</button>
+            <div class="form-group">
+                <label asp-for="@Model.SecondBanner.DescriptionKy" class="control-label">Описание на кыргызском</label>
+                <textarea asp-for="@Model.SecondBanner.DescriptionKy" class="form-control"></textarea>
             </div>
-        </div>
+            <input type="hidden" asp-for="@Model.SecondBanner.Id" />
+            <input type="hidden" asp-for="@Model.SecondBanner.Banner" />
+            <input type="hidden" asp-for="@Model.SecondBanner.Path" />
+            <br />
+            <img width="100" height="100" src="@Model.SecondBanner.Path" />
+            <input type="file" name="newPhoto" />
+            <button type="submit" asp-action="EditBanner" asp-controller="Home" class="btn btn-primary">Изменить</button>
+        </form>
     </div>
 </div>
 
-<script>
-    let Name = '';
-    function GetName(name) {
-        Name = name;
-    };
-        //let Id = '';
-    function GetId(id) {
-        Id = id;
-
-    };
-    function DeleteUpload() {
-        $.ajax({
-            url: '@Url.Action("DeleteUpload", "Home")',
-            type: 'POST',
-            data: {
-                id: Id,
-            },
-            success: function () {
-                window.location.href = '/Home/HomePage';
-            },
-        });
-        event.preventDefault();
-    }
-
-
-</script>
+<h4 class="mt-3 mb-3">Третий банер - Инструменты</h4>
+@foreach (var item in Model.ThirdBanner)
+{
+    <div class="col-2">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="@item.Id" />
+            <input type="hidden" asp-for="@item.Banner" />
+            <input type="hidden" asp-for="@item.Path" />
+            <div class="form-group">
+                <label asp-for="@item.TitleRu" class="control-label">Заголовок на русском</label>
+                <input asp-for="@item.TitleRu" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@item.DescriptionRu" class="control-label">Описание на русском</label>
+                <textarea asp-for="@item.DescriptionRu" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="@item.TitleKy" class="control-label">Заголовок на кыргызском</label>
+                <input asp-for="@item.TitleKy" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@item.DescriptionKy" class="control-label">Описание на кыргызском</label>
+                <textarea asp-for="@item.DescriptionKy" class="form-control"></textarea>
+            </div>
+            <img width="100" height="100" src="@item.Path" />
+            <br />
+            <input type="file" name="newPhoto" />
+            <button type="submit" asp-action="EditTool" asp-controller="Home" class="btn btn-primary">Изменить</button>
+        </form>
+        <form method="get">
+            <input type="submit" asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-primary" value="Удалить инструмент" />
+        </form>
+    </div>
+}
