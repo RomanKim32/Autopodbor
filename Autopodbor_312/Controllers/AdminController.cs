@@ -1,4 +1,5 @@
-﻿using Autopodbor_312.Models;
+﻿using Autopodbor_312.Interfaces;
+using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -17,8 +18,11 @@ namespace Autopodbor_312.Controllers
         private readonly AutopodborContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context, IWebHostEnvironment webHost)
+        private readonly IAdminRepository _adminRepository;
+
+        public AdminController(IAdminRepository adminRepository, UserManager<User> userManager, SignInManager<User> signInManager, AutopodborContext context, IWebHostEnvironment webHost)
         {
+            _adminRepository = adminRepository;
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
@@ -28,7 +32,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            return View(_adminRepository.Login(returnUrl));
         }
 
         [HttpPost]
@@ -63,13 +67,6 @@ namespace Autopodbor_312.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "admin")]
-        public IActionResult Index()
-        {
-            var usersList = _context.Users.Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
-            return View(usersList);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
@@ -78,13 +75,19 @@ namespace Autopodbor_312.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-     
+        [Authorize(Roles = "admin")]
+        public IActionResult Index()
+        {
+            var usersList = _adminRepository.Index().Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
+            return View(usersList);
+        }
 
         [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Register()
         {
-            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            //ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            ViewData["Role"] = _adminRepository.GetAllRolesExceptAdmin();
             return View();
         }
 
@@ -112,7 +115,7 @@ namespace Autopodbor_312.Controllers
                     }
                 }
             }
-            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            ViewData["Role"] = _adminRepository.GetAllRolesExceptAdmin();
             return View(model);
         }
 
@@ -129,7 +132,6 @@ namespace Autopodbor_312.Controllers
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
-
             var model = new EditUserViewModel
             {
                 Id = user.Id,
@@ -137,7 +139,7 @@ namespace Autopodbor_312.Controllers
                 UserName = user.Email,
                 Role = userRoles.FirstOrDefault(),
             };
-            ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+            ViewData["Role"] = _adminRepository.GetAllRolesExceptAdmin();
             return View(model);
         }
 
@@ -151,7 +153,7 @@ namespace Autopodbor_312.Controllers
             {
                 ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
                 return View("NotFound");
-            }
+            } 
             else
             {
                 user.Email = model.Email;
@@ -175,17 +177,15 @@ namespace Autopodbor_312.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                ViewData["Role"] = _context.Roles.Where(r => r.Name != "admin").ToList();
+                ViewData["Role"] = _adminRepository.GetAllRolesExceptAdmin();
                 return View(model);
             }
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public IActionResult DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            _adminRepository.DeleteUser(id);
             return RedirectToAction("Index", "Admin");
         }
 
