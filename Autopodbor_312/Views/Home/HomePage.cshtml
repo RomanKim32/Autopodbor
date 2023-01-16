@@ -1,0 +1,120 @@
+﻿
+@model List<MainPage>
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+@foreach (var n in Model)
+
+{
+    @if (n != null)
+    {
+
+        <div id="pubs" class="card_@n.Id">
+            @if (@n.Banner == "big")
+            {
+
+                <div class="card mb-3 mt-3" style="max-width: 740px;">
+                    <div class="row row-cols-1 row-cols-md-3 g-4 main-block m-0">
+                        <div class="col-md-6 p-0 m-0">
+                            @for (int i = 0; i < n.Images.Count(); i++)
+                            {
+                                <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
+                            }
+                        </div>
+                        <div class="col-md-6 text-center p-0 m-0">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-uppercase banner">@n.Title</h5>
+                                <p class="card-text fw-bold ">@n.Description</p>
+                                <a class="btn btn-success  fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (@n.Banner == "medium")
+            {
+                <div class="card mt-3 text-bg-dark" style="max-width: 740px;">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            @for (int i = 0; i < n.Images.Count(); i++)
+                            {
+                                <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
+                            }
+                        </div>
+                        <div class="col-md-6  text-center p-0 m-0">
+                            <div class="card-body">
+                                <h5 class="card-title  fw-bold lh-lg text-uppercase">@n.Title</h5>
+                                <p class="card-text fw-bold">@n.Description</p>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (@n.Banner == "small")
+            {
+                <div class="card mb-3 mt-3" style="max-width: 740px;">
+                    <div id="carouselExampleIndicators_@n.Id" class="carousel slide" data-bs-ride="true">
+
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+                            @for (int i = 1; i < n.Images.Count(); i++)
+                            {
+                                <button type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+                            }
+                        </div>
+                        <div class="carousel-inner">
+
+                            @for (int i = 0; i < n.Images.Count(); i++)
+                            {
+
+                                <div class="@(i==0 ? "carousel-item active" : "carousel-item")">
+                                    <div class="row">
+                                        <img class="d-block col-md-6" src="@n.Images[i].Path" alt="Photo">
+
+                                        <div class="col-md-6 text-center p-2 m-0">
+                                            <div class="card-body">
+                                             @if (User.IsInRole("admin"))
+                                            {
+                                                @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
+                                                <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
+                                            }
+                                            
+                                            <h5 class="card-title fw-bold lh-lg text-uppercase">@n.Images[i].Title</h5>
+                                            <p class="card-text fw-bold">@n.Images[i].Description</p>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        @if (n.Images.Count() > 1)
+                        {
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Предыдущий</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators_@n.Id" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Следующий</span>
+                            </button>
+                        }
+
+                    </div>
+
+                </div>
+            }
+        </div>
+
+
+    }
+}

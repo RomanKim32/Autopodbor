@@ -19,6 +19,7 @@ namespace Autopodbor_312.Models
 		public DbSet<PortfolioNewsFile> PortfolioNewsFiles { get; set; }
         public DbSet<ContactInformation> ContactInformation { get; set; }
         public DbSet<MainPage> MainPage { get; set; }
+        public DbSet<MainPageFile> MainPageFiles { get; set; }
 
 
         public AutopodborContext(DbContextOptions<AutopodborContext> options) : base(options)

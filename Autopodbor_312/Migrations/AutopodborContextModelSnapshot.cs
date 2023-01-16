@@ -157,24 +157,47 @@ namespace Autopodbor_312.Migrations
                     b.Property<string>("Banner")
                         .HasColumnType("text");
 
-                    b.Property<string>("DescriptionKy")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("DescriptionRu")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleKy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleRu")
+                    b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("MainPage");
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.MainPageFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("MainPageId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MainPageId");
+
+                    b.ToTable("MainPageFiles");
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.News", b =>
@@ -578,6 +601,13 @@ namespace Autopodbor_312.Migrations
                         .HasForeignKey("CarsBrandsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Autopodbor_312.Models.MainPageFile", b =>
+                {
+                    b.HasOne("Autopodbor_312.Models.MainPage", "MainPage")
+                        .WithMany()
+                        .HasForeignKey("MainPageId");
                 });
 
             modelBuilder.Entity("Autopodbor_312.Models.Orders", b =>
