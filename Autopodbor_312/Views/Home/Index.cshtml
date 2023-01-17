@@ -1,8 +1,9 @@
 ﻿@using System.Threading;
 <link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @model Autopodbor_312.ViewModel.MainPageViewModel;
 @{
-    ViewData["Title"] = "Главная страница";
+    ViewData["Title"] = @localizer["mainPageTitle"];
 }
 
 <div class="card mb-3" style="max-width: 540px;">

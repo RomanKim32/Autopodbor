@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bodyOptionOrderForm" xml:space="preserve">
+    <value>Выберите форму кузова</value>
+  </data>
   <data name="bodyTypeLabel" xml:space="preserve">
     <value>Форма кузова</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="calculatorTitle" xml:space="preserve">
     <value>Калькулятор</value>
+  </data>
+  <data name="fuelOptionOrderForm" xml:space="preserve">
+    <value>Выберите тип топлива</value>
   </data>
   <data name="fuelsTypeLabel" xml:space="preserve">
     <value>Вид топлива</value>
@@ -161,5 +167,8 @@
   </data>
   <data name="validYear" xml:space="preserve">
     <value>Год выпуска не заполнен</value>
+  </data>
+  <data name="yearOptionOrderForm" xml:space="preserve">
+    <value>Выберите год выпуска</value>
   </data>
 </root>
