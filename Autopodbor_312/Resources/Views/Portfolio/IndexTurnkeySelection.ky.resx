@@ -117,19 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="allFilter" xml:space="preserve">
+    <value>Баары</value>
+  </data>
+  <data name="brandLabelOrderForm" xml:space="preserve">
+    <value>Унаа маркасы</value>
+  </data>
+  <data name="carsBodyLabelOrderForm" xml:space="preserve">
+    <value>Кузовдун формасы</value>
+  </data>
   <data name="detailsButton" xml:space="preserve">
-    <value>Подробнее(на кырг)</value>
+    <value>Кененирээк</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Чыпкалоо</value>
+  </data>
+  <data name="modelLabelOrderForm" xml:space="preserve">
+    <value>Унаа модели</value>
   </data>
   <data name="nextButton" xml:space="preserve">
-    <value>Вперед(на кырг)</value>
+    <value>Алдыга </value>
   </data>
   <data name="portfolioTitle" xml:space="preserve">
-    <value>Портфолио(на кырг)</value>
+    <value>Портфолио</value>
   </data>
   <data name="portfolioTurnkeySeclectionTitle" xml:space="preserve">
-    <value>Портфолио для услуги "Подбор под ключ"(на кырг)</value>
+    <value>"Ачкыч колго тийгенче тандоо" кызматы учун портфолио</value>
   </data>
   <data name="previousButton" xml:space="preserve">
-    <value>Назад(на кырг)</value>
+    <value>Артка</value>
   </data>
 </root>

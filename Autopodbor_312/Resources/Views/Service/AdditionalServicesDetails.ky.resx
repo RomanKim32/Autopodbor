@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="additionalBackButton" xml:space="preserve">
-    <value>Назад(на кырг)</value>
+    <value>Артка</value>
   </data>
   <data name="additionalOrderButton" xml:space="preserve">
-    <value>Заказать(на кырг)</value>
+    <value>Буйрутма берүү</value>
   </data>
   <data name="additionalServicesTitle" xml:space="preserve">
-    <value>Дополнительные услуги(на кырг)</value>
+    <value>Кошумча кызматтар</value>
   </data>
   <data name="customValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта(на кырг)</value>
+    <value>Электрондук почтаңыз туура эмес толтурулган</value>
   </data>
   <data name="customValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению(ны кырг)</value>
+    <value>Милдеттүү түрдө толтуруш керек</value>
   </data>
   <data name="descriptionOrderLabel" xml:space="preserve">
-    <value>Дополнительная информация(ны кырг)</value>
+    <value>Кошумча маалымат</value>
   </data>
   <data name="emailOrderLabel" xml:space="preserve">
-    <value>Электронная почта(на кырг)</value>
+    <value>Электрондук почтаңыз</value>
   </data>
   <data name="nameOrderLabel" xml:space="preserve">
-    <value>Имя(на кырг)</value>
+    <value>Атыңыз</value>
   </data>
   <data name="orderButton" xml:space="preserve">
-    <value>Заказать(на кырг)</value>
+    <value>Буйрутма берүү</value>
   </data>
   <data name="phoneNumberOrderLabel" xml:space="preserve">
-    <value>Номер телефона(на кырг)</value>
+    <value>Телефон номуру</value>
   </data>
 </root>

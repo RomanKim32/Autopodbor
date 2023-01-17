@@ -121,10 +121,10 @@
     <value>Эсептөөч</value>
   </data>
   <data name="detailsButton" xml:space="preserve">
-    <value>Толук маалымат</value>
+    <value>Көбүрөөк</value>
   </data>
   <data name="orderButton" xml:space="preserve">
-    <value>Заказ кылуу</value>
+    <value>Буйрутма берүү</value>
   </data>
   <data name="ourServices" xml:space="preserve">
     <value>Биздин кызматтар</value>

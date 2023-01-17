@@ -147,4 +147,19 @@
   <data name="titleDescription" xml:space="preserve">
     <value>Калькулятор по услуге "Выездной осмотр"</value>
   </data>
+  <data name="validBody" xml:space="preserve">
+    <value>Форма кузова не заполнена</value>
+  </data>
+  <data name="validBrand" xml:space="preserve">
+    <value>Марка не заполнена</value>
+  </data>
+  <data name="validFuel" xml:space="preserve">
+    <value>Топливо не заполнено</value>
+  </data>
+  <data name="validModel" xml:space="preserve">
+    <value>Модель не заполнена</value>
+  </data>
+  <data name="validYear" xml:space="preserve">
+    <value>Год выпуска не заполнен</value>
+  </data>
 </root>
