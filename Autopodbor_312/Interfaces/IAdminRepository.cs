@@ -14,6 +14,8 @@ namespace Autopodbor_312.Interfaces
 
         List<IdentityRole<int>> GetAllRolesExceptAdmin();
 
-        void DeleteUser(int id);
+        List<User> DeleteUser(int id, int adminId);
+
+        void UpdateAndSaveUser(User user);
     }
 }

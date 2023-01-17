@@ -5,11 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
+
+
 
 
 namespace Autopodbor_312.Repositories
@@ -42,12 +41,20 @@ namespace Autopodbor_312.Repositories
             List<IdentityRole<int>> roles = _context.Roles.Where(r => r.Name != "admin").ToList(); 
             return roles;
         }
-            
-        public void DeleteUser(int id)
+
+        public List<User> DeleteUser(int id, int adminId)
         {
             var user = _context.Users.Find(id);
             _context.Users.Remove(user);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
+            var users = _context.Users.Where(u => u.Id != adminId).ToList();
+            return users;
+        }
+
+        public void UpdateAndSaveUser(User user)
+        {
+            _context.Update(user);
+            _context.SaveChanges();
         }
     }
 }
