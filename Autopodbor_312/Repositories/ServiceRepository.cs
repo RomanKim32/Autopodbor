@@ -32,7 +32,7 @@ namespace Autopodbor_312.Repositories
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        public IEnumerable<Services> GetAllServices()
+        public IEnumerable<Services> GetMainServices()
         {
             List<Services> services =  _context.Services.Where(s => s.NameRu != "Обратный звонок").Where(s => s.IsAdditional == false).OrderBy(s => s.Id).ToList();
             return services;
