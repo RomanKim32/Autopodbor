@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bodyOptionOrderForm" xml:space="preserve">
+  <data name="bodyTypeOptionOrderForm" xml:space="preserve">
     <value>Кузовдун формасын тандаңыз</value>
   </data>
   <data name="brandLabelOrderForm" xml:space="preserve">
