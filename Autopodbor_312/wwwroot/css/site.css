@@ -7,11 +7,44 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.logotype {
+    border-radius: 50%;
+    cursor: pointer;
+    border: solid transparent;
+    display: block;
+    height: 65px;
+    width: 65px;
+     
+}
+.btn-outline{
+   
+    border-radius: 25%;
+}
+.navbar-toggler {
+
+    border: 5px solid #00A90A;
+}
+.fc, a{
+    color: white; 
+}
+.nav-link:hover {
+    color: #00A90A;
+    
+}
+/*a:hover {
+    color: yellow;
+}*/
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
 }
 
+@media screen and (max-width: 992px) {
+
+    .scr {
+        flex-direction: column;
+    }
+}
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

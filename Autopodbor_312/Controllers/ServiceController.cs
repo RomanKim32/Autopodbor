@@ -25,7 +25,7 @@ namespace Autopodbor_312.Controllers
         [HttpGet]
         public IActionResult Services()
         {          
-            return View(_serviceRepository.GetAllServices());
+            return View(_serviceRepository.GetMainServices());
         }
 
         public IActionResult ForAdminServices()

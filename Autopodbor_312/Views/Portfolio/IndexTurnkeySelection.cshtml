@@ -11,25 +11,45 @@
 
 <form method="get">
 	<div class="form-inline">
-		<label class="control-label">Тип кузова: </label>
-		@Html.DropDownList("bodyType", Model.CarsBodyTypes as SelectList,
-		htmlAttributes: new { @class = "form-control" })
-
-		<label class="control-label">Марка авто: </label>
-		@Html.DropDownList("brand", Model.CarsBrands as SelectList,
-		htmlAttributes: new { @class = "form-control" })
-
-		<label class="control-label">Модель авто: </label>
-		@Html.DropDownList("model", Model.CarsModels as SelectList,
-		htmlAttributes: new { @class = "form-control" })
-
-		<input type="submit" value="Фильтр" class="btn btn-default" />
+		<div>
+			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
+			<select name="bodyType">
+				<option value="0">@localizer["allFilter"]</option>
+				@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
+				{
+					<option value="@Model.CarsBodyTypes[i].Id">@Model.CarsBodyTypes[i].BodyType</option>
+				}
+			</select>
+		</div>
+		<div>
+			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
+			<select name="brand">
+				<option value="0">@localizer["allFilter"]</option>
+				@for (int i = 0; i < Model.CarsBrands.Count; i++)
+				{
+					<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+				}
+			</select>
+		</div>
+		<div>
+			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
+			<select name="model">
+				<option value="0">@localizer["allFilter"]</option>
+				@for (int i = 0; i < Model.CarsModels.Count; i++)
+				{
+					<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+				}
+			</select>
+		</div>
+		<input type="submit" value="@localizer["filter"]" class="btn btn-default" />
 	</div>
 </form>
 
-<div class="card" style="width: 18rem;">
-	@foreach (var item in Model.Portfolios)
+
+@foreach (var item in Model.Portfolios)
 	{
+<div class="card" style="width: 18rem;">
+	
 		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
 		<div class="card-body">
 			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
@@ -45,9 +65,9 @@
 			<p>@item.CreatedDate</p>
 			<a asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 		</div>
-	}
-</div>
 
+</div>
+}
 
 @{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";

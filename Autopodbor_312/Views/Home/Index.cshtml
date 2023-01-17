@@ -1,23 +1,129 @@
-﻿
+﻿@using System.Threading;
 <link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
-
-@model List<MainPage>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+@model Autopodbor_312.ViewModel.MainPageViewModel;
 @{
-    ViewData["Title"] = "Главная страница";
+    ViewData["Title"] = @localizer["mainPageTitle"];
 }
+@*
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model.FirstBanner.Path" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+		    	{
+                    <h5 class="card-title">@Model.FirstBanner.TitleRu</h5>
+                    <p class="card-text">@Model.FirstBanner.DescriptionRu</p>
+                }
+                else
+                {
+                    <h5 class="card-title">@Model.FirstBanner.TitleKy</h5>
+                    <p class="card-text">@Model.FirstBanner.DescriptionKy</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-@foreach (var n in Model)
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="@Model.SecondBanner.Path" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                {
+                    <h5 class="card-title">@Model.SecondBanner.TitleRu</h5>
+                    <p class="card-text">@Model.SecondBanner.DescriptionRu</p>
+                }else
+                {
+                    <h5 class="card-title">@Model.SecondBanner.TitleKy</h5>
+                    <p class="card-text">@Model.SecondBanner.DescriptionKy</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="photosCarousel" class="carousel slide w-50" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @for (int j = 0; j < Model.ThirdBanner.Count(); j++)
+        {
+            @if (j == 0)
+            {
+                <div class="carousel-item active">
+                    <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@Model.ThirdBanner[j].Path" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleRu</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionRu</p>
+                                    }
+                                    else
+                                    {
+                                         <h5 class="card-title">@Model.ThirdBanner[j].TitleKy</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionKy</p>
+                                    }
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="carousel-item">
+                    
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="@Model.ThirdBanner[j].Path" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleRu</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionRu</p>
+                                    }
+                                    else
+                                    {
+                                        <h5 class="card-title">@Model.ThirdBanner[j].TitleKy</h5>
+                                        <p class="card-text">@Model.ThirdBanner[j].DescriptionKy</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#photosCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#photosCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+*@
+@*@foreach (var n in Model)
 {
     @if (n != null)
-    {
-        
-        <div id="pubs" class="card_@n.Id" >
+    {        <div id="pubs" class="card_@n.Id" >
             @if (@n.Banner == "big")
             {
-               @* <div class="card mt-2">
-                   <img src="https://autopragmat.ru/bitrix/templates/autopragmat_v2/assets/img/s6_desktop.webp" class="card-img-bottom" alt="Photo">          
-                </div>*@
                 <div class=" mt-5 ">
                     <div class="row  row-cols-1 row-cols-md-3 g-4 mt-2 main-block m-0">
                         <div class="col-md-6  p-0 m-0">
@@ -26,17 +132,12 @@
                                 <img class="img-fluid rounded-start" src="@n.Images[i].Path" alt="Photo">
                             }
                         </div>
-                        <div class="col-md-6 text-center p-0 m-0">
-                            <div class="card-body">
-                                <h5 class="card-title  fw-bold  text-uppercase banner">@n.Title</h5>
+                        <div class="col-md-6 text-center p-0 m-0 ">
+                            <div class="card-body banner">
+                                <p class="card-title  fw-bold  text-uppercase ">@n.Title</p>
 
-                                <p class="card-text   banner">@n.Description</p>
+                                <p class="card-text ">@n.Description</p>
                                 <a class="btn btn-success  fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
-                                @if (User.IsInRole("admin"))
-                                    {
-                                    <a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>
-                                    <a class="btn btn-success fs-5 fw-bold border border-white" asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
-                                    }
                             </div>
                         </div>
                     </div>
@@ -53,17 +154,11 @@
                     <div class="card-img-overlay text-center text-white p-2 position-absolute top-50 start-50 translate-middle">
                         <h5 class="card-title fs-3 fw-bold lh-lg text-uppercase">@n.Title</h5>
                         <p class="card-text fw-bold">@n.Description</p>
-                        @if (User.IsInRole("admin"))
-                        {
-                            @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
-                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
-                        }
                     </div>
                 </div>
             }
             @if (@n.Banner == "small")
             {
-
                 <div id="carouselExampleIndicators_@n.Id" class="carousel mt-5 slide" data-bs-ride="true">
 
                     <div class="carousel-indicators">
@@ -102,20 +197,8 @@
                             <span class="visually-hidden">Следующий</span>
                         </button>
                     }
-
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-
-                        @if (User.IsInRole("admin"))
-                        {
-                            @*<a class="btn btn-info" asp-controller="Home" asp-action="Delete" asp-route-id="@n.Id">Удалить</a>*@
-                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@n.Id">Изменить</a>
-                        }
-                    </div>
                 </div>
             }
         </div>
-  
     }
-}
+}*@

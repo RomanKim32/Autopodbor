@@ -185,8 +185,11 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult DeleteUser(int id)
         {
-            _adminRepository.DeleteUser(id);
-            return RedirectToAction("Index", "Admin");
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+			var users = _context.Users.Where(u => u.Id != Convert.ToInt32(_userManager.GetUserId(User))).ToList();
+			return PartialView("UserPar",users);
         }
 
         [HttpGet]

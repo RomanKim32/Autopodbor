@@ -58,6 +58,10 @@ namespace Autopodbor_312
                 })
                 .AddEntityFrameworkStores<AutopodborContext>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
+			services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+			services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IHomeRepository, HomeRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactInformationsRepository, ContactInformationsRepository>();
             services.AddScoped<ICalculatorRepository, CalculatorRepository>();
