@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="detailsButton" xml:space="preserve">
-    <value>Подробнее(на кырг)</value>
+    <value>Кененирээк</value>
   </data>
   <data name="newsTitle" xml:space="preserve">
-    <value>Новости(на кырг)</value>
+    <value>Жаңылыктар</value>
   </data>
   <data name="nextButton" xml:space="preserve">
-    <value>Вперед(на кырг)</value>
+    <value>Алдыга</value>
   </data>
   <data name="previousButton" xml:space="preserve">
-    <value>Назад(на кырг)</value>
+    <value>Артка</value>
   </data>
 </root>
