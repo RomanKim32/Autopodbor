@@ -46,10 +46,10 @@
 </form>
 
 
-
-<div class="card" style="width: 18rem;">
-	@foreach (var item in Model.Portfolios)
+@foreach (var item in Model.Portfolios)
 	{
+<div class="card" style="width: 18rem;">
+	
 		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
 		<div class="card-body">
 			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
@@ -65,9 +65,9 @@
 			<p>@item.CreatedDate</p>
 			<a asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 		</div>
-	}
-</div>
 
+</div>
+}
 
 @{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
