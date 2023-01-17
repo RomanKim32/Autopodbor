@@ -16,7 +16,7 @@
 			<div class="form-group">
 				<label class="control-label">@localizer["brandLabelOrderForm"]</label>
 				<select onchange="GetSelectedTextValue(this)" class="form-control" id="brand">
-					<option value="">@localizer["brandOptionOrderForm"]</option>
+					<option value="" disabled selected hidden>@localizer["brandOptionOrderForm"]</option>
 					@foreach (var brand in Model.CarsBrands)
 					{
 
@@ -25,41 +25,57 @@
 					}
 				</select>
 			</div>
-
+			<div id="validBrand"></div>
 			<div class="form-group">
 				<label class="control-label">@localizer["modelLabel"]</label>
 				<select class="form-control" id="select-model">
-					<option value="">@localizer["modelOptionOrderForm"]</option>
+					<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
+					@if (Model.CarsBrandsModels != null)
+					{
+						@foreach (var brand in Model.CarsBrandsModels)
+						{
 
+							<option data-id="@brand.Id" value="@brand.Price">@brand.Model</option>
+
+						}
+					}
 				</select>
 			</div>
+			<div id="validModel"></div>
 			<div class="form-group">
 				<label class="control-label">@localizer["bodyTypeLabel"]</label>
+
 				<select class="form-control" id="body">
+					<option value="" disabled selected hidden>@localizer["bodyOptionOrderForm"]</option>
 					@foreach (var body in Model.CarsBodyTypes)
 					{
 						<option value="@body.Price">@body.BodyType</option>
 					}
 				</select>
 			</div>
+			<div id="validBody"></div>
 			<div class="form-group">
 				<label class="control-label">@localizer["manufacturesYearLabel"]</label>
 				<select class="form-control" id="year">
+					<option value="" disabled selected hidden>@localizer["yearOptionOrderForm"]</option>
 					@foreach (var year in Model.CarsYears)
 					{
 						<option value="@year.Price">@year.ManufacturesYear</option>
 					}
 				</select>
 			</div>
+			<div id="validYear"></div>
 			<div class="form-group">
 				<label class="control-label">@localizer["fuelsTypeLabel"]</label>
 				<select class="form-control" id="fuel">
+					<option value="" disabled selected hidden>@localizer["fuelOptionOrderForm"]</option>
 					@foreach (var fuel in Model.CarsFuels)
 					{
 						<option value="@fuel.Price">@fuel.FuelsType</option>
 					}
 				</select>
 			</div>
+			<div id="validFuel"></div>
 			<div class="form-group">
 				<input type="submit" value="@localizer["calculateButton"]" class="btn btn-primary" onclick="Calculate()" />
 			</div>
@@ -107,12 +123,37 @@
 
 		function Calculate() {
 			event.preventDefault();
+			var isValid=true;
 			let brand = $("#brand").val();
 			let body = $("#body").val();
 			let year = $("#year").val();
 			let fuel = $("#fuel").val();
 			let model = $("#select-model").val();
+			if (brand === null) {
+				document.getElementById("validBrand").innerHTML = `<p style="color : red;">@localizer["validBrand"]<p>`;
+				isValid = false;
+			};
+			if (body === null) {
+				document.getElementById("validBody").innerHTML = `<p style="color : red;">@localizer["validBody"]<p>`;
+				isValid = false;
+			};
+			if (year === null) {
+				document.getElementById("validYear").innerHTML = `<p style="color : red;">@localizer["validYear"]<p>`;
+				isValid = false;
+			};
+			if (fuel === null) {
+				document.getElementById("validFuel").innerHTML = `<p style="color : red;">@localizer["validFuel"]<p>`;
+				isValid = false;
+			};
+			if (model === null) {
+				document.getElementById("validModel").innerHTML = `<p style="color : red;">@localizer["validModel"]<p>`;
+				isValid = false;
+			};
+			if(isValid===false){
+				return;
+			}
 			let sum = Number(brand) + Number(body) + Number(year) + Number(fuel) + Number(model);
+
 			document.getElementById('sum').innerHTML = `${sum}`;
 		};
 	</script>
