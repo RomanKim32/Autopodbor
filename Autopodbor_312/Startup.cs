@@ -60,6 +60,7 @@ namespace Autopodbor_312
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactInformationsRepository, ContactInformationsRepository>();
+            services.AddScoped<ICalculatorRepository, CalculatorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
