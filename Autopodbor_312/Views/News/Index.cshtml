@@ -1,4 +1,5 @@
-﻿@using System.Threading;
+﻿<link type="text/css" rel="stylesheet" href="~/css/Media/News/NewsIndex.css" />
+@using System.Threading;
 @model PaginationList<News>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
@@ -6,29 +7,40 @@
 	ViewData["Title"] = @localizer["newsTitle"];
 }
 
-<div class="card" style="width: 18rem;">
-	@foreach (var item in Model)
-	{
-		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
-		<div class="card-body">
-			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-			{
-				<h5 class="card-title">@item.NameRu</h5>
-				<p>@item.BodyRu</p>
-			}
-			else
-			{
-				<h5 class="card-title">@item.NameKy</h5>
-				<p>@item.BodyKy</p>
-			}
-			<p>@item.CreatedDate</p>
-			<a asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-		</div>
-	}
-</div>
+
+<body class="body">
+    <div class="container">
+
+        <div class="secondBlock">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="allCard col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card border-0 rounded-5">
+                            <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
+                            <div class="card-body">
+                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                {
+                                    <h2 class="card-title">@item.NameRu</h2>
+                                    <p class="card-text">@item.BodyRu</p>
+                                }
+                                else
+                                {
+                                    <h2 class="card-title">@item.NameKy</h2>
+                                    <p class="card-text">@item.BodyKy</p>
+                                }
+                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
 @{
-	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
-	var nextDisabled = !Model.NextPage ? "disabled" : "";
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
 }
 <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
 <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
