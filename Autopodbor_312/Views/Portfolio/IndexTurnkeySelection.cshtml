@@ -14,7 +14,14 @@
 		<div>
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
 			<select name="bodyType">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedBodyType == 0 || Model.SelectedBodyType==null)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedBodyTypeString</option>
+				}
 				@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
 				{
 					<option value="@Model.CarsBodyTypes[i].Id">@Model.CarsBodyTypes[i].BodyType</option>
@@ -24,7 +31,14 @@
 		<div>
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
 			<select name="brand">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedBrand == 0 || Model.SelectedBrand == null)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedBrandString</option>
+				}
 				@for (int i = 0; i < Model.CarsBrands.Count; i++)
 				{
 					<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
@@ -34,7 +48,14 @@
 		<div>
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
 			<select name="model">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedModelString</option>
+				}
 				@for (int i = 0; i < Model.CarsModels.Count; i++)
 				{
 					<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
@@ -73,5 +94,5 @@
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
 }
-<a asp-action="IndexTurnkeySelection" asp-route-pageNumber="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
-<a asp-action="IndexTurnkeySelection" asp-route-pageNumber="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+<a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
+<a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>

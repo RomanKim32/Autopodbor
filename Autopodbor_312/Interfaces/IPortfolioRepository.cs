@@ -9,8 +9,8 @@ namespace Autopodbor_312.Interfaces
 {
     public interface IPortfolioRepository
     {
-        FilterPortfolioViewModel GetTurnkeySelectionPortfolio(int? bodyType, int? brand, int? model);
-        FilterPortfolioViewModel GetFieldInspectionPortfolio(int? bodyType, int? brand, int? model);
+        FilterPortfolioViewModel GetTurnkeySelectionPortfolio(int? bodyType, int? brand, int? model, int pageIndex);
+        FilterPortfolioViewModel GetFieldInspectionPortfolio(int? bodyType, int? brand, int? model, int pageIndex);
         IEnumerable<Portfolio> GetAllPortfolioForAdmin();
         CreatePortfolioViewModel CreatePortfolio();
         void CreatePortfolio(Portfolio portfolio, IFormFile mainPic, IFormFileCollection uploadFiles, string video);
