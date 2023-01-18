@@ -11,5 +11,9 @@ namespace Autopodbor_312.ViewModel
 		public List<CarsBrandsModel> CarsModels { get; set; }
 		public List<CarsBodyTypes> CarsBodyTypes { get; set; }
 		public PaginationList<Portfolio> Portfolios { get; set; }
+
+		public int? SelectedBrand { get; set; }
+		public int? SelectedModel { get; set; }
+		public int? SelectedBodyType { get; set; }
 	}
 }

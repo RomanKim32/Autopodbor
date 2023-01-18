@@ -70,5 +70,6 @@
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
 }
-<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
-<a asp-action="IndexFieldInspection" asp-route-pageNumber="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+
+<a asp-action="IndexFieldInspection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
+<a asp-action="IndexFieldInspection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>

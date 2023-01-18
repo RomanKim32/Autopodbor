@@ -20,15 +20,15 @@ namespace Autopodbor_312.Controllers
             _portfolioRepository = portfolioRepository;
         }
 
-        public IActionResult IndexTurnkeySelection(int? bodyType, int? brand, int? model)
+        public IActionResult IndexTurnkeySelection(int? bodyType, int? brand, int? model,int pageIndex=1)
 		{
 			
-			return View(_portfolioRepository.GetTurnkeySelectionPortfolio( bodyType, brand, model));
+			return View(_portfolioRepository.GetTurnkeySelectionPortfolio( bodyType, brand, model, pageIndex));
 		}
 
-		public IActionResult IndexFieldInspection(int? bodyType, int? brand, int? model)
+		public IActionResult IndexFieldInspection(int? bodyType, int? brand, int? model, int pageIndex = 1)
 		{
-            return View(_portfolioRepository.GetFieldInspectionPortfolio(bodyType, brand, model));
+            return View(_portfolioRepository.GetFieldInspectionPortfolio(bodyType, brand, model,pageIndex));
 		}
 
 		[Authorize(Roles = "admin,portfolioManager")]
