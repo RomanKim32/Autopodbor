@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="allFilter" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="brandLabelOrderForm" xml:space="preserve">
+    <value>Марка машины</value>
+  </data>
+  <data name="carsBodyLabelOrderForm" xml:space="preserve">
+    <value>Форма кузова</value>
+  </data>
   <data name="detailsButton" xml:space="preserve">
     <value>Подробнее</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="modelLabelOrderForm" xml:space="preserve">
+    <value>Модель машины</value>
   </data>
   <data name="nextButton" xml:space="preserve">
     <value>Вперед</value>

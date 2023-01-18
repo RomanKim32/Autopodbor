@@ -1,31 +1,29 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Autopodbor_312.Models;
 using Microsoft.AspNetCore.Authorization;
+using Autopodbor_312.Interfaces;
 
 namespace Autopodbor_312.Controllers
 {
     public class ContactInformationsController : Controller
     {
-        private readonly AutopodborContext _context;
+        private readonly IContactInformationsRepository _contactInformations;
 
-        public ContactInformationsController(AutopodborContext context)
+        public ContactInformationsController(IContactInformationsRepository contactInformations)
         {
-            _context = context;
+            _contactInformations = contactInformations;
         }
 
         public IActionResult Index()
         {
-            var contactInformation = _context.ContactInformation.First();
+            var contactInformation = _contactInformations.GetFirstContactInformation();
             return View(contactInformation);
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Edit()
+        public IActionResult Edit()
         {
-            var contactInformation = await _context.ContactInformation.FirstAsync();
+            var contactInformation = _contactInformations.GetFirstContactInformation();
             if (contactInformation.Id.ToString() == null)
             {
                 return NotFound();
@@ -40,39 +38,14 @@ namespace Autopodbor_312.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,PhoneNumber,LinkToInstagram,LinkToTiktok,LinkToYoutube,LinkToWhatsapp,LinkToTelegram")] ContactInformation contactInformation)
+        public IActionResult Edit(int id, [Bind("Id,Email,PhoneNumber,LinkToInstagram,LinkToTiktok,LinkToYoutube,LinkToWhatsapp,LinkToTelegram")] ContactInformation contactInformation)
         {
             if (id != contactInformation.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(contactInformation);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ContactInformationExists(contactInformation.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(contactInformation);
-        }
-
-        private bool ContactInformationExists(int id)
-        {
-            return _context.ContactInformation.Any(e => e.Id == id);
+            _contactInformations.UpdateAndSaveChanges(contactInformation);
+            return RedirectToAction("Index");
         }
     }
 }

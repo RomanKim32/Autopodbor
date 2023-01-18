@@ -23,7 +23,7 @@ else
 						</td>
 						<td>
 							<a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
-							<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="GetId('@item.Id')">Удалить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" onclick="GetId('@item.Id')">Удалить</button>
 						</td>
 					</tr>
 				}
@@ -31,7 +31,7 @@ else
 		</tbody>
 	</table>
 	</div>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -43,7 +43,7 @@ else
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-					<button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+					<button type="button" class="btn btn-primary" onclick="Delete()" aria-label="Close" data-bs-dismiss="modal">Да</button>
 				</div>
 			</div>
 		</div>
@@ -54,9 +54,11 @@ else
 <script>
 	let Id = 0;
 	function GetId(id) {
+		
 		Id = id;
 	}
-	const delete = function(){
+	const Delete = function(){
+		
 		$('#UsersDiv').load('@Url.Action("DeleteUser","Admin")?id='+Id);  
 	}
 </script>

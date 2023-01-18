@@ -354,17 +354,17 @@ namespace Autopodbor_312.Repositories
             List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
             List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
             List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
-            carsBodyTypes.Insert(0, new CarsBodyTypes { BodyType = "Все", Id = 0 });
-            carsBrands.Insert(0, new CarsBrands { Brand = "Все", Id = 0 });
-            carsBrandsModels.Insert(0, new CarsBrandsModel { Model = "Все", Id = 0 });
-
+          
             var fpvm = new FilterPortfolioViewModel
             {
                 Portfolios = PaginationList<Portfolio>.Create(portfolios.ToList(), pageNumber, 5),
-                CarsBodyTypes = new SelectList(carsBodyTypes, "Id", "BodyType"),
-                CarsBrands = new SelectList(carsBrands, "Id", "Brand"),
-                CarsModels = new SelectList(carsBrandsModels, "Id", "Model"),
-            };
+                CarsBodyTypes = carsBodyTypes,
+
+				CarsBrands = carsBrands,
+
+				CarsModels = carsBrandsModels
+
+			};
             return fpvm;
         }
 

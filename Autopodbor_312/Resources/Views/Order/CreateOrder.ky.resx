@@ -117,49 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="bodyTypeOptionOrderForm" xml:space="preserve">
+    <value>Кузовдун формасын тандаңыз</value>
+  </data>
   <data name="brandLabelOrderForm" xml:space="preserve">
-    <value>Марка(на кырг)</value>
+    <value>Унаанын маркасы</value>
   </data>
   <data name="brandOptionOrderForm" xml:space="preserve">
-    <value>Выберите марку(на кырг)</value>
+    <value>Унаанын маркасын тандаңыз</value>
   </data>
   <data name="carsBodyLabelOrderForm" xml:space="preserve">
-    <value>Форма кузова(на кырг)</value>
+    <value>Кузовдун формасы</value>
   </data>
   <data name="commentLabelOrderForm" xml:space="preserve">
-    <value>Дополнительная информация(на кырг)</value>
+    <value>Кошумча маалымат</value>
+  </data>
+  <data name="customValidityBodyType" xml:space="preserve">
+    <value>Кузовтун формасын тандаңыз</value>
+  </data>
+  <data name="customValidityBrand" xml:space="preserve">
+    <value>Унаанын маркасын тандаңыз</value>
   </data>
   <data name="customValidityEmail" xml:space="preserve">
-    <value>Неверно заполнена электронная почта(на кырг)</value>
+    <value>Электрондук почтаңыз туура эмес толтурулган</value>
+  </data>
+  <data name="customValidityFuel" xml:space="preserve">
+    <value>Мотор майдын түрүн тандаңыз</value>
+  </data>
+  <data name="customValidityModel" xml:space="preserve">
+    <value>Унаанын моделин тандаңыз</value>
   </data>
   <data name="customValidityPhoneNumber" xml:space="preserve">
-    <value>Поле обязательно к заполнению(ны кырг)</value>
+    <value>Милдеттуу түрдө толтуруш керек</value>
+  </data>
+  <data name="customValidityUserName" xml:space="preserve">
+    <value>Атыңызды жазып койуңуз</value>
+  </data>
+  <data name="customValidityYear" xml:space="preserve">
+    <value>Чыгарылган жылын тандаңыз</value>
   </data>
   <data name="emailLabelOrderForm" xml:space="preserve">
-    <value>Электронная почта(на кырг)</value>
+    <value>Электрондук почтаңыз</value>
+  </data>
+  <data name="fuelOptionOrderForm" xml:space="preserve">
+    <value>Мотор майдын түрүн тандаңыз</value>
   </data>
   <data name="manufacturesYearLabelOrderForm" xml:space="preserve">
-    <value>Год выпуска(на кырг)</value>
+    <value>Чыгарылган жылы</value>
   </data>
   <data name="modelLabelOrderForm" xml:space="preserve">
-    <value>Модель(на кырг)</value>
+    <value>Унаанын модели</value>
   </data>
   <data name="modelOptionOrderForm" xml:space="preserve">
-    <value>Выберите модель(на кырг)</value>
+    <value>Моделди тандаңыз</value>
   </data>
   <data name="nameLabelOrderForm" xml:space="preserve">
-    <value>Имя(на кырг)</value>
+    <value>Атыңыз</value>
   </data>
   <data name="orderButtonOrderForm" xml:space="preserve">
-    <value>Заказать(на кырг)</value>
+    <value>Буйрутма берүү</value>
   </data>
   <data name="orderTitle" xml:space="preserve">
-    <value>Заказ(на кырг)</value>
+    <value>Буйрутма</value>
   </data>
   <data name="phoneNumberLabelOrderForm" xml:space="preserve">
-    <value>Номер телефона(на кырг)</value>
+    <value>Телефон номуру</value>
+  </data>
+  <data name="yearOptionOrderForm" xml:space="preserve">
+    <value>Чыгарылган жылын тандаңыз</value>
   </data>
   <data name="сarsFuelLebelOrderForm" xml:space="preserve">
-    <value>Вид топлива(на кырг)</value>
+    <value>Мотор майдын түрү</value>
   </data>
 </root>

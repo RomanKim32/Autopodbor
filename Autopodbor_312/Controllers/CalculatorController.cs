@@ -1,10 +1,12 @@
-﻿using Autopodbor_312.Models;
+﻿using Autopodbor_312.Interfaces;
+using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,113 +19,97 @@ namespace Autopodbor_312.Controllers
 {
     public class CalculatorController : Controller
     {
-        private readonly AutopodborContext _autodborContext;
+        private readonly ICalculatorRepository _calculatorRepository;
 
-
-        public CalculatorController(AutopodborContext autopodborContext)
+        public CalculatorController(ICalculatorRepository calculatorRepository)
         {
-            _autodborContext = autopodborContext;
+            _calculatorRepository = calculatorRepository;
         }
 
-        private async Task<CalculatorViewModel> GetCalculatorViewModel()
+        private CalculatorViewModel GetCalculatorViewModel()
         {
-            var carsBodyTypes = await _autodborContext.CarsBodyTypes.ToListAsync();
-            var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-            var carsFuels = await _autodborContext.CarsFuels.ToListAsync();
-            var carsYears = await _autodborContext.CarsYears.ToListAsync();
-            var calculatorViewModel = new CalculatorViewModel
-            {
-                CarsBodyTypes = carsBodyTypes,
-                CarsBrands = carsBrands,
-                CarsYears = carsYears,
-                CarsFuels = carsFuels
-            };
-            return calculatorViewModel;
+            return _calculatorRepository.CreateCalculatorViewModel();
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await GetCalculatorViewModel());
+            return View(GetCalculatorViewModel());
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditCalculator()
+        public IActionResult EditCalculator()
         {
-            return View(await GetCalculatorViewModel());
+            return View(GetCalculatorViewModel());
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddParameter(string name, string key, string value)
+        public IActionResult AddParameter(string name, string key, string value)
         {
-
             if (key != null && value != null)
             {
                 switch (name)
                 {
                     case "brand":
-                        CarsBrands newBrand = new CarsBrands();
-                        newBrand.Brand = key;
-                        newBrand.Price = value;
-                        _autodborContext.Add(newBrand);
-                        await _autodborContext.SaveChangesAsync();
-                        var carsBrands = await _autodborContext.CarsBrands.ToListAsync();
-                        return Ok(carsBrands);
-
+                        try
+                        {
+                            return Ok(_calculatorRepository.CreateNewBrand(key, value));                          
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "body":
-                        CarsBodyTypes newBody = new CarsBodyTypes();
-                        newBody.BodyType = key;
-                        newBody.Price = value;
-                        _autodborContext.Add(newBody);
-                        await _autodborContext.SaveChangesAsync();
-                        var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return Ok(model1);
-
+                        try
+                        {
+                            return Ok(_calculatorRepository.CreateCarsBodyType(key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "year":
-                        CarsYears newYear = new CarsYears();
-                        newYear.ManufacturesYear = key;
-                        newYear.Price = value;
-                        _autodborContext.Add(newYear);
-                        await _autodborContext.SaveChangesAsync();
-                        var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return Ok(model2);
-
+                        try
+                        {
+                            return Ok(_calculatorRepository.CreateCarsYear(key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }                       
                     case "fuel":
-                        CarsFuels carsFuel = new CarsFuels();
-                        carsFuel.FuelsType = key;
-                        carsFuel.Price = value;
-                        _autodborContext.Add(carsFuel);
-                        await _autodborContext.SaveChangesAsync();
-                        var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return Ok(model3);
+                        try
+                        {
+                            return Ok(_calculatorRepository.CreateCarsFuels(key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     default:
                         return View();
                 }
-
             }
             else
             {
                 return Error();
             }
-
         }
+
         [Authorize(Roles = "admin")]
         public IActionResult GetModel(int brandId)
         {
-            var carsBrandsModel = _autodborContext.CarsBrandsModels.Where(c => c.CarsBrandsId == brandId).ToList();
+            var carsBrandsModel = _calculatorRepository.GetBrands(brandId);
             var calculatorViewModel = new CalculatorViewModel
             {
                 CarsBrandsModels = carsBrandsModel
-
             };
-            CarsBrands brands = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
-            ViewBag.Brand = brands;
+            var brand = _calculatorRepository.GetBrand(brandId);
+            ViewBag.Brand = brand;
             return Json(calculatorViewModel);
         }
 
-
         [Authorize(Roles = "admin")]
-
-        public async Task<IActionResult> DeleteParameter(string id)
+        public IActionResult DeleteParameter(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -131,35 +117,44 @@ namespace Autopodbor_312.Controllers
                 switch (nameAndId[0])
                 {
                     case "brand":
-                        var brand = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
-                        _autodborContext.CarsBrands.Remove(brand);
-                        await _autodborContext.SaveChangesAsync();
-                        var model = await _autodborContext.CarsBrands.ToListAsync();
-                        return Ok(model);
+                        try
+                        {
+                            return Ok(_calculatorRepository.GetCarsBrandsList(nameAndId));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "body":
-                        var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
-                        _autodborContext.CarsBodyTypes.Remove(body);
-                        await _autodborContext.SaveChangesAsync();
-                        var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return Ok(model1);
+                        try
+                        {
+                            return Ok(_calculatorRepository.GetCarsBodyTypes(nameAndId));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "year":
-                        var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
-                        _autodborContext.CarsYears.Remove(year);
-                        await _autodborContext.SaveChangesAsync();
-                        var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return Ok(model2);
+                        try
+                        {
+                            return Ok(_calculatorRepository.GetCarsYears(nameAndId));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "fuel":
-                        var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
-                        _autodborContext.CarsFuels.Remove(fuel);
-                        await _autodborContext.SaveChangesAsync();
-                        var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return Ok(model3);
+                        try
+                        {
+                            return Ok(_calculatorRepository.GetCarsFuels(nameAndId));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "model":
-                        var brandsmodel = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
-                       _autodborContext.CarsBrandsModels.Remove(brandsmodel);
-                        await _autodborContext.SaveChangesAsync();
+                        _calculatorRepository.DeleteCarsBrandsModels(nameAndId);                      
                         return Ok();
-
                     default:
                         return View();
                 }
@@ -171,7 +166,7 @@ namespace Autopodbor_312.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditParameter(string id, string key, string value)
+        public IActionResult EditParameter(string id, string key, string value)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -179,69 +174,65 @@ namespace Autopodbor_312.Controllers
                 switch (nameAndId[0])
                 {
                     case "brand":
-                        var brand = await _autodborContext.CarsBrands.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
-                        brand.Brand = key;
-                        brand.Price = value;
-                        _autodborContext.Update(brand);
-                        await _autodborContext.SaveChangesAsync();
-                        var model = await _autodborContext.CarsBrands.ToListAsync();
-                        return Ok(model);
+                        try
+                        {
+                            return Ok(_calculatorRepository.EditCarsBrands(nameAndId, key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "body":
-                        var body = await _autodborContext.CarsBodyTypes.FirstOrDefaultAsync(b => b.Id == Convert.ToInt32(nameAndId[1]));
-                        body.BodyType = key;
-                        body.Price = value;
-                        _autodborContext.Update(body);
-                        await _autodborContext.SaveChangesAsync();
-                        var model1 = await _autodborContext.CarsBodyTypes.ToListAsync();
-                        return Ok(model1);
+                        try
+                        {
+                            return Ok(_calculatorRepository.EditCarsBodyTypes(nameAndId, key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }
                     case "year":
-                        var year = await _autodborContext.CarsYears.FirstOrDefaultAsync(y => y.Id == Convert.ToInt32(nameAndId[1]));
-                        year.ManufacturesYear = key;
-                        year.Price = value;
-                        _autodborContext.Update(year);
-                        await _autodborContext.SaveChangesAsync();
-                        var model2 = await _autodborContext.CarsYears.ToListAsync();
-                        return Ok(model2);
+                        try
+                        {
+                            return Ok(_calculatorRepository.EditCarsYears(nameAndId, key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }                    
                     case "fuel":
-                        var fuel = await _autodborContext.CarsFuels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
-                        fuel.FuelsType = key;
-                        fuel.Price = value;
-                        _autodborContext.Update(fuel);
-                        await _autodborContext.SaveChangesAsync();
-                        var model3 = await _autodborContext.CarsFuels.ToListAsync();
-                        return Ok(model3);
+                        try
+                        {
+                            return Ok(_calculatorRepository.EditCarsFuels(nameAndId, key, value));
+                        }
+                        catch
+                        {
+                            return BadRequest();
+                        }                      
                     case "model":
-                        var brandsmodel = await _autodborContext.CarsBrandsModels.FirstOrDefaultAsync(f => f.Id == Convert.ToInt32(nameAndId[1]));
-                        brandsmodel.Model = key;
-                        brandsmodel.Price = value;
-                        _autodborContext.Update(brandsmodel);
-                        await _autodborContext.SaveChangesAsync();
-                        CarsBrands brandView = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandsmodel.CarsBrandsId);
-                        ViewBag.Brand = brandView;
+                        ViewBag.Brand =  _calculatorRepository.EditCarsBrandsModel(nameAndId, key, value);
                         return Ok();
                     default:
                         return View();
                 }
-
             }
             else
             {
                 return Error();
             }
         }
+
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AllModels(int brandId)
+        public IActionResult AllModels(int brandId)
         {
-            CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
-            var autopodborContext = _autodborContext.CarsBrandsModels.Where(a => a.CarsBrandsId == brandId).Include(c => c.CarsBrands);
-            ViewBag.Brand = brand;
-            return View(await autopodborContext.ToListAsync());
+            ViewBag.Brand = _calculatorRepository.GetBrand(brandId);                 
+            return View(_calculatorRepository.AllModels(brandId));
         }
+
         [HttpGet]
         public IActionResult AddModels(int brandId)
         {
-            CarsBrands brand = _autodborContext.CarsBrands.FirstOrDefault(b => b.Id == brandId);
-            ViewBag.Brand = brand;
+            ViewBag.Brand = _calculatorRepository.GetBrand(brandId);
             return View();
         }
 
@@ -249,35 +240,28 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult AddModels(CarsBrandsModel carsBrandsModel)
         {
-            CarsBrands car = _autodborContext.CarsBrands.FirstOrDefault(c => c.Id == carsBrandsModel.CarsBrandsId);
-            if (car == null)
+            CarsBrands brands = _calculatorRepository.GetBrand(carsBrandsModel.CarsBrandsId);
+            if (brands == null)
             {
                 return NotFound();
             }
             else
             {
-                CarsBrandsModel modelExist = _autodborContext.CarsBrandsModels.FirstOrDefault(c => c.Model == carsBrandsModel.Model);
+                CarsBrandsModel modelExist = _calculatorRepository.GetCarsBrandsModel(carsBrandsModel);
                 if (modelExist == null)
                 {
-                    _autodborContext.CarsBrandsModels.Add(carsBrandsModel);
-                    _autodborContext.SaveChanges();
-
-                    return RedirectToAction("AllModels", new { brandId = car.Id });
+                    _calculatorRepository.AddCarsBrandsModel(carsBrandsModel);
+                    return RedirectToAction("AllModels", new { brandId = brands.Id });
                 }
                 return BadRequest("Model is Exist!");
 
             }
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
-
     }
 }

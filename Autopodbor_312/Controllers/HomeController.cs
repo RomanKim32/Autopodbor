@@ -1,43 +1,27 @@
-﻿using Autopodbor_312.Models;
-using Autopodbor_312.ViewModel;
+﻿using Autopodbor_312.Interfaces;
+using Autopodbor_312.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Autopodbor_312.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AutopodborContext _context;
-        private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IHomeRepository _homeRepository;
 
-        public HomeController(AutopodborContext context, IWebHostEnvironment appEnvironment)
+        public HomeController(IHomeRepository homeRepository)
         {
-            _context = context;
-            _appEnvironment = appEnvironment;
+            _homeRepository = homeRepository;
         }
 
         public IActionResult Index()
         {
-            MainPageViewModel mainPageViewModel = new MainPageViewModel
-            {
-                FirstBanner = _context.MainPage.FirstOrDefault(b => b.Banner == "first"),
-                SecondBanner = _context.MainPage.FirstOrDefault(b => b.Banner == "second"),
-                ThirdBanner = _context.MainPage.Where(b => b.Banner == "third").ToList()
-            };
-            return View(mainPageViewModel);
+
+            return View(_homeRepository.GetMainPageViewModel());
         }
 
         [HttpGet]
@@ -51,15 +35,7 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult CreateTool(MainPage MainPage, IFormFile file)
         {
-            MainPage.Banner = "third";
-            string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/mainPageFiles/{file.FileName}");
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
-            MainPage.Path = $"/mainPageFiles/{file.FileName}";
-            _context.Add(MainPage);
-            _context.SaveChanges();
+            _homeRepository.CreateTool(MainPage, file);
             return RedirectToAction("Index");
         }
 
@@ -67,65 +43,28 @@ namespace Autopodbor_312.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Edit()
         {
-            MainPageViewModel mainPageViewModel = new MainPageViewModel
-            {
-                FirstBanner = _context.MainPage.FirstOrDefault(b => b.Banner == "first"),
-                SecondBanner = _context.MainPage.FirstOrDefault(b => b.Banner == "second"),
-                ThirdBanner = _context.MainPage.Where(b => b.Banner == "third").ToList()
-            };
-            return View(mainPageViewModel);
+            return View(_homeRepository.GetMainPageViewModel());
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult EditTool(MainPage item, IFormFile newPhoto)
+        public IActionResult EditBanner(MainPage FirstBanner, MainPage SecondBanner, MainPage item, IFormFile newPhoto)
         {
-            EditBanner(item, newPhoto);
+            _homeRepository.EditBanner(FirstBanner, SecondBanner, item, newPhoto);
             return RedirectToAction("Edit");
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "admin")]
-        public IActionResult EditBanner(MainPage FirstBanner, MainPage SecondBanner ,IFormFile newPhoto)
-        {
-            if (FirstBanner.Id != 0)
-            {
-                EditBanner(FirstBanner, newPhoto);
-            }
-            else if (SecondBanner.Id != 0)
-            {
-                EditBanner(SecondBanner, newPhoto);
-            }
-            return RedirectToAction("Edit");
-        }
-
-        private void EditBanner(MainPage banner, IFormFile file)
-        {
-            if (file != null)
-            {
-                string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/mainPageFiles/{file.FileName}");
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-                banner.Path = $"/mainPageFiles/{file.FileName}";
-            }
-            _context.Update(banner);
-            _context.SaveChanges();
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
                 return NotFound();
-            var mainPage = await _context.MainPage.FirstOrDefaultAsync(p => p.Id == id);
+            var mainPage = _homeRepository.Delete(id);
             if (mainPage == null)
                 return NotFound();
             return View(mainPage);
         }
-
 
         [HttpPost]
         [Authorize(Roles = "admin")]
@@ -137,9 +76,7 @@ namespace Autopodbor_312.Controllers
             {
                 return NotFound();
             }
-            var mainPage = _context.MainPage.FirstOrDefault(m => m.Id == id);
-            _context.Remove(mainPage);
-            _context.SaveChanges();
+            _homeRepository.DeleteConfirmed(id);
             return RedirectToAction("Edit");
         }
 

@@ -74,9 +74,9 @@ namespace Autopodbor_312.Repositories
             if (servicePhotoFile != null)
             {
                 string oldFilePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{service.Photo}");
-                if (System.IO.File.Exists(oldFilePath))
+                if (File.Exists(oldFilePath))
                 {
-                    System.IO.File.Delete(oldFilePath);
+                    File.Delete(oldFilePath);
                 }
                 string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot/serviceImg/Id={service.Id}&{servicePhotoFile.FileName}");
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -99,9 +99,9 @@ namespace Autopodbor_312.Repositories
         {
             var services = _context.Services.Find(id);
             string filePath = Path.Combine(_appEnvironment.ContentRootPath, $"wwwroot{services.Photo}");
-            if (System.IO.File.Exists(filePath))
+            if (File.Exists(filePath))
             {
-                System.IO.File.Delete(filePath);
+                File.Delete(filePath);
             }
             _context.Services.Remove(services);
             _context.SaveChanges();
