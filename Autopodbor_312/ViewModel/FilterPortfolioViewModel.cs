@@ -13,7 +13,10 @@ namespace Autopodbor_312.ViewModel
 		public PaginationList<Portfolio> Portfolios { get; set; }
 
 		public int? SelectedBrand { get; set; }
+		public string? SelectedBrandString { get; set; }
 		public int? SelectedModel { get; set; }
+		public string? SelectedModelString { get; set; }
 		public int? SelectedBodyType { get; set; }
+		public string? SelectedBodyTypeString { get; set; }
 	}
 }

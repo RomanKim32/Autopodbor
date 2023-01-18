@@ -14,7 +14,14 @@
 		<div>
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
 			<select name="bodyType">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedBodyType == 0)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedBodyTypeString</option>
+				}
 				@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
 				{
 					<option value="@Model.CarsBodyTypes[i].Id">@Model.CarsBodyTypes[i].BodyType</option>
@@ -24,7 +31,14 @@
 		<div>
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
 			<select name="brand">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedBrand == 0)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedBrandString</option>
+				}
 				@for (int i = 0; i < Model.CarsBrands.Count; i++)
 				{
 					<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
@@ -34,7 +48,14 @@
 		<div>
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
 			<select name="model">
-				<option value="0">@localizer["allFilter"]</option>
+				@if (Model.SelectedModel == 0)
+				{
+					<option value="0">@localizer["allFilter"]</option>
+				}
+				else
+				{
+					<option value="0">@Model.SelectedModelString</option>
+				}
 				@for (int i = 0; i < Model.CarsModels.Count; i++)
 				{
 					<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>

@@ -338,34 +338,43 @@ namespace Autopodbor_312.Repositories
 
         private FilterPortfolioViewModel GetFilterPortfolioViewModel(IQueryable<Portfolio> portfolios, int? bodyType, int? brand, int? model, int pageNumber )
         {
-            if (bodyType != null && bodyType != 0)
+			List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
+			List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
+			List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
+            string bodyTypeString = "";
+            string brandString = "";
+            string modelString = "";
+			if (bodyType != null && bodyType != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBodyTypes.Id == bodyType);
-            }
+                bodyTypeString = carsBodyTypes.FirstOrDefault(x => x.Id == bodyType).BodyType;
+
+			}
             if (brand != null && brand != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBrands.Id == brand);
-            }
+                 brandString = carsBrands.FirstOrDefault(x => x.Id == brand).Brand;
+
+			}
             if (model != null && model != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBrandsModel.Id == model);
-            }
+                 modelString = carsBrandsModels.FirstOrDefault(x => x.Id == model).Model;
 
-            List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
-            List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
-            List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
-			var fpvm = new FilterPortfolioViewModel
+			}
+            var portfoliosList = portfolios.ToList();
+            var fpvm = new FilterPortfolioViewModel
             {
-                Portfolios = PaginationList<Portfolio>.Create(portfolios.ToList(), pageNumber, 5),
+                Portfolios = PaginationList<Portfolio>.Create(portfoliosList, pageNumber, 5),
                 CarsBodyTypes = carsBodyTypes,
-                
-				CarsBrands = carsBrands,
-
-				CarsModels = carsBrandsModels,
-                SelectedBodyType= bodyType,
-                SelectedBrand=brand,
-                SelectedModel= model,
-                
+                CarsBrands = carsBrands,
+                CarsModels = carsBrandsModels,
+                SelectedBodyType = bodyType,
+                SelectedBrand = brand,
+                SelectedModel = model,               
+                SelectedBodyTypeString = bodyTypeString,               
+                SelectedBrandString= brandString,
+                SelectedModelString= modelString,
 			};
             return fpvm;
         }
