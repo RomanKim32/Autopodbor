@@ -30,7 +30,7 @@ namespace Autopodbor_312.Models
                 return (PageIndex < TotalPages);
             }
         }
-        public static PaginationList<T> CreateAsync(List<T> source, int pageIndex, int pageSize)
+        public static PaginationList<T> Create(List<T> source, int pageIndex, int pageSize)
         {
             var count = source.Count();
             var imtes = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

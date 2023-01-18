@@ -63,6 +63,18 @@
 			</ul>
 		</div>
 	}
+	@if (User.IsInRole("admin"))
+	{
+	<div class="btn-group">
+			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				Главная страница
+			</button>
+			<ul class="dropdown-menu">
+				<li> <a class="btn btn-info" asp-controller="Home" asp-action="Edit"> Редактировать главную страницу</a></li>
+				<li> <a class="btn btn-info" asp-controller="Home" asp-action="CreateTool"> Добавить инструмент</a></li>
+			</ul>
+		</div>
+		}
 </body>
 <footer>
 </footer>

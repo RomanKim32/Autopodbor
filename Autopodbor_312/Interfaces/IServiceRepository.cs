@@ -9,7 +9,7 @@ namespace Autopodbor_312.Interfaces
 {
 	public interface IServiceRepository
     {
-        IEnumerable<Services> GetAllServices();
+        IEnumerable<Services> GetMainServices();
 
         IEnumerable<Services> ForAdminServices();
 
