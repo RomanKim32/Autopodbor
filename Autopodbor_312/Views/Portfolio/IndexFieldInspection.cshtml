@@ -14,7 +14,7 @@
 		<div>
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
 			<select name="bodyType">
-				@if (Model.SelectedBodyType == 0)
+				@if (Model.SelectedBodyType == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 				}
@@ -31,7 +31,7 @@
 		<div>
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
 			<select name="brand">
-				@if (Model.SelectedBrand == 0)
+				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 				}
@@ -48,7 +48,7 @@
 		<div>
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
 			<select name="model">
-				@if (Model.SelectedModel == 0)
+				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 				}
