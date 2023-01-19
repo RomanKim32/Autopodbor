@@ -47,10 +47,12 @@ namespace Autopodbor_312.Tests
             var viewResultIndex = Assert.IsType<ViewResult>(resultIndex);
             var modelIndex = Assert.IsAssignableFrom<MainPageViewModel>(viewResultIndex.Model);
             Assert.NotNull(modelIndex);
+
             var viewResultEdit = Assert.IsType<ViewResult>(resultEdit);
             var modelEdit = Assert.IsAssignableFrom<MainPageViewModel>(viewResultEdit.Model);
             Assert.NotNull(modelEdit);
             Assert.Equal(resultIndex.GetType(), resultEdit.GetType());
+            Assert.Equal(modelEdit, modelIndex);
         }
 
         [Fact]
