@@ -14,22 +14,27 @@ a.navbar-brand {
     display: block;
     height: 65px;
     width: 65px;
-     
 }
-.btn-outline{
-   
+
+.navbar {
+    padding: 0;
+    background-color: #198754;
+}
+
+.btn-outline {
     border-radius: 25%;
 }
-.navbar-toggler {
 
+.navbar-toggler {
     border: 5px solid #00A90A;
 }
-.fc, a{
-    color: white; 
+
+.fc, a {
+    color: wheat;
 }
+
 .nav-link:hover {
-    color: #00A90A;
-    
+    color: black;
 }
 /*a:hover {
     color: yellow;
@@ -44,9 +49,15 @@ a {
     .scr {
         flex-direction: column;
     }
+
+    .navbar-expand-lg .navbar-nav .nav-link
+    {
+      padding-right:0;
+    }
 }
+
 .btn-primary {
-    color: #fff;
+    color: wheat;
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
@@ -60,12 +71,12 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    font-size: 14px;
+    font-size: 11px;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 
@@ -95,16 +106,55 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .footer {
+    background: #198754;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 50px; /* Vertically center the text there */
 }
+
+.social-icons {
+    /* margin: 15px auto;*/
+    padding: 5px;
+    width: 100%;
+    color: wheat;
+}
+
+    .social-icons .iconSoc a {
+        display: inline-block;
+        color: wheat;
+        font-size: 35px;
+        height: 50px;
+        width: 50px;
+        text-decoration: none;
+        position: relative;
+        margin-bottom: 20px;
+        font-family: 'FontAwesome';
+        transition: all 0.5s ease;
+        pointer-events: auto;
+        display: block;
+        margin: 0;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        border: 1px;
+        z-index: 1;
+        text-align: center;
+        line-height: 50px;
+    }
+
+    
+
+    .social-icons div a:hover {
+        color: black;
+    }
+
+
 
 /*кнопка звонка*/
 
