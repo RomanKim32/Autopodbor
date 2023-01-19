@@ -21,18 +21,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="menu-style collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="container navbar-nav fw-bold fs-4 d-flex justify-content-end">
+        <div class="container navbar-nav fw-bold fs-5 d-flex justify-content-end">
 			<div class="p-2 d-flex scr">
 			  <li>
 				<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
 		      </li>
-			  <li class="nav-item dropdown fc ">
+			  <li class="nav-item dropdown fc">
 				<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					@localizer["portfolioButton"]
 				</a>
-				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold fs-4" aria-labelledby="navbarDarkDropdownMenuLink">
-									<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
-									<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
+				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
+					<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+					<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
 				 </ul>
 			  </li>
 			  <li>
@@ -48,13 +48,13 @@
 						</div>
 						@if (User.Identity.IsAuthenticated)
 						{
-							<li class="nav-item">
+							<li class="nav-item p-0">
 								<a class="nav-link fc" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item p-1">
 								
 								<form method="post" asp-controller="Admin" asp-action="LogOff">
-									<input  class="btn btn-warning fw-bold  " type="submit" value="Выйти" />
+									<input  class="btn  fw-bold  p-0" type="submit" value="Выйти" />
 								</form>
 							</li>
 						}

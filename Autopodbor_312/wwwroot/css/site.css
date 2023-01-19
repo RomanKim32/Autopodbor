@@ -31,15 +31,19 @@ a.navbar-brand {
 
 .fc, a {
     color: wheat;
+    font-size: 18px;
+}
+@media screen and (max-width: 992px) {
+
+    .fc, a {
+        font-size: 10px;
+    }
 }
 
 .nav-link:hover {
     color: black;
 }
-/*a:hover {
-    color: yellow;
-}*/
-/* Provide sufficient contrast against white background */
+
 a {
     color: #0366d6;
 }
@@ -49,11 +53,6 @@ a {
     .scr {
         flex-direction: column;
     }
-
-    .navbar-expand-lg .navbar-nav .nav-link
-    {
-      padding-right:0;
-    }
 }
 
 .btn-primary {
@@ -61,23 +60,14 @@ a {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
+.btn{
+    background-color: yellowgreen;
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 11px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 12px;
-    }
 }
 
 .border-top {
@@ -97,15 +87,12 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 40px;
 }
 
@@ -115,11 +102,10 @@ body {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 50px; /* Vertically center the text there */
+    line-height: 50px; 
 }
 
 .social-icons {
-    /* margin: 15px auto;*/
     padding: 5px;
     width: 100%;
     color: wheat;
@@ -128,7 +114,7 @@ body {
     .social-icons .iconSoc a {
         display: inline-block;
         color: wheat;
-        font-size: 35px;
+        font-size: 25px;
         height: 50px;
         width: 50px;
         text-decoration: none;
@@ -139,17 +125,21 @@ body {
         pointer-events: auto;
         display: block;
         margin: 0;
-        border-radius: 50%;
         position: relative;
         overflow: hidden;
         border: 1px;
-        z-index: 1;
         text-align: center;
         line-height: 50px;
     }
+@media screen and (max-width: 992px) {
 
-    
-
+    .social-icons .iconSoc a {
+        font-size: 20px;
+        height: 35px;
+        width: 35px;
+        line-height: 35px;
+    }
+}
     .social-icons div a:hover {
         color: black;
     }
