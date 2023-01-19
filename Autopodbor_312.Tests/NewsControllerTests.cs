@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Autopodbor_312.Tests
 {
