@@ -2,18 +2,8 @@
 using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Autopodbor_312.Controllers
 {
@@ -26,20 +16,15 @@ namespace Autopodbor_312.Controllers
             _calculatorRepository = calculatorRepository;
         }
 
-        private CalculatorViewModel GetCalculatorViewModel()
-        {
-            return _calculatorRepository.CreateCalculatorViewModel();
-        }
-
         public IActionResult Index()
         {
-            return View(GetCalculatorViewModel());
+            return View(_calculatorRepository.CreateCalculatorViewModel());
         }
 
         [Authorize(Roles = "admin")]
         public IActionResult EditCalculator()
         {
-            return View(GetCalculatorViewModel());
+            return View(_calculatorRepository.CreateCalculatorViewModel());
         }
 
         [Authorize(Roles = "admin")]
