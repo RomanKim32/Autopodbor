@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header class ="sticky-top">
-		 <nav class="navbar navbar-expand-lg bg-success ">
+		 <nav class="navbar navbar-expand-lg">
     <div class="container">
     <a  asp-controller="Home" asp-action="Index">
     <img src="/Files/MainPage/Лого подбора.png" class=" logotype" >   
@@ -21,40 +21,40 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="menu-style collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="container navbar-nav fw-bold fs-4  d-flex justify-content-between">
+        <div class="container navbar-nav fw-bold fs-5 d-flex justify-content-end">
 			<div class="p-2 d-flex scr">
 			  <li>
 				<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
 		      </li>
-			  <li class="nav-item dropdown fc ">
+			  <li class="nav-item dropdown fc">
 				<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					@localizer["portfolioButton"]
 				</a>
-				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold fs-4" aria-labelledby="navbarDarkDropdownMenuLink">
-									<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
-									<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
+				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
+					<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+					<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
 				 </ul>
 			  </li>
 			  <li>
 				<a class="nav-link fc"  asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
 		      </li>
 			  <li>
-								<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
+				<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
 		      </li>
-			 </div>
-			 <div class="p-2 flex-shrink-1">
-			<li class="nav-link bg-success fc ">
+			   <div class="flex-shrink-1">
+			<li class="nav-link fc p-0">
 							<partial name="_Culture" / >
 						</li>
 						</div>
 						@if (User.Identity.IsAuthenticated)
 						{
-							<li class="nav-item">
+							<li class="nav-item p-0">
 								<a class="nav-link fc" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item p-1">
+								
 								<form method="post" asp-controller="Admin" asp-action="LogOff">
-									<input  class="btn btn-warning fw-bold  " type="submit" value="Выйти" />
+									<input  class="btn  fw-bold  p-0" type="submit" value="Выйти" />
 								</form>
 							</li>
 						}
@@ -64,7 +64,7 @@
 								<a asp-controller="Admin" asp-action="Login">Войти</a>
 							</li>
 						}
-          
+			 </div>
         </div>
       </div>
     </div>
@@ -78,10 +78,10 @@
 	</div>
 
 	<footer class="border-top footer text-muted">
-		<div class="d-flex justify-content-center bd-highlight" style="padding:0;">
-			<div class="bd-highlight" style="padding-right:30px;"><a class="dropdown-item" style="padding:0;" href="https://www.instagram.com/autopodbor.312/"> <img src="https://cdn-icons-png.flaticon.com/512/1077/1077042.png" style="width:25px;height:25px;padding:0;"></a></div>
-			<div class="bd-highlight" style="padding-right:25px;"><a class="dropdown-item" style="padding:0;" href="https://Wa.me/996558303707">  <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" style="width:26px;height:26px;padding:0;"></a></div>
-			<div class="bd-highlight" style="padding-right:25px;"><a class="dropdown-item" style="padding:0;" href="https://t.me/+996558303707">      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111813.png" style="width:26px;height:26px;padding:0;"></a></div>
+		<div class="d-flex justify-content-center social-icons mt-1 mb-1" style="padding:0;">
+		    <div class="iconSoc"><a href="https://www.instagram.com/autopodbor.312/"> <i class="fab fa-instagram icon"></i></a></div>
+            <div class="iconSoc"><a href="https://Wa.me/996558303707"><i class="fab fa-whatsapp icon"></i></a></div>
+            <div class="iconSoc"><a href="https://t.me/+996558303707"><i class="fab fa-telegram icon"></i></a></div>
 		</div>
 	</footer>
 	@RenderSection("Scripts", required: false)
