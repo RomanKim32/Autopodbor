@@ -49,25 +49,27 @@
                 </button>
             </div>
         </div>
-        <div class="thirdBlock">
-            <div id="photosCarousel" class="carousel slide carousel2" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @for (int i = 0; i < Model.Videos.Count(); i++)
-                    {
-                        @if (i == 0)
+        @if (Model.Videos.Count != 0 || Model.Videos==null)
+        {
+            <div class="thirdBlock">
+                <div id="photosCarousel" class="carousel slide carousel2" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.Videos.Count(); i++)
                         {
-                            <div class="carousel-item active">
-                                <iframe class=" video" src="@Model.Videos[i].Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            </div>
+                            @if (i == 0)
+                            {
+                                <div class="carousel-item active">
+                                    <iframe class=" video" src="@Model.Videos[i].Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    <iframe class=" video" src="@Model.Videos[i].Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                            }
                         }
-                        else
-                        {
-                            <div class="carousel-item">
-                                <iframe class=" video" src="@Model.Videos[i].Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            </div>
-                        }
-                    }
-                </div>
+                    </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#photosCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -78,6 +80,7 @@
                 </button>
             </div>
         </div>
+        }
     </div>
 </body>
 

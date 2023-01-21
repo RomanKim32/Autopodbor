@@ -124,6 +124,7 @@ namespace Autopodbor_312.Repositories
                         {
                             upload.CopyTo(fileStream);
                         }
+                        dbContext.SaveChanges();
                     }
                     if (video != null)
                     {
