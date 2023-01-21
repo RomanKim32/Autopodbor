@@ -1,1 +1,211 @@
-﻿
+﻿.card{
+    border:0;
+}
+.social-iconsInfo {
+    /*margin: 15px auto;*/
+    padding: 0px;
+    width: 100%;
+}
+
+.social-iconsInfo div {
+    margin: 3px;
+}
+
+    .social-iconsInfo .ad a {
+        Display: inline-block;
+        color: black;
+        font-size: 50px;
+        height: 80px;
+        width: 83px;
+        text-decoration: none;
+        position: relative;
+        margin-bottom: 20px;
+        font-family: 'FontAwesome';
+        transition: all 0.5s ease;
+        pointer-events: auto;
+    }
+
+    .social-iconsInfo .ad:nth-child(1) a {
+        color: #55acee;
+    }
+    .social-iconsInfo .ad:nth-child(2) a {
+        color: #55acee;
+    }
+
+.social-iconsInfo1 .ad:nth-child(1) a {
+    color: #bf810d;
+}
+       
+    .social-iconsInfo1 .ad:nth-child(2) a {
+        color: black;
+    }
+    .social-iconsInfo1 .ad:nth-child(3) a {
+        color: red;
+    }
+    .social-iconsInfo1 .ad:nth-child(4) a {
+        color: #269615;
+    }
+    .social-iconsInfo1 .ad:nth-child(5) a {
+        color: #3e58cf;
+    }
+
+    .social-iconsInfo .ad:nth-child(1) a:hover {
+        color: #054461;
+    }
+    .social-iconsInfo .ad:nth-child(2) a:hover {
+        color: #054461;
+    }
+.social-iconsInfo1 .ad:nth-child(1) a:hover {
+    color: #ebe713;
+}
+.social-iconsInfo1 .ad:nth-child(2) a:hover {
+    color: #9410b5;
+}
+.social-iconsInfo1 .ad:nth-child(3) a:hover {
+    color: #961f08;
+}
+.social-iconsInfo1 .ad:nth-child(4) a:hover {
+    color: #055e0f;
+}
+.social-iconsInfo1 .ad:nth-child(5) a:hover {
+    color: #05125e;
+}
+    
+    .social-iconsInfo .ad a .icon {
+        position: relative;
+       
+        transition: .5s;
+        z-index: 3;
+    }
+    .social-iconsInfo .ad a:hover .icon {
+       
+        transform: rotateY(360deg);
+        font-size:60px;
+         
+    }
+
+.list-group-item {
+    border: 0;
+}
+.marginTop{
+    margin-top:20px;
+}
+
+@media screen and (max-width: 2562px) {
+    .fontSize {
+        font-size: 50px;
+    }
+    .marginTop {
+        margin-top: 90px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .fontSize {
+        font-size: 50px;
+    }
+    .marginTop {
+        margin-top: 90px;
+    }
+    
+}
+
+@media screen and (max-width: 1441px) {
+
+    .fontSize {
+        font-size: 40px;
+    }
+    .social-iconsInfo .ad a:hover .icon {
+        font-size: 50px;
+    }
+    .marginTop {
+        margin-top: 90px;
+    }
+}
+@media screen and (max-width: 1200px) {
+
+    .social-iconsInfo .ad a {
+        color: black;
+        font-size: 35px;
+        height: 42px;
+        width: 48px;
+    }
+    .fontSize{
+        font-size:20px;
+    }
+    .social-iconsInfo .ad a:hover .icon {
+        font-size: 45px;
+    }
+    .marginTop {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+
+        .social-iconsInfo .ad a {
+            color: black;
+            font-size: 35px;
+            height: 38px;
+            width: 38px;
+        }
+            .social-iconsInfo .ad a:hover .icon {
+                font-size: 45px;
+            }
+   
+}
+@media screen and (max-width: 770px) {
+
+        .social-iconsInfo .ad a {
+            color: black;
+            font-size: 25px;
+            height: 25px;
+            width: 25px;
+        }
+            .social-iconsInfo .ad a:hover .icon {
+                font-size: 35px;
+            }
+    
+}
+@media screen and (max-width: 426px) {
+
+    .social-iconsInfo .ad a {
+        color: black;
+        font-size: 25px;
+        height: 18px;
+        width: 35px;
+    }
+        .social-iconsInfo .ad a:hover .icon {
+            font-size: 35px;
+        }
+}
+@media screen and (max-width: 376px) {
+
+    .social-iconsInfo .ad a {
+        color: black;
+        font-size: 20px;
+        height: 25px;
+        width: 25px;
+    }
+        .social-iconsInfo .ad a:hover .icon {
+            font-size: 30px;
+        }
+
+    
+}
+@media screen and (max-width: 321px) {
+
+    .social-iconsInfo .ad a {
+        color: black;
+        font-size: 20px;
+        height: 20px;
+        width: 15px;
+    }
+        .social-iconsInfo .ad a:hover .icon {
+            font-size: 30px;
+        }
+
+   
+}
+
+

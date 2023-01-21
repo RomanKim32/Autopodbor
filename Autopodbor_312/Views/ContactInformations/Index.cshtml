@@ -1,4 +1,67 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/ContactInformation/Index.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/ContactInformation/Index.css" />
+@model Autopodbor_312.Models.ContactInformation
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+
+@{
+    ViewData["Title"] = @localizer["contactInformationTitle"];
+}
+
+<div class="card marginTop">
+    <div class="row g-0">
+        <div class="col-md-6">
+            <img src="https://static.wixstatic.com/media/29114a8fc6c5427abac0869617d2c0f5.jpg/v1/fill/w_850,h_548,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/29114a8fc6c5427abac0869617d2c0f5.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <div class="container social-iconsInfo">
+                    @if (Model.Email != null)
+                    {<div class="list-group-item d-flex ad aidai"> <a href="https://t.me/+996558303707"><i class="fa-solid fa-envelope icon "></i> </a><p class="fontSize ms-5 ">@Model.Email </p></div>}
+                    @if (Model.PhoneNumber != null)
+                    {<div class="list-group-item d-flex ad aidai justify-content-start"> <a href="https://Wa.me/996558303707"><i class="fa-solid fa-phone icon"></i></a> <p class="fontSize ms-5 ">@Model.PhoneNumber</p> </div>}
+                    <div class="d-flex justify-content-center social-iconsInfo1 ">
+                        @if (Model.LinkToInstagram != null)
+                        {<div class="list-group-item ad aidai"><a href="@Model.LinkToInstagram"><i class="fab fa-instagram icon"></i></a> </div>}
+                        @if (Model.LinkToTiktok != null)
+                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToTiktok"><i class="fab fa-tiktok icon"></i></a> </div>}
+                        @if (Model.LinkToYoutube != null)
+                        {<div class="list-group-item ad    aidai"><a href="@Model.LinkToYoutube"><i class="fab fa-youtube icon "></i></a> </div>}
+                        @if (Model.LinkToWhatsapp != null)
+                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToWhatsapp"><i class="fab fa-whatsapp icon"></i></a></div>}
+                        @if (Model.LinkToTelegram != null)
+                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToTelegram"><i class="fab fa-telegram icon "></i></a></div>}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<link type="text/css" rel="stylesheet" href="~/css/ContactInformation/Index.css"/>
 @model Autopodbor_312.Models.ContactInformation
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
@@ -19,4 +82,4 @@
         @if (Model.LinkToWhatsapp != null) {<li class="list-group-item"><a href="@Model.LinkToWhatsapp"><i class="fa-brands fa-whatsapp"></i></a></li> }
         @if (Model.LinkToTelegram != null) {<li class="list-group-item"><a href="@Model.LinkToTelegram"><i class="fa-brands fa-telegram"></i></a></li> }
   </ul>
-</div>
+</div>*@
