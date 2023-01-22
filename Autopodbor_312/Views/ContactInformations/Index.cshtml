@@ -9,26 +9,27 @@
 <div class="card marginTop">
     <div class="row g-0">
         <div class="col-md-6">
-            <img src="https://static.wixstatic.com/media/29114a8fc6c5427abac0869617d2c0f5.jpg/v1/fill/w_850,h_548,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_auto/29114a8fc6c5427abac0869617d2c0f5.jpg" class="img-fluid rounded-start" alt="...">
+            <img src="/mainPageFiles/ContactInformations.jpg" class="img-fluid rounded-start" alt="Photo">
         </div>
         <div class="col-md-6">
             <div class="card-body">
                 <div class="container social-iconsInfo">
+                    <div class="fontSizeTitle text-center">@localizer["contactInformationTitle"]</div>
                     @if (Model.Email != null)
-                    {<div class="list-group-item d-flex ad aidai"> <a href="https://t.me/+996558303707"><i class="fa-solid fa-envelope icon "></i> </a><p class="fontSize ms-5 ">@Model.Email </p></div>}
+                    {<div class="list-group-item d-flex prm"> <a class="link-icon" href="mailto:@Model.Email"><i class="fa-solid fa-envelope icon "></i> </a><a href="mailto:@Model.Email" class=" fontSizeText  d-flex">@Model.Email</a></div>}
                     @if (Model.PhoneNumber != null)
-                    {<div class="list-group-item d-flex ad aidai justify-content-start"> <a href="https://Wa.me/996558303707"><i class="fa-solid fa-phone icon"></i></a> <p class="fontSize ms-5 ">@Model.PhoneNumber</p> </div>}
+                    {<div class="list-group-item d-flex prm justify-content-start"> <a  class="link-icon" href="tel:+996(@Model.PhoneNumber)"><i class="fa-solid fa-phone icon"></i></a> <a  href="tel:+996(@Model.PhoneNumber)" class=" fontSizeText  d-flex "><p>0</p>@Model.PhoneNumber</a> </div>}
                     <div class="d-flex justify-content-center social-iconsInfo1 ">
                         @if (Model.LinkToInstagram != null)
-                        {<div class="list-group-item ad aidai"><a href="@Model.LinkToInstagram"><i class="fab fa-instagram icon"></i></a> </div>}
+                        {<div class="list-group-item prm"><a class="link-icon" href=" https://www.instagram.com/@Model.LinkToInstagram"><i class="fab fa-instagram icon"></i></a> </div>}
                         @if (Model.LinkToTiktok != null)
-                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToTiktok"><i class="fab fa-tiktok icon"></i></a> </div>}
+                        {<div class="list-group-item prm"><a class="link-icon" href="https://www.tiktok.com/@Model.LinkToTiktok"><i class="fab fa-tiktok icon"></i></a> </div>}
                         @if (Model.LinkToYoutube != null)
-                        {<div class="list-group-item ad    aidai"><a href="@Model.LinkToYoutube"><i class="fab fa-youtube icon "></i></a> </div>}
+                        {<div class="list-group-item prm"><a class="link-icon" href="https://www.youtube.com/@Model.LinkToYoutube"><i class="fab fa-youtube icon "></i></a> </div>}
                         @if (Model.LinkToWhatsapp != null)
-                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToWhatsapp"><i class="fab fa-whatsapp icon"></i></a></div>}
+                        {<div class="list-group-item prm"><a class="link-icon" href="https://wa.me/@Model.LinkToWhatsapp"><i class="fab fa-whatsapp icon"></i></a></div>}
                         @if (Model.LinkToTelegram != null)
-                        {<div class="list-group-item ad   aidai"><a href="@Model.LinkToTelegram"><i class="fab fa-telegram icon "></i></a></div>}
+                        {<div class="list-group-item prm"><a class="link-icon" href=" https://t.me/@Model.LinkToTelegram"><i class="fab fa-telegram icon "></i></a></div>}
                     </div>
                 </div>
             </div>
