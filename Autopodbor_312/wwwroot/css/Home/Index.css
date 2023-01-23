@@ -1,28 +1,49 @@
-﻿
-/*.card-text {
-    font-size: calc(100vw - 98.1vw);
-}*/
-.card-body {
+﻿.card-body {
     padding: 0;
 }
-@media screen and (max-width: 2562px) {
 
+@media screen and (max-width: 2562px) {
     .banner {
         font-size: calc(100vw - 98.2vw);
-        padding: 15px;
+        
+    }
+    .mTop {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .aib {
+        font-size: calc(100vw - 99.1vw);
     }
 }
 @media screen and (max-width: 1600px) {
 
     .banner {
-        font-size: calc(100vw - 97.1vw);
+        font-size: calc(100vw - 96.9vw);
     }
+    .mTop {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .aib {
+        font-size: calc(100vw - 98.4vw);
+    }
+
 }
 @media screen and (max-width: 1441px) {
 
     .banner {
-        font-size: calc(100vw - 97.1vw);
+        font-size: calc(100vw - 96.9vw);
        
+    }
+    .mTop {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .aib {
+        font-size: calc(100vw - 98.1vw);
+    }
+    .card {
+        border-radius: 10px;
     }
 }
 @media screen and (max-width: 1200px) {
@@ -31,22 +52,51 @@
         font-size: calc(100vw - 97.1vw);
        
     }
+    .mTop {
+        margin-top: 35px;
+        margin-bottom: 35px;
+    }
+    .aib {
+        font-size: calc(100vw - 98.2vw);
+    }
+    .card {
+        border-radius: 0px;
+    }
 }
 @media screen and (max-width: 992px) {
 
     .banner {
         font-size: calc(100vw - 97.8vw);
     }
+    .mTop {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .aib {
+        font-size: calc(100vw - 97.8vw);
+    }
+    .card {
+        border-radius: 0px;
+    }
 }
 @media screen and (max-width: 770px) {
 
     .banner {
-        font-size: calc(100vw - 96.8vw)
+        font-size: calc(100vw - 97.3vw)
+    }
+    .mTop {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .aib {
+        font-size: calc(100vw - 98.1vw)
+    }
+    .card {
+        border-radius: 0px;
+        /* font-size:*/
     }
 }
-/*.banner {
-    font-size: calc(100vw - 96.8vw);
-}*/
+
 .tool, p, h5{
    font-weight: 700;
    text-align: center;
@@ -55,35 +105,7 @@
 .tool {
     font-size: calc(100vw - 97.5vw);
 }
+
 .carousel-control-prev:hover {
     color: #c81e1e;
 }
-
-    @media screen and (max-width: 1400px) {
-
-        .card {
-            border-radius: 10px;
-        }
-    }
-
-    @media screen and (max-width: 1200px) {
-
-        .card {
-            border-radius: 0px;
-        }
-    }
-
-    @media screen and (max-width: 992px) {
-
-        .card {
-            border-radius: 0px;
-        }
-    }
-
-    @media screen and (max-width: 770px) {
-
-        .card {
-            border-radius: 0px;
-            /* font-size:*/
-        }
-    }

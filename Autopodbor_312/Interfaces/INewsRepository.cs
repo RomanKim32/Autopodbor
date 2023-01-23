@@ -1,8 +1,6 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Autopodbor_312.Interfaces

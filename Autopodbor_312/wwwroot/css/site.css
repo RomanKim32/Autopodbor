@@ -14,27 +14,36 @@ a.navbar-brand {
     display: block;
     height: 65px;
     width: 65px;
-     
 }
-.btn-outline{
-   
+
+.navbar {
+    padding: 0;
+    background-color: #198754;
+}
+
+.btn-outline {
     border-radius: 25%;
 }
-.navbar-toggler {
 
+.navbar-toggler {
     border: 5px solid #00A90A;
 }
-.fc, a{
-    color: white; 
+
+.fc, a {
+    color: wheat;
+    font-size: 18px;
 }
+@media screen and (max-width: 992px) {
+
+    .fc, a {
+        font-size: 10px;
+    }
+}
+
 .nav-link:hover {
-    color: #00A90A;
-    
+    color: black;
 }
-/*a:hover {
-    color: yellow;
-}*/
-/* Provide sufficient contrast against white background */
+
 a {
     color: #0366d6;
 }
@@ -45,28 +54,18 @@ a {
         flex-direction: column;
     }
 }
+
 .btn-primary {
-    color: #fff;
+    color: wheat;
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
+    color: wheat;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
 }
 
 .border-top {
@@ -86,25 +85,64 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .footer {
+    background: #198754;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 50px; 
 }
+
+.social-icons {
+    padding: 5px;
+    width: 100%;
+    color: wheat;
+}
+
+    .social-icons .iconSoc a {
+        display: inline-block;
+        color: wheat;
+        font-size: 25px;
+        height: 50px;
+        width: 50px;
+        text-decoration: none;
+        position: relative;
+        margin-bottom: 20px;
+        font-family: 'FontAwesome';
+        transition: all 0.5s ease;
+        pointer-events: auto;
+        display: block;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px;
+        text-align: center;
+        line-height: 50px;
+    }
+@media screen and (max-width: 992px) {
+
+    .social-icons .iconSoc a {
+        font-size: 20px;
+        height: 35px;
+        width: 35px;
+        line-height: 35px;
+    }
+}
+    .social-icons div a:hover {
+        color: black;
+    }
+
+
 
 /*кнопка звонка*/
 

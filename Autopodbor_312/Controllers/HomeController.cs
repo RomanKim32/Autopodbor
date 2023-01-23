@@ -20,7 +20,6 @@ namespace Autopodbor_312.Controllers
 
         public IActionResult Index()
         {
-
             return View(_homeRepository.GetMainPageViewModel());
         }
 

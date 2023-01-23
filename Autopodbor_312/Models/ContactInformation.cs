@@ -12,5 +12,8 @@
         public string? LinkToWhatsapp { get; set; }
         public string? LinkToTelegram { get; set; }
 
+        public ContactInformation()
+        {
+        }
     }
 }

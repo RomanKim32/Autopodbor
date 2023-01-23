@@ -1,4 +1,5 @@
-﻿@using System.Threading;
+﻿<link type="text/css" rel="stylesheet" href="~/css/Media/Portfolio/PortfolioIndex.css" />
+@using System.Threading;
 @model Autopodbor_312.ViewModel.FilterPortfolioViewModel;
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
@@ -7,37 +8,79 @@
 }
 
 
-<h1>@localizer["portfolioTurnkeySeclectionTitle"]</h1>
+<h1 class="title">@localizer["portfolioTurnkeySeclectionTitle"]</h1>
 
 <form method="get">
 	<div class="form-inline">
 		<div>
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
 			<select name="bodyType">
-				<option value="0">@localizer["allFilter"]</option>
-				@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
+					@if (Model.SelectedBodyType == 0 || Model.SelectedModel == null)
 				{
+					<option value="0">@localizer["allFilter"]</option>
+					@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
+					{
+						<option value="@Model.CarsBodyTypes[i].Id">@Model.CarsBodyTypes[i].BodyType</option>
+					}
+				}
+				else
+				{
+					<option value="@Model.SelectedBodyType">@Model.SelectedBodyTypeString</option>
+					@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
+				{
+						@if (@Model.CarsBodyTypes[i].Id != @Model.SelectedBodyType)
+						{
 					<option value="@Model.CarsBodyTypes[i].Id">@Model.CarsBodyTypes[i].BodyType</option>
+						}
+				}
 				}
 			</select>
 		</div>
 		<div>
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
 			<select name="brand">
-				<option value="0">@localizer["allFilter"]</option>
-				@for (int i = 0; i < Model.CarsBrands.Count; i++)
+				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
-					<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+					<option value="0">@localizer["allFilter"]</option>
+					@for (int i = 0; i < Model.CarsBrands.Count; i++)
+					{
+						<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+					}
+				}
+				else
+				{
+					<option value="@Model.SelectedBrand">@Model.SelectedBrandString</option>
+					@for (int i = 0; i < Model.CarsBrands.Count; i++)
+					{
+						@if (Model.CarsBrands[i].Id != Model.SelectedBrand)
+						{
+							<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+						}
+					}
 				}
 			</select>
 		</div>
 		<div>
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
 			<select name="model">
-				<option value="0">@localizer["allFilter"]</option>
-				@for (int i = 0; i < Model.CarsModels.Count; i++)
+				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
 				{
-					<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+					<option value="0">@localizer["allFilter"]</option>
+					@for (int i = 0; i < Model.CarsModels.Count; i++)
+					{
+						<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+					}
+				}
+				else
+				{
+					<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
+					@for (int i = 0; i < Model.CarsModels.Count; i++)
+					{
+						@if (Model.CarsModels[i].Id != Model.SelectedModel)
+						{
+							<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+						}
+					}
 				}
 			</select>
 		</div>
@@ -73,5 +116,5 @@
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
 }
-<a asp-action="IndexTurnkeySelection" asp-route-pageNumber="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
-<a asp-action="IndexTurnkeySelection" asp-route-pageNumber="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+<a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
+<a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>

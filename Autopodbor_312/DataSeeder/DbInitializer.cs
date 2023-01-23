@@ -14,9 +14,11 @@ namespace Autopodbor_312.DataSeeder
 				var contactInformation = new ContactInformation()
 				{
 					Email = "mgaldobin@mail.ru",
-					LinkToInstagram = "https://instagram.com/autopodbor.312?igshid=YmMyMTA2M2Y=",
-					LinkToTiktok = "https://tiktok.com/@autopodbor.312",
-					PhoneNumber = "0558303707"
+					LinkToInstagram = "autopodbor.312",
+					LinkToTiktok = "@autopodbor.312",
+					PhoneNumber = "558303707",
+					LinkToTelegram = "+996558303707",
+					LinkToWhatsapp = "+996558303707"
 				};
 				context.AddRange(contactInformation);
 				context.SaveChanges();

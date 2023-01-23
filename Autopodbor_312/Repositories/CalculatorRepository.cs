@@ -22,13 +22,11 @@ namespace Autopodbor_312.Repositories
     public class CalculatorRepository : ICalculatorRepository
     {
         private readonly AutopodborContext _context;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
 
 
-        public CalculatorRepository(AutopodborContext autopodborContext, IServiceScopeFactory serviceScopeFactory)
+        public CalculatorRepository(AutopodborContext autopodborContext)
         {
             _context = autopodborContext;
-            _serviceScopeFactory = serviceScopeFactory;
         }
 
         public CalculatorViewModel CreateCalculatorViewModel()
