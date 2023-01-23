@@ -1,8 +1,6 @@
 ﻿using Autopodbor_312.Controllers;
 using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
-using Autopodbor_312.ViewModel;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,15 +1,11 @@
 ﻿using Autopodbor_312.Controllers;
 using Autopodbor_312.Interfaces;
-using Autopodbor_312.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
 using Xunit;
 using User = Autopodbor_312.Models.User;
 
