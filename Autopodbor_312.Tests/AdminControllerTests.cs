@@ -15,7 +15,6 @@ namespace Autopodbor_312.Tests
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IWebHostEnvironment _appEnvironment;
 
         [Fact]
         public void GetAllRolesExceptAdminTest()
@@ -23,7 +22,7 @@ namespace Autopodbor_312.Tests
 
             // Arrange
             var mock = new Mock<IAdminRepository>();
-            var controller = new AdminController(mock.Object, _userManager, _signInManager, _appEnvironment);
+            var controller = new AdminController(mock.Object, _userManager, _signInManager);
             mock.Setup(repo => repo.GetAllRolesExceptAdmin()).Returns(GetAllRolesExceptAdmin());
 
             // Act
@@ -41,7 +40,7 @@ namespace Autopodbor_312.Tests
         {
             // Arrange
             var mock = new Mock<IAdminRepository>();
-            var controller = new AdminController(mock.Object, _userManager, _signInManager, _appEnvironment);
+            var controller = new AdminController(mock.Object, _userManager, _signInManager);
             string url = "testUrl";
             mock.Setup(repo => repo.Login(url));
 
