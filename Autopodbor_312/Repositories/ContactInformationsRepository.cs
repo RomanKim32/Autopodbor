@@ -1,9 +1,6 @@
-﻿using Autopodbor_312.Models;
-using Autopodbor_312.Interfaces;
+﻿using Autopodbor_312.Interfaces;
+using Autopodbor_312.Models;
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Autopodbor_312.Repositories
 {

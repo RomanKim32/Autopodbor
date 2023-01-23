@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Autopodbor_312.Tests
 {
-	public class ServiceControllerTests
+    public class ServiceControllerTests
 	{
         [Fact]
         public void DeleteServicesTest()

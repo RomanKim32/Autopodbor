@@ -1,6 +1,4 @@
 ﻿using Autopodbor_312.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Autopodbor_312.Interfaces
 {

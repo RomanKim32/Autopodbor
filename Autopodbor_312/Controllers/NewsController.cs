@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Autopodbor_312.Controllers
 {
-	public class NewsController : Controller
+    public class NewsController : Controller
 	{
 
 		private readonly INewsRepository _newsRepository;

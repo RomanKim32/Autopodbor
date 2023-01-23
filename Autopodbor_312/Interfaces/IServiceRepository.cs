@@ -1,13 +1,11 @@
 ﻿using Autopodbor_312.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Autopodbor_312.Interfaces
 {
-	public interface IServiceRepository
+    public interface IServiceRepository
     {
         IEnumerable<Services> GetMainServices();
 
