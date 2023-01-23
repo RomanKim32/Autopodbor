@@ -113,6 +113,9 @@ else
 
 @section Scripts
 	{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+	<script src="sweetalert2.all.min.js"></script>
 	<script>
 		let Id = '';
 		function GetId(id) {
@@ -175,13 +178,28 @@ else
 						'modelId': carsBrandsModelId,
 					},
 					success: function () {
-						alert("Заказ успешно оформлен!");
+						alert("Suc");
+						Swal.fire(
+							'!Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					failure: function () {
-						alert("Произошла ошибка при заказе!");
+
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					error: function () {
-						alert("Произошла ошибка при заказе!");
+;
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					}
 				});
 			});

@@ -37,6 +37,7 @@
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+    <PackageReference Include="SweetAlert" Version="1.0.0" />
     <PackageReference Include="Telegram.Bot" Version="18.0.0" />
 
 	  
