@@ -6,9 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 
-
-
-
 namespace Autopodbor_312.Repositories
 {
     public class AdminRepository : IAdminRepository

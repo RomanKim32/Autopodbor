@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-
 namespace Autopodbor_312.Repositories
 {
     public class CalculatorRepository : ICalculatorRepository

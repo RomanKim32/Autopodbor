@@ -21,7 +21,8 @@ namespace Autopodbor_312.Controllers
             return View(_serviceRepository.GetMainServices());
         }
 
-        public IActionResult ForAdminServices()
+		[Authorize(Roles = "admin")]
+		public IActionResult ForAdminServices()
         {   
             return View(_serviceRepository.ForAdminServices());
         }
@@ -57,7 +58,6 @@ namespace Autopodbor_312.Controllers
             }
             return View(service);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
