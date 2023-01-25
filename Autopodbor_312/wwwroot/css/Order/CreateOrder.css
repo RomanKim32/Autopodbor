@@ -1,1 +1,25 @@
-﻿
+﻿.text-style {
+    color: white;
+    padding-bottom: 5px;
+}
+.form-style {
+    background-color: #23b873;
+    color: white;
+    text-align: center;
+}
+.bg-color {
+    background-color: #198754;
+}
+.form-style:focus {
+    color: white;
+    background-color: #73c9a1;
+    border-color: #252e2a;
+}
+.btnStyle {
+    width: 50%;
+    color: white;
+    background-color: #21704b;
+}
+    .btnStyle:hover {
+        background-color: #73c9a1;
+    }
