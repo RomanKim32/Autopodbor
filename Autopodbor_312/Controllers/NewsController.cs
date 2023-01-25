@@ -20,14 +20,14 @@ namespace Autopodbor_312.Controllers
 		public IActionResult Index(int pageNumber = 1)
 		{
 			var newsPublished = _newsRepository.GetPublicatedNews();
-			return View(PaginationList<News>.Create(newsPublished.ToList(), pageNumber, 5));
+			return View(PaginationList<News>.Create(newsPublished.ToList(), pageNumber, 6));
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]
 		public IActionResult News(int pageNumber = 1)
 		{
             var news = _newsRepository.GetAllNews();
-			return View(PaginationList<News>.Create(news.ToList(), pageNumber, 5));
+			return View(PaginationList<News>.Create(news.ToList(), pageNumber, 6));
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]
@@ -188,6 +188,7 @@ namespace Autopodbor_312.Controllers
 			return RedirectToAction("News", "News");
         }
 
+        [Authorize(Roles = "admin,mediaManager")]
         public IActionResult PublicNews(int? id)
         {
             if (id == null)
