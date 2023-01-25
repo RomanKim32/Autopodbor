@@ -146,6 +146,14 @@ body {
 
 /*кнопка звонка*/
 
+
+.callback-btn-style {
+    width: 50%;
+    color: white;
+    background-color: #21704b;
+    margin-right: 30%;
+    margin-left: 30%;
+}
 .callback-bt {
     background: #38a3fd;
     border-radius: 50%;
