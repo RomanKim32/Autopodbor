@@ -49,7 +49,8 @@
                 </button>
             </div>
         </div>
-        @if (Model.Videos == null || Model.Videos.Count==0) {
+        @if (Model.Videos != null || Model.Videos.Count != 0)
+        {
             <div class="thirdBlock">
                 <div id="photosCarousel" class="carousel slide carousel2" data-bs-ride="carousel">
                     <div class="carousel-inner">
