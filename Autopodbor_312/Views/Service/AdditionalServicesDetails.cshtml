@@ -18,66 +18,27 @@
 }
 else
 {
-	@*<div class="container">
-	<div class="row row-cols-1 row-cols-md-2 g-4">
-	@foreach (var item in Model)
+   <div class="row main-block ">
+	   @foreach (var item in Model)
 			{
-				
-  <div class="col">
-	<div class="card"  >
-	  <img src="@item.Photo" class="card-img-top" alt="...">
-	  <div class="card-body tool">
-		  @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-					{
-		<h5 id="ServiceName-@item.NameRu" class="card-title">@item.NameRu</h5>
-		<p class="card-text">@item.DescriptionRu</p>
-					}
-					else
-					{
-		<h5 id="ServiceName-@item.NameRu" class="card-title">@item.NameKy</h5>
-		<p class="card-text">@item.DescriptionKy</p>
-					}
-		@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-						{
-							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-						else
-						{
-							<a onclick="ToOpenModal('@item.NameKy')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-	  </div>
-	</div>
-	</div>
-
-			}
-
-
-			</div>
-			</div>*@
-			
-
-			<div class="row main-block ">
- 
-	  @foreach (var item in Model)
-			{
-				 <div class="col-sm-6 mt-3">
-    <div class="card tool">
-      <div class="card-body">
-        <img src="@item.Photo" class="image card-img-top rounded-circle" alt="...">
-	  <div class="card-body ms-4">
-		  @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-					{
-		<h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameRu</h5>
-		<p class="card-text">@item.DescriptionRu</p>
-					}
-					else
-					{
-		<h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameKy</h5>
-		<p class="card-text">@item.DescriptionKy</p>
-					}
-	  </div>
-      </div>
-	   @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+	   <div class="col-sm-6 mt-3">
+          <div class="card tool">
+             <div class="card-body">
+                <img src="@item.Photo" class="image card-img-top rounded-circle" alt="...">
+	                <div class="card-body ms-4">
+		                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+					    {
+		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameRu</h5>
+		                   <p class="card-text">@item.DescriptionRu</p>
+					    }
+					    else
+					    {
+		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameKy</h5>
+		                   <p class="card-text">@item.DescriptionKy</p>
+					    }
+	                 </div>
+              </div>
+	                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
 						{
 							<a onclick="ToOpenModal('@item.NameRu')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}
@@ -85,67 +46,24 @@ else
 						{
 							<a onclick="ToOpenModal('@item.NameKy')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}
-    </div>
-	</div>
+           </div>
+	    </div>
 			}
   
-  </div>
+   </div>
 
-	@*<table class="table">
-		<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-					{
-						<td id="ServiceName-@item.NameRu">
-							@item.NameRu
-						</td>
-						<td>
-							@item.DescriptionRu
-						</td>
-					}
-					else
-					{
-						<td id="ServiceName-@item.NameRu">
-							@item.NameKy
-						</td>
-						<td>
-							@item.DescriptionKy
-						</td>
-					}
-
-					<td>
-						<img src="@item.Photo" class="card-img-top" alt="Img">
-					</td>
-					<td>
-						@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-						{
-							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-						else
-						{
-							<a onclick="ToOpenModal('@item.NameKy')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-
-						
-
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>*@
 }
-<div class="mb-2">
-	<a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
-
+    <div class="mb-2">
+	    <a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
 	</div>
+
+
 <!-- AdditionalModal -->
 <div class="modal fade" id="AdditionalModal" tabindex="-1" aria-labelledby="AdditionalModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title textCenter" id="AdditionalModalLabel"></h5>
+				<h5 class="modal-title text-center" id="AdditionalModalLabel"></h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<form action="" id="additionalForm" role="form">
