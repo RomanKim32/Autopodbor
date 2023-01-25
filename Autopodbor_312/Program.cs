@@ -3,11 +3,13 @@ using Autopodbor_312.Models;
 using Autopodbor_312.OrderMailing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Autopodbor_312
@@ -22,10 +24,16 @@ namespace Autopodbor_312
             var services = scope.ServiceProvider;
             try
             {
+                var context = services.GetRequiredService<AutopodborContext>();
+                if (context.Database.GetPendingMigrations().Any())
+                {
+                    context.Database.Migrate();
+                }
+
                 var userManager = services.GetRequiredService<UserManager<User>>();
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
                 await AdminInitializer.SeedAdminUser(rolesManager, userManager);
-                var context = scope.ServiceProvider.GetService<AutopodborContext>();
+                context = scope.ServiceProvider.GetService<AutopodborContext>();
 				DbInitializer.SeedDatabase(context);
             }
             catch (Exception ex)
