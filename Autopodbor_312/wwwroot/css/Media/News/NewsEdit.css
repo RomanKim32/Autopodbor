@@ -1,0 +1,26 @@
+﻿h1 {
+    text-align: center;
+    margin-top: 2% !important;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 15px;
+}
+
+.btn-primary {
+    background-color: #198754 !important;
+    border: none !important;
+    border-radius: none !important;
+    color: wheat !important;
+}
+
+.btn {
+    margin-bottom: 2px;
+    margin-top: 5px;
+}
+
+h4 {
+    margin-top: 50px;
+}
