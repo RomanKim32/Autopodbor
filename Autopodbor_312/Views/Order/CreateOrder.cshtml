@@ -52,9 +52,10 @@ else
 				<div class="form-group">
 					<label class="control-label">@localizer["modelLabelOrderForm"]</label>
 					<select class="form-control" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
-						<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
+						
 						@if (Model.CarsBrandsModels != null)
 						{
+							<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 							@foreach (var carmodel in Model.CarsBrandsModels)
 							{
 								<option data-id="@carmodel.Id" value="@carmodel.Id">@carmodel.Model</option>
@@ -178,12 +179,13 @@ else
 						'modelId': carsBrandsModelId,
 					},
 					success: function () {
-						alert("Suc");
 						Swal.fire(
 							'Заказ оформлен успешно!',
 							'Спасибо',
 							'success'
-						);
+						).then(function(){
+							window.location.replace("https://localhost:44380/Service/Services");
+						});
 					},
 					failure: function () {
 
