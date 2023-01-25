@@ -52,9 +52,10 @@ else
 				<div class="form-group">
 					<label class="control-label">@localizer["modelLabelOrderForm"]</label>
 					<select class="form-control" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
-						<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
+						
 						@if (Model.CarsBrandsModels != null)
 						{
+							<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 							@foreach (var carmodel in Model.CarsBrandsModels)
 							{
 								<option data-id="@carmodel.Id" value="@carmodel.Id">@carmodel.Model</option>
@@ -113,6 +114,9 @@ else
 
 @section Scripts
 	{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+	<script src="sweetalert2.all.min.js"></script>
 	<script>
 		let Id = '';
 		function GetId(id) {
@@ -175,13 +179,29 @@ else
 						'modelId': carsBrandsModelId,
 					},
 					success: function () {
-						alert("Заказ успешно оформлен!");
+						Swal.fire(
+							'Заказ оформлен успешно!',
+							'Спасибо',
+							'success'
+						).then(function(){
+							window.location.replace("https://localhost:44380/Service/Services");
+						});
 					},
 					failure: function () {
-						alert("Произошла ошибка при заказе!");
+
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					error: function () {
-						alert("Произошла ошибка при заказе!");
+;
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					}
 				});
 			});

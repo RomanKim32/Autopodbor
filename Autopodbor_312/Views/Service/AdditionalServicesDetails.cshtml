@@ -198,13 +198,29 @@ else
 						'serviceName': serviceName
 					},
 					success: function () {
-						alert("Заказ успешно оформлен!");
+						Swal.fire(
+							'Заказ оформлен успешно!',
+							'Спасибо',
+							'success'
+						).then(function(){
+							window.location.replace("https://localhost:44380/Service/Services");
+						});
 					},
 					failure: function () {
-						alert("Произошла ошибка при заказе!");
+
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					error: function () {
-						alert("Произошла ошибка при заказе!");
+;
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					}
 				});
 
