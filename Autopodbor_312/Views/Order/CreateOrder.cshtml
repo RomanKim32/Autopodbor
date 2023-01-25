@@ -50,9 +50,9 @@ else
 				<div class="form-group">
 					<label class="control-label text-style">@localizer["modelLabelOrderForm"]</label>
 					<select class="form-control form-style" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
-						<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 						@if (Model.CarsBrandsModels != null)
 						{
+							<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 							@foreach (var carmodel in Model.CarsBrandsModels)
 							{
 								<option data-id="@carmodel.Id" value="@carmodel.Id">@carmodel.Model</option>
