@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
                                 {
-                                    <h2 class="card-title">@item.NameRu</h2>
+                                    <h2 class="card-title text-center pb-2">@item.NameRu</h2>
                                     <p class="card-text cuttedText">@item.BodyRu</p>
                                 }
                                 else
@@ -29,8 +29,9 @@
                                     <h2 class="card-title">@item.NameKy</h2>
                                     <p class="card-text cuttedText">@item.BodyKy</p>
                                 }
-                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
                             </div>
+                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+
                         </div>
                     </div>
                 }
