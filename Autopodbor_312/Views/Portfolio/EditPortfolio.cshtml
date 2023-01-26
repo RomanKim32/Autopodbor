@@ -45,22 +45,33 @@
 				<span asp-validation-for="@Model.Portfolio.CarsBrands.Brand" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Portfolio.CarsBrandsModel.Model" class="control-label">Текущая модель: @Model.Portfolio.CarsBrandsModel.Model</label>
-				<select asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" asp-items="ViewBag.Models"></select>
-				<span asp-validation-for="@Model.Portfolio.CarsBrandsModel.Model" class="text-danger"></span>
+				@if (Model.Portfolio.CarsBrandsModelId == null)
+				{
+					<label class="control-label">Модель не выбрана</label>
+					<select asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" asp-items="ViewBag.Models"></select>
+
+				}
+				else
+				{
+					<label asp-for="@Model.Portfolio.CarsBrandsModel.Model" class="control-label">Текущая модель: @Model.Portfolio.CarsBrandsModel.Model</label>
+					<select asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" asp-items="ViewBag.Models"></select>
+					<span asp-validation-for="@Model.Portfolio.CarsBrandsModel.Model" class="text-danger"></span>
+				}
+
 			</div>
 
 			<div class="form-group">
-			<label asp-for="Portfolio.IsFieldInspection" class="control-label">Выездной осмотр?</label>
-			@if(Model.Portfolio.IsFieldInspection == true){
+				<label asp-for="Portfolio.IsFieldInspection" class="control-label">Выездной осмотр?</label>
+				@if (Model.Portfolio.IsFieldInspection == true)
+				{
 					<input type="checkbox" checked="yes" asp-for="Portfolio.IsFieldInspection" />
-			}
-			else
-			{
+				}
+				else
+				{
 					<input type="checkbox" asp-for="Portfolio.IsFieldInspection" />
-			}
+				}
 			</div>
-			
+
 
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Изменить</button>
