@@ -1,54 +1,53 @@
-﻿@model Autopodbor_312.Models.News
+﻿
+<link type="text/css" rel="stylesheet" href="~/css/Media/News/NewsCreate.css" />
+@model Autopodbor_312.Models.News
 
 
 @{
     ViewData["Title"] = "Создать новость";
 }
 
-<h1>Создать новость</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateNews" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NameRu" class="control-label">Название новости на русском</label>
-                <input asp-for="NameRu" class="form-control" required="required" />
-                <span asp-validation-for="NameRu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BodyRu" class="control-label">Описание новости на русском</label>
-                <textarea asp-for="BodyRu" class="form-control" required="required"></textarea>
-                <span asp-validation-for="BodyRu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameKy" class="control-label">Название новости на кыргызском</label>
-                <input asp-for="NameKy" class="form-control" required="required"/>
-                <span asp-validation-for="NameKy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BodyKy" class="control-label">Описание новости на кыргызском</label>
-                <textarea asp-for="BodyKy" class="form-control" required="required"></textarea>
-                <span asp-validation-for="BodyKy" class="text-danger"></span>
-            </div>
-            <div class="custom-file">
-                <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
-                <input type="file" name="mainPic"required="required" /><br />
-            </div>
-            <div class="form-group">
-                <label сlass="control-label">Выберите фотогрфии для детальной страницы</label>
-                <input type="file" name="uploadFiles" multiple /><br>
-            </div>
-            <div class="form-group">
-                <label сlass="control-label">Загрузка видео</label>
-                <input type="text" name="video" placeholder="Введите id через пробел" /><br />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Создать новость</button>
-            </div>
-        </form>
+<body>
+    <h1>Создание новости</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreateNews" enctype="multipart/form-data" class="form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="NameRu" class="form-control" required="required" placeholder="Название новости на русском" />
+                    <span asp-validation-for="NameRu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="BodyRu" class="form-control" required="required" placeholder="Описание новости на русском"></textarea>
+                    <span asp-validation-for="BodyRu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="NameKy" class="form-control" required="required" placeholder="Название новости на кыргызском" />
+                    <span asp-validation-for="NameKy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <textarea asp-for="BodyKy" class="form-control" required="required" placeholder="Описание новости на кыргызском"></textarea>
+                    <span asp-validation-for="BodyKy" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="video" placeholder="Введите id видео YouTube через пробел" /><br />
+                </div>
+                <div class="custom-file">
+                    <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
+                    <input type="file" class="form-control" name="mainPic" required="required" /><br />
+                </div>
+                <div class="form-group">
+                    <label сlass="control-label">Выберите фотогрфии для детальной страницы</label>
+                    <input type="file" class="form-control" name="uploadFiles" multiple /><br>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Создать новость</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+</body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,33 +1,40 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Media/IndexPortfolio.css" />
+﻿<link type="text/css" rel="stylesheet" href="~/css/Media/Portfolio/PortfolioAdmin.css" />
 @model PaginationList<Portfolio>
 
 @{
 	ViewData["Title"] = "Список портфолио";
 }
 
-<a asp-action="CreatePortfolio" asp-controller="Portfolio">Добавить новое портфолио</a>
-
-<div class="card" style="width: 18rem;">
-	@foreach (var item in Model)
-	{
-		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
-		<div class="card-body">
-			<h5 class="card-title">@item.NameRu</h5>
-			<p>Дата последнего обновления: @item.CreatedDate</p>
-			@if (item.Publicate == false)
-			{
-				<a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Опубликовать</a>
-			}
-			else
-			{
-				<a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
-			}
-			<a class="btn btn-primary" asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
-			<a class="btn btn-primary" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">Подробнее</a>
-			<a class="btn btn-primary" asp-controller="Portfolio" asp-action="DeletePortfolio" asp-route-id="@item.Id">Удалить</a>
-		</div>
-	}
+<div class="addBtn">
+    <a class="btn" asp-action="CreatePortfolio" asp-controller="Portfolio">Добавить новое портфолио</a>
 </div>
+
+<div class="row">
+
+</div>
+    @foreach (var item in Model)
+	{
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="@item.MainImagePath" class="card-img-top" alt="photo">
+                <div class="card-body">
+                    <h5 class="card-title">@item.NameRu</h5>
+                    <p>Дата последнего обновления: @item.CreatedDate</p>
+                    @if (item.Publicate == false)
+			        {
+                        <a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Опубликовать</a>
+			        }
+			        else
+			        {
+                        <a class="btn btn-primary" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
+			        }
+                    <a class="btn btn-primary" asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
+                    <a class="btn btn-primary" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">Подробнее</a>
+                    <a class="btn btn-primary" asp-controller="Portfolio" asp-action="DeletePortfolio" asp-route-id="@item.Id">Удалить</a>
+                </div>
+            </div>  
+        </div>        
+    }
 @{
 	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.NextPage ? "disabled" : "";
@@ -44,7 +51,7 @@
 				data: { 'id': PortfolioId },
 			    success: function(){
 					window.location.href = '/Portfolio/Portfolio';
-				} 
+				}
             });
         }
     </script>

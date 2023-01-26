@@ -7,7 +7,7 @@
 }
 
 <body>
-    <div class="container">
+    <div class="container text-center">
         <div class="firstBlock">
             @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
             {
@@ -20,6 +20,16 @@
                 <p class="firstBlockText">@Model.Portfolio.BodyKy</p>
             }
         </div>
+         @if (Model.MinorPictures.Count() == 1)
+        {
+                    <div class="secondBlock">
+                            @for (int i = 0; i < Model.MinorPictures.Count(); i++)
+                            {
+                                <img class="img-fluid rounded-start carImg" src="@Model.MinorPictures[i].Path" alt="Photo">
+                            }
+                        </div>
+        }
+        else{
         <div class="secondBlock">
             <div id="videosCarousel" class="carousel slide carousel1">
                 <div class="carousel-inner">
@@ -28,13 +38,13 @@
                         if (j == 0)
                         {
                             <div class="carousel-item active">
-                                <img src="@Model.MinorPictures[j].Path" class="carImg d-block" alt="...">
+                                <img src="@Model.MinorPictures[j].Path" class="carImg" alt="...">
                             </div>
                         }
                         else
                         {
                             <div class="carousel-item">
-                                <img src="@Model.MinorPictures[j].Path" class="carImg d-block" alt="...">
+                                <img src="@Model.MinorPictures[j].Path" class="carImg" alt="...">
                             </div>
                         }
                     }
@@ -49,8 +59,15 @@
                 </button>
             </div>
         </div>
-        @if (Model.Videos.Count != 0 || Model.Videos==null)
+        }
+         @if (Model.Videos.Count() == 1)
         {
+             @for (int i = 0; i < Model.Videos.Count(); i++)
+                            {
+                                    <iframe class=" video thirdBlock" src="@Model.Videos[i].Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            }
+        }
+       else{
             <div class="thirdBlock">
                 <div id="photosCarousel" class="carousel slide carousel2" data-bs-ride="carousel">
                     <div class="carousel-inner">
