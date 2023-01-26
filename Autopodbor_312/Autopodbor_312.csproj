@@ -55,6 +55,7 @@
     <Folder Include="wwwroot\css\Order\" />
     <Folder Include="wwwroot\Files\MainPage\" />
     <Folder Include="wwwroot\newsPortfolioFiles\newsFiles\" />
+    <Folder Include="wwwroot\newsPortfolioFiles\portfolioFiles\" />
     <Folder Include="wwwroot\serviceImg\" />
   </ItemGroup>
 

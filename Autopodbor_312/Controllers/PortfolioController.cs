@@ -76,11 +76,9 @@ namespace Autopodbor_312.Controllers
 			{
                 return NotFound();
             }
-			/*SelectList models = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model");*/
 
 			List<SelectListItem> models = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model").ToList();
 			models.Insert(0, (new SelectListItem { Text = "Без модели", Value = null }));
-		/*	ViewData["SetupsSelectList"] = items;*/
 
 			ViewData["Brands"] = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand");
 			ViewData["Models"] = models;
