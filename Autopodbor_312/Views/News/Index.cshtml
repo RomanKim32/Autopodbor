@@ -21,16 +21,17 @@
                             <div class="card-body">
                                 @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
                                 {
-                                    <h2 class="card-title">@item.NameRu</h2>
-                                    <p class="card-text">@item.BodyRu</p>
+                                    <h2 class="card-title text-center pb-2">@item.NameRu</h2>
+                                    <p class="card-text cuttedText">@item.BodyRu</p>
                                 }
                                 else
                                 {
-                                    <h2 class="card-title">@item.NameKy</h2>
-                                    <p class="card-text">@item.BodyKy</p>
+                                    <h2 class="card-title text-center pb-2">@item.NameKy</h2>
+                                    <p class="card-text cuttedText">@item.BodyKy</p>
                                 }
-                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
                             </div>
+                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+
                         </div>
                     </div>
                 }
@@ -44,3 +45,17 @@
 }
 <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
 <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+
+
+@section Scripts
+	{
+    <script>
+   (function(){
+  var cut = document.getElementsByClassName('cuttedText');
+  for( var i = 0; i < cut.length; i++ ){
+    cut[i].innerText = cut[i].innerText.slice(0,40) + '...';
+  }
+})();
+
+    </script>
+}
