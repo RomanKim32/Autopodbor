@@ -1,276 +1,113 @@
-﻿.container {
-    max-width: 1300px;
-    color: white;
-    text-align: center;
-}
-
-.row {
-    margin: auto;
-}
-
-.firstBlock {
-    margin-top: 70px;
-    margin-bottom: 50px;
-}
-
-.secondFilterBlock {
-    margin-bottom: 50px;
-}
-
-.filterBtn {
-    margin-top: 70px;
-    color: white !important;
-    background-color: #38b09d;
-}
-
-.secondBlock {
+﻿.secondBlock {
     margin-top: 30px !important;
-}
-
-.form-control {
-    background-color: #38b09d !important;
-    color: white !important;
-    border: 0px !important;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.label {
-    margin-top: 40px;
 }
 
 .buttons {
     color: white !important;
-    background-color: #38b09d;
+    background-color: #198754;
     border-color: #257d70;
+    width: 70%;
+    margin-left: 14%;
+    margin-bottom: 30px;
+    font-size: 20px;
 }
 
-.body {
-    background-color: #257d70;
-}
-
-.allImg {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #0e4f31;
 }
 
 .card {
-    background-color: #257d70;
+    background-color: #38b09d;
     width: 100%;
 }
 
 .card-img-top {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     height: 350px;
 }
 
+.cuttedText {
+    font-size: 20px;
+    text-align: center;
+}
+
 .allCard {
-    margin-bottom: 100px;
+    margin-bottom: 30px;
 }
 
 .card-body {
     background-color: #38b09d;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
     height: 300px;
-    padding-top: 20px;
-    padding-left: 15px;
 }
-
-.card-title {
-    margin-top: 5%;
-    margin-bottom: 5%;
+.btn-style {
+    color: white !important;
+    background-color: #198754;
+    border-color: #257d70;
 }
-
-.card-text {
-    margin-top: 9%;
-    margin-bottom: 12%;
-}
-
 @media only screen and (max-width: 992px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 25%;
-        margin-bottom: 25%;
-    }
-
-    .card-title {
-        margin-top: 7%;
-        margin-bottom: 5%;
-    }
-
-    .card-text {
-        margin-top: 9%;
-        margin-bottom: 12%;
-    }
-
     .card-img-top {
-        height: 290px;
+        height: 320px;
     }
 
     .card-body {
-        height: 290px;
-    }
-
-    .card {
-        width: 100%;
+        height: 300px;
     }
 }
 
-@media only screen and (max-width: 768px) {
-    .firstBlock {
-        margin-top: 60px !important;
-        margin-bottom: 50px !important;
+@media only screen and (max-width: 679px) {
+
+    .card-img-top {
+        height: 300px;
+    }
+
+    .card-body {
+        height: 280px;
+    }
+    .col-style {
+        margin-right: 15px;
     }
 }
 
 @media only screen and (max-width: 576px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 25%;
-        margin-bottom: 25%;
-    }
-
-    .card-title {
-        margin-top: 10%;
-        margin-bottom: 5%;
-    }
-
-    .card-text {
-        margin-top: 11%;
-        margin-bottom: 15%;
-    }
-
     .card-img-top {
-        height: 380px;
+        height: 280px;
     }
 
     .card-body {
-        height: 380px;
-    }
-
-    .card {
-        width: 100%;
+        height: 250px;
     }
 }
 
 @media only screen and (max-width: 525px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 25%;
-        margin-bottom: 25%;
-    }
-
-    .card-title {
-        margin-top: 10%;
-        margin-bottom: 5%;
-    }
-
-    .card-text {
-        margin-top: 11%;
-        margin-bottom: 15%;
-    }
-
     .card-img-top {
-        height: 310px;
+        height: 280px;
     }
 
     .card-body {
-        height: 310px;
-    }
-
-    .card {
-        width: 100%;
-    }
-
-    .topLabel {
-        margin-top: 40px
-    }
-
-    .label {
-        margin-top: 10px;
-    }
-
-    .divBtn {
-        margin-bottom: 10px;
-    }
-
-    .filterBtn {
-        margin-top: 0px;
+        height: 250px;
     }
 }
 
-@media only screen and (max-width: 425px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 25%;
-        margin-bottom: 25%;
-    }
-
-    .card-title {
-        margin-top: 7%;
-        margin-bottom: 5%;
-    }
-
-    .card-text {
-        margin-top: 9%;
-        margin-bottom: 12%;
-    }
-
+@media only screen and (max-width: 426px) {
     .card-img-top {
-        height: 290px;
+        height: 250px;
     }
 
     .card-body {
-        height: 290px;
+        height: 220px;
     }
-
-    .card {
-        width: 100%;
+    .select-style {
+        flex-direction: column;
     }
-
-    .topLabel {
-        margin-top: 40px
-    }
-
-    .label {
-        margin-top: 10px;
-    }
-
-    .divBtn {
-        margin-bottom: 10px;
-    }
-
-    .filterBtn {
-        margin-top: 0px;
+    .col-style{
+        margin-bottom: 20px; 
     }
 }
 
 @media only screen and (max-width: 375px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 20%;
-        margin-bottom: 20%;
-    }
-
-    .card-title {
-        margin-top: 8%;
-        margin-bottom: 6%;
-    }
-
-    .card-text {
-        margin-top: 8%;
-        margin-bottom: 8%;
-    }
 
     .card-img-top {
-        height: 270px;
+        height: 250px;
     }
 
     .allCard {
@@ -278,77 +115,21 @@
     }
 
     .card-body {
-        height: 270px;
-    }
-
-    .card {
-        width: 100%;
-    }
-
-    .topLabel {
-        margin-top: 40px
-    }
-
-    .label {
-        margin-top: 10px;
-    }
-
-    .divBtn {
-        margin-bottom: 10px;
-    }
-
-    .filterBtn {
-        margin-top: 0px;
+        height: 230px;
     }
 }
 
 @media only screen and (max-width: 320px) {
-    .firstBlock {
-        margin: auto;
-        width: 90%;
-        margin-top: 20%;
-        margin-bottom: 25%;
-    }
-
-    .card-title {
-        margin-top: 8%;
-        margin-bottom: 7%;
-    }
-
-    .card-text {
-        margin-top: 8%;
-        margin-bottom: 15%;
-    }
-
-    .topLabel {
-        margin-top: 40px
-    }
-
-    .label {
-        margin-top: 10px;
-    }
-
-    .divBtn {
-        margin-bottom: 10px;
-    }
-
-    .filterBtn {
-        margin-top: 0px;
-    }
-
-    .card {
-        width: 100%;
-    }
 
     .card-img-top {
-        height: 250px;
+        height: 230px;
     }
 
     .allCard {
-        margin-bottom: 100px;
+        margin-bottom: 40px;
     }
 
     .card-body {
-        height: 250px;
+        height: 300px;
     }
 }

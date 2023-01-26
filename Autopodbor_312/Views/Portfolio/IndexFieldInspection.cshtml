@@ -8,13 +8,13 @@
 }
 
 
-<h1 class="title">@localizer["portfolioFieldInspectionTitle"]</h1>
+<h1 class="title text-center py-4">@localizer["portfolioFieldInspectionTitle"]</h1>
 
 <form method="get">
-	<div class="form-inline">
-		<div>
+	<div class="d-flex justify-content-between form-inline my-2 mx-4 select-style">
+		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
-			<select name="bodyType">
+			<select class="form-select" name="bodyType">
 				@if (Model.SelectedBodyType == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
@@ -37,9 +37,9 @@
 				
 			</select>
 		</div>
-		<div>
+		<div class="d-flex ms-3 col-style" >
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
-			<select name="brand">
+			<select class="form-select" name="brand">
 				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
@@ -62,9 +62,9 @@
 				
 			</select>
 		</div>
-		<div>
+		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
-			<select name="model">
+			<select class="form-select" name="model">
 				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
@@ -87,31 +87,44 @@
 				
 			</select>
 		</div>
-		<input type="submit" value="@localizer["filter"]" class="btn btn-default" />
+		<input type="submit" value="@localizer["filter"]" class="btn btn-style" />
 	</div>
 </form>
-@foreach (var item in Model.Portfolios)
-	{
-<div class="card" style="width: 18rem;">
-	
-		<img src="@item.MainImagePath" class="card-img-top" alt="photo">
-		<div class="card-body">
-			@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-			{
-				<h5 class="card-title">@item.NameRu</h5>
-				<p>@item.BodyRu</p>
-			}
-			else
-			{
-				<h5 class="card-title">@item.NameKy</h5>
-				<p>@item.BodyKy</p>
-			}
-			<p>@item.CreatedDate</p>
-			<a asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-		</div>
-	
-</div>
-}
+
+
+ <div class="container">
+
+        <div class="secondBlock">
+            <div class="row">
+                @foreach (var item in Model.Portfolios)
+                {
+                    <div class="allCard col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card border-0 rounded-5">
+                            <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
+                            <div class="card-body">
+                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                {
+									<p class="text-end">@item.CreatedDate</p>
+                                    <h2 class="card-title text-center pb-2">@item.NameRu</h2>
+                                    <p class="card-text cuttedText">@item.BodyRu</p>
+									
+                                }
+                                else
+                                {
+                                    <h2 class="card-title text-center pb-2">@item.NameKy</h2>
+                                    <p class="card-text cuttedText">@item.BodyKy</p>
+									<p class="text-end">@item.CreatedDate</p>
+                                }
+                            </div>
+                                <a class="btn buttons btn-outline-secondary" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
 @{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.Portfolios.NextPage ? "disabled" : "";
@@ -119,3 +132,18 @@
 
 <a asp-action="IndexFieldInspection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
 <a asp-action="IndexFieldInspection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+
+
+
+@section Scripts
+	{
+    <script>
+   (function(){
+  var cut = document.getElementsByClassName('cuttedText');
+  for( var i = 0; i < cut.length; i++ ){
+    cut[i].innerText = cut[i].innerText.slice(0,40) + '...';
+  }
+})();
+
+    </script>
+}
