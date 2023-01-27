@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Autopodbor_312.ViewModel
 {
@@ -10,7 +9,7 @@ namespace Autopodbor_312.ViewModel
         [Required]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательно к заполнению")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
@@ -21,10 +20,9 @@ namespace Autopodbor_312.ViewModel
 
         public string Role { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Обязательно к заполнению")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
-        [Display(Name = "Подтвердить пароль")]
         public string PasswordConfirm { get; set; }
     }
 }

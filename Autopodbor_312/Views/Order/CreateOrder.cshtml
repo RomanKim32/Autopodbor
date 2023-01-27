@@ -7,38 +7,36 @@
 	ViewBag.Title = @localizer["orderTitle"];
 }
 
-<h1>@localizer["orderTitle"]</h1>
-
 @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
 {
-	<h4>@Model.Order.Services.NameRu</h4>
+	<h1 class="text-center mt-3"> @localizer["orderTitle"] услуги "@Model.Order.Services.NameRu"</h1>
 }
 else
 {
-	<h4>@Model.Order.Services.NameKy</h4>
+	<h1 class="text-center mt-3"> @localizer["orderTitle"]@Model.Order.Services.NameKy</h1>
 }
-<hr />
-<div class="row">
-	<div class="col-md-4">
+
+<div class="row justify-content-center mb-5 mt-3">
+	<div class="col-md-6 text-center bg-color p-4">
 		<form action="" id="orderForm" role="form">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label class="control-label">@localizer["nameLabelOrderForm"]</label>
-				<input id="UserName" class="form-control"/>
+				<label class="control-label text-style">@localizer["nameLabelOrderForm"]</label>
+				<input id="UserName" class="form-control form-style"/>
 				<span asp-validation-for="Order.UserName" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label class="control-label">@localizer["phoneNumberLabelOrderForm"]</label>
-				<input id="PhoneNumber" class="form-control" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
+				<label class="control-label text-style">@localizer["phoneNumberLabelOrderForm"]</label>
+				<input id="PhoneNumber" class="form-control form-style" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 				<span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label class="control-label">@localizer["emailLabelOrderForm"]</label>
-				<input id="Email" class="form-control" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
+				<label class="control-label text-style">@localizer["emailLabelOrderForm"]</label>
+				<input id="Email" class="form-control form-style" type="email" oninvalid="this.setCustomValidity('@localizer["customValidityEmail"]')" onchange="this.setCustomValidity('')" />
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsBrandsId" class="control-label">@localizer["brandLabelOrderForm"]</label>
-				<select onchange="GetSelectedTextValue(this)" id="brand" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityBrand"]')" oninput="setCustomValidity('')">
+				<label asp-for="@Model.Order.CarsBrandsId" class="control-label text-style">@localizer["brandLabelOrderForm"]</label>
+				<select onchange="GetSelectedTextValue(this)" id="brand" class="form-control form-style" required oninvalid="this.setCustomValidity('@localizer["customValidityBrand"]')" oninput="setCustomValidity('')">
 					<option value="" disabled selected hidden>@localizer["brandOptionOrderForm"]</option>
 					@foreach (var brand in Model.CarsBrands)
 					{
@@ -50,11 +48,11 @@ else
 			@if (@Model.Order.Services.NameRu == "Выездной осмотр")
 			{
 				<div class="form-group">
-					<label class="control-label">@localizer["modelLabelOrderForm"]</label>
-					<select class="form-control" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
-						<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
+					<label class="control-label text-style">@localizer["modelLabelOrderForm"]</label>
+					<select class="form-control form-style" id="select-model" required oninvalid="this.setCustomValidity('@localizer["customValidityModel"]')" oninput="setCustomValidity('')">
 						@if (Model.CarsBrandsModels != null)
 						{
+							<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
 							@foreach (var carmodel in Model.CarsBrandsModels)
 							{
 								<option data-id="@carmodel.Id" value="@carmodel.Id">@carmodel.Model</option>
@@ -66,8 +64,8 @@ else
 			}
 
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label">@localizer["carsBodyLabelOrderForm"]</label>
-				<select id="CarsBodyTypesId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityBodyType"]')" oninput="setCustomValidity('')">
+				<label asp-for="@Model.Order.CarsBodyTypesId" class="control-label text-style">@localizer["carsBodyLabelOrderForm"]</label>
+				<select id="CarsBodyTypesId" class="form-control form-style" required oninvalid="this.setCustomValidity('@localizer["customValidityBodyType"]')" oninput="setCustomValidity('')">
 					<option value="" disabled selected hidden>@localizer["bodyTypeOptionOrderForm"]</option>
 					@foreach (var body in Model.CarsBodyTypes)
 					{
@@ -77,8 +75,8 @@ else
 				<span asp-validation-for="Order.CarsBodyTypesId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsYearsId" class="control-label">@localizer["manufacturesYearLabelOrderForm"]</label>
-				<select id="CarsYearsId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityYear"]')" oninput="setCustomValidity('')">
+				<label asp-for="@Model.Order.CarsYearsId" class="control-label text-style">@localizer["manufacturesYearLabelOrderForm"]</label>
+				<select id="CarsYearsId" class="form-control form-style" required oninvalid="this.setCustomValidity('@localizer["customValidityYear"]')" oninput="setCustomValidity('')">
 					<option value="" disabled selected hidden>@localizer["yearOptionOrderForm"]</option>
 					@foreach (var year in Model.CarsYears)
 					{
@@ -88,8 +86,8 @@ else
 				<span asp-validation-for="Order.CarsYearsId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="@Model.Order.CarsFuelsId" class="control-label">@localizer["сarsFuelLebelOrderForm"]</label>
-				<select id="CarsFuelsId" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityFuel"]')" oninput="setCustomValidity('')">
+				<label asp-for="@Model.Order.CarsFuelsId" class="control-label text-style">@localizer["сarsFuelLebelOrderForm"]</label>
+				<select  id="CarsFuelsId" class="form-control form-style" required oninvalid="this.setCustomValidity('@localizer["customValidityFuel"]')" oninput="setCustomValidity('')">
 					<option value="" disabled selected hidden>@localizer["fuelOptionOrderForm"]</option>
 					@foreach (var fuel in Model.CarsFuels)
 					{
@@ -100,12 +98,12 @@ else
 				<span asp-validation-for="Order.CarsFuelsId" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label class="control-label">@localizer["commentLabelOrderForm"]</label>
-				<textarea id="Comment" class="form-control"></textarea>
+				<label class="control-label text-style">@localizer["commentLabelOrderForm"]</label>
+				<textarea id="Comment" class="form-control form-style"></textarea>
 			</div>
 			<input type="hidden" id="ServiceId" value="@Model.Order.ServicesId">
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">@localizer["orderButtonOrderForm"]</button>
+				<button type="submit" class="btn btnStyle mt-4">@localizer["orderButtonOrderForm"]</button>
 			</div>
 		</form>
 	</div>
@@ -113,6 +111,9 @@ else
 
 @section Scripts
 	{
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+	<script src="sweetalert2.all.min.js"></script>
 	<script>
 		let Id = '';
 		function GetId(id) {
@@ -175,13 +176,29 @@ else
 						'modelId': carsBrandsModelId,
 					},
 					success: function () {
-						alert("Заказ успешно оформлен!");
+						Swal.fire(
+							'Заказ оформлен успешно!',
+							'Спасибо',
+							'success'
+						).then(function(){
+							window.location.replace("https://localhost:44380/Service/Services");
+						});
 					},
 					failure: function () {
-						alert("Произошла ошибка при заказе!");
+
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					error: function () {
-						alert("Произошла ошибка при заказе!");
+;
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					}
 				});
 			});

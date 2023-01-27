@@ -1,9 +1,10 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/Index.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/Index.css" />
 @model List<User>
 @{
 	ViewData["Title"] = "Домашняя страница";
 }
-<a class="btn btn-info" asp-action="Register"> Добавить менеджер </a>
+
+<a class="btn btn-info" asp-action="Register"> Добавить менеджера </a>
 @if (@Model.Count() == 0)
 {
 	<p>Менеджеры еще не добавлены</p>
@@ -12,25 +13,26 @@ else
 {
 	<div id="UsersDiv">
 		<table class="table">
-		<tbody>
-			@if (User.IsInRole("admin"))
-			{
-				foreach (var item in Model)
+			<tbody>
+				@if (User.IsInRole("admin"))
 				{
-					<tr>
-						<td>
-							@Html.DisplayFor(modelItem => item.Email)
-						</td>
-						<td>
-							<a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
+					foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Email)
+							</td>
+							<td>
+								<a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
 								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" onclick="GetId('@item.Id')">Удалить</button>
-						</td>
-					</tr>
+							</td>
+						</tr>
+					}
 				}
-			}
-		</tbody>
-	</table>
+			</tbody>
+		</table>
 	</div>
+
 	<div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -50,16 +52,13 @@ else
 	</div>
 }
 
-
 <script>
 	let Id = 0;
 	function GetId(id) {
-		
 		Id = id;
 	}
-	const Delete = function(){
-		
-		$('#UsersDiv').load('@Url.Action("DeleteUser","Admin")?id='+Id);  
+	const Delete = function () {
+		$('#UsersDiv').load('@Url.Action("DeleteUser","Admin")?id=' + Id);
 	}
 </script>
 

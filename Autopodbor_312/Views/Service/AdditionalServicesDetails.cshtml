@@ -1,4 +1,7 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Service/AdditionalServicesDetails.css" />
+﻿<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="~/css/Service/AdditionalServicesDetails.css" />
 @model List<Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @using System.Threading;
@@ -7,7 +10,7 @@
 	ViewData["Title"] = @localizer["additionalServicesTitle"];
 }
 
-<h1>@localizer["additionalServicesTitle"]</h1>
+<h1 class="text-center mt-3">@localizer["additionalServicesTitle"]</h1>
 
 @if (@Model.Count() == 0)
 {
@@ -15,54 +18,45 @@
 }
 else
 {
-	<table class="table">
-		<tbody>
-			@foreach (var item in Model)
+   <div class="row main-block ">
+	   @foreach (var item in Model)
 			{
-				<tr>
-					@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-					{
-						<td id="ServiceName-@item.NameRu">
-							@item.NameRu
-						</td>
-						<td>
-							@item.DescriptionRu
-						</td>
-					}
-					else
-					{
-						<td id="ServiceName-@item.NameRu">
-							@item.NameKy
-						</td>
-						<td>
-							@item.DescriptionKy
-						</td>
-					}
-
-					<td>
-						<img src="@item.Photo" class="card-img-top" alt="Img">
-					</td>
-					<td>
-						@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+	   <div class="col-sm-6 mt-3">
+          <div class="card tool">
+             <div class="card-body">
+                <img src="@item.Photo" class="image card-img-top rounded-circle" alt="...">
+	                <div class="card-body ms-4">
+		                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+					    {
+		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameRu</h5>
+		                   <p class="card-text">@item.DescriptionRu</p>
+					    }
+					    else
+					    {
+		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameKy</h5>
+		                   <p class="card-text">@item.DescriptionKy</p>
+					    }
+	                 </div>
+              </div>
+	                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
 						{
-							<a onclick="ToOpenModal('@item.NameRu')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+							<a onclick="ToOpenModal('@item.NameRu')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}
 						else
 						{
-							<a onclick="ToOpenModal('@item.NameKy')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+							<a onclick="ToOpenModal('@item.NameKy')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 						}
-
-						
-
-					</td>
-				</tr>
+           </div>
+	    </div>
 			}
-		</tbody>
-	</table>
+  
+   </div>
+
 }
-<div>
-	<a asp-action="Services">@localizer["additionalBackButton"]</a>
-</div>
+    <div class="mb-2">
+	    <a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
+	</div>
+
 
 <!-- AdditionalModal -->
 <div class="modal fade" id="AdditionalModal" tabindex="-1" aria-labelledby="AdditionalModalLabel" aria-hidden="true">
@@ -73,7 +67,7 @@ else
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<form action="" id="additionalForm" role="form">
-				<div class="modal-body">
+				<div class="modal-body text-center">
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 					<div class="form-group">
 						<label class="control-label">@localizer["nameOrderLabel"]</label>
@@ -93,7 +87,7 @@ else
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">@localizer["orderButton"]</button>
+					<button type="submit" class="btn btnModal mb-2 btn-success">@localizer["orderButton"]</button>
 				</div>
 			</form>
 		</div>
@@ -122,13 +116,29 @@ else
 						'serviceName': serviceName
 					},
 					success: function () {
-						alert("Заказ успешно оформлен!");
+						Swal.fire(
+							'Заказ оформлен успешно!',
+							'Спасибо',
+							'success'
+						).then(function(){
+							window.location.replace("https://localhost:44380/Service/Services");
+						});
 					},
 					failure: function () {
-						alert("Произошла ошибка при заказе!");
+
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					},
 					error: function () {
-						alert("Произошла ошибка при заказе!");
+;
+						Swal.fire(
+							'Произошла ошибка при заказе!',
+							'Попробуйте заново',
+							'success'
+						);
 					}
 				});
 

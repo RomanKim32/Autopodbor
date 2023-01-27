@@ -1,15 +1,8 @@
 ﻿using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
-using Autopodbor_312.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Autopodbor_312.Controllers
 {
@@ -28,7 +21,8 @@ namespace Autopodbor_312.Controllers
             return View(_serviceRepository.GetMainServices());
         }
 
-        public IActionResult ForAdminServices()
+		[Authorize(Roles = "admin")]
+		public IActionResult ForAdminServices()
         {   
             return View(_serviceRepository.ForAdminServices());
         }
@@ -64,7 +58,6 @@ namespace Autopodbor_312.Controllers
             }
             return View(service);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

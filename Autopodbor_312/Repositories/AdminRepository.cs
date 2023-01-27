@@ -1,15 +1,10 @@
 ﻿using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
-
-
-
 
 namespace Autopodbor_312.Repositories
 {

@@ -1,61 +1,59 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/EditUser.css"/>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/EditUser.css" />
 @model Autopodbor_312.ViewModel.EditUserViewModel
 
 @{
-    ViewBag.Title = "Изменение данных менеджеров";
+	ViewBag.Title = "Изменение данных менеджеров";
 }
-
 
 <h2>Изменение данных менеджера</h2>
 <form method="post">
-     <div asp-validation-summary="ModelOnly"></div>
-    <div style="display:none" class="form-group row">
-        <label asp-for="Id" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-        <input asp-for="Id" disabled class="form-control">
-        </div>
-    </div>
-
-  <div class="row mb-3">
-    <label asp-for="Email" class="col-sm-2 col-form-label">Почта</label>
-    <div class="col-sm-10">
-      <input asp-for="Email" type="email" class="form-control">
-      <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-  </div>
-
-
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label" for="specificSizeSelect">Роль</label>
-        <div class="col-sm-10">
-    <select asp-for="Role" class="form-select" id="specificSizeSelect">
-        @foreach (var r in ViewBag.Role)
-        {
-            <option name="@r.Name">@r.Name</option>
-        }
-    </select>
-      </div>
-  </div>
-
-
-  <div class="row mb-3">
-    <label  asp-for="Password" class="col-sm-2 col-form-label">Пароль</label>
-    <div class="col-sm-10">
-      <input  asp-for="Password" type="password" class="form-control" id="inputPassword3">
-       <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-  </div>
-
-
-  <div class="row mb-3">
-    <label asp-for="PasswordConfirm" class="col-sm-2 col-form-label">Подтверждение пароля</label>
-    <div class="col-sm-10">
-        <input asp-for="PasswordConfirm" type="password" class="form-control" id="inputPassword3">
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-  </div>
-  <div class="col-auto">
-    <button type="submit" class="btn btn-primary">Изменить</button>
-    <a asp-action="Index" class="btn btn-primary">Отмена</a>
-  </div>
+	<div asp-validation-summary="ModelOnly"></div>
+	<div style="display:none" class="form-group row">
+		<label asp-for="Id" class="col-sm-2 col-form-label"></label>
+		<div class="col-sm-10">
+			<input asp-for="Id" disabled class="form-control">
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label asp-for="Email" class="col-sm-2 col-form-label">Почта</label>
+		<div class="col-sm-10">
+			<input asp-for="Email" type="email" class="form-control">
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-2 col-form-label" for="specificSizeSelect">Роль</label>
+		<div class="col-sm-10">
+			<select asp-for="Role" class="form-select" id="specificSizeSelect">
+				@foreach (var r in ViewBag.Role)
+				{
+					<option name="@r.Name">@r.Name</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label asp-for="Password" class="col-sm-2 col-form-label">Пароль</label>
+		<div class="col-sm-10">
+			<input asp-for="Password" type="password" class="form-control">
+			<span asp-validation-for="Password" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label asp-for="PasswordConfirm" class="col-sm-2 col-form-label">Подтверждение пароля</label>
+		<div class="col-sm-10">
+			<input asp-for="PasswordConfirm" type="password" class="form-control">
+			<span asp-validation-for="PasswordConfirm"></span>
+		</div>
+	</div>
+	<div class="col-auto">
+		<button type="submit" class="btn btn-primary">Изменить</button>
+		<a asp-action="Index" class="btn btn-primary">Отмена</a>
+	</div>
 </form>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

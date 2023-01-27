@@ -3,7 +3,6 @@ using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Linq;
 
@@ -13,14 +12,12 @@ namespace Autopodbor_312.Repositories
     {
         private readonly AutopodborContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
 
 
-        public HomeRepository(AutopodborContext autopodborContext, IWebHostEnvironment webHost, IServiceScopeFactory serviceScopeFactory)
+        public HomeRepository(AutopodborContext autopodborContext, IWebHostEnvironment webHost)
         {
             _context = autopodborContext;
             _appEnvironment = webHost;
-            _serviceScopeFactory = serviceScopeFactory;
         }
 
         public void CreateTool(MainPage MainPage, IFormFile file)

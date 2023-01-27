@@ -1,7 +1,5 @@
 ﻿using Autopodbor_312.Models;
 using Autopodbor_312.ViewModel;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Autopodbor_312.Interfaces
