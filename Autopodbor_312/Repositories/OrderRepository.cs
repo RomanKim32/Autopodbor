@@ -55,7 +55,6 @@ namespace Autopodbor_312.Repositories
 			var carsBrands = _context.CarsBrands.ToList();
 			var carsFuels = _context.CarsFuels.ToList();
 			var carsYears = _context.CarsYears.ToList();
-			var carsBrandsModel = _context.CarsBrandsModels.ToList();
 			var orderViewModel = new OrderViewModel
 			{
 				Order = order,
@@ -63,7 +62,6 @@ namespace Autopodbor_312.Repositories
 				CarsBrands = carsBrands,
 				CarsYears = carsYears,
 				CarsFuels = carsFuels,
-				CarsBrandsModels = carsBrandsModel
 			};
 			return orderViewModel;
 		}

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Autopodbor_312.Models
+﻿namespace Autopodbor_312.Models
 {
     public class Services
     {
