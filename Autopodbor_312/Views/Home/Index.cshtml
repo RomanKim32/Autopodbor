@@ -1,5 +1,4 @@
-﻿@using System.Threading;
-<link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
+﻿<link type="text/css" rel="stylesheet" href="~/css/Home/Index.css" />
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @model Autopodbor_312.ViewModel.MainPageViewModel;
 @{
@@ -13,8 +12,8 @@
          </div>
          <div class="col-md-6 text-center p-0 m-0 ">
              <div class="card-body banner">
-                @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-		    	{
+                @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+                {
                     <p class="card-title fw-bold text-uppercase">@Model.FirstBanner.TitleRu</p>
                     <p class="card-text">@Model.FirstBanner.DescriptionRu</p>
                 }
@@ -32,8 +31,8 @@
     <div class="card mTop text-bg-dark">
           <img class="img-fluid rounded-start" src="@Model.SecondBanner.Path" alt="Photo">
         <div class="card-img-overlay text-center text-white p-2 position-absolute top-50 start-50 translate-middle">
-             @if(@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-                {
+        @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+        {
                     <h5 class="card-title aib fw-bold lh-lg text-uppercase">@Model.SecondBanner.TitleRu</h5>
                     <p class="card-text aib fw-bold">@Model.SecondBanner.DescriptionRu</p>
                 }else
@@ -52,8 +51,8 @@
                             <div class="row">
                                  <img class="d-block col-md-6" src="@Model.ThirdBanner[j].Path" alt="Photo">
                                 <div class="col-md-6 tool">
-                                     @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-                                         {
+                            @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+                            {
                                            <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleRu</p>
                                            <h5 class="tool">@Model.ThirdBanner[j].DescriptionRu</h5>
                                           }
@@ -71,8 +70,8 @@
                           <div class="row">
                               <img class="d-block col-md-6" src="@Model.ThirdBanner[j].Path" alt="Photo">
                              <div class="col-md-6 tool">
-                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-                                    {
+                            @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+                            {
                                         <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleRu</p>
                                         <h5 class="tool">@Model.ThirdBanner[j].DescriptionRu</h5>
                                     }

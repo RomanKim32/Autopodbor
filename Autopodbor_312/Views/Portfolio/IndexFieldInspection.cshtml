@@ -1,12 +1,10 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Media/Portfolio/PortfolioIndex.css" />
-@using System.Threading;
 @model Autopodbor_312.ViewModel.FilterPortfolioViewModel;
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
 @{
 	ViewData["Title"] = @localizer["portfolioTitle"];
 }
-
 
 <h1 class="title text-center py-4">@localizer["portfolioFieldInspectionTitle"]</h1>
 
@@ -102,7 +100,7 @@
                         <div class="card border-0 rounded-5">
                             <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
                             <div class="card-body">
-                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+							@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                                 {
 									<p class="text-end">@item.CreatedDate</p>
                                     <h2 class="card-title text-center pb-2">@item.NameRu</h2>

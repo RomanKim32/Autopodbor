@@ -1,13 +1,12 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Order/CreateOrder.css" />
 @model Autopodbor_312.ViewModel.OrderViewModel
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
-@using System.Threading;
 
 @{
 	ViewBag.Title = @localizer["orderTitle"];
 }
 
-@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
 {
 	<h1 class="text-center mt-3"> @localizer["orderTitle"] услуги "@Model.Order.Services.NameRu"</h1>
 }
