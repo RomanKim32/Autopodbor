@@ -4,11 +4,12 @@ services:
   postgres:
     image: postgres:14.3-alpine
     ports:
-      - "5432:5432"
+      - "443:80"
     env_file:
       - .env
     environment:
       PGDATA: "/var/lib/postgresql/data/pgdata"
+      ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
       - "./volumes/db:/var/lib/postgresql/data/pgdata"
     container_name: postgres_db
