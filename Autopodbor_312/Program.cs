@@ -28,6 +28,7 @@ namespace Autopodbor_312
                 {
                     context.Database.Migrate();
                 }
+
                 var userManager = services.GetRequiredService<UserManager<User>>();
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
                 await AdminInitializer.SeedAdminUser(rolesManager, userManager);
