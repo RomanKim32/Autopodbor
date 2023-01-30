@@ -4,7 +4,6 @@
 <link type="text/css" rel="stylesheet" href="~/css/Service/AdditionalServicesDetails.css" />
 @model List<Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
-@using System.Threading;
 
 @{
 	ViewData["Title"] = @localizer["additionalServicesTitle"];
@@ -18,44 +17,44 @@
 }
 else
 {
-   <div class="row main-block ">
-	   @foreach (var item in Model)
-			{
-	   <div class="col-sm-6 mt-3">
-          <div class="card tool">
-             <div class="card-body">
-                <img src="@item.Photo" class="image card-img-top rounded-circle" alt="...">
-	                <div class="card-body ms-4">
-		                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-					    {
-		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameRu</h5>
-		                   <p class="card-text">@item.DescriptionRu</p>
-					    }
-					    else
-					    {
-		                   <h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameKy</h5>
-		                   <p class="card-text">@item.DescriptionKy</p>
-					    }
-	                 </div>
-              </div>
-	                    @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
-						{
-							<a onclick="ToOpenModal('@item.NameRu')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-						else
-						{
-							<a onclick="ToOpenModal('@item.NameKy')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
-						}
-           </div>
-	    </div>
-			}
-  
-   </div>
+	<div class="row main-block ">
+		@foreach (var item in Model)
+		{
+			<div class="col-sm-6 mt-3">
+				<div class="card tool">
+					<div class="card-body">
+						<img src="@item.Photo" class="image card-img-top rounded-circle" alt="...">
+						<div class="card-body ms-4">
+							@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+							{
+								<h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameRu</h5>
+								<p class="card-text">@item.DescriptionRu</p>
+							}
+							else
+							{
+								<h5 id="ServiceName-@item.NameRu" class="card-title fw-bold">@item.NameKy</h5>
+								<p class="card-text">@item.DescriptionKy</p>
+							}
+						</div>
+					</div>
+					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+					{
+						<a onclick="ToOpenModal('@item.NameRu')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+					}
+					else
+					{
+						<a onclick="ToOpenModal('@item.NameKy')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+					}
+				</div>
+			</div>
+		}
+
+	</div>
 
 }
-    <div class="mb-2">
-	    <a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
-	</div>
+<div class="mb-2">
+	<a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
+</div>
 
 
 <!-- AdditionalModal -->
@@ -120,7 +119,7 @@ else
 							'Заказ оформлен успешно!',
 							'Спасибо',
 							'success'
-						).then(function(){
+						).then(function () {
 							window.location.replace("https://localhost:44380/Service/Services");
 						});
 					},
@@ -133,7 +132,7 @@ else
 						);
 					},
 					error: function () {
-;
+						;
 						Swal.fire(
 							'Произошла ошибка при заказе!',
 							'Попробуйте заново',
