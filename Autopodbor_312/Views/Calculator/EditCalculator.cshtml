@@ -214,7 +214,7 @@
 					<input id="key" />
 					<p id="validationForName"></p>
 					<p>Цена</p>
-					<input id="value" />
+					<input id="value" type="number"/>
 					<p id="validationForPrice"></p>
 				</div>
 				<div class="modal-footer">
@@ -243,12 +243,7 @@
 	$('#addModal').on('hidden.bs.modal', function () {
 		document.getElementById("key").value = "";
 		document.getElementById("value").value = "";
-
 	});
-	//	$('#editModal').on('hidden.bs.modal', function () {
-	//	document.getElementById("newKey").value = "";
-	//	document.getElementById("newValue").value = "";
-	//});
 		$('#editModal').on('shown.bs.modal', function () {
 		document.getElementById("newKey").value = NameForFillEditField;
 		document.getElementById("newValue").value = PriceForFillEditField;
