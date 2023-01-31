@@ -26,7 +26,7 @@ else
 			</div>
 			<div class="form-group">
 				<label class="control-label text-style">@localizer["phoneNumberLabelOrderForm"]</label>
-				<input id="PhoneNumber" class="form-control form-style" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
+				<input type="number" id="PhoneNumber" class="form-control form-style" required="required" oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 				<span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
 			</div>
 			<div class="form-group">
