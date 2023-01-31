@@ -33,7 +33,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
+							<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id', '@item.Brand',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
 						<a asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info">Посмотреть все модели</a>
 
@@ -72,7 +72,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','body')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','@item.BodyType',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
 					</td>
 				</tr>
@@ -108,7 +108,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id', '@item.ManufacturesYear',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
 					</td>
 				</tr>
@@ -144,7 +144,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id','fuel')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id', '@item.FuelsType',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
 					</td>
 				</tr>
@@ -233,45 +233,26 @@
 		Name = name;
 	};
 	let Id = '';
-	function GetId(id, name) {
+
+
+	function GetId(id, nameForFillEditField, priceForFillEditField) {
 		Id = id;
-		Name = name;
+		NameForFillEditField = nameForFillEditField;
+		PriceForFillEditField = priceForFillEditField;
 	};
 	$('#addModal').on('hidden.bs.modal', function () {
 		document.getElementById("key").value = "";
 		document.getElementById("value").value = "";
-	});
-		$('#editModal').on('hidden.bs.modal', function () {
-		document.getElementById("newKey").value = "";
-		document.getElementById("newValue").value = "";
-	});
-	////let btnName = document.getElementByClassName('correctFiledName').textContent;
-	//let btnName = $(".correctFiledName").val();
-	//function setFieldName() {
-		
-	//	console.log(btnName);
-	//	if(btnName == "Добавить марку")
-	//		{
-	//			document.getElementById("fieldName").innerHTML = "Марка";
-	//		}
-	//	if(btnName == "Добавить кузов")
-	//		{
-	//			document.getElementById("fieldName").innerHTML = "Кузов";
-	//		}	
-	//	if(btnName == "Добавить год")
-	//		{
-	//			document.getElementById("fieldName").innerHTML = "Год";
-	//		}	
-	//	if(btnName == "Добавить вид топлива")
-	//		{
-	//			document.getElementById("fieldName").innerHTML = "Вид";
-	//		}	
-	//};
 
-	//$('#addModal').on('shown.bs.modal', function () {	
-	//		setFieldName();
+	});
+	//	$('#editModal').on('hidden.bs.modal', function () {
+	//	document.getElementById("newKey").value = "";
+	//	document.getElementById("newValue").value = "";
 	//});
-
+		$('#editModal').on('shown.bs.modal', function () {
+		document.getElementById("newKey").value = NameForFillEditField;
+		document.getElementById("newValue").value = PriceForFillEditField;
+	});
 	
 
 	function formValidations() {
