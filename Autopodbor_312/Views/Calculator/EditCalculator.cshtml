@@ -237,7 +237,14 @@
 		Id = id;
 		Name = name;
 	};
-
+	$('#addModal').on('hidden.bs.modal', function () {
+		document.getElementById("key").value = "";
+		document.getElementById("value").value = "";
+	});
+		$('#editModal').on('hidden.bs.modal', function () {
+		document.getElementById("newKey").value = "";
+		document.getElementById("newValue").value = "";
+	});
 	////let btnName = document.getElementByClassName('correctFiledName').textContent;
 	//let btnName = $(".correctFiledName").val();
 	//function setFieldName() {
@@ -297,7 +304,10 @@
 				window.location.href = '/Calculator/EditCalculator';
 			},
 		});
+
 		event.preventDefault();
+
+				
 	};
 
 	function deleteParameter() {
@@ -313,8 +323,6 @@
 		});
 		event.preventDefault();
 	};
-
-	
 
 	function editParameter() {
 		$.ajax({
