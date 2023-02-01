@@ -229,18 +229,9 @@ namespace Autopodbor_312.Controllers
             if (brands == null)
             {
                 return NotFound();
-            }
-            else
-            {
-                CarsBrandsModel modelExist = _calculatorRepository.GetCarsBrandsModel(carsBrandsModel);
-                if (modelExist == null)
-                {
-                    _calculatorRepository.AddCarsBrandsModel(carsBrandsModel);
-                    return RedirectToAction("AllModels", new { brandId = brands.Id });
-                }
-                return BadRequest("Model is Exist!");
-
-            }
+            }           
+            _calculatorRepository.AddCarsBrandsModel(carsBrandsModel);
+            return RedirectToAction("AllModels", new { brandId = brands.Id });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
