@@ -14,7 +14,7 @@
 }
 .fontSizeText {
     color: black;
-    font-size: 50px;
+    font-size: 40px;
     text-decoration: none;
 }
 .fontSizeTitle {
@@ -24,7 +24,7 @@
 
 .fontSizeText:hover {
     color: #55acee;
-    font-size: 55px;
+    font-size: 45px;
 }
 .social-iconsInfo .prm .link-icon {
     Display: inline-block;
@@ -47,41 +47,36 @@
 }
 
 .social-iconsInfo1 .prm:nth-child(1) .link-icon {
-    color: #bf810d;
+    color: #f20785;
 }
 
 .social-iconsInfo1 .prm:nth-child(2) .link-icon {
     color: black;
 }
 .social-iconsInfo1 .prm:nth-child(3) .link-icon {
-    color: red;
-}
-.social-iconsInfo1 .prm:nth-child(4) .link-icon {
     color: #269615;
 }
-.social-iconsInfo1 .prm:nth-child(5) .link-icon {
+.social-iconsInfo1 .prm:nth-child(4) .link-icon {
     color: #3e58cf;
 }
 
-.social-iconsInfo .prm:nth-child(2) .link-icon:hover {
+.social-iconsInfo .prm:nth-child(5) .link-icon:hover {
     color: #054461;
 }
 .social-iconsInfo .prm:nth-child(3) .link-icon:hover {
     color: #054461;
 }
 .social-iconsInfo1 .prm:nth-child(1) .link-icon:hover {
-    color: #ebe713;
+    color: #d10673;
 }
 .social-iconsInfo1 .prm:nth-child(2) .link-icon:hover {
-    color: #9410b5;
+    color: #8a074d;
 }
+
 .social-iconsInfo1 .prm:nth-child(3) .link-icon:hover {
-    color: #961f08;
-}
-.social-iconsInfo1 .prm:nth-child(4) .link-icon:hover {
     color: #055e0f;
 }
-.social-iconsInfo1 .prm:nth-child(5) .link-icon:hover {
+.social-iconsInfo1 .prm:nth-child(4) .link-icon:hover {
     color: #05125e;
 }
 
@@ -109,12 +104,12 @@
     .marginTop {
         margin-top: 90px;
     }
-    .fontSizeText {
+    /*.fontSizeText {
         font-size: 50px;
     }
     .fontSizeText:hover {
             font-size: 55px;
-    }
+    }*/
     .fontSizeTitle {
         font-size: 50px;
     }
@@ -127,13 +122,13 @@
     .marginTop {
         margin-top: 90px;
     }
-    .fontSizeText {
+  /*  .fontSizeText {
         font-size: 50px;
     }
 
     .fontSizeText:hover {
         font-size: 55px;
-    }
+    }*/
     .fontSizeTitle {
         font-size: 50px;
     }
@@ -152,11 +147,11 @@
         margin-top: 90px;
     }
     .fontSizeText {
-        font-size: 40px;
+        font-size: 30px;
     }
 
     .fontSizeText:hover {
-            font-size: 50px;
+            font-size: 35px;
     }
     .fontSizeTitle {
         font-size: 40px;
