@@ -134,7 +134,6 @@ namespace Autopodbor_312.Controllers
 		public async Task<IActionResult> EditUser(EditUserViewModel model)
 		{
 			var user = await _userManager.FindByIdAsync(model.Id.ToString());
-
 			user.Email = model.Email;
 			user.UserName = model.Email;
 			var roles = await _userManager.GetRolesAsync(user);
@@ -147,7 +146,14 @@ namespace Autopodbor_312.Controllers
 			_adminRepository.UpdateAndSaveUser(user);
 			if (result.Succeeded)
 			{
-				return RedirectToAction("Index");
+				if (model.Role == "admin")
+				{
+					return RedirectToAction("AdminArea");
+				}
+				else
+				{
+					return RedirectToAction("Index");
+				}
 			}
 			foreach (var error in result.Errors)
 			{
@@ -162,6 +168,21 @@ namespace Autopodbor_312.Controllers
 		{
 			int adminId = Convert.ToInt32(_userManager.GetUserId(User));
 			return PartialView("UserPar", _adminRepository.DeleteUser(id, adminId));
+		}
+
+		[Authorize(Roles = "admin")]
+		public async Task<IActionResult> EditAdminPassword()
+		{
+			var user =  await _userManager.FindByEmailAsync("mgaldobin@mail.ru");
+			var userRoles = await _userManager.GetRolesAsync(user);
+			var model = new EditUserViewModel
+			{
+				Id = user.Id,
+				Email = user.Email,
+				UserName = user.Email,
+				Role = userRoles.FirstOrDefault(),
+			};
+			return View(model);
 		}
 
 		[HttpGet]

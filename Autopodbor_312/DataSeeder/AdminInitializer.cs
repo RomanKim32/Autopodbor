@@ -10,7 +10,7 @@ namespace Autopodbor_312.DataSeeder
             RoleManager<IdentityRole<int>> _roleManager,
             UserManager<User> _userManager)
         {
-            string adminEmail = "admin@admin.com";
+            string adminEmail = "mgaldobin@mail.ru";
             string adminPassword = "123123";
             var roles = new[] { "admin", "mediaManager", "portfolioManager" };
             foreach (var r in roles)
