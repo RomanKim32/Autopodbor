@@ -9,12 +9,14 @@ namespace Autopodbor_312.OrderMailing
     public class TelegramBot
     {
         private readonly TelegramBotClient _bot;
-        private readonly string BotToken = "5946339457:AAEKvth7TxgWKo4CQMGkFkA9J7cLmea8TBk";
-        private readonly string ChatId = "-1001622338471"; // указать айди чата в телеграме
+        private readonly string BotToken;
+        private readonly string ChatId;
 
-        public TelegramBot()
+        public TelegramBot(string token, string chatId)
         {
-            _bot = new TelegramBotClient(BotToken);
+            _bot = new TelegramBotClient(token);
+            ChatId = chatId;
+            BotToken = token;
         }
 
         public void SendInfo(Orders order)
