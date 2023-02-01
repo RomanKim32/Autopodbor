@@ -1,4 +1,5 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Calculator/EditCalculator.css" />
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 @model Autopodbor_312.ViewModel.CalculatorViewModel
 
 @{
@@ -7,14 +8,14 @@
 
 <h3>Таблица "Марки"</h3>
 <p>
-	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
+	<button type="button" class="btn btn-info correctFiledName"  data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
 </p>
 <div id="CarsBrandsDiv">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
-					Название
+					Марка
 				</th>
 				<th>
 					Цена
@@ -32,7 +33,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id')">Изменить</button>
+							<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id', '@item.Brand',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
 						<a asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info">Посмотреть все модели</a>
 
@@ -46,14 +47,14 @@
 
 <h3>Таблица "Типы кузова"</h3>
 <p>
-	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
+	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
 </p>
 <div id="CarsBodyTypeDiv">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
-					Название
+					Тип
 				</th>
 				<th>
 					Цена
@@ -71,7 +72,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','body')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','@item.BodyType',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
 					</td>
 				</tr>
@@ -82,14 +83,14 @@
 
 <h3>Таблица "Год выпуска"</h3>
 <p>
-	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
+	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
 </p>
 <div id="CarsYearDiv">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
-					Название
+					Год
 				</th>
 				<th>
 					Цена
@@ -107,7 +108,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id','year')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id', '@item.ManufacturesYear',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
 					</td>
 				</tr>
@@ -118,14 +119,14 @@
 
 <h3>Таблица "Вид топлива"</h3>
 <p>
-	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
+	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
 </p>
 <div id="CarsFuelDiv">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
-					Название
+					Вид
 				</th>
 				<th>
 					Цена
@@ -143,7 +144,7 @@
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
 					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id','fuel')">Изменить</button>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id', '@item.FuelsType',@item.Price)">Изменить</button>
 						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
 					</td>
 				</tr>
@@ -151,31 +152,7 @@
 		</tbody>
 	</table>
 </div>
-<!-- AddNewParameterModal -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="addModalLabel">Добавление</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<form role="form" action="">
-				<div class="modal-body">
 
-					<p>Название</p>
-					<input id="key" required="required" />
-					<p>Цена</p>
-					<input id="value" required="required" />
-
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-					<button type="submit" class="btn btn-primary" onclick="addParameter()">Добавить</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 <!-- DeleteParameterModal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -222,6 +199,33 @@
 	</div>
 </div>
 
+<!-- AddNewParameterModal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addModalLabel">Добавление</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form role="form" action="">
+				<div class="modal-body">
+
+					<p id="fieldName">Название</p>
+					<input id="key" />
+					<p id="validationForName"></p>
+					<p>Цена</p>
+					<input id="value" type="number"/>
+					<p id="validationForPrice"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+					<button type="submit" class="btn btn-primary" onclick="addParameter()">Добавить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 <script>
 	let Name = '';
@@ -229,25 +233,41 @@
 		Name = name;
 	};
 	let Id = '';
-	function GetId(id, name) {
+
+
+	function GetId(id, nameForFillEditField, priceForFillEditField) {
 		Id = id;
-		Name = name;
+		NameForFillEditField = nameForFillEditField;
+		PriceForFillEditField = priceForFillEditField;
 	};
-	function deleteParameter() {
-		$.ajax({
-			url: '@Url.Action("DeleteParameter", "Calculator")',
-			type: 'POST',
-			data: {
-				'id': Id,
-			},
-			success: function () {
-				window.location.href = '/Calculator/EditCalculator';
-			},
-		});
-		event.preventDefault();
-	};
+	$('#addModal').on('hidden.bs.modal', function () {
+		document.getElementById("key").value = "";
+		document.getElementById("value").value = "";
+	});
+		$('#editModal').on('shown.bs.modal', function () {
+		document.getElementById("newKey").value = NameForFillEditField;
+		document.getElementById("newValue").value = PriceForFillEditField;
+	});
+	
+
+	function formValidations() {
+	  document.getElementById("validationForName").innerHTML = "";
+	  document.getElementById("validationForPrice").innerHTML = "";
+	  let modalName = document.getElementById("key").value;
+	  let modalPrice = document.getElementById("value").value;
+		if (modalName == "") 
+		{
+			document.getElementById("validationForName").innerHTML = "*Заполните пожалуйста название";
+		}	
+		else if (modalPrice == "") 
+		{
+			document.getElementById("validationForPrice").innerHTML = "*Заполните пожалуйста цену";
+		}	
+  };
 
 	function addParameter() {
+		
+		formValidations();
 		$.ajax({
 			url: '@Url.Action("AddParameter", "Calculator")',
 			type: 'POST',
@@ -255,6 +275,20 @@
 				'name': Name,
 				'key': $("#key").val(),
 				'value': $("#value").val()
+			},
+			success: function () {
+				window.location.href = '/Calculator/EditCalculator';
+			},
+		});
+		event.preventDefault();			
+	};
+
+	function deleteParameter() {
+		$.ajax({
+			url: '@Url.Action("DeleteParameter", "Calculator")',
+			type: 'POST',
+			data: {
+				'id': Id,
 			},
 			success: function () {
 				window.location.href = '/Calculator/EditCalculator';
