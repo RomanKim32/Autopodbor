@@ -1,5 +1,4 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Media/News/NewsIndex.css" />
-@using System.Threading;
 @model PaginationList<News>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 
@@ -19,14 +18,14 @@
                         <div class="card border-0 rounded-5">
                             <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
                             <div class="card-body">
-                                @if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+                                @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                                 {
                                     <h2 class="card-title text-center pb-2">@item.NameRu</h2>
                                     <p class="card-text cuttedText">@item.BodyRu</p>
                                 }
                                 else
                                 {
-                                    <h2 class="card-title">@item.NameKy</h2>
+                                    <h2 class="card-title text-center pb-2">@item.NameKy</h2>
                                     <p class="card-text cuttedText">@item.BodyKy</p>
                                 }
                             </div>

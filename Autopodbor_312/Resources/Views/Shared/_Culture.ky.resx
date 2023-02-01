@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ky" xml:space="preserve">
-    <value>Кыргыз тили</value>
+    <value>Kg</value>
   </data>
   <data name="ru" xml:space="preserve">
-    <value>Орус тили</value>
+    <value>Ru</value>
   </data>
 </root>

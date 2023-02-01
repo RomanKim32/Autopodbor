@@ -19,9 +19,7 @@
 					<option value="" disabled selected hidden>@localizer["brandOptionOrderForm"]</option>
 					@foreach (var brand in Model.CarsBrands)
 					{
-
 						<option data-id="@brand.Id" value="@brand.Price">@brand.Brand</option>
-
 					}
 				</select>
 			</div>
@@ -34,9 +32,7 @@
 					{
 						@foreach (var brand in Model.CarsBrandsModels)
 						{
-
 							<option data-id="@brand.Id" value="@brand.Price">@brand.Model</option>
-
 						}
 					}
 				</select>
@@ -44,7 +40,6 @@
 			<div id="validModel"></div>
 			<div class="form-group">
 				<label class="control-label text-style">@localizer["bodyTypeLabel"]</label>
-
 				<select class="form-control form-style" id="body">
 					<option value="" disabled selected hidden>@localizer["bodyOptionOrderForm"]</option>
 					@foreach (var body in Model.CarsBodyTypes)
@@ -107,8 +102,7 @@
 			selectModal.append('<option value="">Нет моделей</option>');
 		};
 		function GetSelectedTextValue(brand) {
-			var brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
-			console.log(brandId);
+			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
 			$.ajax({
 				url: '@Url.Action("GetModel", "Calculator")',
 				type: 'POST',
@@ -118,7 +112,6 @@
 				success: (response) => {
 					selectModal.empty();
 					addOption(response.carsBrandsModels);
-					console.log(response);
 				}
 			});
 			event.preventDefault();
@@ -126,7 +119,7 @@
 
 		function Calculate() {
 			event.preventDefault();
-			var isValid=true;
+			let isValid=true;
 			let brand = $("#brand").val();
 			let body = $("#body").val();
 			let year = $("#year").val();

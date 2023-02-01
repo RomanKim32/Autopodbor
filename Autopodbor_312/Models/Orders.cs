@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Policy;
 
 namespace Autopodbor_312.Models
 {
@@ -10,11 +8,9 @@ namespace Autopodbor_312.Models
 		public int ServicesId { get; set; }
 		public virtual Services Services { get; set; }
 		public DateTime OrderTime { get; set; }
-#nullable enable
-		
+		#nullable enable
 		public string? UserName { get; set; }
-#nullable disable
-	
+		#nullable disable
 		public string PhoneNumber { get; set; }
 		#nullable enable
         public string? Email { get; set; }

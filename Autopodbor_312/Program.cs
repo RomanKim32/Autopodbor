@@ -15,7 +15,6 @@ namespace Autopodbor_312
 {
     public class Program
     {
-        public static TelegramBot Bot = new TelegramBot();
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -28,6 +27,7 @@ namespace Autopodbor_312
                 {
                     context.Database.Migrate();
                 }
+
                 var userManager = services.GetRequiredService<UserManager<User>>();
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
                 await AdminInitializer.SeedAdminUser(rolesManager, userManager);

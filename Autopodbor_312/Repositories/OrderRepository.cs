@@ -2,6 +2,7 @@
 using Autopodbor_312.Models;
 using Autopodbor_312.OrderMailing;
 using Autopodbor_312.ViewModel;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace Autopodbor_312.Repositories
 	{
 		private readonly AutopodborContext _context;
 		private readonly IServiceScopeFactory _serviceScopeFactory;
+		private readonly IConfiguration _configuration;
 
-		public OrderRepository(AutopodborContext autopodborContext, IServiceScopeFactory serviceScopeFactory)
+		public OrderRepository(AutopodborContext autopodborContext, IServiceScopeFactory serviceScopeFactory, IConfiguration configuration)
 		{
 			_context = autopodborContext;
 			_serviceScopeFactory = serviceScopeFactory;
+			_configuration = configuration;
 		}
 
 		public async void CreateCallBackAndAdditionalService(string userName, string phoneNumber, string email, string comment, string serviceName)
@@ -42,9 +45,15 @@ namespace Autopodbor_312.Repositories
 				dbContext.Orders.Add(order);
 				dbContext.SaveChanges();
 			}
-			Program.Bot.SendInfo(order);
-			EmailService emailService = new EmailService();
-			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
+
+			var privateInfoConfig = new PrivateInfoConfig();
+			_configuration.GetSection(PrivateInfoConfig.PrivateInfo).Bind(privateInfoConfig);
+
+			TelegramBot bot = new TelegramBot(privateInfoConfig.BotToken, privateInfoConfig.ChatId);
+			bot.SendInfo(order);
+
+/*			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
+			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");*/
 		}
 
 		public OrderViewModel CreateOrder(string serviceName)
@@ -55,7 +64,6 @@ namespace Autopodbor_312.Repositories
 			var carsBrands = _context.CarsBrands.ToList();
 			var carsFuels = _context.CarsFuels.ToList();
 			var carsYears = _context.CarsYears.ToList();
-			var carsBrandsModel = _context.CarsBrandsModels.ToList();
 			var orderViewModel = new OrderViewModel
 			{
 				Order = order,
@@ -63,7 +71,6 @@ namespace Autopodbor_312.Repositories
 				CarsBrands = carsBrands,
 				CarsYears = carsYears,
 				CarsFuels = carsFuels,
-				CarsBrandsModels = carsBrandsModel
 			};
 			return orderViewModel;
 		}
@@ -97,9 +104,15 @@ namespace Autopodbor_312.Repositories
 				dbContext.Add(order);
 				dbContext.SaveChanges();
 			}
-			Program.Bot.SendInfo(order);
-			EmailService emailService = new EmailService();
-			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
+
+			var privateInfoConfig = new PrivateInfoConfig();
+			_configuration.GetSection(PrivateInfoConfig.PrivateInfo).Bind(privateInfoConfig);
+
+			TelegramBot bot = new TelegramBot(privateInfoConfig.BotToken, privateInfoConfig.ChatId);
+			bot.SendInfo(order);
+
+/*			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
+			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");*/
 		}
 
 		private StringBuilder GetOrderIfo(Orders order)

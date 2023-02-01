@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:14.3-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - "./volumes/db:/var/lib/postgresql/data/pgdata"
+    container_name: postgres_db
+    restart: always
+    networks:
+      - autopodbor_network
+
+  backend:
+    image: "backend_image"
+    build:
+      context: .
+      dockerfile: Autopodbor_312/Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8888:80"
+      - "8443:443"
+    container_name: autopodbor_backend
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - autopodbor_network
+
+networks:
+  autopodbor_network:
+    name: autopodbor_network

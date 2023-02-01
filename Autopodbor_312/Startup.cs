@@ -2,6 +2,7 @@ using Autopodbor_312.Interfaces;
 using Autopodbor_312.Models;
 using Autopodbor_312.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -65,7 +66,16 @@ namespace Autopodbor_312
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactInformationsRepository, ContactInformationsRepository>();
             services.AddScoped<ICalculatorRepository, CalculatorRepository>();
-        }
+
+            //services.Configure<PrivateInfoConfig>(options => Configuration.GetSection("PrivateInfo").Bind(options));
+            /*var s = services.Configure<PrivateInfoConfig>(Configuration.GetSection(
+            						   PrivateInfoConfig.PrivateInfo));*/
+
+			/*var pic = new PrivateInfoConfig();
+			Configuration.Bind(PrivateInfoConfig.PrivateInfo, pic);
+			services.AddSingleton(pic);*/
+
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

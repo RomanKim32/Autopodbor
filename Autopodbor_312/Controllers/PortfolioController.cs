@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Autopodbor_312.Controllers
@@ -75,8 +76,12 @@ namespace Autopodbor_312.Controllers
 			{
                 return NotFound();
             }
-            ViewData["Brands"] = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand");
-			ViewData["Models"] = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model");
+
+			List<SelectListItem> models = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model").ToList();
+			models.Insert(0, (new SelectListItem { Text = "Без модели", Value = null }));
+
+			ViewData["Brands"] = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand");
+			ViewData["Models"] = models;
 			ViewData["BodyTypes"] = new SelectList(_portfolioRepository.GetAllCarsBodyTypes(), "Id", "BodyType");
 			return View(portfolioDetailsViewModel);
 		}

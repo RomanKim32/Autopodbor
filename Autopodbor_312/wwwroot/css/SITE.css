@@ -1,6 +1,8 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+body {
+    font-family: "Manrope";
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -15,22 +17,62 @@ a.navbar-brand {
     height: 65px;
     width: 65px;
 }
-
-.navbar {
-    padding: 0;
-    background-color: #198754;
+select{
+    border: none;
 }
+.dropdown-toggle::after {
+    font-size: 10px;
+    content: "﹀";
+    vertical-align: 0;
+    border: none;
+}
+    .navbar {
+    padding: 0;
+    background-color: #6b6b6b;
+}
+.bg-drop {
+    background-color: #6b6b6b;
+}
+
 
 .btn-outline {
     border-radius: 25%;
 }
-
-.navbar-toggler {
-    border: 5px solid #00A90A;
+.navbar-toggler:focus {
+    box-shadow: none;
 }
 
+.navbar-toggler-icon {
+    position: relative;
+    width: 50px;
+    height: 30px;
+    display: block;
+    margin-right: 40px;
+}
+    .navbar-toggler-icon span, .navbar-toggler-icon:after, .navbar-toggler-icon:before {
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        background: #fff;
+        margin: 0 auto;
+    }
+    .navbar-toggler-icon span {
+        top: 21px;
+    }
+    .navbar-toggler-icon:after, .navbar-toggler-icon:before {
+        content: '';
+    }
+    .navbar-toggler-icon:after {
+        bottom: 5px;
+    }
+    .navbar-toggler-icon:before {
+        top: 5px;
+    }
+
+
+
 .fc, a {
-    color: wheat;
+    color: white;
     font-size: 18px;
 }
 @media screen and (max-width: 992px) {
@@ -95,23 +137,23 @@ body {
 }
 
 .footer {
-    background: #198754;
+    background: #6b6b6b;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 50px; 
+    line-height: 50px;
 }
 
 .social-icons {
     padding: 5px;
     width: 100%;
-    color: wheat;
+    color: white;
 }
 
     .social-icons .iconSoc a {
         display: inline-block;
-        color: wheat;
+        color: white;
         font-size: 25px;
         height: 50px;
         width: 50px;
@@ -146,6 +188,17 @@ body {
 
 /*кнопка звонка*/
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+ Firefox 
+input[type=number] {
+    -moz-appearance: textfield;
+}
 
 .callback-btn-style {
     width: 50%;
@@ -185,7 +238,8 @@ body {
         position: relative;
     }
 
-        .callback-bt .text-call:after {
+
+    .callback-bt .text-call:after {
             content: "\f095";
             display: block;
             font-family: fontawesome;

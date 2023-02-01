@@ -9,6 +9,9 @@
 	<link type="text/css" rel="stylesheet" href="~/css/SITE.css" />
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.all.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a43524ab5b.js" crossorigin="anonymous"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
@@ -28,11 +31,15 @@
 			  <li>
 				<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
 		      </li>
+
+
+
+
 			  <li class="nav-item dropdown fc">
 				<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 					@localizer["portfolioButton"]
 				</a>
-				 <ul class=" dropdown-menu dropdown-menu fc bg-success fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
+				 <ul class=" dropdown-menu bg-drop fc  fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
 					<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
 					<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
 				 </ul>
@@ -112,7 +119,7 @@
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["phoneNumberLabelCallbackForm"]</label>
-						<input id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
+						<input type="number" id="Phone" class="form-control" required oninvalid="this.setCustomValidity('@localizer["customValidityPhoneNumber"]')" onchange="this.setCustomValidity('')" />
 					</div>
 					<div class="form-group">
 						<label class="control-label">@localizer["emailLabelCallbackForm"]</label>
