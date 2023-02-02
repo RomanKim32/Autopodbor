@@ -12,7 +12,7 @@
         <form asp-action="CreatePortfolio" enctype="multipart/form-data" class="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
+                <input asp-for="Portfolio.NameRu" class="form-control" required="required" type="text" maxlength="75" placeholder="Название портфолио на русском" />
                 <span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -20,7 +20,7 @@
                 <span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
+                <input asp-for="Portfolio.NameKy" class="form-control" required="required" type="text" maxlength="75" placeholder="Название портфолио на кыргызском" />
                 <span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -16,7 +16,7 @@
 			<input type="hidden" asp-for="@Model.Portfolio.MainImagePath" />
 			<input type="hidden" asp-for="@Model.Portfolio.Publicate" />
 			<div class="form-group">				
-				<input asp-for="@Model.Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском"/>
+				<input asp-for="@Model.Portfolio.NameRu" class="form-control" required="required" type="text" maxlength="75" placeholder="Название портфолио на русском"/>
 				<span asp-validation-for="@Model.Portfolio.NameRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">				
@@ -24,7 +24,7 @@
 				<span asp-validation-for="@Model.Portfolio.BodyRu" class="text-danger"></span>
 			</div>
 			<div class="form-group">				
-				<input asp-for="@Model.Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском"/>
+				<input asp-for="@Model.Portfolio.NameKy" class="form-control" required="required" type="text" maxlength="75" placeholder="Название портфолио на кыргызском"/>
 				<span asp-validation-for="@Model.Portfolio.NameKy" class="text-danger"></span>
 			</div>
 			<div class="form-group">				

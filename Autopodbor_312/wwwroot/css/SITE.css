@@ -14,8 +14,8 @@ a.navbar-brand {
     cursor: pointer;
     border: solid transparent;
     display: block;
-    height: 65px;
-    width: 65px;
+    height: 120px;
+    width: 120px;
 }
 select{
     border: none;
