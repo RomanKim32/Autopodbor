@@ -1,4 +1,5 @@
-﻿@model Autopodbor_312.Models.CarsBrandsModel
+﻿<link type="text/css" rel="stylesheet" href="~/css/Calculator/AddModels.css" />
+@model Autopodbor_312.Models.CarsBrandsModel
 
 @{
     ViewData["Title"] = "Добавиление модели";
@@ -13,12 +14,12 @@
             
             <div class="form-group">
                 <label asp-for="Model" class="control-label">Модель</label>
-                <input asp-for="Model" class="form-control" />
+                <input asp-for="Model" class="form-control" required/>
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label">Цена</label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" required type="number" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
              <input asp-for="CarsBrandsId" value ="@ViewBag.Brand.Id" class="form-control" hidden/>
@@ -29,6 +30,4 @@
     </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Autopodbor_312.Models.CarsBrandsModel>
+﻿<link type="text/css" rel="stylesheet" href="~/css/Calculator/AddModels.css" />
+@model IEnumerable<Autopodbor_312.Models.CarsBrandsModel>
 
 @{
 	ViewData["Title"] = "Все модели";
@@ -34,8 +35,6 @@
 				<td>
 					<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
 					<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
-
-
 				</td>
 			</tr>
 		}
@@ -58,9 +57,9 @@
 				<div class="modal-body">
 					<form>
 						<p>Новое название</p>
-						<input id="newKey" />
+						<input id="newKey" required="required" />
 						<p>Новая цена</p>
-						<input id="newValue" />
+						<input id="newValue" required="required" type="number" />
 					</form>
 				</div>
 			</div>
