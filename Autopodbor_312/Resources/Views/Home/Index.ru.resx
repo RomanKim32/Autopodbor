@@ -120,4 +120,7 @@
   <data name="mainPageTitle" xml:space="preserve">
     <value>Главная страница</value>
   </data>
+  <data name="orderButton" xml:space="preserve">
+    <value>Заказать автоподбор</value>
+  </data>
 </root>
