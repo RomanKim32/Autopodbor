@@ -1,32 +1,39 @@
 ﻿@model Autopodbor_312.Models.MainPage
 
 @{
-    ViewData["Title"] = "Добавление инструмента";
+	ViewData["Title"] = "Добавление инструмента";
 }
 
-<form asp-action="CreateTool" asp-controller="Home" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="TitleRu" class="control-label">Название инструмента на русском</label>
-        <input type="text" maxlength="40" asp-for="TitleRu" class="form-control" required="required"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="DescriptionRu" class="control-label">Описание инструмента на русском</label>
-        <textarea type="text" maxlength="200" asp-for="DescriptionRu" class="form-control" required="required"></textarea>
-    </div>
-        <div class="form-group">
-        <label asp-for="TitleKy" class="control-label">Название инструмента на кыргызском</label>
-        <input type="text" maxlength="40" asp-for="TitleKy" class="form-control" required="required" />
-    </div>
-    <div class="form-group">
-        <label asp-for="DescriptionKy" class="control-label">Описание инструмента на кыргызском</label>
-        <textarea type="text" maxlength="200" asp-for="DescriptionKy" class="form-control" required="required"></textarea>
-    </div>
-    <div class="custom-file">
-        <label class="custom-file-label" for="customFile">Выберите фото</label>
-        <input type="file" name="file" required="required" /><br>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Добавить инструмент" class="btn btn-primary" />
-    </div>
-</form>
+<h1 class="text-center mt-3">Создание нового инструмента</h1>
+<hr />
+
+<div class="row justify-content-evenly">
+	<div class="col-md-5">
+		<form asp-action="CreateTool" asp-controller="Home" method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group mb-3">
+				<label asp-for="TitleRu" class="control-label">Название инструмента на русском</label>
+				<input type="text" maxlength="40" asp-for="TitleRu" class="form-control" required="required" />
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="DescriptionRu" class="control-label">Описание инструмента на русском</label>
+				<textarea type="text" maxlength="200" asp-for="DescriptionRu" class="form-control" required="required"></textarea>
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="TitleKy" class="control-label">Название инструмента на кыргызском</label>
+				<input type="text" maxlength="40" asp-for="TitleKy" class="form-control" required="required" />
+			</div>
+			<div class="form-group mb-3">
+				<label asp-for="DescriptionKy" class="control-label">Описание инструмента на кыргызском</label>
+				<textarea type="text" maxlength="200" asp-for="DescriptionKy" class="form-control" required="required"></textarea>
+			</div>
+			<div class="custom-file mb-3">
+				<label class="custom-file-label mb-1" for="customFile">Выберите фото</label><br>
+				<input class="btn-outline-dark form-control" type="file" name="file" required="required" />
+			</div>
+			<div class="form-group mb-5">
+				<input class="btn-outline-dark" type="submit" value="Добавить инструмент" />
+			</div>
+		</form>
+	</div>
+</div>

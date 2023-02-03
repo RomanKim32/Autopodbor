@@ -5,12 +5,12 @@
 	ViewData["Title"] = "Все модели";
 }
 
-<h1>Все модели бренда @ViewBag.Brand.Brand</h1>
+<h1 class="mt-3 mb-3">Все модели бренда @ViewBag.Brand.Brand</h1>
 
 <p>
-	<a asp-action="AddModels" asp-controller="Calculator" asp-route-brandId="@ViewBag.Brand.Id" class="btn btn-info">Добавить модель</a>
+	<a asp-action="AddModels" asp-controller="Calculator" asp-route-brandId="@ViewBag.Brand.Id" class="btn-outline-dark fs-6 border border-dark border-2 p-1 text-decoration-none m-1">Добавить модель</a>
 </p>
-<table class="table">
+<table class="table table-hover table-sm table-bordered mt-4 mb-4">
 	<thead>
 		<tr>
 			<th>
@@ -32,9 +32,9 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.Price)
 				</td>
-				<td>
-					<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
-					<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
+				<td align="center">
+					<button type="button" class="btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('model-@item.Id')">Изменить</button>
+					<button type="button" class="btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('model-@item.Id')">Удалить</button>
 				</td>
 			</tr>
 		}
@@ -42,7 +42,7 @@
 </table>
 
 <p>
-	<a asp-action="EditCalculator" asp-controller="Calculator" class="btn btn-info">Назад</a>
+	<a asp-action="EditCalculator" asp-controller="Calculator" class="btn-outline-dark fs-6 border border-dark border-2 p-1 text-decoration-none m-1">Назад</a>
 </p>
 
 <!-- EditParameterModal -->
@@ -64,8 +64,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<button type="button" class="btn btn-primary" onclick="Edit()">Да</button>
+				<button type="button" class="btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+				<button type="button" class="btn-outline-dark" onclick="Edit()">Сохранить изменение</button>
 			</div>
 		</div>
 	</div>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<button type="button" class="btn btn-primary" onclick="Delete()">Да</button>
+				<button type="button" class="btn btn-danger" onclick="Delete()">Удалить</button>
 			</div>
 		</div>
 	</div>
