@@ -14,24 +14,25 @@
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="@Model.FirstBanner.TitleRu" class="control-label">Заголовок на русском</label>
-                <input asp-for="@Model.FirstBanner.TitleRu" class="form-control" />
+                <input type="text" maxlength="30" asp-for="@Model.FirstBanner.TitleRu" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.FirstBanner.DescriptionRu" class="control-label">Описание на русском</label>
-                <textarea asp-for="@Model.FirstBanner.DescriptionRu" class="form-control"></textarea>
+                <textarea type="text" maxlength="60" asp-for="@Model.FirstBanner.DescriptionRu" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.FirstBanner.TitleKy" class="control-label">Заголовок на кыргызском</label>
-                <input asp-for="@Model.FirstBanner.TitleKy" class="form-control" />
+                <input type="text" maxlength="30" asp-for="@Model.FirstBanner.TitleKy" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.FirstBanner.DescriptionKy" class="control-label">Описание на кыргызском</label>
-                <textarea asp-for="@Model.FirstBanner.DescriptionKy" class="form-control"></textarea>
+                <textarea type="text" maxlength="60" asp-for="@Model.FirstBanner.DescriptionKy" class="form-control"></textarea>
             </div>
             <input type="hidden" asp-for="@Model.FirstBanner.Id" />
             <input type="hidden" asp-for="@Model.FirstBanner.Banner" />
             <input type="hidden" asp-for="@Model.FirstBanner.Path" />
             <br />
+            <p>Если файл не будет загружен, фото не будет изменено!</p>
             <img width="100" height="100" src="@Model.FirstBanner.Path" />
             <input type="file" name="newPhoto" />
             <button type="submit" asp-action="EditBanner" asp-controller="Home" class="btn btn-primary">Изменить</button>
@@ -45,24 +46,25 @@
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="@Model.SecondBanner.TitleRu" class="control-label">Заголовок на русском</label>
-                <input asp-for="@Model.SecondBanner.TitleRu" class="form-control" />
+                <input type="text" maxlength="60" asp-for="@Model.SecondBanner.TitleRu" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.SecondBanner.DescriptionRu" class="control-label">Описание на русском</label>
-                <textarea asp-for="@Model.SecondBanner.DescriptionRu" class="form-control"></textarea>
+                <textarea type="text" maxlength="340" asp-for="@Model.SecondBanner.DescriptionRu" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.SecondBanner.TitleKy" class="control-label">Заголовок на кыргызском</label>
-                <input asp-for="@Model.SecondBanner.TitleKy" class="form-control" />
+                <input type="text" maxlength="60" asp-for="@Model.SecondBanner.TitleKy" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@Model.SecondBanner.DescriptionKy" class="control-label">Описание на кыргызском</label>
-                <textarea asp-for="@Model.SecondBanner.DescriptionKy" class="form-control"></textarea>
+                <textarea type="text" maxlength="340" asp-for="@Model.SecondBanner.DescriptionKy" class="form-control"></textarea>
             </div>
             <input type="hidden" asp-for="@Model.SecondBanner.Id" />
             <input type="hidden" asp-for="@Model.SecondBanner.Banner" />
             <input type="hidden" asp-for="@Model.SecondBanner.Path" />
             <br />
+            <p>Если файл не будет загружен, фото не будет изменено!</p>
             <img width="100" height="100" src="@Model.SecondBanner.Path" />
             <input type="file" name="newPhoto" />
             <button type="submit" asp-action="EditBanner" asp-controller="Home" class="btn btn-primary">Изменить</button>
@@ -80,20 +82,21 @@
             <input type="hidden" asp-for="@item.Path" />
             <div class="form-group">
                 <label asp-for="@item.TitleRu" class="control-label">Заголовок на русском</label>
-                <input asp-for="@item.TitleRu" class="form-control" />
+                <input type="text" maxlength="40" asp-for="@item.TitleRu" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@item.DescriptionRu" class="control-label">Описание на русском</label>
-                <textarea asp-for="@item.DescriptionRu" class="form-control"></textarea>
+                <textarea type="text" maxlength="200" asp-for="@item.DescriptionRu" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label asp-for="@item.TitleKy" class="control-label">Заголовок на кыргызском</label>
-                <input asp-for="@item.TitleKy" class="form-control" />
+                <input type="text" maxlength="40" asp-for="@item.TitleKy" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="@item.DescriptionKy" class="control-label">Описание на кыргызском</label>
-                <textarea asp-for="@item.DescriptionKy" class="form-control"></textarea>
+                <textarea type="text" maxlength="200" asp-for="@item.DescriptionKy" class="form-control"></textarea>
             </div>
+            <p>Если файл не будет загружен, фото не будет изменено!</p>
             <img width="100" height="100" src="@item.Path" />
             <br />
             <input type="file" name="newPhoto" />
