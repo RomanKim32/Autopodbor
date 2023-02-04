@@ -32,7 +32,7 @@ namespace Autopodbor_312.Controllers
 		[Authorize(Roles = "admin,portfolioManager")]
 		public IActionResult Portfolio(int pageNumber = 1)
 		{
-			return View(PaginationList<Portfolio>.Create(_portfolioRepository.GetAllPortfolioForAdmin().ToList(), pageNumber, 5));
+			return View(PaginationList<Portfolio>.Create(_portfolioRepository.GetAllPortfolioForAdmin().ToList(), pageNumber, 8));
 		}
 
 
@@ -77,11 +77,8 @@ namespace Autopodbor_312.Controllers
                 return NotFound();
             }
 
-			List<SelectListItem> models = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model").ToList();
-			models.Insert(0, (new SelectListItem { Text = "Без модели", Value = null }));
-
 			ViewData["Brands"] = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand");
-			ViewData["Models"] = models;
+			ViewData["Models"] = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model");
 			ViewData["BodyTypes"] = new SelectList(_portfolioRepository.GetAllCarsBodyTypes(), "Id", "BodyType");
 			return View(portfolioDetailsViewModel);
 		}

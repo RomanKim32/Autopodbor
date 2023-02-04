@@ -5,58 +5,56 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Редактировать контакты</h1>
-
-<h4>Контакты</h4>
+<h1 class="mt-3 text-center">Редактировать контакты</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-evenly">
+    <div class="col-md-7">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Email" class="control-label">Почта</label>
                 <input asp-for="Email" class="form-control" placeholder="mgaldobin@mail.ru"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="PhoneNumber" class="control-label">Номер телефона</label>
                 <input asp-for="PhoneNumber" class="form-control" placeholder="558303707" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="LinkToInstagram" class="control-label">Ссылка на Instagram</label>
                 <input asp-for="LinkToInstagram" class="form-control" placeholder="autopodbor.312"/>
                 <span asp-validation-for="LinkToInstagram" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="LinkToTiktok" class="control-label">Ссылка на TikTok</label>
                 <input asp-for="LinkToTiktok" class="form-control" placeholder="Пример@Autopodbor_312"/>
                 <span asp-validation-for="LinkToTiktok" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="LinkToYoutube" class="control-label">Ссылка на YouTube</label>
                 <input asp-for="LinkToYoutube" class="form-control" placeholder="Пример@Autopodbor_312"/>
                 <span asp-validation-for="LinkToYoutube" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="LinkToWhatsapp" class="control-label">Номер W/A</label>
                 <input asp-for="LinkToWhatsapp" class="form-control" placeholder="+996558303707"/>
                 <span asp-validation-for="LinkToWhatsapp" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="LinkToTelegram" class="control-label">Номер Telegram</label>
                 <input asp-for="LinkToTelegram" class="form-control" placeholder="+996558303707"/>
                 <span asp-validation-for="LinkToTelegram" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            <div class="form-group mb-3">
+                <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="AdminArea" asp-controller="Admin" class="btn btn-primary">Назад</a>
+<div class="mb-3">
+    <a asp-action="AdminArea" asp-controller="Admin" class="btn btn-outline-dark">Назад</a>
 </div>
 

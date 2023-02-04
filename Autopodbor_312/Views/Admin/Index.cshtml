@@ -3,16 +3,26 @@
 @{
 	ViewData["Title"] = "Домашняя страница";
 }
-
-<a class="btn btn-info" asp-action="Register"> Добавить менеджера </a>
+<p class="text-center mt-4 mb-3">
+	<a class="btn btn-outline-dark" asp-action="Register"> Добавить менеджера </a>
+</p>
 @if (@Model.Count() == 0)
 {
-	<p>Менеджеры еще не добавлены</p>
+	<p class="text-center">Менеджеры еще не добавлены</p>
 }
 else
 {
+	<h1 class="text-center">Все менеджеры</h1>
 	<div id="UsersDiv">
-		<table class="table">
+		<table class="table table-hover table-sm table-bordered mt-4 mb-4">
+			<thead>
+				<tr>
+					<th>
+						Логин
+					</th>
+					<th></th>
+				</tr>
+			</thead>
 			<tbody>
 				@if (User.IsInRole("admin"))
 				{
@@ -22,9 +32,11 @@ else
 							<td>
 								@Html.DisplayFor(modelItem => item.Email)
 							</td>
-							<td>
-								<a class="btn btn-info" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a> |
-								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" onclick="GetId('@item.Id')">Удалить</button>
+							<td align="center">
+								<p class="m-0">
+									<a class="btn btn-outline-dark m-1" asp-action="EditUser" asp-route-id="@item.Id">Изменить</a>
+									<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" onclick="GetId('@item.Id')">Удалить</button>
+								</p>
 							</td>
 						</tr>
 					}
@@ -44,8 +56,8 @@ else
 					Вы увервены?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-					<button type="button" class="btn btn-primary" onclick="Delete()" aria-label="Close" data-bs-dismiss="modal">Да</button>
+					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+					<button type="button" class="btn btn-danger" onclick="Delete()" aria-label="Close" data-bs-dismiss="modal">Да</button>
 				</div>
 			</div>
 		</div>

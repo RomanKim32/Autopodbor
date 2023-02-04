@@ -1,84 +1,87 @@
 ﻿<link type="text/css" rel="stylesheet" href="~/css/Admin/AdminArea.css" />
 
-<body>
-	@if (User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Главная страница
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Home" asp-action="Edit"> Редактировать главную страницу</a></li>
-				<li> <a class="btn btn-info" asp-controller="Home" asp-action="CreateTool"> Добавить инструмент</a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Сервисы
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Service" asp-action="ForAdminServices">Посмотреть сервисы</a></li>
-				<li> <a class="btn btn-info" asp-controller="Service" asp-action="CreateServices">Создать сервис </a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Калькулятор
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Calculator" asp-action="EditCalculator"> Редактировать калькулятор</a></li>
-				<li> <a class="btn btn-info" asp-controller="Calculator" asp-action="Index"> Страница калькулятора</a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Менеджеры
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Index"> Посмотреть менеджеров </a></li>
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="Register"> Добавить менеджера </a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Контакты
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="ContactInformations" asp-action="Edit"> Редактировать контакты </a></li>
-				<li> <a class="btn btn-info" asp-controller="ContactInformations" asp-action="Index"> Страница контактов </a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Профиль
-			</button>
-			<ul class="dropdown-menu">
-				<li> <a class="btn btn-info" asp-controller="Admin" asp-action="EditAdminPassword">Изменить пароль</a></li>
-			</ul>
-		</div>
-	}
-	@if (User.IsInRole("portfolioManager") || User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Портфолио
-			</button>
-			<ul class="dropdown-menu">
-				<li><a class="btn btn-info" asp-controller="Portfolio" asp-action="Portfolio">Все портфолио</a></li>
-				<li> <a class="btn btn-info" asp-controller="Portfolio" asp-action="CreatePortfolio">Добавить портфолио </a></li>
-			</ul>
-		</div>
-	}
-	@if (User.IsInRole("mediaManager") || User.IsInRole("admin"))
-	{
-		<div class="btn-group">
-			<button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-				Новости
-			</button>
-			<ul class="dropdown-menu">
-				<li><a class="btn btn-info" asp-controller="News" asp-action="News">Все новости</a></li>
-				<li> <a class="btn btn-info" asp-controller="News" asp-action="CreateNews">Добавить новость </a></li>
-			</ul>
-		</div>
-	}
-</body>
+<div class="row justify-content-evenly">
+	<div class="col-md-5 btn-group-vertical mt-4">
+		@if (User.IsInRole("admin"))
+		{
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Главная страница
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="Home" asp-action="Edit"> Редактировать главную страницу</a></li>
+					<li> <a class="dropdown-item" asp-controller="Home" asp-action="CreateTool"> Добавить инструмент</a></li>
+				</ul>
+			</div>
+
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Сервисы
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="Service" asp-action="ForAdminServices">Посмотреть сервисы</a></li>
+					<li> <a class="dropdown-item" asp-controller="Service" asp-action="CreateServices">Создать сервис </a></li>
+				</ul>
+			</div>
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Калькулятор
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="Calculator" asp-action="EditCalculator"> Редактировать калькулятор</a></li>
+					<li> <a class="dropdown-item" asp-controller="Calculator" asp-action="Index"> Страница калькулятора</a></li>
+				</ul>
+			</div>
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Менеджеры
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="Admin" asp-action="Index"> Посмотреть менеджеров </a></li>
+					<li> <a class="dropdown-item" asp-controller="Admin" asp-action="Register"> Добавить менеджера </a></li>
+				</ul>
+			</div>
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Контакты
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="ContactInformations" asp-action="Edit"> Редактировать контакты </a></li>
+					<li> <a class="dropdown-item" asp-controller="ContactInformations" asp-action="Index"> Страница контактов </a></li>
+				</ul>
+			</div>
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Профиль
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li> <a class="dropdown-item" asp-controller="Admin" asp-action="EditAdminPassword">Изменить пароль</a></li>
+				</ul>
+			</div>
+		}
+		@if (User.IsInRole("portfolioManager") || User.IsInRole("admin"))
+		{
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Портфолио
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark fs-4">
+					<li><a class="dropdown-item" asp-controller="Portfolio" asp-action="Portfolio">Все портфолио</a></li>
+					<li> <a class="dropdown-item" asp-controller="Portfolio" asp-action="CreatePortfolio">Добавить портфолио </a></li>
+				</ul>
+			</div>
+		}
+		@if (User.IsInRole("mediaManager") || User.IsInRole("admin"))
+		{
+			<div class="btn-group dropend">
+				<button class="btn btn-secondary dropdown-toggle fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Новости
+				</button>
+				<ul class="dropdown-menu dropdown-menu-dark">
+					<li><a class="dropdown-item" asp-controller="News" asp-action="News">Все новости</a></li>
+					<li> <a class="dropdown-item" asp-controller="News" asp-action="CreateNews">Добавить новость </a></li>
+				</ul>
+			</div>
+		}
+	</div>
+</div>

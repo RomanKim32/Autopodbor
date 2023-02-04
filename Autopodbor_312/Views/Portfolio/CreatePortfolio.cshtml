@@ -5,33 +5,33 @@
     ViewData["Title"] = "Создать портфолио";
 }
 
-<h1>Добавить портфолио</h1>
+<h1 class="text-center mt-4">Добавить портфолио</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-evenly">
+    <div class="col-md-5">
         <form asp-action="CreatePortfolio" enctype="multipart/form-data" class="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
+            <div class="form-group mb-3">
+                <input type="text" maxlength="50" asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
                 <span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <textarea asp-for="Portfolio.BodyRu" class="form-control" required="required" placeholder="Описание портфолио на русском"></textarea>
                 <span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
+            <div class="form-group mb-3">
+                <input type="text" maxlength="50" asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
                 <span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <textarea asp-for="Portfolio.BodyKy" class="form-control" required="required" placeholder="Описание портфолио на кыргыском"></textarea>
                 <span asp-validation-for="Portfolio.BodyKy" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <input class="form-check-input" type="checkbox" asp-for="Portfolio.IsFieldInspection" />
                 <label asp-for="Portfolio.IsFieldInspection" class="control-label form-check-label">Выездной осмотр?</label>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Тип кузова</label>
                 <select asp-for="Portfolio.CarsBodyTypesId" class="form-control">
                     @foreach (var body in Model.CarsBodyTypes)
@@ -40,7 +40,7 @@
                     }
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Марка автомобиля</label>
                 <select asp-for="Portfolio.CarsBrandsId" class="form-control">
                     @foreach (var body in Model.CarsBrands)
@@ -49,7 +49,7 @@
                     }
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label class="control-label">Модель автомоболя</label>
                 <select asp-for="Portfolio.CarsBrandsModelId" class="form-control">
                     @foreach (var body in Model.CarsBrandsModel)
@@ -58,19 +58,19 @@
                     }
                 </select>
             </div>
-            <div class="custom-file">
+            <div class="custom-file mb-3">
                 <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
-                <input type="file" class="form-control" name="mainPic" required="required" /><br />
+                <input type="file" class="form-control btn btn-outline-dark" name="mainPic" required="required" /><br />
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label сlass="control-label">Выберите фотографии для детальной страницы</label>
-                <input type="file" class="form-control" name="uploadFiles" multiple /><br>
+                <input type="file" class="form-control btn btn-outline-dark" name="uploadFiles" multiple /><br>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="video" placeholder="Введите id YouTube через пробел" /><br />
+                <textarea type="text" class="form-control" name="video" placeholder="Введите id YouTube через пробел"></textarea><br />
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Создать портфолио</button>
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-outline-dark">Создать портфолио</button>
             </div>
         </form>
     </div>
