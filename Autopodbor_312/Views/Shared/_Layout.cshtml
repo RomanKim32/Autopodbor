@@ -160,14 +160,32 @@
 					'comment': comment
 				},
 				success: function () {
-					alert("Завка принята, ожидайте звонка!");
+					Swal.fire(
+						'Завка принята, ожидайте звонка!',
+						'Спасибо',
+						'success'
+					).then(function () {
+						  $('#callbackModal').modal('hide');
+						$('#callBackform')[0].reset();
+							 
+					});
 				},
 				failure: function () {
-					alert("Произошла ошибка!");
+
+					Swal.fire(
+						'Произошла ошибка при заказе!',
+						'Попробуйте заново',
+						'success'
+					);
 				},
 				error: function () {
-					alert("Произошла ошибка!");
-				}
+					;
+					Swal.fire(
+						'Произошла ошибка при заказе!',
+						'Попробуйте заново',
+						'success'
+					);
+				}			
 			});
 			return false;
 		});
