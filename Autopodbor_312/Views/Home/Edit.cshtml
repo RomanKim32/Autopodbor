@@ -106,7 +106,7 @@
 				<button class="mb-3 btn btn-outline-dark" type="submit" asp-action="EditBanner" asp-controller="Home">Изменить</button>
 			</form>
 			<form method="get">
-				<input class="mb-5 btn btn-outline-dark" type="submit" asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" value="Удалить инструмент" />
+				<input class="mb-5 btn btn-danger" type="submit" asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id" value="Удалить инструмент" />
 			</form>
 		</div>
 	}

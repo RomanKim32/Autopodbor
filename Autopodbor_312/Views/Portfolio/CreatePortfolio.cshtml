@@ -11,19 +11,23 @@
         <form asp-action="CreatePortfolio" enctype="multipart/form-data" class="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
-                <input type="text" maxlength="50" asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
+                <label asp-for="Portfolio.NameRu" class="control-label">Название портфолио на русском</label>
+                <input type="text" maxlength="50" asp-for="Portfolio.NameRu" class="form-control" required="required"/>
                 <span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <textarea asp-for="Portfolio.BodyRu" class="form-control" required="required" placeholder="Описание портфолио на русском"></textarea>
+                <label asp-for="Portfolio.BodyRu" class="control-label">Описание портфолио на русском</label>
+                <textarea asp-for="Portfolio.BodyRu" class="form-control" required="required"></textarea>
                 <span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <input type="text" maxlength="50" asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
+                <label asp-for="Portfolio.NameKy" class="control-label">Название портфолио на кыргызском</label>
+                <input type="text" maxlength="50" asp-for="Portfolio.NameKy" class="form-control" required="required"/>
                 <span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <textarea asp-for="Portfolio.BodyKy" class="form-control" required="required" placeholder="Описание портфолио на кыргыском"></textarea>
+                <label asp-for="Portfolio.BodyKy" class="control-label">Описание портфолио на кыргызском</label>
+                <textarea asp-for="Portfolio.BodyKy" class="form-control" required="required"></textarea>
                 <span asp-validation-for="Portfolio.BodyKy" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
@@ -49,7 +53,7 @@
                 </select>
             </div>
             <div class="form-group mb-3">
-                <label class="control-label">Модель автомоболя</label>
+                <label class="control-label">Модель автомобиля</label>
                 <select asp-for="Portfolio.CarsBrandsModelId" class="form-control">
                     @foreach (var body in Model.CarsBrandsModel)
                     {
@@ -66,7 +70,8 @@
                 <input type="file" class="form-control btn btn-outline-dark" name="uploadFiles" multiple /><br>
             </div>
             <div class="form-group">
-                <textarea type="text" class="form-control" name="video" placeholder="Введите id YouTube через пробел"></textarea><br />
+                <label сlass="control-label">Выберите видео для детальной страницы</label>
+                <textarea type="text" class="form-control" name="video" placeholder="Введите id видео на YouTube через пробел"></textarea><br />
             </div>
             <div class="form-group mb-3">
                 <button type="submit" class="btn btn-outline-dark">Создать портфолио</button>

@@ -16,7 +16,7 @@
 				<input type="hidden" asp-for="@Model.Portfolio.Publicate" />
 				<div class="form-group mb-3">
 					<label asp-for="@Model.Portfolio.NameRu" class="control-label">Название портфолио на русском</label>
-					<input asp-for="@Model.Portfolio.NameRu" class="form-control" required="required" />
+					<input type="text" maxlength="50" asp-for="@Model.Portfolio.NameRu" class="form-control" required="required" />
 					<span asp-validation-for="@Model.Portfolio.NameRu" class="text-danger"></span>
 				</div>
 				<div class="form-group mb-3">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="form-group mb-3">
 					<label asp-for="@Model.Portfolio.NameKy" class="control-label">Название портфолио на кыргызском</label>
-					<input asp-for="@Model.Portfolio.NameKy" class="form-control" required="required" />
+					<input type="text" maxlength="50" asp-for="@Model.Portfolio.NameKy" class="form-control" required="required" />
 					<span asp-validation-for="@Model.Portfolio.NameKy" class="text-danger"></span>
 				</div>
 				<div class="form-group mb-3">
@@ -72,22 +72,22 @@
 				<input type="hidden" name="id" value="@Model.MainPic.Id" />
 				<img width="250" height="250" src="@Model.MainPic.Path" />
 				<br />
-				<input type="file" class="form-control mb-3 mt-3" name="newPhoto" required="required" />
+				<input type="file" class="form-control btn btn-outline-dark mb-3 mt-3" name="newPhoto" required="required" />
 				<button asp-action="EditMainPhoto" asp-controller="Portfolio" type="submit" class="btn btn-outline-dark">Изменить</button>
 			</form>
 		</div>
 	</div>
 
-	<div class="row justify-content-evenly">
-		<h4 class="mt-3 mb-3 text-center fs-3">Фото на детальной странице</h4>
+	<h4 class="mt-3 mb-3 text-center fs-3">Фото на детальной странице</h4>
+	<div class="row justify-content-evenly row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">	
 		@foreach (var item in Model.MinorPictures)
 		{
-			<div class="col-4">
+			<div class="col">
 				<form method="post" asp-action="EditMinorPhoto" asp-controller="Portfolio" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="@item.Id" />
 					<img width="250" height="250" src="@item.Path" />
 					<br />
-					<input type="file" class="form-control btn btn-outline-dark mt-2 mb-2" name="newPhoto" required="required" />
+					<input type="file" class="form-control btn btn-outline-dark mt-2 mb-2" name="newPhoto" required="required" /><br />
 					<button type="submit" class="btn btn-outline-dark mb-2">Изменить</button>
 				</form>
 				<form method="post">
@@ -107,16 +107,16 @@
 		</div>
 	</div>
 
-	<div class="row justify-content-evenly">
-		<h4 class="mt-3 mb-3 text-center fs-3">Видео на детальной странице</h4>
+	<h4 class="mt-3 mb-3 text-center fs-3">Видео на детальной странице</h4>
+	<div class="row justify-content-evenly row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
 		@foreach (var item in Model.Videos)
 		{
-			<div class="col-4">
+			<div class="col">
 				<form asp-action="EditVideo" asp-controller="Portfolio" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="@item.Id" />
 					<iframe width="250" height="250" src=@item.Path title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					<br />
-					<input class="bt-2 mb-2" type="text" name="newVideoId" placeholder="Введите id ролика" required="required" />
+					<input class="bt-2 mb-2" type="text" name="newVideoId" placeholder="Введите id ролика" required="required" />	<br />
 					<button type="submit" class="btn btn-outline-dark mb-2">Изменить</button>
 				</form>
 				<form method="post">
@@ -135,9 +135,5 @@
 			</form>
 		</div>
 	</div>
-
-
-
-
 </div>
 

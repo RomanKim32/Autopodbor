@@ -20,15 +20,15 @@
 				<p>Дата последнего обновления: @item.CreatedDate</p>
 				@if (item.Publicate == false)
 				{
-					<a class="btn btn-outline-dark" id="public-@item.Id" onclick="Public('@item.Id')">Опубликовать</a>
+					<a class="btn btn-outline-dark m-1" id="public-@item.Id" onclick="Public('@item.Id')">Опубликовать</a>
 				}
 				else
 				{
-					<a class="btn btn-outline-dark" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
+					<a class="btn btn-outline-dark m-1" id="public-@item.Id" onclick="Public('@item.Id')">Снять с публикации</a>
 				}
-				<a class="btn btn-outline-dark" asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
-				<a class="btn btn-outline-dark" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">Подробнее</a>
-				<a class="btn btn-outline-dark" asp-controller="Portfolio" asp-action="DeletePortfolio" asp-route-id="@item.Id">Удалить</a>
+				<a class="btn btn-outline-dark m-1" asp-controller="Portfolio" asp-action="EditPortfolio" asp-route-id="@item.Id">Изменить</a>
+				<a class="btn btn-outline-dark m-1" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">Подробнее</a>
+				<a class="btn btn-outline-dark m-1" asp-controller="Portfolio" asp-action="DeletePortfolio" asp-route-id="@item.Id">Удалить</a>
 			</div>
 			<div class="card-footer text-muted">
 				@if (item.IsFieldInspection)
@@ -48,8 +48,8 @@
 	var prevDisabled = !Model.PreviousPage ? "disabled" : "";
 	var nextDisabled = !Model.NextPage ? "disabled" : "";
 }
-<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-outline-dark @prevDisabled">Назад</a>
-<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-outline-dark @nextDisabled">Вперед</a>
+<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-outline-dark mb-2 @prevDisabled">Назад</a>
+<a asp-action="Portfolio" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-outline-dark mb-2 @nextDisabled">Вперед</a>
 @section Scripts
 	{
 	<script>
