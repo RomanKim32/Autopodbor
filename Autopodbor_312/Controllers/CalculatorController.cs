@@ -116,6 +116,7 @@ namespace Autopodbor_312.Controllers
             ViewBag.Brand = brand;
             return Json(portfolioDetailsViewModel);
         }
+
         [Authorize(Roles = "admin")]
         public IActionResult DeleteParameter(string id)
         {

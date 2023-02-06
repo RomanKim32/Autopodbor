@@ -80,7 +80,10 @@ namespace Autopodbor_312.Controllers
 			List<SelectListItem> models = new SelectList(_portfolioRepository.GetAllCarsBrandsModel(), "Id", "Model").ToList();
 			models.Insert(0, (new SelectListItem { Text = "Без модели", Value = null }));
 
-			ViewData["Brands"] = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand");
+			List<SelectListItem> brands = new SelectList(_portfolioRepository.GetAllCarsBrands(), "Id", "Brand").ToList();
+			brands.Insert(0, (new SelectListItem { Text = "Без бренда", Value = null }));
+
+			ViewData["Brands"] = brands;
 			ViewData["Models"] = models;
 			ViewData["BodyTypes"] = new SelectList(_portfolioRepository.GetAllCarsBodyTypes(), "Id", "BodyType");
 			return View(portfolioDetailsViewModel);

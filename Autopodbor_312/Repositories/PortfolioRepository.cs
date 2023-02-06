@@ -336,7 +336,7 @@ namespace Autopodbor_312.Repositories
             dbContext.SaveChangesAsync();
         }
 
-        /*private*/ FilterPortfolioViewModel GetFilterPortfolioViewModel(IQueryable<Portfolio> portfolios, int? bodyType, int? brand, int? model, int pageNumber )
+        private FilterPortfolioViewModel GetFilterPortfolioViewModel(IQueryable<Portfolio> portfolios, int? bodyType, int? brand, int? model, int pageNumber )
         {
 			List<CarsBodyTypes> carsBodyTypes  = _context.CarsBodyTypes.ToList();
 			List<CarsBrands> carsBrands = carsBrands = _context.CarsBrands.ToList();

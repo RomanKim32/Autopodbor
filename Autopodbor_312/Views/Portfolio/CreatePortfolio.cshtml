@@ -2,83 +2,76 @@
 @model Autopodbor_312.ViewModel.CreatePortfolioViewModel
 
 @{
-    ViewData["Title"] = "Создать портфолио";
+	ViewData["Title"] = "Создать портфолио";
 }
 
 <h1>Добавить портфолио</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreatePortfolio" enctype="multipart/form-data" class="form">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
-                <span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Portfolio.BodyRu" class="form-control" required="required" placeholder="Описание портфолио на русском"></textarea>
-                <span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
-                <span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <textarea asp-for="Portfolio.BodyKy" class="form-control" required="required" placeholder="Описание портфолио на кыргыском"></textarea>
-                <span asp-validation-for="Portfolio.BodyKy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input class="form-check-input" type="checkbox" asp-for="Portfolio.IsFieldInspection" />
-                <label asp-for="Portfolio.IsFieldInspection" class="control-label form-check-label">Выездной осмотр?</label>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Тип кузова</label>
-                <select asp-for="Portfolio.CarsBodyTypesId" class="form-control">
-                    @foreach (var body in Model.CarsBodyTypes)
-                    {
-                        <option value="@body.Id">@body.BodyType</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Марка автомобиля</label>
-                <select onchange="GetSelectedTextValue(this)" asp-for="Portfolio.CarsBrandsId" id="brand" class="form-control">
-                <option value="" disabled selected hidden>Выберите марку</option>
-
-                    @foreach (var body in Model.CarsBrands)
-                    {
-                        <option data-id="@body.Id" value="@body.Id">@body.Brand</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Модель автомоболя</label>
-                <select asp-for="Portfolio.CarsBrandsModelId" class="form-control" id="select-model">
-                    @if (Model.CarsBrandsModel != null)
+	<div class="col-md-4">
+		<form asp-action="CreatePortfolio" enctype="multipart/form-data" class="form">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<input asp-for="Portfolio.NameRu" class="form-control" required="required" placeholder="Название портфолио на русском" />
+				<span asp-validation-for="Portfolio.NameRu" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<textarea asp-for="Portfolio.BodyRu" class="form-control" required="required" placeholder="Описание портфолио на русском"></textarea>
+				<span asp-validation-for="Portfolio.BodyRu" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input asp-for="Portfolio.NameKy" class="form-control" required="required" placeholder="Название портфолио на кыргызском" />
+				<span asp-validation-for="Portfolio.NameKy" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<textarea asp-for="Portfolio.BodyKy" class="form-control" required="required" placeholder="Описание портфолио на кыргыском"></textarea>
+				<span asp-validation-for="Portfolio.BodyKy" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input class="form-check-input" type="checkbox" asp-for="Portfolio.IsFieldInspection" />
+				<label asp-for="Portfolio.IsFieldInspection" class="control-label form-check-label">Выездной осмотр?</label>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Тип кузова</label>
+				<select asp-for="Portfolio.CarsBodyTypesId" class="form-control">
+					@foreach (var body in Model.CarsBodyTypes)
 					{
-                    @foreach (var body in Model.CarsBrandsModel)
-                    {
-                        <option data-id="@body.Id"  value="@body.Id">@body.Model</option>
-                    }
-                    }
-                </select>
-            </div>
-            <div class="custom-file">
-                <label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
-                <input type="file" class="form-control" name="mainPic" required="required" /><br />
-            </div>
-            <div class="form-group">
-                <label сlass="control-label">Выберите фотографии для детальной страницы</label>
-                <input type="file" class="form-control" name="uploadFiles" multiple /><br>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="video" placeholder="Введите id YouTube через пробел" /><br />
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Создать портфолио</button>
-            </div>
-        </form>
-    </div>
+						<option value="@body.Id">@body.BodyType</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Марка автомобиля</label>
+				<select onchange="GetSelectedTextValue(this)" asp-for="Portfolio.CarsBrandsId" id="brand" class="form-control">
+					<option value="" disabled selected hidden>Без марки</option>
+					@foreach (var body in Model.CarsBrands)
+					{
+						<option data-id="@body.Id" value="@body.Id">@body.Brand</option>
+					}
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Модель автомоболя</label>
+				<select asp-for="Portfolio.CarsBrandsModelId" class="form-control" id="select-model">
+					<option value="" disabled selected hidden>Без модели</option>
+				</select>
+			</div>
+			<div class="custom-file">
+				<label class="custom-file-label" for="customFile">Выберите фото для главной страницы</label>
+				<input type="file" class="form-control" name="mainPic" required="required" /><br />
+			</div>
+			<div class="form-group">
+				<label сlass="control-label">Выберите фотографии для детальной страницы</label>
+				<input type="file" class="form-control" name="uploadFiles" multiple /><br>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="video" placeholder="Введите id YouTube через пробел" /><br />
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Создать портфолио</button>
+			</div>
+		</form>
+	</div>
 </div>
 
 @section Scripts
