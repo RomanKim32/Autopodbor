@@ -85,6 +85,7 @@
 		function GetId(id) {
 			Id = id;
 		};
+
 		const selectModal = $('#select-model');
 		const addOption = (options) => {
 			if (options.length > 0) {
@@ -95,6 +96,7 @@
 			}
 			selectModal.append('<option value="">Нет моделей</option>');
 		};
+
 		function GetSelectedTextValue(brand) {
 			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
 			$.ajax({

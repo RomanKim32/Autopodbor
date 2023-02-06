@@ -160,10 +160,12 @@
 	{
 	<script>
 		$(document).ready(GetSelectedTextValue());
+
 		let Id = '';
 		function GetId(id) {
 			Id = id;
 		};
+
 		const selectModal = $('#select-model');
 		const addOption = (options) => {
 			if (options.length > 0) {
@@ -175,10 +177,7 @@
 			selectModal.append('<option value="">Нет моделей</option>');
 		};
 		function GetSelectedTextValue() {
-
 			let brandId = $('#brand').val();
-			
-			console.log(brandId);
 			$.ajax({
 				url: '@Url.Action("GetModelEditPortfolio", "Calculator")',
 				type: 'POST',
@@ -190,7 +189,6 @@
 					addOption(response.carsBrandsModels);
 				}
 			});
-			
 		};
 	</script>
 }
