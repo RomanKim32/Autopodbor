@@ -40,14 +40,33 @@
 					<span asp-validation-for="@Model.Portfolio.CarsBodyTypes.BodyType" class="text-danger"></span>
 				</div>
 				<div class="form-group mb-3">
-					<label asp-for="@Model.Portfolio.CarsBrands.Brand" class="control-label">Текущий бренд: @Model.Portfolio.CarsBrands.Brand</label>
-					<select asp-for="@Model.Portfolio.CarsBrandsId" class="form-control" asp-items="ViewBag.Brands"></select>
-					<span asp-validation-for="@Model.Portfolio.CarsBrands.Brand" class="text-danger"></span>
+					@if (Model.Portfolio.CarsBrandsId == null)
+					{
+						<label class="control-label">Марка не выбрана</label>
+						<select onchange="GetSelectedTextValue()" asp-for="@Model.Portfolio.CarsBrandsId" class="form-control" id="brand" asp-items="ViewBag.Brands"></select>
+					}
+					else
+					{
+						<label asp-for="@Model.Portfolio.CarsBrands.Brand" class="control-label">Текущий бренд: @Model.Portfolio.CarsBrands.Brand</label>
+						<select onchange="GetSelectedTextValue()" asp-for="@Model.Portfolio.CarsBrandsId" class="form-control" id="brand" asp-items="ViewBag.Brands"></select>
+						<span asp-validation-for="@Model.Portfolio.CarsBrands.Brand" class="text-danger"></span>
+					}
 				</div>
 				<div class="form-group mb-3">
-					<label asp-for="@Model.Portfolio.CarsBrandsModel.Model" class="control-label">Текущая модель: @Model.Portfolio.CarsBrandsModel.Model</label>
-					<select asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" asp-items="ViewBag.Models"></select>
-					<span asp-validation-for="@Model.Portfolio.CarsBrandsModel.Model" class="text-danger"></span>
+					@if (Model.Portfolio.CarsBrandsModelId == null)
+					{
+						<label class="control-label">Модель не выбрана</label>
+						<select asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" id="select-model">
+							<option value="" disabled selected hidden>Без модели</option>
+						</select>
+					}
+					else
+					{
+						<label asp-for="@Model.Portfolio.CarsBrandsModel.Model" class="control-label">Текущая модель: @Model.Portfolio.CarsBrandsModel.Model</label>
+						<select id="select-model" asp-for="@Model.Portfolio.CarsBrandsModelId" class="form-control" asp-items="ViewBag.Models">
+						</select>
+						<span asp-validation-for="@Model.Portfolio.CarsBrandsModel.Model" class="text-danger"></span>
+					}
 				</div>
 				<div class="form-group mb-3">
 					<label asp-for="Portfolio.IsFieldInspection" class="control-label">Выездной осмотр?</label>
@@ -171,7 +190,7 @@
 					addOption(response.carsBrandsModels);
 				}
 			});
-			//event.preventDefault();
+			
 		};
 	</script>
 }
