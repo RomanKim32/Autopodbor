@@ -338,30 +338,31 @@ namespace Autopodbor_312.Repositories
 
         private FilterPortfolioViewModel GetFilterPortfolioViewModel(IQueryable<Portfolio> portfolios, int? bodyType, int? brand, int? model, int pageNumber )
         {
-			List<CarsBodyTypes> carsBodyTypes = _context.CarsBodyTypes.ToList();
-			List<CarsBrands> carsBrands = _context.CarsBrands.ToList();
-			List<CarsBrandsModel> carsBrandsModels = _context.CarsBrandsModels.ToList();
+			List<CarsBodyTypes> carsBodyTypes  = _context.CarsBodyTypes.ToList();
+			List<CarsBrands> carsBrands = carsBrands = _context.CarsBrands.ToList();
+			List<CarsBrandsModel> carsBrandsModels = new List<CarsBrandsModel>();
             string bodyTypeString = "";
             string brandString = "";
             string modelString = "";
-			if (bodyType != null && bodyType != 0)
+            if (bodyType != null && bodyType != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBodyTypes.Id == bodyType);
-                bodyTypeString = carsBodyTypes.FirstOrDefault(x => x.Id == bodyType).BodyType;
+                bodyTypeString = _context.CarsBodyTypes.FirstOrDefault(x => x.Id == bodyType).BodyType;
 
-			}
+            } 
             if (brand != null && brand != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBrands.Id == brand);
-                 brandString = carsBrands.FirstOrDefault(x => x.Id == brand).Brand;
-
-			}
+                 brandString = _context.CarsBrands.FirstOrDefault(x => x.Id == brand).Brand;
+                carsBrandsModels = _context.CarsBrandsModels.Where(m => m.CarsBrandsId == brand).ToList();
+            }
             if (model != null && model != 0)
             {
                 portfolios = portfolios.Where(p => p.CarsBrandsModel.Id == model);
                  modelString = carsBrandsModels.FirstOrDefault(x => x.Id == model).Model;
 
 			}
+
             var portfoliosList = portfolios.ToList();
             var fpvm = new FilterPortfolioViewModel
             {
@@ -375,6 +376,7 @@ namespace Autopodbor_312.Repositories
                 SelectedBodyTypeString = bodyTypeString,               
                 SelectedBrandString= brandString,
                 SelectedModelString= modelString,
+
 			};
             return fpvm;
         }

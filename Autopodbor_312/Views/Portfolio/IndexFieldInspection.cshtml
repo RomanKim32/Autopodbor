@@ -36,13 +36,13 @@
 		</div>
 		<div class="d-flex ms-3 col-style" >
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
-			<select class="form-select" name="brand">
+			<select onchange="GetSelectedTextValue(this)" class="form-select" id="brand" name="brand">
 				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 					@for (int i = 0; i < Model.CarsBrands.Count; i++)
 					{
-						<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+						<option data-id="@Model.CarsBrands[i].Id" value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 					}
 				}
 				else
@@ -52,7 +52,7 @@
 					{
 						@if (Model.CarsBrands[i].Id != Model.SelectedBrand)
 						{
-							<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+							<option data-id="@Model.CarsBrands[i].Id"  value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 						}
 					}
 				}				
@@ -60,27 +60,56 @@
 		</div>
 		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
-			<select class="form-select" name="model">
-				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
+			<select class="form-select" id="select-model" name="model">
+			<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
+
+
+				<option value="0">@localizer["allFilter"]</option>
+					@if (Model.CarsBrandsModels != null)
+					{
+						@foreach (var brand in Model.CarsBrandsModels)
+						{
+							
+							
+							<option data-id="@brand.Id" >@brand.Model</option>
+							
+						}
+						}
+				@*@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
-					@for (int i = 0; i < Model.CarsModels.Count; i++)
+					@if (Model.CarsBrandsModels != null)
 					{
-						<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
-					}
-				}
+						@foreach (var brand in Model.CarsBrandsModels)
+						{
+							
+							@for (int i = 0; i < Model.CarsModels.Count; i++)
+							{
+								<option data-id="@brand.Id" value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+							}
+						}
+						}
+			    }
+
+				
 				else
 				{
 					<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
+					@if (Model.CarsBrandsModels != null)
+					{
+					@foreach (var brand in Model.CarsBrandsModels)
+						{
 					@for (int i = 0; i < Model.CarsModels.Count; i++)
 					{
 						@if (Model.CarsModels[i].Id != Model.SelectedModel)
 						{
-							<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+							<option data-id="@brand.Id" value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+						}
+					}
 						}
 					}
 				}
-				
+*@
 			</select>
 		</div>
 		<input type="submit" value="@localizer["filter"]" class="btn btn-style" />
@@ -136,5 +165,48 @@
   }
 })();
 
+function Filter() {
+			const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) { 
+				options.forEach((item) => {				
+					console.log(item.model)
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+
+        let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) { 
+				options.forEach((item) => {				
+					console.log(item.model)
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue(brand) {
+			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
+			$.ajax({
+				url: '@Url.Action("GetModelPort", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+				}
+			});
+			event.preventDefault();
+		};
     </script>
 }

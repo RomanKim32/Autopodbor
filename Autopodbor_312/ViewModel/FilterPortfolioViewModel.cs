@@ -10,6 +10,8 @@ namespace Autopodbor_312.ViewModel
 		public List<CarsBrands> CarsBrands { get; set; }
 		public List<CarsBrandsModel> CarsModels { get; set; }
 		public List<CarsBodyTypes> CarsBodyTypes { get; set; }
+		public IEnumerable<CarsBrandsModel> CarsBrandsModels { get; set; }
+		public IEnumerable<CarsBrands> CarsBrands1 { get; set; }
 		public PaginationList<Portfolio> Portfolios { get; set; }
 		#nullable enable
         public int? SelectedBrand { get; set; }

@@ -12,6 +12,7 @@
     .mTop {
         margin-top: 50px;
         margin-bottom: 50px;
+        height: 300px;
     }
     .aib {
         font-size: calc(100vw - 99.1vw);
