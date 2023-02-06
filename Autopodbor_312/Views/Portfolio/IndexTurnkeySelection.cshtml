@@ -13,7 +13,7 @@
 	<div class="d-flex justify-content-between form-inline my-2 mx-4 select-style">
 		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["carsBodyLabelOrderForm"] </label>
-			<select class="form-select" name="bodyType">
+			<select  class="form-select" name="bodyType">
 					@if (Model.SelectedBodyType == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
@@ -25,7 +25,8 @@
 				else
 				{
 					<option value="@Model.SelectedBodyType">@Model.SelectedBodyTypeString</option>
-					@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
+@*					<option value="0">@localizer["allFilter"]</option>
+*@					@for (int i = 0; i < Model.CarsBodyTypes.Count; i++)
 				{
 						@if (@Model.CarsBodyTypes[i].Id != @Model.SelectedBodyType)
 						{
@@ -37,50 +38,67 @@
 		</div>
 		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
-			<select class="form-select" name="brand">
+			<select onchange="GetSelectedTextValue(this)" class="form-select" id="brand" name="brand">
+				
 				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 					@for (int i = 0; i < Model.CarsBrands.Count; i++)
 					{
-						<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+						<option  data-id="@Model.CarsBrands[i].Id"  value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 					}
 				}
 				else
 				{
-					<option value="@Model.SelectedBrand">@Model.SelectedBrandString</option>
+					<option value="0">@localizer["allFilter"]</option>
+					<option  data-id="@Model.SelectedBrand" value="@Model.SelectedBrand" selected>@Model.SelectedBrandString</option>
+
 					@for (int i = 0; i < Model.CarsBrands.Count; i++)
 					{
-						@if (Model.CarsBrands[i].Id != Model.SelectedBrand)
+						if (Model.CarsBrands[i].Id != Model.SelectedBrand)
 						{
-							<option value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+							<option data-id="@Model.CarsBrands[i].Id"  value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 						}
 					}
 				}
 			</select>
 		</div>
+		
+
+		
+
 		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
-			<select class="form-select" name="model">
-				@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
+			<select  class="form-select" name="model" id="select-model">
+
+				@if (Model.SelectedBrand != null)
 				{
-					<option value="0">@localizer["allFilter"]</option>
-					@for (int i = 0; i < Model.CarsModels.Count; i++)
+					@if (Model.SelectedModelString=="")
 					{
-						<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+						<option value="0" selected>@localizer["allFilter"] </option>
 					}
-				}
-				else
-				{
-					<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
-					@for (int i = 0; i < Model.CarsModels.Count; i++)
+					else
 					{
-						@if (Model.CarsModels[i].Id != Model.SelectedModel)
+					<option value="0">@localizer["allFilter"]</option>
+					<option data-id="@Model.SelectedModel" value = "@Model.SelectedModel" selected >@Model.SelectedModelString</option>
+					}
+					
+				}
+				
+
+					@if (Model.CarsModels != null)
+					{
+
+						@foreach (var brand in Model.CarsModels)
 						{
-							<option value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
+							if (brand.Id != Model.SelectedModel)
+							{	
+								<option data-id="@brand.Id" value="@brand.Id">@brand.Model</option>
+							}
+					
 						}
 					}
-				}
+				@*}*@
 			</select>
 		</div>
 		<input type="submit" value="@localizer["filter"]" class="btn btn-default" />
@@ -126,3 +144,39 @@
 }
 <a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
 <a asp-action="IndexTurnkeySelection" asp-route-bodyType="@Model.SelectedBodyType" asp-route-brand="@Model.SelectedBrand" asp-route-model="@Model.SelectedModel" asp-route-pageIndex="@(Model.Portfolios.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+@section Scripts
+	{
+	<script>
+		let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) { 
+				selectModal.append(`<option value="0">@localizer["allFilter"]</option>`)
+				options.forEach((item) => {				
+					
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue(brand) {
+			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
+			$.ajax({
+				url: '@Url.Action("GetModelPort", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+				}
+			});
+			event.preventDefault();
+		};
+		</script>
+}

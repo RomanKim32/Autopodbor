@@ -1,7 +1,7 @@
 ﻿@model Autopodbor_312.ViewModel.CreatePortfolioViewModel
 
 @{
-    ViewData["Title"] = "Создать портфолио";
+	ViewData["Title"] = "Создать портфолио";
 }
 
 <h1 class="text-center mt-4">Добавить портфолио</h1>
@@ -80,4 +80,38 @@
     </div>
 </div>
 
+@section Scripts
+	{
+	<script>
+		let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) {
+				options.forEach((item) => {
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue(brand) {
+			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
+			$.ajax({
+				url: '@Url.Action("GetModelEditPortfolio", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+				}
+			});
+			event.preventDefault();
+		};
+	</script>
+}
 

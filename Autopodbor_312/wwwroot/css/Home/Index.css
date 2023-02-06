@@ -1,6 +1,27 @@
 ﻿.card-body {
     padding: 0;
 }
+.img-size {
+    max-width: 100%;
+    height: 420px;
+}
+.mTop{
+    height: 440px;
+}
+.btn-color {
+    background-color: #6b6b6b;
+    color: white;
+}
+.banner-second{
+    height: 700px
+
+}
+.img-fluid{
+    height: 100%;
+}
+.bd-second-card {
+    background: rgb(94 74 74 / 40%);
+}
 
 @media screen and (max-width: 2562px) {
     .banner {
@@ -10,6 +31,7 @@
     .mTop {
         margin-top: 50px;
         margin-bottom: 50px;
+        height: 300px;
     }
     .aib {
         font-size: calc(100vw - 99.1vw);
@@ -23,89 +45,188 @@
     .mTop {
         margin-top: 50px;
         margin-bottom: 50px;
+        height: 400px;
     }
     .aib {
         font-size: calc(100vw - 98.4vw);
     }
 
 }
-@media screen and (max-width: 1441px) {
-
-    .banner {
-        font-size: calc(100vw - 96.9vw);
-       
-    }
+@media screen and (max-width: 1487px) {
     .mTop {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.1vw);
-    }
-    .card {
-        border-radius: 10px;
+        height: 300px;
     }
 }
-@media screen and (max-width: 1200px) {
+    @media screen and (max-width: 1441px) {
 
-    .banner {
-        font-size: calc(100vw - 97.1vw);
-       
+        .banner {
+            font-size: calc(100vw - 96.7vw);
+        }
+
+        .mTop {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            height: 410px;
+        }
+
+        .aib {
+            font-size: calc(100vw - 98.1vw);
+        }
+
+        .card {
+            border-radius: 10px;
+        }
     }
+@media screen and (max-width: 1330px) {
     .mTop {
-        margin-top: 35px;
-        margin-bottom: 35px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.2vw);
-    }
-    .card {
-        border-radius: 0px;
+        height: 350px;
     }
 }
-@media screen and (max-width: 992px) {
 
-    .banner {
-        font-size: calc(100vw - 97.8vw);
+    @media screen and (max-width: 1200px) {
+
+        .banner {
+            font-size: calc(100vw - 96.8vw);
+        }
+
+        .img-size {
+            max-width: 100%;
+            height: 300px;
+        }
+
+        .mTop {
+            margin-top: 35px;
+            margin-bottom: 35px;
+            height: 300px;
+        }
+
+        .banner-second {
+            height: 600px;
+        }
+
+        .aib {
+            font-size: calc(100vw - 98.2vw);
+        }
+
+        .card {
+            border-radius: 0px;
+        }
     }
+
+    @media screen and (max-width: 992px) {
+
+        .banner {
+            font-size: calc(100vw - 97.8vw);
+        }
+
+        .img-size {
+            max-width: 100%;
+            height: 200px;
+        }
+
+        .mTop {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 220px;
+        }
+
+        .banner-second {
+            height: 450px;
+        }
+
+        .aib {
+            font-size: calc(100vw - 97.8vw);
+        }
+
+        .card {
+            border-radius: 0px;
+        }
+    }
+
+    @media screen and (max-width: 770px) {
+
+        .banner {
+            font-size: calc(100vw - 96.8vw)
+        }
+
+        .img-size {
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .mTop {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 450px;
+        }
+
+        .banner-second {
+            height: 450px;
+        }
+
+        .aib {
+            font-size: calc(100vw - 98.1vw)
+        }
+
+        .card {
+            border-radius: 0px;
+            /* font-size:*/
+        }
+    }
+@media screen and (max-width: 550px) {
     .mTop {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .aib {
-        font-size: calc(100vw - 97.8vw);
-    }
-    .card {
-        border-radius: 0px;
+        height: 400px;
     }
 }
-@media screen and (max-width: 770px) {
+  
 
-    .banner {
-        font-size: calc(100vw - 97.3vw)
+    @media screen and (max-width: 426px) {
+        .banner {
+            font-size: calc(100vw - 95.9vw)
+        }
+
+        .mTop {
+            height: 350px;
+        }
+
+        .banner-second {
+            height: 300px;
+        }
     }
+@media screen and (max-width: 480px) {
     .mTop {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.1vw)
-    }
-    .card {
-        border-radius: 0px;
-        /* font-size:*/
+        height: 350px;
     }
 }
+    @media screen and (max-width: 376px) {
+        .mTop {
+            height: 310px;
+        }
+    }
 
-.tool, p, h5{
-   font-weight: 700;
-   text-align: center;
-}
+    @media screen and (max-width: 321px) {
+        .banner {
+            font-size: calc(100vw - 95.1vw)
+        }
 
-.tool {
-    font-size: calc(100vw - 97.5vw);
-}
+        .mTop {
+            height: 300px;
+        }
 
-.carousel-control-prev:hover {
-    color: #c81e1e;
-}
+        .banner-second {
+            height: 200px;
+        }
+    }
+
+    .tool, p, h5 {
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .tool {
+        font-size: calc(100vw - 97.5vw);
+    }
+
+    .carousel-control-prev:hover {
+        color: #c81e1e;
+    }

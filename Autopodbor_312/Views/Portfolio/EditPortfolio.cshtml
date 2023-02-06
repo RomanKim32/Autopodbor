@@ -137,3 +137,42 @@
 	</div>
 </div>
 
+@section Scripts
+	{
+	<script>
+		$(document).ready(GetSelectedTextValue());
+		let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) {
+				options.forEach((item) => {
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue() {
+
+			let brandId = $('#brand').val();
+			
+			console.log(brandId);
+			$.ajax({
+				url: '@Url.Action("GetModelEditPortfolio", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+				}
+			});
+			//event.preventDefault();
+		};
+	</script>
+}
+
