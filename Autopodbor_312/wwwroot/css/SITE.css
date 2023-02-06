@@ -14,18 +14,13 @@ a.navbar-brand {
     cursor: pointer;
     border: solid transparent;
     display: block;
-    height: 120px;
-    width: 120px;
+    height: 75px;
+    width: 75px;
 }
 select{
     border: none;
 }
-.dropdown-toggle::after {
-    font-size: 10px;
-    content: "﹀";
-    vertical-align: 0;
-    border: none;
-}
+
     .navbar {
     padding: 0;
     background-color: #6b6b6b;
