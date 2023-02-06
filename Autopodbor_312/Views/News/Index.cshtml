@@ -6,8 +6,6 @@
 	ViewData["Title"] = @localizer["newsTitle"];
 }
 
-<body class="body">
-    <div class="container">
         <h1>@localizer["newsTitle"]</h1>       
             <div class="row justify-content-evenly">
                 @foreach (var item in Model)
@@ -38,9 +36,6 @@
         <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-outline-dark @prevDisabled">@localizer["previousButton"] </a>
         <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-outline-dark  @nextDisabled">@localizer["nextButton"]</a>
 </div>
-
-    </div>
-</body>
 
 
 
