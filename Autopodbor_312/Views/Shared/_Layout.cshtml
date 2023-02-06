@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,63 +18,69 @@
 </head>
 <body>
 	<header class ="sticky-top">
-		 <nav class="navbar navbar-expand-lg">
-    <div class="container">
-    <a  asp-controller="Home" asp-action="Index" >
-    <img src="/Files/MainPage/Лого подбора.png" class="logotype" >   
-    </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Переключатель навигации">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="menu-style collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="container navbar-nav fw-bold fs-5 d-flex justify-content-end">
-			<div class="p-2 d-flex scr">
-			  <li>
-				<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
-		      </li>
-			  <li class="nav-item dropdown fc">
-				<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					@localizer["portfolioButton"]
-				</a>
-				 <ul class=" dropdown-menu bg-drop fc  fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
-					<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
-					<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
-				 </ul>
-			  </li>
-			  <li>
-				<a class="nav-link fc"  asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
-		      </li>
-			  <li>
-				<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
-		      </li>
-			   <div class="flex-shrink-1">
-			<li class="nav-link fc p-0">
-							<partial name="_Culture" / >
-						</li>
-						</div>
-						@if (User.Identity.IsAuthenticated)
-						{
-							<li class="nav-item p-0">
-								<a class="nav-link fc" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
-							</li>
-							<li class="nav-item p-1">
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+				<div class="logo pb-0 pt-0 mt-0 mb-0">
+								<a asp-controller="Home" asp-action="Index" >
+			<img src="/Files/MainPage/Лого подбора.png" class="logotype" width="200px" height="200px" >   
+			</a>
+				</div>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Переключатель навигации">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="menu-style collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="container navbar-nav fw-bold fs-5 d-flex justify-content-end">
+					<div class="p-2 d-flex scr">
+					<li>
+						<a class="nav-link fc" asp-area="" asp-controller="Home" asp-action="Index">@localizer["mainPaigButton"]</a>
+					  </li>
+					  <li>
+						<a class="nav-link fc" asp-area="" asp-controller="News" asp-action="Index">@localizer["newsButton"]</a>
+					  </li>
+					  <li class="nav-item dropdown fc">
+						<a class="nav-link dropdown-toggle fc " href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							@localizer["portfolioButton"]
+						</a>
+						 <ul class=" dropdown-menu bg-drop fc  fw-bold" aria-labelledby="navbarDarkDropdownMenuLink">
+							<li><a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexTurnkeySelection">@localizer["portfolioTurnkeySelection"]</a></li>
+							<li>  <a class="nav-link fc" asp-controller="Portfolio" asp-action="IndexFieldInspection">@localizer["portfolioFieldInspection"]</a></li>
+						 </ul>
+					  </li>
+
+					  <li>
+						<a class="nav-link fc"  asp-area="" asp-controller="Service" asp-action="Services">@localizer["servicesButton"]</a>
+					  </li>
+					  <li>
+						<a class="nav-link fc d-flex" asp-area="" asp-controller="ContactInformations" asp-action="Index">@localizer["contactInformationButton"]</a>
+					  </li>
+					   <div class="flex-shrink-1">
+					<li class="nav-link fc p-0">
+									<partial name="_Culture" / >
+								</li>
+								</div>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<li class="nav-item p-0">
+										<a class="nav-link fc" asp-area="" asp-controller="Admin" asp-action="AdminArea">Личный Кабинет</a>
+									</li>
+									<li class="nav-item p-1">
 								
-								<form method="post" asp-controller="Admin" asp-action="LogOff">
-									<input  class="btn   fw-bold fc  p-0" type="submit" value="Выйти" />
-								</form>
-							</li>
-						}
-						else
-						{
-							<li class="nav-item">
-								<a asp-controller="Admin" asp-action="Login">Войти</a>
-							</li>
-						}
-			 </div>
-        </div>
-      </div>
-    </div>
-  </nav>
+										<form method="post" asp-controller="Admin" asp-action="LogOff">
+											<input  class="btn   fw-bold fc  p-0" type="submit" value="Выйти" />
+										</form>
+									</li>
+								}
+								else
+								{
+									<li class="nav-item">
+										<a asp-controller="Admin" asp-action="Login">Войти</a>
+									</li>
+								}
+					 </div>
+				</div>
+			  </div>
+			</div>
+			</nav>
 	</header>
 
 	<div class="container">
@@ -83,10 +90,12 @@
 	</div>
 
 	<footer class="border-top footer text-muted mt-3">
-		<div class="d-flex justify-content-center social-icons mt-1 mb-1" style="padding:0;">
+		<div class="d-flex justify-content-center social-icons mt-1 mb-0 pb-0">
 		    <div class="iconSoc"><a href="https://www.instagram.com/autopodbor.312/"> <i class="fab fa-instagram icon"></i></a></div>
             <div class="iconSoc"><a href="https://Wa.me/996558303707"><i class="fab fa-whatsapp icon"></i></a></div>
             <div class="iconSoc"><a href="https://t.me/+996558303707"><i class="fab fa-telegram icon"></i></a></div>
+			 <div class="iconSoc"><a class="link-icon" href="https://mail.ru/mgaldobin@mail.ru"><i class="fa-solid fa-envelope icon "></i> </a></div>
+			 <div class="iconSoc"><a  class="link-icon" href="tel:+996(558303707)"><i class="fa-solid fa-phone icon"></i></a></div>
 		</div>
 	</footer>
 	@RenderSection("Scripts", required: false)

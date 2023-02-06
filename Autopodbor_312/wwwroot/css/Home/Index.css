@@ -108,6 +108,7 @@
     font-size: calc(100vw - 97.5vw);
 }
 
-.carousel-control-prev:hover {
-    color: #c81e1e;
+.btn-success:hover {
+    background-color: #4d4d4d;
 }
+

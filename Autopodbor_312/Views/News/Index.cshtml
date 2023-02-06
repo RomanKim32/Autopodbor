@@ -6,44 +6,44 @@
 	ViewData["Title"] = @localizer["newsTitle"];
 }
 
-
 <body class="body">
     <div class="container">
-
-        <div class="secondBlock">
-            <div class="row">
+        <h1>@localizer["newsTitle"]</h1>       
+            <div class="row justify-content-evenly">
                 @foreach (var item in Model)
                 {
-                    <div class="allCard col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                        <div class="card border-0 rounded-5">
-                            <img src="@item.MainImagePath" class="allImg card-img-top rounded-top-5" alt="...">
+                            <div class="card col-md-2 mb-5 px-4" style="width: 27rem;">
+                            <img src="@item.MainImagePath" class="card-img-top rounded-top-5" width="100" height="260"  alt="...">
                             <div class="card-body">
                                 @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                                 {
-                                    <h2 class="card-title text-center pb-2">@item.NameRu</h2>
+                                    <h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
                                     <p class="card-text cuttedText">@item.BodyRu</p>
                                 }
                                 else
                                 {
-                                    <h2 class="card-title text-center pb-2">@item.NameKy</h2>
+                                    <h2 class="card-title text-center pb-2 fs-4">@item.NameKy</h2>
                                     <p class="card-text cuttedText">@item.BodyKy</p>
                                 }
                             </div>
-                                <a class="btn buttons btn-outline-secondary" asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+                                    <a class="btn btn-outline-dark details-button"asp-controller="News" asp-action="DetailsNews" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 
                         </div>
-                    </div>
                 }
-            </div>
         </div>
+
+<div class="paginationButtons pt-2 pb-3">
+            @{
+                var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.NextPage ? "disabled" : "";
+            }
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-outline-dark @prevDisabled">@localizer["previousButton"] </a>
+            <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-outline-dark  @nextDisabled">@localizer["nextButton"]</a>
+        </div>
+
     </div>
 </body>
-@{
-    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.NextPage ? "disabled" : "";
-}
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-default @prevDisabled">@localizer["previousButton"]</a>
-<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-default @nextDisabled">@localizer["nextButton"]</a>
+
 
 
 @section Scripts
@@ -52,7 +52,7 @@
    (function(){
   var cut = document.getElementsByClassName('cuttedText');
   for( var i = 0; i < cut.length; i++ ){
-    cut[i].innerText = cut[i].innerText.slice(0,40) + '...';
+    cut[i].innerText = cut[i].innerText.slice(0,100) + '...';
   }
 })();
 

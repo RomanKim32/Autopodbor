@@ -181,20 +181,20 @@
 				<h5 class="modal-title" id="editModalLabel">Редактирование</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body">
-				<div class="modal-body">
-					<form>
-						<p>Новое название</p>
-						<input id="newKey" required="required" />
-						<p>Новая цена</p>
-						<input id="newValue" required="required" />
-					</form>
-				</div>
+			<form role="form" action="">
+				<div class="modal-body">					
+					<p >Новое название</p>
+					<input id="newKey"  />
+					<p id="validationForNewName"></p>
+					<p Новая цена</p>
+					<input id="newValue" type="number" />
+					<p id="validationForNewPrice"></p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
 				<button type="submit" class="btn btn-primary" onclick="editParameter()">Да</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -234,7 +234,6 @@
 	};
 	let Id = '';
 
-
 	function GetId(id, nameForFillEditField, priceForFillEditField) {
 		Id = id;
 		NameForFillEditField = nameForFillEditField;
@@ -250,7 +249,7 @@
 	});
 	
 
-	function formValidations() {
+	function formValidationsForAdding() {
 	  document.getElementById("validationForName").innerHTML = "";
 	  document.getElementById("validationForPrice").innerHTML = "";
 	  let modalName = document.getElementById("key").value;
@@ -265,9 +264,24 @@
 		}	
   };
 
+	  function formValidationsForEditing() {
+	  document.getElementById("validationForNewName").innerHTML = "";
+	  document.getElementById("validationForNewPrice").innerHTML = "";
+	  let modalNewName = document.getElementById("newKey").value;
+	  let modalNewPrice = document.getElementById("newValue").value;
+		if (modalNewName == "") 
+			{
+				document.getElementById("validationForNewName").innerHTML = "*Заполните пожалуйста название";
+			}	
+		else if (modalNewPrice == "") 
+			{
+				document.getElementById("validationForNewPrice").innerHTML = "*Заполните пожалуйста цену";
+			}		
+  };
+
 	function addParameter() {
 		
-		formValidations();
+		formValidationsForAdding();
 		$.ajax({
 			url: '@Url.Action("AddParameter", "Calculator")',
 			type: 'POST',
@@ -283,12 +297,16 @@
 		event.preventDefault();			
 	};
 
-	function deleteParameter() {
+	function editParameter() {
+		
+		formValidationsForEditing();
 		$.ajax({
-			url: '@Url.Action("DeleteParameter", "Calculator")',
+			url: '@Url.Action("EditParameter", "Calculator")',
 			type: 'POST',
 			data: {
 				'id': Id,
+				'key': $("#newKey").val(),
+				'value': $("#newValue").val()
 			},
 			success: function () {
 				window.location.href = '/Calculator/EditCalculator';
@@ -297,14 +315,13 @@
 		event.preventDefault();
 	};
 
-	function editParameter() {
+
+	function deleteParameter() {
 		$.ajax({
-			url: '@Url.Action("EditParameter", "Calculator")',
+			url: '@Url.Action("DeleteParameter", "Calculator")',
 			type: 'POST',
 			data: {
 				'id': Id,
-				'key': $("#newKey").val(),
-				'value': $("#newValue").val()
 			},
 			success: function () {
 				window.location.href = '/Calculator/EditCalculator';
