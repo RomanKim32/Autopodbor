@@ -3,6 +3,29 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     font-family: "Manrope";
 }
+
+.nav-link{
+    color: white!important;
+    font-weight: bold;
+}
+
+.nav-link:focus{
+    color: black;
+}
+
+
+.dropdown-menu{
+    background: #6b6b6b;
+}
+
+.dropdown-item{
+    color: white;
+}
+
+.dropdown-item:hover{
+    background: none;
+}
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -10,22 +33,25 @@ a.navbar-brand {
 }
 
 .logotype {
-    border-radius: 50%;
     cursor: pointer;
-    border: solid transparent;
-    display: block;
-    height: 75px;
-    width: 75px;
+    height: auto;
+    width: 80px;
 }
-select{
+
+select {
+    border: none;
+    color: white;
+}
+
+.dropdown-toggle::after {
+    font-size: 10px;
+    content: "﹀";
+    vertical-align: 0;
     border: none;
 }
 
-    .navbar {
+.navbar {
     padding: 0;
-    background-color: #6b6b6b;
-}
-.bg-drop {
     background-color: #6b6b6b;
 }
 
@@ -33,49 +59,11 @@ select{
 .btn-outline {
     border-radius: 25%;
 }
-.navbar-toggler:focus {
-    box-shadow: none;
-}
-
-.navbar-toggler-icon {
-    position: relative;
-    width: 50px;
-    height: 30px;
-    display: block;
-    margin-right: 40px;
-}
-    .navbar-toggler-icon span, .navbar-toggler-icon:after, .navbar-toggler-icon:before {
-        height: 3px;
-        width: 100%;
-        position: absolute;
-        background: #fff;
-        margin: 0 auto;
-    }
-    .navbar-toggler-icon span {
-        top: 21px;
-    }
-    .navbar-toggler-icon:after, .navbar-toggler-icon:before {
-        content: '';
-    }
-    .navbar-toggler-icon:after {
-        bottom: 5px;
-    }
-    .navbar-toggler-icon:before {
-        top: 5px;
-    }
 
 
 
-.fc, a {
-    color: white;
-    font-size: 18px;
-}
-@media screen and (max-width: 992px) {
 
-    .fc, a {
-        font-size: 10px;
-    }
-}
+
 
 .nav-link:hover {
     color: black;
@@ -89,6 +77,7 @@ a {
 
     .scr {
         flex-direction: column;
+        
     }
 }
 
@@ -99,7 +88,8 @@ a {
 }
 
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     color: wheat;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -127,57 +117,44 @@ html {
     min-height: 100%;
 }
 
-body {
-    margin-bottom: 40px;
-}
 
 .footer {
     background: #6b6b6b;
+    white-space: nowrap;
+    width: 100%;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    white-space: nowrap;
+}
+
+
+.social-icons a {
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    height: 50px;
+    width: 50px;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    pointer-events: auto;
+    display: block;
+    margin: 0;
+    overflow: hidden;
     line-height: 50px;
 }
 
-.social-icons {
-    padding: 5px;
-    width: 100%;
-    color: white;
-}
-
-    .social-icons .iconSoc a {
-        display: inline-block;
-        color: white;
-        font-size: 25px;
-        height: 50px;
-        width: 50px;
-        text-decoration: none;
-        position: relative;
-        margin-bottom: 20px;
-        font-family: 'FontAwesome';
-        transition: all 0.5s ease;
-        pointer-events: auto;
-        display: block;
-        margin: 0;
-        position: relative;
-        overflow: hidden;
-        border: 1px;
-        text-align: center;
-        line-height: 50px;
-    }
 @media screen and (max-width: 992px) {
 
-    .social-icons .iconSoc a {
+    .social-icons a {
         font-size: 20px;
         height: 35px;
         width: 35px;
         line-height: 35px;
     }
 }
-    .social-icons div a:hover {
-        color: black;
-    }
+
+.social-icons a:hover {
+    color: black;
+}
 
 
 
@@ -190,8 +167,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
- Firefox 
-input[type=number] {
+Firefox input[type=number] {
     -moz-appearance: textfield;
 }
 
@@ -202,6 +178,7 @@ input[type=number] {
     margin-right: 30%;
     margin-left: 30%;
 }
+
 .callback-bt {
     background: #38a3fd;
     border-radius: 50%;
@@ -221,57 +198,57 @@ input[type=number] {
     animation: hoverWave linear 1s infinite;
 }
 
-    .callback-bt:hover {
-        background: #fff;
-        border: 2px solid #38a3fd;
-    }
+.callback-bt:hover {
+    background: #fff;
+    border: 2px solid #38a3fd;
+}
 
-    .callback-bt .text-call {
-        height: 75px;
-        width: 75px;
-        border-radius: 50%;
-        position: relative;
-    }
+.callback-bt .text-call {
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    position: relative;
+}
 
 
-    .callback-bt .text-call:after {
-            content: "\f095";
-            display: block;
-            font-family: fontawesome;
-            color: #fff;
-            font-size: 38px;
-            line-height: 75px;
-            height: 75px;
-            width: 75px;
-            opacity: 1;
-            transition: .3s ease-in-out;
-            animation: 1200ms ease 0s normal none 1 running shake;
-            animation-iteration-count: infinite;
-        }
+.callback-bt .text-call:after {
+    content: "\f095";
+    display: block;
+    font-family: fontawesome;
+    color: #fff;
+    font-size: 38px;
+    line-height: 75px;
+    height: 75px;
+    width: 75px;
+    opacity: 1;
+    transition: .3s ease-in-out;
+    animation: 1200ms ease 0s normal none 1 running shake;
+    animation-iteration-count: infinite;
+}
 
-        .callback-bt .text-call:hover:after {
-            opacity: 0;
-        }
+.callback-bt .text-call:hover:after {
+    opacity: 0;
+}
 
-        .callback-bt .text-call span {
-            color: #38a3fd;
-            display: block;
-            left: 50%;
-            top: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            font-size: 11px;
-            line-height: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            transition: .3s ease-in-out;
-            font-family: 'montserrat', Arial, Helvetica, sans-serif;
-        }
+.callback-bt .text-call span {
+    color: #38a3fd;
+    display: block;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .3s ease-in-out;
+    font-family: 'montserrat', Arial, Helvetica, sans-serif;
+}
 
-        .callback-bt .text-call:hover span {
-            opacity: 1;
-        }
+.callback-bt .text-call:hover span {
+    opacity: 1;
+}
 
 @keyframes hoverWave {
     0% {
@@ -360,6 +337,7 @@ input[type=number] {
         -webkit-transform: rotateZ(0deg);
     }
 }
+
 /* конец кнопки звонка */
 
 .test {
