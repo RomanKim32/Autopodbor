@@ -42,19 +42,24 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Марка автомобиля</label>
-                <select asp-for="Portfolio.CarsBrandsId" class="form-control">
+                <select onchange="GetSelectedTextValue(this)" asp-for="Portfolio.CarsBrandsId" id="brand" class="form-control">
+                <option value="" disabled selected hidden>Выберите марку</option>
+
                     @foreach (var body in Model.CarsBrands)
                     {
-                        <option value="@body.Id">@body.Brand</option>
+                        <option data-id="@body.Id" value="@body.Id">@body.Brand</option>
                     }
                 </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Модель автомоболя</label>
-                <select asp-for="Portfolio.CarsBrandsModelId" class="form-control">
+                <select asp-for="Portfolio.CarsBrandsModelId" class="form-control" id="select-model">
+                    @if (Model.CarsBrandsModel != null)
+					{
                     @foreach (var body in Model.CarsBrandsModel)
                     {
-                        <option value="@body.Id">@body.Model</option>
+                        <option data-id="@body.Id"  value="@body.Id">@body.Model</option>
+                    }
                     }
                 </select>
             </div>
@@ -76,4 +81,38 @@
     </div>
 </div>
 
+@section Scripts
+	{
+	<script>
+		let Id = '';
+		function GetId(id) {
+			Id = id;
+		};
+		const selectModal = $('#select-model');
+		const addOption = (options) => {
+			if (options.length > 0) {
+				options.forEach((item) => {
+					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
+				});
+				return;
+			}
+			selectModal.append('<option value="">Нет моделей</option>');
+		};
+		function GetSelectedTextValue(brand) {
+			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
+			$.ajax({
+				url: '@Url.Action("GetModelEditPortfolio", "Calculator")',
+				type: 'POST',
+				data: {
+					'brandId': brandId,
+				},
+				success: (response) => {
+					selectModal.empty();
+					addOption(response.carsBrandsModels);
+				}
+			});
+			event.preventDefault();
+		};
+	</script>
+}
 

@@ -80,7 +80,7 @@ namespace Autopodbor_312.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+       
         public IActionResult GetModel(int brandId)
         {
             var carsBrandsModel = _calculatorRepository.GetBrands(brandId);
@@ -93,6 +93,29 @@ namespace Autopodbor_312.Controllers
             return Json(calculatorViewModel);
         }
 
+        public IActionResult GetModelPort(int brandId)
+        {
+            var carsBrandsModel = _calculatorRepository.GetBrands(brandId);
+            var filterPortfolioViewModel = new FilterPortfolioViewModel
+            {
+                CarsBrandsModels = carsBrandsModel
+            };
+            var brand = _calculatorRepository.GetBrand(brandId);
+            ViewBag.Brand = brand;
+            return Json(filterPortfolioViewModel);
+        }
+
+        public IActionResult GetModelEditPortfolio(int brandId)
+        {
+            var carsBrandsModel = _calculatorRepository.GetBrands(brandId);
+            var portfolioDetailsViewModel = new PortfolioDetailsViewModel
+            {
+                CarsBrandsModels = carsBrandsModel
+            };
+            var brand = _calculatorRepository.GetBrand(brandId);
+            ViewBag.Brand = brand;
+            return Json(portfolioDetailsViewModel);
+        }
         [Authorize(Roles = "admin")]
         public IActionResult DeleteParameter(string id)
         {

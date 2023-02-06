@@ -9,5 +9,7 @@ namespace Autopodbor_312.ViewModel
         public PortfolioNewsFile MainPic { get; set; }
         public List<PortfolioNewsFile> MinorPictures { get; set; }
         public List<PortfolioNewsFile> Videos { get; set; }
+        public IEnumerable<CarsBrandsModel> CarsBrandsModels { get; set; }
+        public IEnumerable<CarsBrands> CarsBrands1 { get; set; }
     }
 }

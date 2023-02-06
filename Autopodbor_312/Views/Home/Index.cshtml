@@ -7,8 +7,8 @@
 
    <div class="mTop ">
       <div class="row  row-cols-1 row-cols-md-3 g-4 mt-2 main-block m-0">
-         <div class="col-md-6  p-0 m-0">
-            <img class="img-fluid rounded-start" src="@Model.FirstBanner.Path" alt="Photo">
+         <div class="col-md-6 p-1 m-0">
+            <img class="img-fluid img-size rounded-start" src="@Model.FirstBanner.Path" alt="Photo">
          </div>
          <div class="col-md-6 text-center p-0 m-0 ">
              <div class="card-body banner">
@@ -22,15 +22,15 @@
                     <h5 class="card-title fw-bold text-uppercase">@Model.FirstBanner.TitleKy</h5>
                     <p class="card-text">@Model.FirstBanner.DescriptionKy</p>
                 }
-                <a class="btn btn-success fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
+                <a class="btn btn-color fw-bold border border-white banner" asp-controller="Service" asp-action="Services">Заказать автоподбор</a>
              </div>
          </div>
       </div>
    </div>
 
-    <div class="card mTop text-bg-dark">
+    <div class="card banner-second text-bg-dark">
           <img class="img-fluid rounded-start" src="@Model.SecondBanner.Path" alt="Photo">
-        <div class="card-img-overlay text-center text-white p-2 position-absolute top-50 start-50 translate-middle">
+        <div class="card-img-overlay bd-second-card text-center text-white p-2 position-absolute top-50 start-50 translate-middle">
         @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
         {
                     <h5 class="card-title aib fw-bold lh-lg text-uppercase">@Model.SecondBanner.TitleRu</h5>
