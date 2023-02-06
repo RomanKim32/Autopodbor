@@ -129,4 +129,7 @@
   <data name="previousButton" xml:space="preserve">
     <value>Артка</value>
   </data>
+  <data name="п" xml:space="preserve">
+    <value />
+  </data>
 </root>

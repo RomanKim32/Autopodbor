@@ -138,6 +138,9 @@
   <data name="mainPageButton" xml:space="preserve">
     <value>Баштапкы</value>
   </data>
+  <data name="mainPaigButton" xml:space="preserve">
+    <value>Башкы баракча</value>
+  </data>
   <data name="nameLabelCallbackForm" xml:space="preserve">
     <value>Атыңыз</value>
   </data>

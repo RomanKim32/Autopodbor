@@ -138,6 +138,9 @@
   <data name="mainPageButton" xml:space="preserve">
     <value>Главная страница</value>
   </data>
+  <data name="mainPaigButton" xml:space="preserve">
+    <value>Главная</value>
+  </data>
   <data name="nameLabelCallbackForm" xml:space="preserve">
     <value>Имя</value>
   </data>

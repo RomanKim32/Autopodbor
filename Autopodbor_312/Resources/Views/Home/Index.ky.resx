@@ -120,6 +120,9 @@
   <data name="mainPageTitle" xml:space="preserve">
     <value>Баштапкы</value>
   </data>
+  <data name="mainPaigButton" xml:space="preserve">
+    <value />
+  </data>
   <data name="orderButton" xml:space="preserve">
     <value>Буйрутма берүү</value>
   </data>

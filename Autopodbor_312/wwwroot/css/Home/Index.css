@@ -1,28 +1,9 @@
 ﻿.card-body {
     padding: 0;
 }
-.img-size {
-    max-width: 100%;
-    height: 420px;
-}
-.mTop{
-    height: 440px;
-}
-.btn-color {
+.card-body a {
     background-color: #6b6b6b;
-    color: white;
 }
-.banner-second{
-    height: 700px
-
-}
-.img-fluid{
-    height: 100%;
-}
-.bd-second-card {
-    background: rgb(94 74 74 / 40%);
-}
-
 @media screen and (max-width: 2562px) {
     .banner {
         font-size: calc(100vw - 98.2vw);
@@ -226,6 +207,10 @@
     .tool {
         font-size: calc(100vw - 97.5vw);
     }
+
+.btn-success:hover {
+    background-color: #4d4d4d;
+}
 
     .carousel-control-prev:hover {
         color: #c81e1e;
