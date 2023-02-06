@@ -27,7 +27,7 @@ namespace Autopodbor_312.Controllers
 		public IActionResult News(int pageNumber = 1)
 		{
             var news = _newsRepository.GetAllNews();
-			return View(PaginationList<News>.Create(news.ToList(), pageNumber, 6));
+			return View(PaginationList<News>.Create(news.ToList(), pageNumber, 8));
 		}
 
 		[Authorize(Roles = "admin,mediaManager")]

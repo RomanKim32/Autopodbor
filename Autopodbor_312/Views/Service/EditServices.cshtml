@@ -1,20 +1,19 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Service/EditServices.css" />
-@model Autopodbor_312.Models.Services
+﻿@model Autopodbor_312.Models.Services
 
 @{
 	ViewData["Title"] = "Изменение сервиса";
 }
 
-<h1>Изменить</h1>
+<h1 class="text-center mt-3">Изменить услугу</h1>
 <hr />
-<div class="row">
-	<div class="col-md-4">
+<div class="row justify-content-evenly">
+	<div class="col-md-7">
 		<form asp-action="EditServices" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="Id" />
 			@if (Model.IsAdditional == false)
 			{
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<label asp-for="NameRu" class="control-label">Название услуги на русском</label>
 					<input asp-for="NameRu" class="form-control" readonly />
 					<span asp-validation-for="NameRu" class="text-danger"></span>
@@ -22,31 +21,31 @@
 			}
 			else
 			{
-				<div class="form-group">
+				<div class="form-group mb-3">
 					<label asp-for="NameRu" class="control-label">Название услуги на русском</label>
 					<input type="text" maxlength="40" asp-for="NameRu" class="form-control" required="required" />
 					<span asp-validation-for="NameRu" class="text-danger"></span>
 				</div>
 			}
-			<div class="form-group">
+			<div class="form-group mb-3">
 				<label asp-for="DescriptionRu" class="control-label">Описание услуги на русском</label>
 				<textarea type="text" maxlength="600" asp-for="DescriptionRu" class="form-control" required="required"></textarea>
 				<span asp-validation-for="DescriptionRu" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-3">
 				<label asp-for="NameKy" class="control-label">Название услуги на кыргызском</label>
 				<input type="text" maxlength="40"  asp-for="NameKy" class="form-control" required="required" />
 				<span asp-validation-for="NameKy" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-3">
 				<label asp-for="DescriptionKy" class="control-label">Описание услуги на кыргызском</label>
 				<textarea type="text" maxlength="600" asp-for="DescriptionKy" class="form-control" required="required"></textarea>
 				<span asp-validation-for="DescriptionKy" class="text-danger"></span>
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-3">
 				<p>Если файл не будет загружен, фото не будет изменено!</p>
 				<p>
-					<input type="file" name="servicePhotoFile" class="form-control">
+					<input type="file" name="servicePhotoFile" class="btn btn-outline-dark form-control">
 				</p>
 			</div>
 			<input type="hidden" asp-for="Photo" />
@@ -59,12 +58,12 @@
 				<input type="hidden" asp-for="IsAdditional" value="false" />
 			}
 			<div class="form-group">
-				<input type="submit" value="Сохранить" class="btn btn-primary" />
+				<input type="submit" value="Сохранить" class="btn btn-outline-dark" />
 			</div>
 		</form>
 	</div>
 </div>
 
-<div>
-	<a asp-action="ForAdminServices" asp-controller="Service">Назад</a>
+<div class="mb-3">
+	<a class="btn btn-outline-dark text-decoration-none" asp-action="ForAdminServices" asp-controller="Service">Назад</a>
 </div>

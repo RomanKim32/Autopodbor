@@ -52,8 +52,8 @@ namespace Autopodbor_312.Repositories
 			TelegramBot bot = new TelegramBot(privateInfoConfig.BotToken, privateInfoConfig.ChatId);
 			bot.SendInfo(order);
 
-/*			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
-			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");*/
+			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
+			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
 		}
 
 		public OrderViewModel CreateOrder(string serviceName)
@@ -111,8 +111,8 @@ namespace Autopodbor_312.Repositories
 			TelegramBot bot = new TelegramBot(privateInfoConfig.BotToken, privateInfoConfig.ChatId);
 			bot.SendInfo(order);
 
-/*			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
-			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");*/
+			EmailService emailService = new EmailService(privateInfoConfig.Email, privateInfoConfig.Password);
+			await emailService.SendEmailAsync($"<p>{GetOrderIfo(order)}</p>");
 		}
 
 		private StringBuilder GetOrderIfo(Orders order)

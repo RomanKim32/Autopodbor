@@ -3,15 +3,15 @@
 @model Autopodbor_312.ViewModel.CalculatorViewModel
 
 @{
-	ViewBag.Title = "Редактирование";
+	ViewBag.Title = "Редактирование калькулятора";
 }
 
-<h3>Таблица "Марки"</h3>
+<h3 class="mt-5">Таблица "Марки"</h3>
 <p>
-	<button type="button" class="btn btn-info correctFiledName"  data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
+	<button type="button" class="btn btn-outline-dark correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('brand')">Добавить марку</button>
 </p>
 <div id="CarsBrandsDiv">
-	<table class="table">
+	<table class="table table-hover table-sm table-bordered">
 		<thead>
 			<tr>
 				<th>
@@ -20,6 +20,7 @@
 				<th>
 					Цена
 				</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,10 +33,10 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
-					<td>
-							<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id', '@item.Brand',@item.Price)">Изменить</button>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
-						<a asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-info">Посмотреть все модели</a>
+					<td align="center">
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('brand-@item.Id', '@item.Brand',@item.Price)">Изменить</button>
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('brand-@item.Id')">Удалить</button>
+						<a asp-action="AllModels" asp-controller="Calculator" asp-route-brandId="@item.Id" class="btn btn-outline-dark m-1">Посмотреть все модели</a>
 
 					</td>
 				</tr>
@@ -45,12 +46,12 @@
 </div>
 
 
-<h3>Таблица "Типы кузова"</h3>
+<h3 class="mt-5">Таблица "Типы кузова"</h3>
 <p>
-	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
+	<button type="button" class="btn btn-outline-dark correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('body')">Добавить кузов</button>
 </p>
 <div id="CarsBodyTypeDiv">
-	<table class="table">
+	<table class="table table-hover table-sm table-bordered">
 		<thead>
 			<tr>
 				<th>
@@ -58,6 +59,9 @@
 				</th>
 				<th>
 					Цена
+				</th>
+				<th>
+
 				</th>
 			</tr>
 		</thead>
@@ -71,9 +75,9 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
-					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','@item.BodyType',@item.Price)">Изменить</button>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
+					<td align="center">
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('body-@item.Id','@item.BodyType',@item.Price)">Изменить</button>
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('body-@item.Id','body')">Удалить</button>
 					</td>
 				</tr>
 			}
@@ -81,12 +85,12 @@
 	</table>
 </div>
 
-<h3>Таблица "Год выпуска"</h3>
+<h3 class="mt-5">Таблица "Год выпуска"</h3>
 <p>
-	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
+	<button type="button" class="btn btn-outline-dark correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('year')">Добавить год</button>
 </p>
 <div id="CarsYearDiv">
-	<table class="table">
+	<table class="table table-hover table-sm table-bordered">
 		<thead>
 			<tr>
 				<th>
@@ -94,6 +98,9 @@
 				</th>
 				<th>
 					Цена
+				</th>
+				<th>
+
 				</th>
 			</tr>
 		</thead>
@@ -107,9 +114,9 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
-					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id', '@item.ManufacturesYear',@item.Price)">Изменить</button>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
+					<td align="center">
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('year-@item.Id', '@item.ManufacturesYear',@item.Price)">Изменить</button>
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('year-@item.Id','year')">Удалить</button>
 					</td>
 				</tr>
 			}
@@ -117,12 +124,12 @@
 	</table>
 </div>
 
-<h3>Таблица "Вид топлива"</h3>
+<h3 class="mt-5">Таблица "Вид топлива"</h3>
 <p>
-	<button type="button" class="btn btn-info correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
+	<button type="button" class="btn btn-outline-dark correctFiledName" data-bs-toggle="modal" data-bs-target="#addModal" onclick="GetName('fuel')">Добавить вид топлива</button>
 </p>
-<div id="CarsFuelDiv">
-	<table class="table">
+<div id="CarsFuelDiv" class="mb-5">
+	<table class="table table-hover table-sm table-bordered">
 		<thead>
 			<tr>
 				<th>
@@ -130,6 +137,9 @@
 				</th>
 				<th>
 					Цена
+				</th>
+				<th>
+
 				</th>
 			</tr>
 		</thead>
@@ -143,9 +153,9 @@
 					<td>
 						@Html.DisplayFor(modelItem => item.Price)
 					</td>
-					<td>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id', '@item.FuelsType',@item.Price)">Изменить</button>
-						<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
+					<td align="center">
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#editModal" onclick="GetId('fuel-@item.Id', '@item.FuelsType',@item.Price)">Изменить</button>
+						<button type="button" class="btn btn-outline-dark m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="GetId('fuel-@item.Id','fuel')">Удалить</button>
 					</td>
 				</tr>
 			}
@@ -166,8 +176,8 @@
 				Вы увервены?
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<button type="button" class="btn btn-primary" onclick="deleteParameter()">Да</button>
+				<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+				<button type="button" class="btn btn-danger" onclick="deleteParameter()">Удалить</button>
 			</div>
 		</div>
 	</div>
@@ -191,8 +201,8 @@
 					<p id="validationForNewPrice"></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-				<button type="submit" class="btn btn-primary" onclick="editParameter()">Да</button>
+				<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+				<button type="submit" class="btn btn-outline-dark" onclick="editParameter()">Сохранить изменение</button>
 			</div>
 			</form>
 		</div>
@@ -218,8 +228,8 @@
 					<p id="validationForPrice"></p>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-					<button type="submit" class="btn btn-primary" onclick="addParameter()">Добавить</button>
+					<button type="submit" class="btn btn-outline-dark" data-bs-dismiss="modal">Отмена</button>
+					<button type="submit" class="btn btn-outline-dark" onclick="addParameter()">Добавить</button>
 				</div>
 			</form>
 		</div>

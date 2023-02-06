@@ -1,4 +1,5 @@
-﻿<link type="text/css" rel="stylesheet" href="~/css/Service/Services.css" />
+﻿@using System.Threading;
+<link type="text/css" rel="stylesheet" href="~/css/Service/Services.css" />
 @model List<Autopodbor_312.Models.Services>
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer;
 @{
@@ -9,19 +10,54 @@
 
 	@foreach (var item in Model)
 	{
-		<div class="col">
+		<div class="col" style="clear: both;">
 			<div class="card">
 				<img src="@item.Photo" class="image card-img-top rounded-circle" alt="service-Photo">
 				<div class="card-body">
-					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
-                    {
+					@if (@Thread.CurrentThread.CurrentCulture.DisplayName == "Русский")
+					{
 						<h5 class="card-title">@item.NameRu</h5>
-						<p class="card-text">@item.DescriptionRu</p>
+						if (@item.NameRu == "Дополнительные услуги")
+						{
+							int indexFE = 0;
+							@foreach (var desc in item.DescriptionRu.Split('•'))
+							{
+								if (indexFE == 0)
+								{
+									<p> @desc</p>
+								}else{
+									<p>• @desc</p>
+								}
+								indexFE++;
+							}
+						}
+						else {
+							<p class="card-text">@item.DescriptionRu</p>
+						}
 					}
 					else
 					{
 						<h5 class="card-title">@item.NameKy</h5>
-						<p class="card-text">@item.DescriptionKy</p>
+						if (@item.NameRu == "Дополнительные услуги")
+						{
+							int indexFE = 0;
+							@foreach (var desc in item.DescriptionKy.Split('•'))
+							{
+								if (indexFE == 0)
+								{
+									<p> @desc</p>
+								}
+								else
+								{
+									<p>• @desc</p>
+								}
+								indexFE++;
+							}
+						}
+						else
+						{
+							<p class="card-text">@item.DescriptionKy</p>
+						}
 					}
 
 					@if (@item.NameRu != "Дополнительные услуги")
