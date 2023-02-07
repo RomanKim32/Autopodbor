@@ -159,7 +159,8 @@
    (function(){
   var cut = document.getElementsByClassName('cuttedText');
   for( var i = 0; i < cut.length; i++ ){
-    cut[i].innerText = cut[i].innerText.slice(0,40) + '...';
+	  console.log('qwewqe');
+    cut[i].innerText = cut[i].innerText.slice(0,10) + '...';
   }
 })();
 
@@ -180,8 +181,8 @@ function Filter() {
 		function GetId(id) {
 			Id = id;
 		};
-		const selectModal = $('#select-model');
-		const addOption = (options) => {
+		selectModal = $('#select-model');
+		addOption = (options) => {
 			if (options.length > 0) { 
 				options.forEach((item) => {				
 					console.log(item.model)
@@ -191,6 +192,8 @@ function Filter() {
 			}
 			selectModal.append('<option value="">Нет моделей</option>');
 		};
+
+
 		function GetSelectedTextValue(brand) {
 			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
 			$.ajax({
@@ -205,6 +208,6 @@ function Filter() {
 				}
 			});
 			event.preventDefault();
-		};
+			};
     </script>
 }
