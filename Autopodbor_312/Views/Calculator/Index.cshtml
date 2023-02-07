@@ -6,14 +6,14 @@
 	ViewBag.Title = @localizer["calculatorTitle"];
 }
 
-<h1 class="text-center mt-3">@localizer["titleDescription"] </h1>
+<h1 class="text-center mt-4 mb-3">@localizer["titleDescription"] </h1>
 
 
-<div class="row justify-content-center mb-5 mt-3">
-	<div class="col-md-6 text-center bg-color p-4">
+<div class="row justify-content-center">
+	<div class="col-7 text-center bg-color">
 		<form>
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
+			<div class="form-group mb-2 mt-2">
 				<label class="control-label text-style">@localizer["brandLabelOrderForm"]</label>
 				<select onchange="GetSelectedTextValue(this)" class="form-control form-style" id="brand">
 					<option value="" disabled selected hidden>@localizer["brandOptionOrderForm"]</option>
@@ -22,9 +22,10 @@
 						<option data-id="@brand.Id" value="@brand.Price">@brand.Brand</option>
 					}
 				</select>
+				<p id="validBrand" class="mb-0" style="color:red; font-size:13px"></p>
 			</div>
-			<div id="validBrand"></div>
-			<div class="form-group">
+			
+			<div class="form-group mb-2">
 				<label class="control-label text-style">@localizer["modelLabel"]</label>
 				<select class="form-control form-style" id="select-model">
 					<option value="" disabled selected hidden>@localizer["modelOptionOrderForm"]</option>
@@ -36,9 +37,10 @@
 						}
 					}
 				</select>
+				<p id="validModel" class="mb-0" style="color:red; font-size:13px"></p>
 			</div>
-			<div id="validModel"></div>
-			<div class="form-group">
+
+			<div class="form-group mb-2">
 				<label class="control-label text-style">@localizer["bodyTypeLabel"]</label>
 				<select class="form-control form-style" id="body">
 					<option value="" disabled selected hidden>@localizer["bodyOptionOrderForm"]</option>
@@ -47,9 +49,10 @@
 						<option value="@body.Price">@body.BodyType</option>
 					}
 				</select>
+				<p id="validBody" class="mb-0" style="color:red; font-size:13px"></p>
 			</div>
-			<div id="validBody"></div>
-			<div class="form-group">
+			
+			<div class="form-group mb-2">
 				<label class="control-label text-style">@localizer["manufacturesYearLabel"]</label>
 				<select class="form-control form-style" id="year">
 					<option value="" disabled selected hidden>@localizer["yearOptionOrderForm"]</option>
@@ -58,8 +61,9 @@
 						<option value="@year.Price">@year.ManufacturesYear</option>
 					}
 				</select>
+				<p id="validYear" class="mb-0" style="color:red; font-size:13px"></p>
 			</div>
-			<div id="validYear"></div>
+		
 			<div class="form-group">
 				<label class="control-label text-style">@localizer["fuelsTypeLabel"]</label>
 				<select class="form-control form-style" id="fuel">
@@ -69,12 +73,12 @@
 						<option value="@fuel.Price">@fuel.FuelsType</option>
 					}
 				</select>
+				<p id="validFuel" class="mb-0" style="color:red; font-size:13px"></p>
 			</div>
-			<div id="validFuel"></div>
+		
 			<div class="form-group">
 				<input type="submit" value="@localizer["calculateButton"]" class="btn btnStyle mt-4" onclick="Calculate()" />
-				<div class="result-sum"
-				id="sum">
+				<div class="result-sum" id="sum">
                </div>
 			</div>
 		</form>
@@ -121,35 +125,49 @@
 			event.preventDefault();
 			let isValid=true;
 			let brand = $("#brand").val();
+			console.log(brand);
 			let body = $("#body").val();
+			console.log(body);
 			let year = $("#year").val();
+			console.log(year);
 			let fuel = $("#fuel").val();
+			console.log(fuel);
 			let model = $("#select-model").val();
+			console.log(model);
 			if (brand === null) {
-				document.getElementById("validBrand").innerHTML = `<p style="color : red;">@localizer["validBrand"]<p>`;
+				document.getElementById("validBrand").innerHTML = `*@localizer["validBrand"]`;
 				isValid = false;
+			}else{
+				document.getElementById("validBrand").innerHTML = ``;
 			};
 			if (body === null) {
-				document.getElementById("validBody").innerHTML = `<p style="color : red;">@localizer["validBody"]<p>`;
+				document.getElementById("validBody").innerHTML = `*@localizer["validBody"]`;
 				isValid = false;
+			} else {
+				document.getElementById("validBody").innerHTML = ``;
 			};
 			if (year === null) {
-				document.getElementById("validYear").innerHTML = `<p style="color : red;">@localizer["validYear"]<p>`;
+				document.getElementById("validYear").innerHTML = `*@localizer["validYear"]`;
 				isValid = false;
+			} else {
+				document.getElementById("validYear").innerHTML = ``;
 			};
 			if (fuel === null) {
-				document.getElementById("validFuel").innerHTML = `<p style="color : red;">@localizer["validFuel"]<p>`;
+				document.getElementById("validFuel").innerHTML = `*@localizer["validFuel"]`;
 				isValid = false;
+			} else {
+				document.getElementById("validFuel").innerHTML = ``;
 			};
 			if (model === null) {
-				document.getElementById("validModel").innerHTML = `<p style="color : red;">@localizer["validModel"]<p>`;
+				document.getElementById("validModel").innerHTML = `*@localizer["validModel"]`;
 				isValid = false;
+			} else {
+				document.getElementById("validModel").innerHTML = ``;
 			};
 			if(isValid===false){
 				return;
 			}
 			let sum = Number(brand) + Number(body) + Number(year) + Number(fuel) + Number(model);
-
 			document.getElementById('sum').innerHTML = `${sum}`;
 		};
 	</script>
