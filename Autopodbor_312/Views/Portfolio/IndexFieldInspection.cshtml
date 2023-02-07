@@ -75,41 +75,34 @@
 					{
 					<option value="0">@localizer["allFilter"]</option>
 					<option data-id="@Model.SelectedModel" value = "@Model.SelectedModel" selected >@Model.SelectedModelString</option>
-					}
-					
-				}
-				
-
-					@if (Model.CarsModels != null)
+					}				
+				}				
+				@if (Model.CarsModels != null)
+				{
+					@foreach (var brand in Model.CarsModels)
 					{
-
-						@foreach (var brand in Model.CarsModels)
-						{
-							if (brand.Id != Model.SelectedModel)
-							{	
-								<option data-id="@brand.Id" value="@brand.Id">@brand.Model</option>
-							}
-					
-						}
+						if (brand.Id != Model.SelectedModel)
+						{	
+							<option data-id="@brand.Id" value="@brand.Id">@brand.Model</option>
+						}				
 					}
-				@*}*@
+				}				
 			</select>
 		</div>
 		<input type="submit" value="@localizer["filter"]" class="btn btn-style" />
 	</div>
 </form>
-
         <div class="secondBlock">
 			<div class="row justify-content-evenly filter-block">
                 @foreach (var item in Model.Portfolios)
                 {
 				<div class="card col-md-2 mb-5 px-4" style="width: 27rem;">
-							<img src="@item.MainImagePath" class="card-img-top rounded-top-5" width="100" height="260" alt="MainImagePath">
-                    <div class="card-body">
+				<img src="@item.MainImagePath" class="card-img-top rounded-top-5" width="100" height="260" alt="MainImagePath">
+                <div class="card-body">
 					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                         {
 							<p class="text-end">@item.CreatedDate</p>
-									<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
+							<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
                             <p class="card-text cuttedText">@item.BodyRu</p>									
                         }
                     else
@@ -118,13 +111,12 @@
 							<p class="card-text cuttedText">@item.BodyKy</p>
 							<p class="text-end">@item.CreatedDate</p>
 						}
-                    </div>
+                </div>
 							<a class="btn btn-outline-dark details-button" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-            </div>
+						</div>
                 }
             </div>
         </div>
-
 <div class="paginationButtons pt-2 pb-3">
 	@{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
@@ -142,8 +134,7 @@
    (function(){
   var cut = document.getElementsByClassName('cuttedText');
   for( var i = 0; i < cut.length; i++ ){
-	  console.log('qwewqe');
-    cut[i].innerText = cut[i].innerText.slice(0,10) + '...';
+    cut[i].innerText = cut[i].innerText.slice(0,100) + '...';
   }
 })();
 
@@ -155,16 +146,13 @@ let Id = '';
 		addOption = (options) => {
 			if (options.length > 0) { 
 				selectModal.append(`<option value="0">@localizer["allFilter"]</option>`)
-				options.forEach((item) => {				
-					
+				options.forEach((item) => {								
 					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
 				});
 				return;
 			}
 			selectModal.append('<option value="">Нет моделей</option>');
 		};
-
-
 		function GetSelectedTextValue(brand) {
 			let brandId = brand.options[brand.selectedIndex].getAttribute('data-id');
 			$.ajax({
