@@ -1,118 +1,48 @@
-﻿.card-body {
-    padding: 0;
-}
-.card-body a {
-    background-color: #6b6b6b;
-}
-@media screen and (max-width: 2562px) {
-    .banner {
-        font-size: calc(100vw - 98.2vw);
-        
-    }
-    .mTop {
-        margin-top: 50px;
-        margin-bottom: 50px;
-        height: 300px;
-    }
-    .aib {
-        font-size: calc(100vw - 99.1vw);
-    }
-}
-@media screen and (max-width: 1600px) {
-
-    .banner {
-        font-size: calc(100vw - 96.9vw);
-    }
-    .mTop {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.4vw);
-    }
-
-}
-@media screen and (max-width: 1441px) {
-
-    .banner {
-        font-size: calc(100vw - 96.9vw);
-       
-    }
-    .mTop {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.1vw);
-    }
-    .card {
-        border-radius: 10px;
-    }
-}
-@media screen and (max-width: 1200px) {
-
-    .banner {
-        font-size: calc(100vw - 97.1vw);
-       
-    }
-    .mTop {
-        margin-top: 35px;
-        margin-bottom: 35px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.2vw);
-    }
-    .card {
-        border-radius: 0px;
-    }
-}
-@media screen and (max-width: 992px) {
-
-    .banner {
-        font-size: calc(100vw - 97.8vw);
-    }
-    .mTop {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .aib {
-        font-size: calc(100vw - 97.8vw);
-    }
-    .card {
-        border-radius: 0px;
-    }
-}
-@media screen and (max-width: 770px) {
-
-    .banner {
-        font-size: calc(100vw - 97.3vw)
-    }
-    .mTop {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .aib {
-        font-size: calc(100vw - 98.1vw)
-    }
-    .card {
-        border-radius: 0px;
-        /* font-size:*/
-    }
+﻿.banner-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
 }
 
-.tool, p, h5{
-   font-weight: 700;
-   text-align: center;
+.banner-title {
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
-.tool {
-    font-size: calc(100vw - 97.5vw);
+.banner-body .btn {
+    font-weight: 700;
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    background-color: #cb1236;
+    color: white;
+    padding: 10px 15px;
 }
 
-.btn-success:hover {
-    background-color: #4d4d4d;
+
+.about-body {
+    width: 70%;
+    padding: 2%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: white;
+    background-color: rgb(74 74 74 / 40%);
+    text-align: center;
+    font-size: calc(0.25rem + 1.5vw);
 }
 
-.seconBanner {
-    background: rgb(94 74 74 / 40%);
+.carousel-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
+
+.carousel-inner {
+    min-height: 250px;
+    max-height: 50vw;
+}
+
