@@ -34,99 +34,75 @@
 				}			
 			</select>
 		</div>
-		<div class="d-flex ms-3 col-style" >
+		<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["brandLabelOrderForm"] </label>
 			<select onchange="GetSelectedTextValue(this)" class="form-select" id="brand" name="brand">
+				
 				@if (Model.SelectedBrand == 0 || Model.SelectedModel == null)
 				{
 					<option value="0">@localizer["allFilter"]</option>
 					@for (int i = 0; i < Model.CarsBrands.Count; i++)
 					{
-						<option data-id="@Model.CarsBrands[i].Id" value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
+						<option  data-id="@Model.CarsBrands[i].Id"  value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 					}
 				}
 				else
 				{
-					<option value="@Model.SelectedBrand">@Model.SelectedBrandString</option>
+					<option value="0">@localizer["allFilter"]</option>
+					<option  data-id="@Model.SelectedBrand" value="@Model.SelectedBrand" selected>@Model.SelectedBrandString</option>
+
 					@for (int i = 0; i < Model.CarsBrands.Count; i++)
 					{
-						@if (Model.CarsBrands[i].Id != Model.SelectedBrand)
+						if (Model.CarsBrands[i].Id != Model.SelectedBrand)
 						{
 							<option data-id="@Model.CarsBrands[i].Id"  value="@Model.CarsBrands[i].Id">@Model.CarsBrands[i].Brand</option>
 						}
 					}
-				}				
+				}
 			</select>
 		</div>
-		<div class="d-flex ms-3 col-style">
+			<div class="d-flex ms-3 col-style">
 			<label class="control-label">@localizer["modelLabelOrderForm"]  </label>
-			<select class="form-select" id="select-model" name="model">
-			<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
+			<select  class="form-select" name="model" id="select-model">
 
-
-				<option value="0">@localizer["allFilter"]</option>
-					@if (Model.CarsBrandsModels != null)
-					{
-						@foreach (var brand in Model.CarsBrandsModels)
-						{
-							
-							
-							<option data-id="@brand.Id" >@brand.Model</option>
-							
-						}
-						}
-				@*@if (Model.SelectedModel == 0 || Model.SelectedModel == null)
+				@if (Model.SelectedBrand != null)
 				{
+					@if (Model.SelectedModelString=="")
+					{
+						<option value="0" selected>@localizer["allFilter"] </option>
+					}
+					else
+					{
 					<option value="0">@localizer["allFilter"]</option>
-					@if (Model.CarsBrandsModels != null)
-					{
-						@foreach (var brand in Model.CarsBrandsModels)
-						{
-							
-							@for (int i = 0; i < Model.CarsModels.Count; i++)
-							{
-								<option data-id="@brand.Id" value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
-							}
-						}
-						}
-			    }
-
-				
-				else
+					<option data-id="@Model.SelectedModel" value = "@Model.SelectedModel" selected >@Model.SelectedModelString</option>
+					}				
+				}				
+				@if (Model.CarsModels != null)
 				{
-					<option value="@Model.SelectedModel">@Model.SelectedModelString</option>
-					@if (Model.CarsBrandsModels != null)
+					@foreach (var brand in Model.CarsModels)
 					{
-					@foreach (var brand in Model.CarsBrandsModels)
-						{
-					@for (int i = 0; i < Model.CarsModels.Count; i++)
-					{
-						@if (Model.CarsModels[i].Id != Model.SelectedModel)
-						{
-							<option data-id="@brand.Id" value="@Model.CarsModels[i].Id">@Model.CarsModels[i].Model</option>
-						}
+						if (brand.Id != Model.SelectedModel)
+						{	
+							<option data-id="@brand.Id" value="@brand.Id">@brand.Model</option>
+						}				
 					}
-						}
-					}
-				}
-*@
+				}				
 			</select>
 		</div>
 		<input type="submit" value="@localizer["filter"]" class="btn btn-style" />
 	</div>
 </form>
-
         <div class="secondBlock">
 			<div class="row justify-content-evenly filter-block">
                 @foreach (var item in Model.Portfolios)
                 {
 				<div class="card col-md-2 mb-5 px-4" style="width: 27rem;">
-							<img src="@item.MainImagePath" class="card-img-top rounded-top-5" width="100" height="260" alt="MainImagePath">
-                    <div class="card-body">
+				<img src="@item.MainImagePath" class="card-img-top rounded-top-5" width="100" height="260" alt="MainImagePath">
+                <div class="card-body">
 					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                         {
 							<p class="text-end">@item.CreatedDate</p>
-									<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
+							<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
                             <p class="card-text cuttedText">@item.BodyRu</p>									
                         }
                     else
@@ -135,13 +111,12 @@
 							<p class="card-text cuttedText">@item.BodyKy</p>
 							<p class="text-end">@item.CreatedDate</p>
 						}
-                    </div>
+                </div>
 							<a class="btn btn-outline-dark details-button" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
-            </div>
+						</div>
                 }
             </div>
         </div>
-
 <div class="paginationButtons pt-2 pb-3">
 	@{
 	var prevDisabled = !Model.Portfolios.PreviousPage ? "disabled" : "";
@@ -159,32 +134,19 @@
    (function(){
   var cut = document.getElementsByClassName('cuttedText');
   for( var i = 0; i < cut.length; i++ ){
-    cut[i].innerText = cut[i].innerText.slice(0,40) + '...';
+    cut[i].innerText = cut[i].innerText.slice(0,100) + '...';
   }
 })();
 
-function Filter() {
-			const selectModal = $('#select-model');
-		const addOption = (options) => {
-			if (options.length > 0) { 
-				options.forEach((item) => {				
-					console.log(item.model)
-					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
-				});
-				return;
-			}
-			selectModal.append('<option value="">Нет моделей</option>');
-		};
-
-        let Id = '';
+let Id = '';
 		function GetId(id) {
 			Id = id;
 		};
-		const selectModal = $('#select-model');
-		const addOption = (options) => {
+		selectModal = $('#select-model');
+		addOption = (options) => {
 			if (options.length > 0) { 
-				options.forEach((item) => {				
-					console.log(item.model)
+				selectModal.append(`<option value="0">@localizer["allFilter"]</option>`)
+				options.forEach((item) => {								
 					selectModal.append(`<option value="${item.id}">${item.model}</option>`)
 				});
 				return;
@@ -205,6 +167,6 @@ function Filter() {
 				}
 			});
 			event.preventDefault();
-		};
+			};
     </script>
 }

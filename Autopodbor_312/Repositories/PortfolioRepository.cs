@@ -366,7 +366,7 @@ namespace Autopodbor_312.Repositories
             var portfoliosList = portfolios.ToList();
             var fpvm = new FilterPortfolioViewModel
             {
-                Portfolios = PaginationList<Portfolio>.Create(portfoliosList, pageNumber, 5),
+                Portfolios = PaginationList<Portfolio>.Create(portfoliosList, pageNumber, 6),
                 CarsBodyTypes = carsBodyTypes,
                 CarsBrands = carsBrands,
                 CarsModels = carsBrandsModels,
