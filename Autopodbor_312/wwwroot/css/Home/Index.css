@@ -46,3 +46,12 @@
     max-height: 50vw;
 }
 
+.orderButton {
+    transition: transform .2s;
+}
+
+.orderButton:hover {
+    -ms-transform: scale(1.2);  
+    -webkit-transform: scale(1.2);  
+    transform: scale(1.2);
+}

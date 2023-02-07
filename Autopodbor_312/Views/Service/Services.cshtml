@@ -5,7 +5,7 @@
 @{
 	ViewData["Title"] = @localizer["servicesTitle"];
 }
-<h1>@localizer["ourServices"]</h1>
+<h1 class="py-4">@localizer["ourServices"]</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4 mt-1 main-block">
 
 	@foreach (var item in Model)
@@ -62,15 +62,15 @@
 
 					@if (@item.NameRu != "Дополнительные услуги")
 					{
-								<a class="btn btn-primary" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu">@localizer["orderButton"]</a>
+						<a class="btn btn-outline-dark" asp-controller="Order" asp-action="CreateOrder" asp-route-serviceName="@item.NameRu">@localizer["orderButton"]</a>
 					}
 					else if (@item.NameRu == "Дополнительные услуги")
 					{
-								<a class="btn btn-primary" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
+						<a class="btn btn-outline-dark" asp-action="AdditionalServicesDetails" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
 					}
 					@if (@item.NameRu == "Выездной осмотр")
 					{
-						<a class="btn btn-primary" asp-controller="Calculator" asp-action="Index">@localizer["calcButton"]</a>
+						<a class="btn btn-outline-dark" asp-controller="Calculator" asp-action="Index">@localizer["calcButton"]</a>
 					}
 				</div>
 			</div>

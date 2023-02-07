@@ -35,6 +35,12 @@ h1 {
 .cuttedText {
     font-size: 20px;
     text-align: center;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .card-body {
@@ -43,5 +49,10 @@ h1 {
 }
 
 .filter-block {
-    margin-top: 150px;
+    margin-top: 70px;
+}
+
+
+.cuttedText {
+    
 }
