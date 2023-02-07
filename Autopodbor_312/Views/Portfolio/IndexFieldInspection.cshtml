@@ -101,15 +101,13 @@
                 <div class="card-body">
 					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                         {
-							<p class="text-end">@item.CreatedDate</p>
 							<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameRu</h2>
                             <p class="card-text cuttedText">@item.BodyRu</p>									
                         }
                     else
 						{
-							<h2 class="card-title text-center pb-2">@item.NameKy</h2>
+							<h2 class="card-title text-center pb-2 fs-4 fw-bold">@item.NameKy</h2>
 							<p class="card-text cuttedText">@item.BodyKy</p>
-							<p class="text-end">@item.CreatedDate</p>
 						}
                 </div>
 							<a class="btn btn-outline-dark details-button" asp-controller="Portfolio" asp-action="DetailsPortfolio" asp-route-id="@item.Id">@localizer["detailsButton"]</a>
@@ -131,14 +129,7 @@
 @section Scripts
 	{
     <script>
-   (function(){
-  var cut = document.getElementsByClassName('cuttedText');
-  for( var i = 0; i < cut.length; i++ ){
-    cut[i].innerText = cut[i].innerText.slice(0,100) + '...';
-  }
-})();
-
-let Id = '';
+		let Id = '';
 		function GetId(id) {
 			Id = id;
 		};
