@@ -4,93 +4,69 @@
 @{
     ViewData["Title"] = @localizer["mainPageTitle"];
 }
-   <div class="mTop ">
-      <div class="row  row-cols-1 row-cols-md-3 g-4 mt-2 main-block m-0">
-         <div class="col-md-6 p-1 m-0">
-            <img class="img-fluid img-size rounded-start" src="@Model.FirstBanner.Path" alt="Photo">
-         </div>
-         <div class="col-md-6 text-center p-0 m-0 ">
-             <div class="card-body banner">
-                @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
-                {
-                    <p class="card-title fw-bold text-uppercase">@Model.FirstBanner.TitleRu</p>
-                    <p class="card-text">@Model.FirstBanner.DescriptionRu</p>
-                }
-                else
-                {
-                    <h5 class="card-title fw-bold text-uppercase">@Model.FirstBanner.TitleKy</h5>
-                    <p class="card-text">@Model.FirstBanner.DescriptionKy</p>
-                }
-                <a class="btn btn-success fw-bold border border-white banner" asp-controller="Service" asp-action="Services">@localizer["orderButton"]</a>
-             </div>
-         </div>
-      </div>
-   </div>
+<div class="row row-cols-1 row-cols-md-2 mb-3">
+    <div class="col">
+        <img class="img-fluid" src="@Model.FirstBanner.Path" alt="@Model.FirstBanner.TitleRu">
+    </div>
+    <div class="col banner-body">
+        @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+        {
+            <h2 class="banner-title display-5 text-center">@Model.FirstBanner.TitleRu</h2>
+            <p class="fs-4 text-center">@Model.FirstBanner.DescriptionRu</p>
+        }
+        else
+        {
+            <h5 class="banner-title display-5 text-center">@Model.FirstBanner.TitleKy</h5>
+            <p class="fs-4 text-center">@Model.FirstBanner.DescriptionKy</p>
+        }
+        <a class="btn" asp-controller="Service" asp-action="Services">@localizer["orderButton"]</a>
+    </div>
+</div>
 
-    <div class="card mTop text-bg-dark">
-          <img class="img-fluid rounded-start" src="@Model.SecondBanner.Path" alt="Photo">
-        <div class="card-img-overlay text-center text-white p-2 position-absolute top-50 start-50 translate-middle seconBanner">
+<div class="position-relative mb-3">
+    <img class="w-100 h-auto" src="@Model.SecondBanner.Path" alt="Photo">
+    <div class="about-body">
         @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
         {
-                    <h5 class="card-title aib fw-bold lh-lg text-uppercase">@Model.SecondBanner.TitleRu</h5>
-                    <p class="card-text aib fw-bold">@Model.SecondBanner.DescriptionRu</p>
-                }else
-                {
-                    <h5 class="card-title fs-4 fw-bold lh-lg text-uppercase">@Model.SecondBanner.TitleKy</h5>
-                    <p class="card-text fw-bold">@Model.SecondBanner.DescriptionKy</p>
-                }
-        </div>
+            <h3>@Model.SecondBanner.TitleRu</h3>
+            <p>@Model.SecondBanner.DescriptionRu</p>
+        }else{
+            <h5>@Model.SecondBanner.TitleKy</h5>
+            <p>@Model.SecondBanner.DescriptionKy</p>
+        }
     </div>
+</div>
 
-   <div id="photosCarousel" class="carousel mTop  slide" data-bs-ride="carousel">
-       <div class="carousel-inner">
-            @for (int j = 0; j < Model.ThirdBanner.Count(); j++){
-                 @if (j == 0){
-                      <div class="carousel-item active">
-                            <div class="row">
-                                 <img class="d-block col-md-6" src="@Model.ThirdBanner[j].Path" alt="Photo">
-                                <div class="col-md-6 tool">
+
+<div id="photosCarousel" class="carousel mTop  slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @for (int j = 0; j < Model.ThirdBanner.Count(); j++)
+        {
+            <div class="carousel-item @(j==0 ? "active" : "")">
+                <div class="row row-cols-2">
+                        <img class="d-block col" src="@Model.ThirdBanner[j].Path" alt="Photo">
+                        <div class="col carousel-body">
                             @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
                             {
-                                           <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleRu</p>
-                                           <h5 class="tool">@Model.ThirdBanner[j].DescriptionRu</h5>
-                                          }
-                                      else
-                                         {
-                                           <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleKy</p>
-                                           <h5 class="tool">@Model.ThirdBanner[j].DescriptionKy</h5>
-                                         }
-                                 </div> 
-                            </div>   
-                       </div>
-                              }
-                   else{
-                      <div class="carousel-item">
-                          <div class="row">
-                              <img class="d-block col-md-6" src="@Model.ThirdBanner[j].Path" alt="Photo">
-                             <div class="col-md-6 tool">
-                            @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
+                                <h3 class="fs-2 text-uppercase">@Model.ThirdBanner[j].TitleRu</h3>
+                                <p class="fs-6">@Model.ThirdBanner[j].DescriptionRu</p>
+                            }
+                            else
                             {
-                                        <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleRu</p>
-                                        <h5 class="tool">@Model.ThirdBanner[j].DescriptionRu</h5>
-                                    }
-                                    else
-                                    {
-                                         <p class="tool text-uppercase">@Model.ThirdBanner[j].TitleKy</p>
-                                        <h5 class="tool">@Model.ThirdBanner[j].DescriptionKy</h5>
-                                    }
-                               </div> 
-                          </div>   
-                      </div>
-                         }
-                    }
-      </div>
-           <button class="carousel-control-prev" type="button" data-bs-target="#photosCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-           </button>
-           <button class="carousel-control-next" type="button" data-bs-target="#photosCarousel" data-bs-slide="next">
-             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-             <span class="visually-hidden">Next</span>
-           </button>
-  </div>
+                                <h3 class="fs-2 text-uppercase">@Model.ThirdBanner[j].TitleKy</h3>
+                                <p class="fs-6">@Model.ThirdBanner[j].DescriptionKy</p>
+                            }
+                        </div>
+                    </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#photosCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#photosCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
