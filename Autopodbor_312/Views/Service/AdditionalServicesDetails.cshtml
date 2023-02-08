@@ -39,7 +39,7 @@ else
 					</div>
 					@if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "ru")
 					{
-						<a onclick="ToOpenModal('@item.NameRu')" class="btn btnOrder mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
+												<a onclick="ToOpenModal('@item.NameRu')" class="btnOrder mb-2 btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#AdditionalModal">@localizer["additionalOrderButton"]</a>
 					}
 					else
 					{
@@ -48,14 +48,11 @@ else
 				</div>
 			</div>
 		}
-
 	</div>
-
 }
-<div class="mb-2">
-	<a class="btn btn-outline-success" asp-action="Services">@localizer["additionalBackButton"]</a>
+<div class=" pt-2 pb-3 mt-5 mb-5 paginationButtons text-center">
+	<a class="btn btn-outline-dark" asp-action="Services">@localizer["additionalBackButton"]</a>
 </div>
-
 
 <!-- AdditionalModal -->
 <div class="modal fade" id="AdditionalModal" tabindex="-1" aria-labelledby="AdditionalModalLabel" aria-hidden="true">
@@ -86,7 +83,7 @@ else
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btnModal mb-2 btn-success">@localizer["orderButton"]</button>
+					<button type="submit" class="btn btn-outline-dark btnModal mb-2 ">@localizer["orderButton"]</button>
 				</div>
 			</form>
 		</div>
@@ -143,10 +140,8 @@ else
 
 			});
 		});
-
 		function ToOpenModal(name) {
 			$('#AdditionalModalLabel').text(name);
 		};
-
 	</script>
 }
