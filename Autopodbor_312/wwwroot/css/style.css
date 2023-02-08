@@ -2,117 +2,127 @@
 for details on configuring this project to bundle and minify static web assets. */
 body {
     font-family: 'Manrope', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .nav-link{
-    color: white!important;
-    font-weight: bold;
+color: white!important;
+font-weight: bold;
 }
 
-    .nav-link:focus {
-        color: black;
-    }
+.nav-link:focus {
+    color: black;
+}
 
 .dropdown-menu{
-    background: #6b6b6b;
+background: #6b6b6b;
 }
 
 .dropdown-item{
-    color: white;
+color: white;
 }
 
 .dropdown-item:hover{
-    background: none;
+background: none;
 }
 
 a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
+white-space: normal;
+text-align: center;
+word-break: break-all;
 }
 
 .logotype {
-    cursor: pointer;
-    height: auto;
-    width: 80px;
+cursor: pointer;
+height: auto;
+width: 80px;
 }
 
 select {
-    border: none;
-    color: white;
+border: none;
+color: white;
+    
+}
+
+select:hover{
+    color: black;
+}
+
+
+.dropdown-toggle::after {
+font-size: 10px;
+content: "﹀";
+vertical-align: 0;
+border: none;
 }
 
 .navbar {
-    padding: 0;
-    background-color: #6b6b6b;
+padding: 0;
+background-color: #6b6b6b;
 }
 
 
 .btn-outline {
-    border-radius: 25%;
+border-radius: 25%;
 }
 
 
 
 
 .nav-link:hover {
-    color: black !important;
+color: black !important;
 }
 
 a {
-    color: #0366d6;
+color: #0366d6;
 }
 
 @media screen and (max-width: 992px) {
 
-    .scr {
-        flex-direction: column;
-        
-    }
+.scr {
+    flex-direction: column;
+    
+}
 }
 
 .btn-primary {
-    color: wheat;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+color: wheat;
+background-color: #1b6ec2;
+border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    color: wheat;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+color: wheat;
+background-color: #1b6ec2;
+border-color: #1861ac;
 }
 
 .border-top {
-    border-top: 1px solid #e5e5e5;
+border-top: 1px solid #e5e5e5;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #e5e5e5;
+border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
+font-size: 1rem;
+line-height: inherit;
 }
 
-html {
-    position: relative;
-    min-height: 100%;
-}
 
 
 .footer {
+    margin-top: auto;
     background: #6b6b6b;
-    white-space: nowrap;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
+
 }
 
 
@@ -333,4 +343,10 @@ Firefox input[type=number] {
     font-size: 150px;
     color: red;
     background-color: blue;
+}
+
+.privacy {
+    color: white;
+    text-decoration: none;
+    text-align: center;
 }
