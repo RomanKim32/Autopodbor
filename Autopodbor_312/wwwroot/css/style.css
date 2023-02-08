@@ -42,13 +42,6 @@ select {
     color: white;
 }
 
-.dropdown-toggle::after {
-    font-size: 10px;
-    content: "﹀";
-    vertical-align: 0;
-    border: none;
-}
-
 .navbar {
     padding: 0;
     background-color: #6b6b6b;
