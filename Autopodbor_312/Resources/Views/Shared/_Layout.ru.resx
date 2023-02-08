@@ -162,6 +162,9 @@
   <data name="portfolioTurnkeySelection" xml:space="preserve">
     <value>Подбор под ключ</value>
   </data>
+  <data name="privacy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
   <data name="servicesButton" xml:space="preserve">
     <value>Услуги</value>
   </data>

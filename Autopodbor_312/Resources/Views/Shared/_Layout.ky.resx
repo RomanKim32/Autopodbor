@@ -162,6 +162,9 @@
   <data name="portfolioTurnkeySelection" xml:space="preserve">
     <value>Ачкыч колго тийгенче тандоо</value>
   </data>
+  <data name="privacy" xml:space="preserve">
+    <value>Купуялык саясаты</value>
+  </data>
   <data name="servicesButton" xml:space="preserve">
     <value>Кызматтар</value>
   </data>
