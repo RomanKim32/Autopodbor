@@ -28,6 +28,7 @@ h1 {
     border: 0px;
     border-radius: 2%;
     transition: transform .2s;
+    cursor:pointer;
 }
 
 .card:hover {
@@ -40,11 +41,16 @@ h1 {
     transform: scale(1.07);
 }
 
-.cuttedText{
+.cuttedText {
     font-size: 20px;
     text-align: center;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
-
 .card-body {
     background-color: #6b6b6b;
     height: 300px;
